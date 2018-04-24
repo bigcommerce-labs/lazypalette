@@ -1,0 +1,26 @@
+{
+  "name": "store-design",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bc-react-scripts": "git+ssh://git@github.com:bigcommerce-labs/bc-react-scripts.git",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "dev": "react-scripts dev",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "travis": "react-scripts travis"
+  },
+  "homepage": ".",
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "@types/node": "^9.6.6",
+    "@types/react": "^16.3.12",
+    "@types/react-dom": "^16.0.5",
+    "typescript": "^2.8.3"
+  }
+}
