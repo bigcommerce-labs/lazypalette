@@ -13,12 +13,13 @@ export const NavItem = styled(NavLink)
   .attrs<NavProps>({
   activeClassName,
 })`
-  text-decoration: none;
-  display: block;
-  width: 150px;
-  height: 36px;
-  padding-left: 10px;
   color: ${colors.menu_text};
+  display: block;
+  height: 36px;
+  overflow: hidden;
+  padding-left: 10px;
+  text-decoration: none;
+  width: 150px;
 
   &:visited {
     color: ${colors.menu_text};

@@ -13,13 +13,13 @@ export const StyledMenuItems = styled.ul`
   vertical-align: top;
 `;
 
-interface MenuItemRoute {
+interface MenuItem {
   label: string;
   path: string;
 }
 
 interface MenuItemsProps {
-  routes: MenuItemRoute[];
+  items: MenuItem[];
   match: any;
 }
 
@@ -27,7 +27,7 @@ class MenuItems extends Component<MenuItemsProps, any> {
   render() {
     return (
       <StyledMenuItems>
-        {this.props.routes.map(route => (
+        {this.props.items.map(route => (
           <li key={route.path}>
             <NavItem
               to={`${this.props.match.path}${route.path}`}
