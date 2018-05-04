@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { colors } from '../../style-constants';
-
 const StyledHeaderMenu = styled.nav`
-  background-color: ${colors.app_background};
   flex-basis: 100%;
   height: 75px;
   padding-bottom: 30px;
