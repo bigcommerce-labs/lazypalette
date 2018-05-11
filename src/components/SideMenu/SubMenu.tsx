@@ -18,11 +18,15 @@ interface SubMenuItem {
 
 interface SubMenuProps {
   title: string;
-  items: SubMenuItem[];
+  items?: SubMenuItem[];
   match: any;
 }
 
 class SubMenu extends Component<SubMenuProps, any> {
+  static defaultProps: Partial<SubMenuProps> = {
+    items: [],
+  };
+
   constructor(props: SubMenuProps) {
     super(props);
   }
@@ -33,7 +37,7 @@ class SubMenu extends Component<SubMenuProps, any> {
         <BackLink>
           <NavItem to="/" exact activeClassName={activeClassName}>&lt; {this.props.title}</NavItem>
         </BackLink>
-        <MenuItems routes={this.props.items} match={this.props.match}/>
+        <MenuItems items={this.props.items!} match={this.props.match}/>
       </div>
     );
   }
