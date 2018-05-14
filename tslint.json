@@ -1,3 +1,6 @@
 {
-  "extends": "bc-tslint-config"
+  "extends": "@bigcommerce/tslint-config",
+  "rules": {
+    "newline-per-chained-call": false
+  }
 }

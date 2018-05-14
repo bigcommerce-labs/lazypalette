@@ -4,13 +4,6 @@ import styled from 'styled-components';
 import { activeClassName, NavItem } from './styles';
 import MenuItems from './MenuItems';
 
-const BackLink = styled.div`
-  color: #34343B;
-  font-size: 24px;
-  margin-bottom: 30px;
-  margin-left: 28px;
-`;
-
 interface SubMenuItem {
   label: string;
   path: string;
@@ -19,10 +12,17 @@ interface SubMenuItem {
 interface SubMenuProps {
   title: string;
   items?: SubMenuItem[];
-  match: any;
+  currentPath: string;
 }
 
-class SubMenu extends Component<SubMenuProps, any> {
+const BackLink = styled.div`
+  color: #34343B;
+  font-size: 24px;
+  margin-bottom: 30px;
+  margin-left: 28px;
+`;
+
+class SubMenu extends Component<SubMenuProps, {}> {
   static defaultProps: Partial<SubMenuProps> = {
     items: [],
   };
@@ -37,7 +37,7 @@ class SubMenu extends Component<SubMenuProps, any> {
         <BackLink>
           <NavItem to="/" exact activeClassName={activeClassName}>&lt; {this.props.title}</NavItem>
         </BackLink>
-        <MenuItems items={this.props.items!} match={this.props.match}/>
+        <MenuItems items={this.props.items!} currentPath={this.props.currentPath}/>
       </div>
     );
   }

@@ -2,7 +2,17 @@ import React, { Component } from 'react';
 
 import SubMenu from './SubMenu';
 
-const staticItems = [
+interface MenuItem {
+  label: string;
+  path: string;
+}
+
+interface DesignSubMenuProps {
+  sections: string[];
+  currentPath: string;
+}
+
+const staticItems: MenuItem[] = [
   {
     label: 'Logo and Store Name',
     path: 'logo',
@@ -13,23 +23,22 @@ const staticItems = [
   },
 ];
 
-interface MenuItem {
-  label: string;
-  path: string;
-}
+const getItems = (sections: string[]) => {
+  return sections.map((section: string, index: number) => (
+    {
+      label: section,
+      path: `${index}`,
+    }
+  ));
+};
 
-interface DesignSubMenuProps {
-  items: MenuItem[];
-  match: any;
-}
-
-class DesignSubMenu extends Component<DesignSubMenuProps, any> {
+class DesignSubMenu extends Component<DesignSubMenuProps, {}> {
   render() {
     return (
       <SubMenu
         title="Design"
-        items={[...staticItems, ...this.props.items]}
-        match={this.props.match}
+        items={[...staticItems, ...getItems(this.props.sections)]}
+        currentPath={this.props.currentPath}
       />
     );
   }
