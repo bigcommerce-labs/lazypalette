@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { colors } from '../../style-constants';
+import { colors } from '../../styleConstants';
 
 export const activeClassName = 'nav-item-active';
 
