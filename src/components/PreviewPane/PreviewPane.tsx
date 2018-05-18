@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const StyledPreviewPane = styled.div`
@@ -8,12 +8,6 @@ const StyledPreviewPane = styled.div`
   height: 100%;
 `;
 
-class PreviewPane extends Component {
-  render() {
-    return (
-      <StyledPreviewPane />
-    );
-  }
-}
+const PreviewPane = () => <StyledPreviewPane />;
 
 export default PreviewPane;

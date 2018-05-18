@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore } from 'redux';
@@ -10,20 +10,18 @@ import middleware from './middleware/middleware';
 import reducers from './reducers/reducers';
 import register from './registerServiceWorker';
 
-const store = createStore(
-  reducers,
-  middleware
-);
+const store = createStore(reducers, middleware);
 
 const baseHref: string = document.getElementsByTagName('base')[0]
   .getAttribute('href')!;
 
-ReactDOM.render((
+render(
   <Provider store={store}>
     <BrowserRouter basename={baseHref}>
       <App />
     </BrowserRouter>
-  </Provider>
-), document.getElementById('root'));
+  </Provider>,
+  document.getElementById('root')
+);
 
 register();

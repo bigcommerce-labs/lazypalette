@@ -6,8 +6,6 @@ export interface State {
   theme: ThemeState;
 }
 
-const reducers = combineReducers({
-  theme,
-});
+const reducers = combineReducers({ theme });
 
 export default reducers;

@@ -3,17 +3,17 @@ import styled from 'styled-components';
 
 import { colors } from '../../styleConstants';
 
-export const activeClassName = 'nav-item-active';
+const activeClassName = 'nav-item-active';
 
 interface NavProps {
   activeClassName: string;
 }
 
-export const NavItem = styled(NavLink)
+const NavItem = styled(NavLink)
   .attrs<NavProps>({
   activeClassName,
 })`
-  color: ${colors.menu_text};
+  color: ${colors.darkBlueGray};
   display: block;
   height: 36px;
   overflow: hidden;
@@ -22,11 +22,13 @@ export const NavItem = styled(NavLink)
   width: 150px;
 
   &:visited {
-    color: ${colors.menu_text};
+    color: ${colors.darkBlueGray};
   }
 
   &.${activeClassName} {
     font-weight: 600;
-    background-color: ${colors.highlight_background}
+    background-color: ${colors.white}
   }
 `;
+
+export { activeClassName, NavItem };

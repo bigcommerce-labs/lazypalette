@@ -18,6 +18,7 @@
     "build": "react-scripts build",
     "dev": "react-scripts dev",
     "test": "react-scripts test --env=jsdom",
+    "test:updateSnapshot": "react-scripts test --updateSnapshot --env=jsdom",
     "eject": "react-scripts eject",
     "travis": "react-scripts travis"
   },
@@ -32,6 +33,7 @@
     "@types/react-router-dom": "^4.2.6",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "pattern-lab": "git+ssh://git@github.com/bigcommerce/pattern-lab.git",
     "typescript": "^2.8.3"
   }
 }

@@ -15,8 +15,9 @@ interface SideMenuProps extends RouteComponentProps<{}> {
 
 const StyledSideMenu = styled.nav`
   height: 100%;
-  margin-top: 95px;
+  padding-top: 95px;
   width: 216px;
+  background: #F6F7F9;
 `;
 
 const items = [
