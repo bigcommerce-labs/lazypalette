@@ -1,19 +1,14 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import { BCPrimaryLogo } from 'pattern-lab';
+import React from 'react';
 
-const StyledHeaderMenu = styled.nav`
-  flex-basis: 100%;
-  height: 75px;
-  padding-bottom: 30px;
-  width: 100%;
-`;
+import StyledHeaderMenu from './styles';
 
-class HeaderMenu extends Component {
-  render() {
-    return (
-      <StyledHeaderMenu />
-    );
-  }
-}
+const HeaderMenu = () => {
+  return (
+    <StyledHeaderMenu>
+      <BCPrimaryLogo />
+    </StyledHeaderMenu>
+  );
+};
 
 export default HeaderMenu;

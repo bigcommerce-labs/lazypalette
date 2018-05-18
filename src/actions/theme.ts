@@ -106,33 +106,23 @@ export function fetchCurrentTheme() {
       .then(({configurationId, versionId}) => {
         return dispatch(currentThemeResponse({ configurationId, versionId }));
       })
-      .catch(() => {
-        return dispatch(currentThemeError());
-      });
+      .catch(() => dispatch(currentThemeError()));
   };
 }
 
 export function fetchThemeConfig(configurationId: string) {
   return (dispatch: Dispatch<State>) => {
     return api.fetchThemeConfig(configurationId)
-      .then(({storeHash}) => {
-        return dispatch(themeConfigResponse({storeHash}));
-      })
-      .catch(() => {
-        return dispatch(themeConfigError());
-      });
+      .then(({storeHash}) => dispatch(themeConfigResponse({storeHash})))
+      .catch(() => dispatch(themeConfigError()));
   };
 }
 
 export function fetchThemeVersion(storeHash: string, versionId: string) {
   return (dispatch: Dispatch<State>) => {
     return api.fetchThemeVersion(storeHash, versionId)
-      .then(({editorSchema}) => {
-        return dispatch(themeVersionResponse({editorSchema}));
-      })
-      .catch(() => {
-        return dispatch(themeVersionError());
-      });
+      .then(({editorSchema}) => dispatch(themeVersionResponse({editorSchema})))
+      .catch(() => dispatch(themeVersionError()));
   };
 }
 
