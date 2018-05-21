@@ -1,0 +1,673 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TextInput
+    defaultValue={undefined}
+    disabled={false}
+    inputId="TextInputTestId"
+    inset={undefined}
+    label="Name your version"
+    note={undefined}
+    onBlur={[Function]}
+    onChange={[Function]}
+    pattern={undefined}
+    placeholder={undefined}
+    postfix={undefined}
+    prefix={undefined}
+    readonly={false}
+    required={false}
+    warning={false}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": Array [
+        <Label
+          htmlFor="TextInputTestId"
+          note={undefined}
+          required={false}
+        >
+          Name your version
+        </Label>,
+        <styled.div>
+          <styled.input
+            defaultValue={undefined}
+            disabled={false}
+            id="TextInputTestId"
+            onBlur={[Function]}
+            onChange={[Function]}
+            pattern={undefined}
+            placeholder={undefined}
+            readonly={false}
+            required={false}
+            status={2}
+            warning={false}
+          />
+        </styled.div>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": "Name your version",
+          "htmlFor": "TextInputTestId",
+          "note": undefined,
+          "required": false,
+        },
+        "ref": null,
+        "rendered": "Name your version",
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": <styled.input
+            defaultValue={undefined}
+            disabled={false}
+            id="TextInputTestId"
+            onBlur={[Function]}
+            onChange={[Function]}
+            pattern={undefined}
+            placeholder={undefined}
+            readonly={false}
+            required={false}
+            status={2}
+            warning={false}
+          />,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "defaultValue": undefined,
+            "disabled": false,
+            "id": "TextInputTestId",
+            "onBlur": [Function],
+            "onChange": [Function],
+            "pattern": undefined,
+            "placeholder": undefined,
+            "readonly": false,
+            "required": false,
+            "status": 2,
+            "warning": false,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
+          <Label
+            htmlFor="TextInputTestId"
+            note={undefined}
+            required={false}
+          >
+            Name your version
+          </Label>,
+          <styled.div>
+            <styled.input
+              defaultValue={undefined}
+              disabled={false}
+              id="TextInputTestId"
+              onBlur={[Function]}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              readonly={false}
+              required={false}
+              status={2}
+              warning={false}
+            />
+          </styled.div>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": "Name your version",
+            "htmlFor": "TextInputTestId",
+            "note": undefined,
+            "required": false,
+          },
+          "ref": null,
+          "rendered": "Name your version",
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": <styled.input
+              defaultValue={undefined}
+              disabled={false}
+              id="TextInputTestId"
+              onBlur={[Function]}
+              onChange={[Function]}
+              pattern={undefined}
+              placeholder={undefined}
+              readonly={false}
+              required={false}
+              status={2}
+              warning={false}
+            />,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "defaultValue": undefined,
+              "disabled": false,
+              "id": "TextInputTestId",
+              "onBlur": [Function],
+              "onChange": [Function],
+              "pattern": undefined,
+              "placeholder": undefined,
+              "readonly": false,
+              "required": false,
+              "status": 2,
+              "warning": false,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`renders a valid state 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TextInput
+    defaultValue="abc"
+    disabled={false}
+    inputId="TextInputTestId"
+    inset={undefined}
+    label="Name your version"
+    note={undefined}
+    onBlur={[Function]}
+    onChange={[Function]}
+    pattern="abc"
+    placeholder={undefined}
+    postfix={undefined}
+    prefix={undefined}
+    readonly={false}
+    required={false}
+    warning={false}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": Array [
+        <Label
+          htmlFor="TextInputTestId"
+          note={undefined}
+          required={false}
+        >
+          Name your version
+        </Label>,
+        <styled.div>
+          <styled.input
+            defaultValue="abc"
+            disabled={false}
+            id="TextInputTestId"
+            onBlur={[Function]}
+            onChange={[Function]}
+            pattern="abc"
+            placeholder={undefined}
+            readonly={false}
+            required={false}
+            status={1}
+            warning={false}
+          />
+        </styled.div>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": "Name your version",
+          "htmlFor": "TextInputTestId",
+          "note": undefined,
+          "required": false,
+        },
+        "ref": null,
+        "rendered": "Name your version",
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": <styled.input
+            defaultValue="abc"
+            disabled={false}
+            id="TextInputTestId"
+            onBlur={[Function]}
+            onChange={[Function]}
+            pattern="abc"
+            placeholder={undefined}
+            readonly={false}
+            required={false}
+            status={1}
+            warning={false}
+          />,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "defaultValue": "abc",
+            "disabled": false,
+            "id": "TextInputTestId",
+            "onBlur": [Function],
+            "onChange": [Function],
+            "pattern": "abc",
+            "placeholder": undefined,
+            "readonly": false,
+            "required": false,
+            "status": 1,
+            "warning": false,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
+          <Label
+            htmlFor="TextInputTestId"
+            note={undefined}
+            required={false}
+          >
+            Name your version
+          </Label>,
+          <styled.div>
+            <styled.input
+              defaultValue="abc"
+              disabled={false}
+              id="TextInputTestId"
+              onBlur={[Function]}
+              onChange={[Function]}
+              pattern="abc"
+              placeholder={undefined}
+              readonly={false}
+              required={false}
+              status={1}
+              warning={false}
+            />
+          </styled.div>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": "Name your version",
+            "htmlFor": "TextInputTestId",
+            "note": undefined,
+            "required": false,
+          },
+          "ref": null,
+          "rendered": "Name your version",
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": <styled.input
+              defaultValue="abc"
+              disabled={false}
+              id="TextInputTestId"
+              onBlur={[Function]}
+              onChange={[Function]}
+              pattern="abc"
+              placeholder={undefined}
+              readonly={false}
+              required={false}
+              status={1}
+              warning={false}
+            />,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "defaultValue": "abc",
+              "disabled": false,
+              "id": "TextInputTestId",
+              "onBlur": [Function],
+              "onChange": [Function],
+              "pattern": "abc",
+              "placeholder": undefined,
+              "readonly": false,
+              "required": false,
+              "status": 1,
+              "warning": false,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`renders an invalid state 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TextInput
+    defaultValue="adlkfj"
+    disabled={false}
+    inputId="TextInputTestId"
+    inset={undefined}
+    label="Name your version"
+    note={undefined}
+    onBlur={[Function]}
+    onChange={[Function]}
+    pattern="abc"
+    placeholder={undefined}
+    postfix={undefined}
+    prefix={undefined}
+    readonly={false}
+    required={false}
+    warning={false}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": Array [
+        <Label
+          htmlFor="TextInputTestId"
+          note={undefined}
+          required={false}
+        >
+          Name your version
+        </Label>,
+        <styled.div>
+          <styled.input
+            defaultValue="adlkfj"
+            disabled={false}
+            id="TextInputTestId"
+            onBlur={[Function]}
+            onChange={[Function]}
+            pattern="abc"
+            placeholder={undefined}
+            readonly={false}
+            required={false}
+            status={0}
+            warning={false}
+          />
+        </styled.div>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": "Name your version",
+          "htmlFor": "TextInputTestId",
+          "note": undefined,
+          "required": false,
+        },
+        "ref": null,
+        "rendered": "Name your version",
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": <styled.input
+            defaultValue="adlkfj"
+            disabled={false}
+            id="TextInputTestId"
+            onBlur={[Function]}
+            onChange={[Function]}
+            pattern="abc"
+            placeholder={undefined}
+            readonly={false}
+            required={false}
+            status={0}
+            warning={false}
+          />,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "defaultValue": "adlkfj",
+            "disabled": false,
+            "id": "TextInputTestId",
+            "onBlur": [Function],
+            "onChange": [Function],
+            "pattern": "abc",
+            "placeholder": undefined,
+            "readonly": false,
+            "required": false,
+            "status": 0,
+            "warning": false,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
+          <Label
+            htmlFor="TextInputTestId"
+            note={undefined}
+            required={false}
+          >
+            Name your version
+          </Label>,
+          <styled.div>
+            <styled.input
+              defaultValue="adlkfj"
+              disabled={false}
+              id="TextInputTestId"
+              onBlur={[Function]}
+              onChange={[Function]}
+              pattern="abc"
+              placeholder={undefined}
+              readonly={false}
+              required={false}
+              status={0}
+              warning={false}
+            />
+          </styled.div>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": "Name your version",
+            "htmlFor": "TextInputTestId",
+            "note": undefined,
+            "required": false,
+          },
+          "ref": null,
+          "rendered": "Name your version",
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": <styled.input
+              defaultValue="adlkfj"
+              disabled={false}
+              id="TextInputTestId"
+              onBlur={[Function]}
+              onChange={[Function]}
+              pattern="abc"
+              placeholder={undefined}
+              readonly={false}
+              required={false}
+              status={0}
+              warning={false}
+            />,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "defaultValue": "adlkfj",
+              "disabled": false,
+              "id": "TextInputTestId",
+              "onBlur": [Function],
+              "onChange": [Function],
+              "pattern": "abc",
+              "placeholder": undefined,
+              "readonly": false,
+              "required": false,
+              "status": 0,
+              "warning": false,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
