@@ -1,40 +1,30 @@
-import React from 'react';
+import React, { SFC } from 'react';
 
-import StyledDiv from './styles/StyledDiv';
-import StyledLabel from './styles/StyledLabel';
-import StyleOption from './styles/StyledOption';
-import StyleSelect from './styles/StyledSelect';
+import { Container, Label, Select } from './styles';
+
+interface SelectBoxOption {
+    label: string;
+    value: string;
+}
 
 interface SelectBoxProps {
     label?: string;
-    options: string[];
+    options: SelectBoxOption[];
 }
 
-class SelectBox extends React.Component<SelectBoxProps, {}> {
-    static defaultProps = {
-        label: undefined,
-        options: undefined,
-    };
+const SelectBox: SFC<SelectBoxProps> = ({ label, options }) => {
+    const StyleOptions = options.map((option: SelectBoxOption, index: number) => (
+        <option key={index} label={option.label} value={option.value}>
+            {option.value}
+        </option>
+    ));
 
-    render() {
-        const { label, options } = this.props;
-        const StyleOptions = options.map((option: string) => (
-            <StyleOption key={window.btoa(option)}>
-                { option }
-            </StyleOption>
-        ));
-
-        return (
-            <StyledDiv>
-                <StyledLabel>
-                    { label }
-                </StyledLabel>
-                <StyleSelect>
-                    { StyleOptions }
-                </StyleSelect>
-            </StyledDiv>
-        );
-    }
-}
+    return (
+        <Container>
+            <Label>{label}</Label>
+            <Select>{StyleOptions}</Select>
+        </Container>
+    );
+};
 
 export default SelectBox;

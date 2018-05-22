@@ -2,73 +2,67 @@
 
 exports[`renders 1`] = `
 <styled.div>
-  <Label
+  <TextInputLabel
     htmlFor="TextInputTestId"
     required={false}
   >
     Name your version
-  </Label>
-  <styled.div>
-    <styled.input
-      disabled={false}
-      id="TextInputTestId"
-      onBlur={[Function]}
-      onChange={[Function]}
-      readonly={false}
-      required={false}
-      status={2}
-      warning={false}
-    />
-  </styled.div>
+  </TextInputLabel>
+  <styled.input
+    disabled={false}
+    id="TextInputTestId"
+    onBlur={[Function]}
+    onChange={[Function]}
+    readonly={false}
+    required={false}
+    status={2}
+    warning={false}
+  />
 </styled.div>
 `;
 
 exports[`renders a valid state 1`] = `
 <styled.div>
-  <Label
+  <TextInputLabel
     htmlFor="TextInputTestId"
     required={false}
   >
     Name your version
-  </Label>
-  <styled.div>
-    <styled.input
-      defaultValue="abc"
-      disabled={false}
-      id="TextInputTestId"
-      onBlur={[Function]}
-      onChange={[Function]}
-      pattern="abc"
-      readonly={false}
-      required={false}
-      status={1}
-      warning={false}
-    />
-  </styled.div>
+  </TextInputLabel>
+  <styled.input
+    defaultValue="abc"
+    disabled={false}
+    id="TextInputTestId"
+    onBlur={[Function]}
+    onChange={[Function]}
+    pattern="abc"
+    readonly={false}
+    required={false}
+    status={1}
+    warning={false}
+  />
 </styled.div>
 `;
 
 exports[`renders an invalid state 1`] = `
 <styled.div>
-  <Label
+  <TextInputLabel
     htmlFor="TextInputTestId"
     required={false}
   >
     Name your version
-  </Label>
-  <styled.div>
-    <styled.input
-      defaultValue="adlkfj"
-      disabled={false}
-      id="TextInputTestId"
-      onBlur={[Function]}
-      onChange={[Function]}
-      pattern="abc"
-      readonly={false}
-      required={false}
-      status={0}
-      warning={false}
-    />
-  </styled.div>
+  </TextInputLabel>
+  <styled.input
+    defaultValue="adlkfj"
+    disabled={false}
+    id="TextInputTestId"
+    onBlur={[Function]}
+    onChange={[Function]}
+    pattern="abc"
+    readonly={false}
+    required={false}
+    status={0}
+    warning={false}
+  />
 </styled.div>
 `;
