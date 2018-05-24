@@ -1,13 +1,35 @@
 import * as themeActions from '../actions/theme';
 
-import theme, {ThemeSchema, ThemeState} from './theme';
+import theme, {ThemeSchema, ThemeState, ThemeVariations} from './theme';
 
 it('handles current theme response', () => {
-  const action = themeActions.currentThemeResponse({ configurationId: '123', versionId: '456' });
+  const themeVariations: ThemeVariations = [
+    {
+      configurationId: '123',
+      defaultConfigurationId: '234',
+      id: '567',
+      isCurrent: true,
+      screenshot: {
+        largePreview: 'host://meows/123.jpg',
+        largeThumb: 'host://meows/234.jpg',
+        smallThumb: 'host://meows/345.jpg',
+      },
+      themeId: '8900',
+      variationName: 'light',
+    },
+  ];
+
+  const action = themeActions.currentThemeResponse({
+    configurationId: '123',
+    relatedVariations: themeVariations,
+    versionId: '456',
+  });
+
   const expectedState: ThemeState = {
     configurationId: '123',
     schema: [],
     storeHash: '',
+    themeVariations,
     versionId: '456',
   };
 
@@ -20,6 +42,7 @@ it('handles theme config response', () => {
     configurationId: '',
     schema: [],
     storeHash: '123',
+    themeVariations: [],
     versionId: '',
   };
 
@@ -49,6 +72,7 @@ it('handles theme version response', () => {
     configurationId: '',
     schema: themeSchema,
     storeHash: '',
+    themeVariations: [],
     versionId: '',
   };
 

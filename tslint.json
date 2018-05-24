@@ -1,6 +1,13 @@
 {
   "extends": "@bigcommerce/tslint-config",
   "rules": {
-    "newline-per-chained-call": false
+    "newline-per-chained-call": false,
+    "ordered-imports": [
+    	true,
+    	{
+    		"import-sources-order": "any",
+    		"named-imports-order": "any"
+    	}
+	]
   }
 }

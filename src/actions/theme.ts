@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 
 import { State } from '../reducers/reducers';
-import { ThemeSchema } from '../reducers/theme';
+import { ThemeSchema, ThemeVariations } from '../reducers/theme';
 import * as api from '../services/themeApi';
 
 export enum ThemeActionTypes {
@@ -50,6 +50,7 @@ export interface ThemeVersionResponseAction {
 
 export interface CurrentThemeResponse {
   configurationId: string;
+  relatedVariations: ThemeVariations;
   versionId: string;
 }
 
@@ -103,8 +104,8 @@ export function themeVersionError(): ThemeVersionErrorAction {
 export function fetchCurrentTheme() {
   return (dispatch: Dispatch<State>) => {
     return api.fetchCurrentTheme()
-      .then(({configurationId, versionId}) => {
-        return dispatch(currentThemeResponse({ configurationId, versionId }));
+      .then(({ configurationId, versionId, relatedVariations }) => {
+        return dispatch(currentThemeResponse({ configurationId, versionId, relatedVariations }));
       })
       .catch(() => dispatch(currentThemeError()));
   };
@@ -113,7 +114,7 @@ export function fetchCurrentTheme() {
 export function fetchThemeConfig(configurationId: string) {
   return (dispatch: Dispatch<State>) => {
     return api.fetchThemeConfig(configurationId)
-      .then(({storeHash}) => dispatch(themeConfigResponse({storeHash})))
+      .then(({ storeHash }) => dispatch(themeConfigResponse({ storeHash })))
       .catch(() => dispatch(themeConfigError()));
   };
 }
@@ -121,7 +122,7 @@ export function fetchThemeConfig(configurationId: string) {
 export function fetchThemeVersion(storeHash: string, versionId: string) {
   return (dispatch: Dispatch<State>) => {
     return api.fetchThemeVersion(storeHash, versionId)
-      .then(({editorSchema}) => dispatch(themeVersionResponse({editorSchema})))
+      .then(({ editorSchema }) => dispatch(themeVersionResponse({ editorSchema })))
       .catch(() => dispatch(themeVersionError()));
   };
 }

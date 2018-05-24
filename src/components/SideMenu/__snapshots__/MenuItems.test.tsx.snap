@@ -4,7 +4,7 @@ exports[`renders 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <MenuItems
+  Symbol(enzyme.__unrendered__): <withRouter(MenuItems)
     currentPath="/"
     items={
       Array [
@@ -31,90 +31,10 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "class",
     "props": Object {
-      "children": Array [
-        <li>
-          <Styled(NavLink)
-            activeClassName="nav-item-active"
-            exact={true}
-            to="/logo"
-          >
-            Logo and Store Name
-          </Styled(NavLink)>
-        </li>,
-        <li>
-          <Styled(NavLink)
-            activeClassName="nav-item-active"
-            exact={true}
-            to="/theme"
-          >
-            Store Theme
-          </Styled(NavLink)>
-        </li>,
-      ],
+      "render": [Function],
     },
     "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": "logo",
-        "nodeType": "host",
-        "props": Object {
-          "children": <Styled(NavLink)
-            activeClassName="nav-item-active"
-            exact={true}
-            to="/logo"
-          >
-            Logo and Store Name
-          </Styled(NavLink)>,
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "activeClassName": "nav-item-active",
-            "children": "Logo and Store Name",
-            "exact": true,
-            "to": "/logo",
-          },
-          "ref": null,
-          "rendered": "Logo and Store Name",
-          "type": [Function],
-        },
-        "type": "li",
-      },
-      Object {
-        "instance": null,
-        "key": "theme",
-        "nodeType": "host",
-        "props": Object {
-          "children": <Styled(NavLink)
-            activeClassName="nav-item-active"
-            exact={true}
-            to="/theme"
-          >
-            Store Theme
-          </Styled(NavLink)>,
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "activeClassName": "nav-item-active",
-            "children": "Store Theme",
-            "exact": true,
-            "to": "/theme",
-          },
-          "ref": null,
-          "rendered": "Store Theme",
-          "type": [Function],
-        },
-        "type": "li",
-      },
-    ],
+    "rendered": null,
     "type": [Function],
   },
   Symbol(enzyme.__nodes__): Array [
@@ -123,90 +43,10 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "class",
       "props": Object {
-        "children": Array [
-          <li>
-            <Styled(NavLink)
-              activeClassName="nav-item-active"
-              exact={true}
-              to="/logo"
-            >
-              Logo and Store Name
-            </Styled(NavLink)>
-          </li>,
-          <li>
-            <Styled(NavLink)
-              activeClassName="nav-item-active"
-              exact={true}
-              to="/theme"
-            >
-              Store Theme
-            </Styled(NavLink)>
-          </li>,
-        ],
+        "render": [Function],
       },
       "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": "logo",
-          "nodeType": "host",
-          "props": Object {
-            "children": <Styled(NavLink)
-              activeClassName="nav-item-active"
-              exact={true}
-              to="/logo"
-            >
-              Logo and Store Name
-            </Styled(NavLink)>,
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "activeClassName": "nav-item-active",
-              "children": "Logo and Store Name",
-              "exact": true,
-              "to": "/logo",
-            },
-            "ref": null,
-            "rendered": "Logo and Store Name",
-            "type": [Function],
-          },
-          "type": "li",
-        },
-        Object {
-          "instance": null,
-          "key": "theme",
-          "nodeType": "host",
-          "props": Object {
-            "children": <Styled(NavLink)
-              activeClassName="nav-item-active"
-              exact={true}
-              to="/theme"
-            >
-              Store Theme
-            </Styled(NavLink)>,
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "activeClassName": "nav-item-active",
-              "children": "Store Theme",
-              "exact": true,
-              "to": "/theme",
-            },
-            "ref": null,
-            "rendered": "Store Theme",
-            "type": [Function],
-          },
-          "type": "li",
-        },
-      ],
+      "rendered": null,
       "type": [Function],
     },
   ],

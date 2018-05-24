@@ -4,6 +4,21 @@ describe('theme actions', () => {
   it('should create a CurrentThemeResponse action', () => {
     const data: themeActions.CurrentThemeResponse = {
       configurationId: '123',
+      relatedVariations: [
+        {
+          configurationId: '123',
+          defaultConfigurationId: '234',
+          id: '567',
+          isCurrent: true,
+          screenshot: {
+            largePreview: 'host://meows/123.jpg',
+            largeThumb: 'host://meows/234.jpg',
+            smallThumb: 'host://meows/345.jpg',
+          },
+          themeId: '8900',
+          variationName: 'light',
+        },
+      ],
       versionId: '456',
     };
 

@@ -61,7 +61,7 @@ class SideMenu extends Component<SideMenuProps, {}> {
         <Route
           path="/"
           exact
-          render={({match}) => <MenuItems
+          render={({ match }) => <MenuItems
             items={items.map(({label, path}) => ({label, path}))}
             currentPath={match.path}
           />}
