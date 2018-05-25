@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { activeClassName, NavItem } from './styles';
@@ -8,7 +9,7 @@ interface MenuItem {
   path: string;
 }
 
-interface MenuItemsProps {
+interface MenuItemsProps extends RouteComponentProps<{}> {
   items: MenuItem[];
   currentPath: string;
 }
@@ -24,14 +25,23 @@ export const StyledMenuItems = styled.ul`
 `;
 
 class MenuItems extends Component<MenuItemsProps, {}> {
+  isPathActive = (path: string) => (
+    this.props.location.pathname === `${this.props.currentPath}${path}`
+  );
+
+  toggleLink = (path: string) => (
+    this.isPathActive(path) ? this.props.currentPath : `${this.props.currentPath}${path}`
+  );
+
   render() {
     return (
       <StyledMenuItems>
         {this.props.items.map(route => (
           <li key={route.path}>
             <NavItem
-              to={`${this.props.currentPath}${route.path}`}
+              to={this.toggleLink(route.path)}
               exact
+              isActive={(match, location) => this.isPathActive(route.path)}
               activeClassName={activeClassName}>
                 {route.label}
               </NavItem>
@@ -42,4 +52,4 @@ class MenuItems extends Component<MenuItemsProps, {}> {
   }
 }
 
-export default MenuItems;
+export default withRouter(MenuItems);

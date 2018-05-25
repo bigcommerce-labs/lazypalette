@@ -4,9 +4,11 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { fetchInitialState } from '../../actions/theme';
+
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
 import PreviewPane from '../PreviewPane/PreviewPane';
 import SideMenu from '../SideMenu/SideMenu';
+import ThemeVersions from '../ThemeVersions/ThemeVersions';
 
 interface AppProps extends RouteComponentProps<{}> {
   fetchInitialState(): any;
@@ -31,6 +33,7 @@ export class App extends Component<AppProps, {}> {
       <StyledApp>
         <HeaderMenu />
         <SideMenu />
+        <ThemeVersions />
         <PreviewPane />
       </StyledApp>
     );
