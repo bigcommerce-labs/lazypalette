@@ -127,10 +127,9 @@ export function fetchThemeVersion(storeHash: string, versionId: string) {
   };
 }
 
-export function fetchInitialState() {
+export function fetchInitialState(storeHash: string) {
   return (dispatch: Dispatch<State>, getState: () => State) => {
     return dispatch(fetchCurrentTheme())
-      .then(() => dispatch(fetchThemeConfig(getState().theme.configurationId)))
-      .then(() => dispatch(fetchThemeVersion(getState().theme.storeHash, getState().theme.versionId)));
+      .then(() => dispatch(fetchThemeVersion(storeHash, getState().theme.versionId)));
   };
 }

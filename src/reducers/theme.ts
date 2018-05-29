@@ -3,7 +3,6 @@ import { CurrentThemeResponse, ThemeAction, ThemeActionTypes } from '../actions/
 export interface ThemeState {
   configurationId: string;
   schema: ThemeSchema;
-  storeHash: string;
   themeVariations: ThemeVariations;
   versionId: string;
 }
@@ -45,7 +44,6 @@ export interface ThemeVariationsEntry {
 const initialState: ThemeState = {
   configurationId: '',
   schema: [],
-  storeHash: '',
   themeVariations: [],
   versionId: '',
 };
@@ -65,7 +63,7 @@ function theme(state: ThemeState = initialState, action: ThemeAction): ThemeStat
     case ThemeActionTypes.CURRENT_THEME_RESPONSE:
       return setThemeResp(state, action.data);
     case ThemeActionTypes.THEME_CONFIG_RESPONSE:
-      return updateState(state, { storeHash: action.data.storeHash });
+      return { ...state };
     case ThemeActionTypes.THEME_VERSION_RESPONSE:
       return updateState(state, { schema: action.data.editorSchema });
     default:

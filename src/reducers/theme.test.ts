@@ -28,7 +28,6 @@ it('handles current theme response', () => {
   const expectedState: ThemeState = {
     configurationId: '123',
     schema: [],
-    storeHash: '',
     themeVariations,
     versionId: '456',
   };
@@ -41,7 +40,6 @@ it('handles theme config response', () => {
   const expectedState: ThemeState = {
     configurationId: '',
     schema: [],
-    storeHash: '123',
     themeVariations: [],
     versionId: '',
   };
@@ -71,7 +69,6 @@ it('handles theme version response', () => {
   const expectedState: ThemeState = {
     configurationId: '',
     schema: themeSchema,
-    storeHash: '',
     themeVariations: [],
     versionId: '',
   };
