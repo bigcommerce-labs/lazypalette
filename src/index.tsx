@@ -12,13 +12,16 @@ import register from './registerServiceWorker';
 
 const store = createStore(reducers, middleware);
 
+const root = document.getElementById('root');
+const config = JSON.parse(root!.getAttribute('config')!);
+
 const baseHref: string = document.getElementsByTagName('base')[0]
   .getAttribute('href')!;
 
 render(
   <Provider store={store}>
     <BrowserRouter basename={baseHref}>
-      <App />
+      <App config={config}/>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

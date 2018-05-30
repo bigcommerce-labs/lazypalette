@@ -11,7 +11,11 @@ import SideMenu from '../SideMenu/SideMenu';
 import ThemeVersions from '../ThemeVersions/ThemeVersions';
 
 interface AppProps extends RouteComponentProps<{}> {
-  fetchInitialState(): any;
+  config: {
+    assetPath: string;
+    storeHash: string;
+  };
+  fetchInitialState(storeHash: string): any;
 }
 
 const StyledApp = styled.div`
@@ -25,7 +29,7 @@ const StyledApp = styled.div`
 
 export class App extends Component<AppProps, {}> {
   componentDidMount() {
-    this.props.fetchInitialState();
+    this.props.fetchInitialState(this.props.config.storeHash);
   }
 
   render() {

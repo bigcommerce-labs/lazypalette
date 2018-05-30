@@ -2,6 +2,11 @@
   "name": "store-design",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "bc-react-scripts": "git+ssh://git@github.com:bigcommerce-labs/bc-react-scripts.git",
@@ -35,6 +40,7 @@
     "@types/uuid": "^3.4.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
     "pattern-lab": "git+ssh://git@github.com/bigcommerce/pattern-lab.git",
     "typescript": "^2.8.3"
   }
