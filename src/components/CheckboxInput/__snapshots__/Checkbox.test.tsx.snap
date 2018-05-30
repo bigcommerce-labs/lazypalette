@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<styled.div>
+  <styled.input
+    id="CheckboxTestId"
+  />
+  <styled.label
+    htmlFor="CheckboxTestId"
+  />
+  <styled.label>
+    Label
+  </styled.label>
+</styled.div>
+`;

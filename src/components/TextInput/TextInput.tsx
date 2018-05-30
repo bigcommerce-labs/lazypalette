@@ -1,12 +1,37 @@
-import * as React from 'react';
+import React, {
+  Component,
+  ChangeEvent,
+  ChangeEventHandler,
+  FocusEvent,
+  FocusEventHandler,
+  SFC
+} from 'react';
 import uuid from 'uuid';
 
-import Label from './Label';
 import { Status } from './Status';
+import { Container, Label, Small, TextInput as StyledTextInput } from './styles';
 
-import StyledDiv from './styles/StyledDiv';
-import StyledDivContainer from './styles/StyledDivContainer';
-import StyledTextInput from './styles/StyledTextInput';
+interface LabelProps {
+  children?: string;
+  htmlFor?: string;
+  note?: string;
+  required?: boolean;
+}
+
+const TextInputLabel: SFC<LabelProps> = props => {
+  const { children: label, htmlFor, note, required } = props;
+
+  return (
+    <Label htmlFor={htmlFor}>
+      {label}
+      {note &&
+        <Small required={required!}>
+          {note}
+        </Small>
+      }
+    </Label>
+  );
+};
 
 export interface TextInputState {
   status: Status;
@@ -20,8 +45,8 @@ export interface TextInputProps {
   inset?: string;
   label?: string;
   note?: string;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   pattern?: string | RegExp;
   placeholder?: string;
   postfix?: string;
@@ -31,20 +56,12 @@ export interface TextInputProps {
   warning?: boolean;
 }
 
-export default class TextInput extends React.Component<TextInputProps, TextInputState> {
+export default class TextInput extends Component<TextInputProps, TextInputState> {
   static defaultProps = {
-    defaultValue: undefined,
     disabled: false,
     inputId: uuid(),
-    inset: undefined,
-    label: undefined,
-    note: undefined,
     onBlur: () => undefined,
     onChange: () => undefined,
-    pattern: undefined,
-    placeholder: undefined,
-    postfix: undefined,
-    prefix: undefined,
     readonly: false,
     required: false,
     warning: false,
@@ -87,30 +104,28 @@ export default class TextInput extends React.Component<TextInputProps, TextInput
     } = this.props;
 
     return (
-      <StyledDivContainer>
-        <Label htmlFor={inputId} note={note} required={required!}>
+      <Container>
+        <TextInputLabel htmlFor={inputId} note={note} required={required!}>
           {label}
-        </Label>
-        <StyledDiv>
-          <StyledTextInput
-            defaultValue={defaultValue!}
-            disabled={disabled!}
-            id={inputId!}
-            onChange={this.onChange}
-            onBlur={this.onBlur}
-            pattern={pattern!}
-            placeholder={placeholder!}
-            readonly={readonly!}
-            required={required!}
-            status={status}
-            warning={warning!}
-          />
-        </StyledDiv>
-      </StyledDivContainer>
+        </TextInputLabel>
+        <StyledTextInput
+          defaultValue={defaultValue!}
+          disabled={disabled!}
+          id={inputId}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
+          pattern={pattern!}
+          placeholder={placeholder!}
+          readonly={readonly!}
+          required={required!}
+          status={status}
+          warning={warning!}
+        />
+      </Container>
     );
   }
 
-  private onBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  private onBlur = (event: FocusEvent<HTMLInputElement>) => {
     this.props.onBlur!(event);
 
     if (this.props.pattern) {
@@ -118,7 +133,7 @@ export default class TextInput extends React.Component<TextInputProps, TextInput
     }
   };
 
-  private onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  private onChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({
       value: event.target.value,
     });
