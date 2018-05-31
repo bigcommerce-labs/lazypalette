@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 
-import { State } from '../../reducers/reducers';
-
 import ThemeModule from './ThemeModule';
+
+import { State } from '../../reducers/reducers';
 
 interface ThemeVersionsProps extends RouteComponentProps<{}> {
   themeVariants: ThemePropsList;

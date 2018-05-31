@@ -3,3 +3,7 @@ export const enum Status {
     Valid,
     Undefined,
 }
+
+export const enum Notes {
+    Required = 'Required*',
+}

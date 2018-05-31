@@ -8,8 +8,8 @@ import React, {
 } from 'react';
 import uuid from 'uuid';
 
-import { Status } from './Status';
-import { Container, Label, Small, TextInput as StyledTextInput } from './styles';
+import { Notes, Status } from './Constants';
+import { Container, Label, Small, InputField as StyledInputField } from './styles';
 
 interface LabelProps {
   children?: string;
@@ -18,28 +18,23 @@ interface LabelProps {
   required?: boolean;
 }
 
-const TextInputLabel: SFC<LabelProps> = props => {
-  const { children: label, htmlFor, note, required } = props;
+const InputFieldLabel: SFC<LabelProps> = props => {
+  const { children: label, htmlFor } = props;
 
   return (
     <Label htmlFor={htmlFor}>
       {label}
-      {note &&
-        <Small required={required!}>
-          {note}
-        </Small>
-      }
     </Label>
   );
 };
 
-export interface TextInputState {
+export interface InputFieldState {
   status: Status;
   value: string | undefined;
 }
 
-export interface TextInputProps {
-  defaultValue?: string | undefined;
+export interface InputFieldProps {
+  defaultValue?: any;
   disabled?: boolean;
   inputId?: string;
   inset?: string;
@@ -53,10 +48,11 @@ export interface TextInputProps {
   prefix?: string;
   readonly?: boolean;
   required?: boolean;
+  type?: string | undefined;
   warning?: boolean;
 }
 
-export default class TextInput extends Component<TextInputProps, TextInputState> {
+export default class InputField extends Component<InputFieldProps, InputFieldState> {
   static defaultProps = {
     disabled: false,
     inputId: uuid(),
@@ -67,12 +63,12 @@ export default class TextInput extends Component<TextInputProps, TextInputState>
     warning: false,
   };
 
-  readonly state: TextInputState = {
+  readonly state: InputFieldState = {
     status: Status.Undefined,
     value: '',
   };
 
-  constructor(props: TextInputProps) {
+  constructor(props: InputFieldProps) {
     super(props);
     this.state = {
       status: Status.Undefined,
@@ -87,9 +83,7 @@ export default class TextInput extends Component<TextInputProps, TextInputState>
   }
 
   render() {
-    const {
-      status,
-    } = this.state;
+    const { status } = this.state;
     const {
       defaultValue,
       disabled,
@@ -100,16 +94,17 @@ export default class TextInput extends Component<TextInputProps, TextInputState>
       placeholder,
       readonly,
       required,
+      type,
       warning,
     } = this.props;
 
     return (
       <Container>
-        <TextInputLabel htmlFor={inputId} note={note} required={required!}>
+        <InputFieldLabel htmlFor={inputId}>
           {label}
-        </TextInputLabel>
-        <StyledTextInput
-          defaultValue={defaultValue!}
+        </InputFieldLabel>
+        <StyledInputField
+          defaultValue={defaultValue}
           disabled={disabled!}
           id={inputId}
           onChange={this.onChange}
@@ -119,14 +114,24 @@ export default class TextInput extends Component<TextInputProps, TextInputState>
           readonly={readonly!}
           required={required!}
           status={status}
+          type={type}
           warning={warning!}
         />
+        {note &&
+          <Small required={required!}>
+            {note}
+          </Small>
+        }
       </Container>
     );
   }
 
   private onBlur = (event: FocusEvent<HTMLInputElement>) => {
     this.props.onBlur!(event);
+
+    if (this.props.required && !this.state.value) {
+      return this.setState({ status: Status.Invalid });
+    }
 
     if (this.props.pattern) {
       this.validate();
@@ -144,15 +149,15 @@ export default class TextInput extends Component<TextInputProps, TextInputState>
   private prepareNote() {
     if (this.props.note) {
       return this.props.note;
-    } else if (this.props.required) {
-      return 'Required*';
+    } else if (this.props.required && !this.state.value) {
+      return Notes.Required;
     } else {
       return undefined;
     }
   }
 
   private validate = () => {
-    this.setState((prevState: Readonly<TextInputState>, props: TextInputProps) => {
+    this.setState((prevState: Readonly<InputFieldState>, props: InputFieldProps) => {
       const regExp = props.pattern instanceof RegExp ? props.pattern : new RegExp(props.pattern!, 'u');
 
       return {

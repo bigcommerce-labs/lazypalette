@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<styled.div>
+  <SelectBox
+    label="test"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "label": "Optimized for theme",
+          "value": "100x100",
+        },
+        Object {
+          "label": "Specify dimensions",
+          "value": "foo",
+        },
+      ]
+    }
+    selected="foo"
+  />
+</styled.div>
+`;
