@@ -5,6 +5,8 @@ exports[`renders 1`] = `
   <styled.label>
     Label
   </styled.label>
-  <styled.select />
+  <styled.select
+    onChange={[Function]}
+  />
 </styled.div>
 `;

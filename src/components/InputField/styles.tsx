@@ -1,10 +1,10 @@
 import { theme } from 'pattern-lab';
-import { Status } from './Status';
+import { Status } from './Constants';
 import styled, { StyledComponentClass } from 'styled-components';
 import { colors } from '../../styleConstants';
 
 const { colors: patternLabColors } = theme;
-const defaultBorderColor = colors.lightBlueMagentaishGray;
+const defaultBorderColor = colors.stroke;
 const defaultBorderColorOnHover = colors.darkBlueMagentaishGray;
 const immutableBorderColorOnFocus = 'none';
 const immutableBorderColorOnHover = 'none';
@@ -19,7 +19,8 @@ export const Container = styled.div`
 `;
 
 export const Label = styled.label`
-    padding: 5px;
+    padding: 5px 1px;
+    color: colors.primary;
 `;
 
 interface SmallProps {
@@ -27,11 +28,12 @@ interface SmallProps {
 }
 
 export const Small = styled.small`
-    float: right;
     color: ${(props: SmallProps) => props.required ? colors.lightBrilliantRedOrange : 'initial'};
+    font-size: 12px;
+    padding-top: 4px;
 `;
 
-const getBackgroundColor = (props: TextInputProps) => {
+const getBackgroundColor = (props: InputFieldProps) => {
     if (props.readonly || props.disabled) {
         return immutableInputBackgroundColor;
     } else {
@@ -39,7 +41,7 @@ const getBackgroundColor = (props: TextInputProps) => {
     }
 };
 
-const getBorderColor = (props: TextInputProps) => {
+const getBorderColor = (props: InputFieldProps) => {
     if (props.status !== Status.Undefined) {
         switch (props.status) {
             case Status.Invalid: return patternLabColors.status.error;
@@ -55,7 +57,7 @@ const getBorderColor = (props: TextInputProps) => {
     }
 };
 
-const getBorderColorOnHover = (props: TextInputProps) => {
+const getBorderColorOnHover = (props: InputFieldProps) => {
     if (props.readonly || props.disabled) {
         return immutableBorderColorOnHover;
     } else {
@@ -63,7 +65,7 @@ const getBorderColorOnHover = (props: TextInputProps) => {
     }
 };
 
-const getBorderColorOnFocus = (props: TextInputProps) => {
+const getBorderColorOnFocus = (props: InputFieldProps) => {
     if (props.readonly || props.disabled) {
         return immutableBorderColorOnFocus;
     } else {
@@ -71,36 +73,29 @@ const getBorderColorOnFocus = (props: TextInputProps) => {
     }
 };
 
-interface TextInputProps {
+interface InputFieldProps {
     disabled?: boolean;
-    pattern?: string | RegExp;
-    placeholder?: string;
     readonly?: boolean;
     status?: Status;
     warning?: boolean;
 }
 
-export const TextInput: StyledComponentClass<any, any> = styled.input.attrs<TextInputProps>({
-    pattern: (props: TextInputProps) => props.pattern,
-    placeholder: (props: TextInputProps) => props.placeholder,
-    readOnly: (props: TextInputProps) => props.readonly,
-    type: 'text',
-}) `
-    cursor: ${(props: TextInputProps) => props.disabled ? 'not-allowed' : 'text'};
-    background-color: ${(props: TextInputProps) => getBackgroundColor(props)};
-    border: 1px solid ${(props: TextInputProps) => getBorderColor(props)};
+export const InputField: StyledComponentClass<any, any> = styled.input`
+    cursor: ${(props: InputFieldProps) => props.disabled ? 'not-allowed' : 'text'};
+    background-color: ${(props: InputFieldProps) => getBackgroundColor(props)};
+    border: 1px solid ${(props: InputFieldProps) => getBorderColor(props)};
     border-radius: 2px;
     box-sizing: border-box;
     height: 35px;
     padding: 10px;
-    width: 300px;
+    width: 100%;
 
     :hover {
-      border-color: ${(props: TextInputProps) => getBorderColorOnHover(props)}
+      border-color: ${(props: InputFieldProps) => getBorderColorOnHover(props)}
     }
 
     :focus {
-      border-color: ${(props: TextInputProps) => getBorderColorOnFocus(props)}
+      border-color: ${(props: InputFieldProps) => getBorderColorOnFocus(props)}
       outline: none;
     }
   `;

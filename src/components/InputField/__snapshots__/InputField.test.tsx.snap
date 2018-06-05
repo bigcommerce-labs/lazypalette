@@ -2,15 +2,14 @@
 
 exports[`renders 1`] = `
 <styled.div>
-  <TextInputLabel
-    htmlFor="TextInputTestId"
-    required={false}
+  <InputFieldLabel
+    htmlFor="InputTestId"
   >
     Name your version
-  </TextInputLabel>
+  </InputFieldLabel>
   <styled.input
     disabled={false}
-    id="TextInputTestId"
+    id="InputTestId"
     onBlur={[Function]}
     onChange={[Function]}
     readonly={false}
@@ -23,16 +22,15 @@ exports[`renders 1`] = `
 
 exports[`renders a valid state 1`] = `
 <styled.div>
-  <TextInputLabel
-    htmlFor="TextInputTestId"
-    required={false}
+  <InputFieldLabel
+    htmlFor="InputTestId"
   >
     Name your version
-  </TextInputLabel>
+  </InputFieldLabel>
   <styled.input
     defaultValue="abc"
     disabled={false}
-    id="TextInputTestId"
+    id="InputTestId"
     onBlur={[Function]}
     onChange={[Function]}
     pattern="abc"
@@ -46,16 +44,15 @@ exports[`renders a valid state 1`] = `
 
 exports[`renders an invalid state 1`] = `
 <styled.div>
-  <TextInputLabel
-    htmlFor="TextInputTestId"
-    required={false}
+  <InputFieldLabel
+    htmlFor="InputTestId"
   >
     Name your version
-  </TextInputLabel>
+  </InputFieldLabel>
   <styled.input
     defaultValue="adlkfj"
     disabled={false}
-    id="TextInputTestId"
+    id="InputTestId"
     onBlur={[Function]}
     onChange={[Function]}
     pattern="abc"
