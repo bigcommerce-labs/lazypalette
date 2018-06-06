@@ -2,6 +2,8 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import ThemeModule from './ThemeModule';
 
+import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
+
 it('renders', () => {
   const testItems = [
     {
@@ -15,7 +17,9 @@ it('renders', () => {
   ];
 
   const themeModule = shallow(
-    <ThemeModule variants={testItems} />
+    <ExpandableMenu title="foo">
+      <ThemeModule variants={testItems} />
+    </ExpandableMenu>
   );
 
   expect(themeModule).toMatchSnapshot();

@@ -44,8 +44,8 @@ const getBackgroundColor = (props: InputFieldProps) => {
 const getBorderColor = (props: InputFieldProps) => {
     if (props.status !== Status.Undefined) {
         switch (props.status) {
-            case Status.Invalid: return patternLabColors.status.error;
-            case Status.Valid: return patternLabColors.status.success;
+            case Status.Invalid: return patternLabColors.error;
+            case Status.Valid: return patternLabColors.success;
             default: return defaultBorderColor;
         }
     } else if (props.warning) {
@@ -69,7 +69,7 @@ const getBorderColorOnFocus = (props: InputFieldProps) => {
     if (props.readonly || props.disabled) {
         return immutableBorderColorOnFocus;
     } else {
-        return patternLabColors.brand.primary;
+        return patternLabColors.primary;
     }
 };
 

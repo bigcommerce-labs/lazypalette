@@ -8,7 +8,6 @@ import { fetchInitialState } from '../../actions/theme';
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
 import PreviewPane from '../PreviewPane/PreviewPane';
 import SideMenu from '../SideMenu/SideMenu';
-import ThemeVersions from '../ThemeVersions/ThemeVersions';
 
 interface AppProps extends RouteComponentProps<{}> {
   config: {
@@ -37,7 +36,6 @@ export class App extends Component<AppProps, {}> {
       <StyledApp>
         <HeaderMenu />
         <SideMenu />
-        <ThemeVersions />
         <PreviewPane />
       </StyledApp>
     );

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<styled.div>
+  <styled.div>
+    <styled.h2>
+      foo
+    </styled.h2>
+    <Styled(Link)
+      to="/"
+    />
+    <ThemeModule
+      variants={
+        Array [
+          Object {
+            "image": "http://meow.wow.com/123.jpg",
+            "name": "light",
+          },
+          Object {
+            "image": "http://meow.wow.com/123.jpg",
+            "name": "dark",
+          },
+        ]
+      }
+    />
+  </styled.div>
+</styled.div>
+`;
