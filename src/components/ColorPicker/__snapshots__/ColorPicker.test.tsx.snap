@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<Component>
+  <Component
+    color={
+      Object {
+        "a": 1,
+        "b": 0,
+        "g": 0,
+        "r": 0,
+      }
+    }
+    onClick={[Function]}
+  />
+</Component>
+`;
+
+exports[`renders an initial color if provided 1`] = `
+<Component>
+  <Component
+    color={
+      Object {
+        "a": 1,
+        "b": 255,
+        "g": 255,
+        "r": 255,
+      }
+    }
+    onClick={[Function]}
+  />
+</Component>
+`;
