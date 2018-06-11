@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { colors } from '../../styleConstants';
-
 export const ImageSizeModal = styled.div`
   width: 14.0625rem;
   padding: .625rem;
@@ -19,7 +17,7 @@ export const Axis = styled.div`
 
   &:first-child:after {
     content: 'x';
-    color: ${colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
     position: absolute;
     top: 2.3125rem;
     left: 6.625rem;

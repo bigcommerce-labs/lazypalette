@@ -8,7 +8,7 @@ const ThemeModule = (props: {variants: ThemePropsList}) => (
     {props.variants.map(({name, image}) => (
       <Item key={name}>
         <Title>{name}</Title>
-        <Thumb theme={image} />
+        <Thumb previewPath={image} />
       </Item>
     ))}
   </List>
