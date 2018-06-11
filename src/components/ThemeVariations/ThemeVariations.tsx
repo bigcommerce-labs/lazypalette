@@ -30,7 +30,7 @@ const ThemeVariations = ({match, themeVariants}: ThemeVariationsProps) => (
 );
 
 const mapStateToProps = (state: State) => ({
-  themeVariants: state.theme.themeVariations.map(({ screenshot, variationName }): StateProps => ({
+  themeVariants: state.theme.variations.map(({ screenshot, variationName }): StateProps => ({
     image: screenshot.smallThumb,
     name: variationName,
   })),

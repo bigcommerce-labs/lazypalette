@@ -1,9 +1,9 @@
-import { CurrentThemeResponse, ThemeAction, ThemeActionTypes } from '../actions/theme';
+import { ThemeAction, ThemeActionTypes } from '../actions/theme';
 
 export interface ThemeState {
   configurationId: string;
   schema: ThemeSchema;
-  themeVariations: ThemeVariations;
+  variations: ThemeVariations;
   versionId: string;
 }
 
@@ -44,24 +44,18 @@ export interface ThemeVariationsEntry {
 const initialState: ThemeState = {
   configurationId: '',
   schema: [],
-  themeVariations: [],
+  variations: [],
   versionId: '',
 };
 
 const updateState = (oldState: ThemeState, newState: object) => ({ ...oldState, ...newState });
 
-const setThemeResp = (state: ThemeState, data: CurrentThemeResponse) => {
-  return updateState(state, {
-    configurationId: data.configurationId,
-    themeVariations: data.relatedVariations,
-    versionId: data.versionId,
-  });
-};
-
 function theme(state: ThemeState = initialState, action: ThemeAction): ThemeState {
   switch (action.type) {
     case ThemeActionTypes.CURRENT_THEME_RESPONSE:
-      return setThemeResp(state, action.data);
+      return updateState(state, action.data);
+    case ThemeActionTypes.THEME_VARIATION_RESPONSE:
+      return updateState(state, action.data);
     case ThemeActionTypes.THEME_CONFIG_RESPONSE:
       return { ...state };
     case ThemeActionTypes.THEME_VERSION_RESPONSE:

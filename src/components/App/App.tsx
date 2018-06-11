@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
+import * as queryString from 'query-string';
 
 import { fetchInitialState } from '../../actions/theme';
 
@@ -14,7 +15,7 @@ interface AppProps extends RouteComponentProps<{}> {
     assetPath: string;
     storeHash: string;
   };
-  fetchInitialState(storeHash: string): any;
+  fetchInitialState(storeHash: string, variationID: string): any;
 }
 
 const StyledApp = styled.div`
@@ -28,7 +29,9 @@ const StyledApp = styled.div`
 
 export class App extends Component<AppProps, {}> {
   componentDidMount() {
-    this.props.fetchInitialState(this.props.config.storeHash);
+    const queryParams = queryString.parse(this.props.location.search);
+    const variationId = queryParams.variationId ? queryParams.variationId : '';
+    this.props.fetchInitialState(this.props.config.storeHash, variationId);
   }
 
   render() {

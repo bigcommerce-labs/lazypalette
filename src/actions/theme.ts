@@ -11,6 +11,8 @@ export enum ThemeActionTypes {
   THEME_CONFIG_RESPONSE = 'THEME_CONFIG_RESPONSE',
   THEME_VERSION_ERROR = 'THEME_VERSION_ERROR',
   THEME_VERSION_RESPONSE = 'THEME_VERSION_RESPONSE',
+  THEME_VARIATION_RESPONSE = 'THEME_VARIATION_RESPONSE',
+  THEME_VARIATION_ERROR = 'THEME_VARIATION_ERROR',
 }
 
 export type ThemeAction =
@@ -19,7 +21,9 @@ export type ThemeAction =
   | ThemeVersionResponseAction
   | ThemeVersionErrorAction
   | ThemeConfigResponseAction
-  | ThemeConfigErrorAction;
+  | ThemeConfigErrorAction
+  | ThemeVariationResponseAction
+  | ThemeVariationErrorAction;
 
 export interface CurrentThemeErrorAction {
   type: ThemeActionTypes.CURRENT_THEME_ERROR;
@@ -50,8 +54,17 @@ export interface ThemeVersionResponseAction {
 
 export interface CurrentThemeResponse {
   configurationId: string;
-  relatedVariations: ThemeVariations;
+  variations: ThemeVariations;
   versionId: string;
+}
+
+export interface ThemeVariationResponseAction {
+  data: ThemeVariationResponse;
+  type: ThemeActionTypes.THEME_VARIATION_RESPONSE;
+}
+
+export interface ThemeVariationErrorAction {
+  type: ThemeActionTypes.THEME_VARIATION_ERROR;
 }
 
 export interface ThemeConfigResponse {
@@ -60,6 +73,13 @@ export interface ThemeConfigResponse {
 
 export interface ThemeVersionResponse {
   editorSchema: ThemeSchema;
+}
+
+export interface ThemeVariationResponse {
+  configurationId: string;
+  variations: ThemeVariations;
+  versionId: string;
+  isPurchased: boolean;
 }
 
 export function currentThemeResponse(data: CurrentThemeResponse): CurrentThemeResponseAction {
@@ -101,11 +121,24 @@ export function themeVersionError(): ThemeVersionErrorAction {
   };
 }
 
+export function themeVariationResponse(data: ThemeVariationResponse): ThemeVariationResponseAction {
+  return {
+    data,
+    type: ThemeActionTypes.THEME_VARIATION_RESPONSE,
+  };
+}
+
+export function themeVariationError(): ThemeVariationErrorAction {
+  return {
+    type: ThemeActionTypes.THEME_VARIATION_ERROR,
+  };
+}
+
 export function fetchCurrentTheme() {
   return (dispatch: Dispatch<State>) => {
     return api.fetchCurrentTheme()
-      .then(({ configurationId, versionId, relatedVariations }) => {
-        return dispatch(currentThemeResponse({ configurationId, versionId, relatedVariations }));
+      .then(({ configurationId, versionId, relatedVariations: variations }) => {
+        return dispatch(currentThemeResponse({ configurationId, versionId, variations }));
       })
       .catch(() => dispatch(currentThemeError()));
   };
@@ -127,9 +160,24 @@ export function fetchThemeVersion(storeHash: string, versionId: string) {
   };
 }
 
-export function fetchInitialState(storeHash: string) {
+export function fetchInitialState(storeHash: string, variationId: string) {
   return (dispatch: Dispatch<State>, getState: () => State) => {
-    return dispatch(fetchCurrentTheme())
-      .then(() => dispatch(fetchThemeVersion(storeHash, getState().theme.versionId)));
+    if (variationId !== '') {
+      return dispatch(fetchVariation(storeHash, variationId))
+        .then(() => dispatch(fetchThemeVersion(storeHash, getState().theme.versionId)));
+    } else {
+      return dispatch(fetchCurrentTheme())
+        .then(() => dispatch(fetchThemeVersion(storeHash, getState().theme.versionId)));
+    }
+  };
+}
+
+export function fetchVariation(storeHash: string, variationId: string) {
+  return (dispatch: Dispatch<State>) => {
+    return api.fetchVariation(storeHash, variationId)
+      .then(({ configurationId, versionId, relatedVariations: variations, isPurchased }) =>
+        dispatch(themeVariationResponse({ configurationId, versionId, variations, isPurchased })))
+      .catch( () => dispatch(themeVariationError())
+    );
   };
 }
