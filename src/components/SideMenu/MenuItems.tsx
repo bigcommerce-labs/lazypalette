@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import { activeClassName, NavItem } from './styles';
 
+import ThemeVariations from '../ThemeVariations/ThemeVariations';
+
 interface MenuItem {
   label: string;
   path: string;
@@ -24,6 +26,16 @@ export const StyledMenuItems = styled.ul`
   vertical-align: top;
 `;
 
+const ExpandMenuRoutes = ({route}: {route: string}) => {
+  switch (route) {
+    case 'theme':
+      return <ThemeVariations />;
+    // TODO: expand to include logo & settings
+    default:
+      return null;
+  }
+};
+
 class MenuItems extends Component<MenuItemsProps, {}> {
   isPathActive = (path: string) => (
     this.props.location.pathname === `${this.props.currentPath}${path}`
@@ -36,15 +48,16 @@ class MenuItems extends Component<MenuItemsProps, {}> {
   render() {
     return (
       <StyledMenuItems>
-        {this.props.items.map(route => (
-          <li key={route.path}>
+        {this.props.items.map(({path, label}) => (
+          <li key={path}>
+            <ExpandMenuRoutes route={path} />
             <NavItem
-              to={this.toggleLink(route.path)}
+              to={this.toggleLink(path)}
               exact
-              isActive={(match, location) => this.isPathActive(route.path)}
+              isActive={(match, location) => this.isPathActive(path)}
               activeClassName={activeClassName}>
-                {route.label}
-              </NavItem>
+                {label}
+            </NavItem>
           </li>
         ))}
       </StyledMenuItems>

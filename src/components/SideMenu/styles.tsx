@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 import { colors } from '../../styleConstants';
 
-const activeClassName = 'nav-item-active';
+export const activeClassName = 'nav-item-active';
 
 interface NavProps {
   activeClassName: string;
 }
 
-const NavItem = styled(NavLink)
+export const NavItem = styled(NavLink)
   .attrs<NavProps>({
   activeClassName,
 })`
@@ -30,5 +30,3 @@ const NavItem = styled(NavLink)
     background-color: ${colors.white}
   }
 `;
-
-export { activeClassName, NavItem };

@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 
 import ThemeModule from './ThemeModule';
-
+import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import { State } from '../../reducers/reducers';
 
-interface ThemeVersionsProps extends RouteComponentProps<{}> {
+interface ThemeVariationsProps extends RouteComponentProps<{}> {
   themeVariants: ThemePropsList;
 }
 
@@ -17,11 +17,15 @@ interface StateProps {
   name: string;
 }
 
-const ThemeVersions = (props: ThemeVersionsProps) => (
+const ThemeVariations = ({match, themeVariants}: ThemeVariationsProps) => (
   <Route
     path="/design/theme"
     exact
-    render={() => <ThemeModule variants={props.themeVariants} />}
+    render={() => (
+      <ExpandableMenu title="Store theme" back={match.url}>
+        <ThemeModule variants={themeVariants} />
+      </ExpandableMenu>
+    )}
   />
 );
 
@@ -32,4 +36,4 @@ const mapStateToProps = (state: State) => ({
   })),
 });
 
-export default withRouter(connect(mapStateToProps)(ThemeVersions));
+export default withRouter(connect(mapStateToProps)(ThemeVariations));

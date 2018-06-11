@@ -42,7 +42,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",
-    "pattern-lab": "git+ssh://git@github.com/bigcommerce/pattern-lab.git#3.0.0-alpha.1",
+    "pattern-lab": "git+ssh://git@github.com/bigcommerce/pattern-lab.git#v3.0.0-alpha.2",
     "react-color": "^2.14.1",
     "typescript": "^2.8.3"
   }
