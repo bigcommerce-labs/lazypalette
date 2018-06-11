@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import 'srcdoc-polyfill';
 import styled from 'styled-components';
 import * as queryString from 'query-string';
 import { ThemeProvider as PatternLabThemeProvider } from 'pattern-lab';

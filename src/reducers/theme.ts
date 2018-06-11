@@ -1,4 +1,5 @@
 import { ThemeAction, ThemeActionTypes } from '../actions/theme';
+import { updateState } from './reducers';
 
 export interface ThemeState {
   configurationId: string;
@@ -49,8 +50,6 @@ const initialState: ThemeState = {
   variations: [],
   versionId: '',
 };
-
-const updateState = (oldState: ThemeState, newState: object) => ({ ...oldState, ...newState });
 
 function theme(state: ThemeState = initialState, action: ThemeAction): ThemeState {
   switch (action.type) {
