@@ -37,10 +37,8 @@ class ColorPicker extends Component<ColorPickerProps, ColorPickerState> {
     return (
       <Container>
         <SelectedColor color={this.state.color} onClick={this.handleClick} />
-        {this.state.displayColorPicker && <div>
-          <div onClick={this.handleClose} />
-          <SketchPicker color={this.state.color} onChange={this.handleChange} />
-        </div>}
+        {this.state.displayColorPicker &&
+          <SketchPicker color={this.state.color} onChange={this.handleChange} />}
       </Container>
     );
   }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import styled from 'styled-components';
 
-import { activeClassName, NavItem } from './styles';
+import { activeClassName, NavItem, StyledMenuItems } from './styles';
 
 import ThemeVariations from '../ThemeVariations/ThemeVariations';
 
@@ -15,16 +14,6 @@ interface MenuItemsProps extends RouteComponentProps<{}> {
   items: MenuItem[];
   currentPath: string;
 }
-
-export const StyledMenuItems = styled.ul`
-  font-size: 15px;
-  line-height: 36px;
-  list-style-type: none;
-  margin-left: 46px;
-  margin-top: 0;
-  padding-left: 0;
-  vertical-align: top;
-`;
 
 const ExpandMenuRoutes = ({route}: {route: string}) => {
   switch (route) {

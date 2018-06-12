@@ -8,14 +8,12 @@ interface CheckboxInputProps {
     label?: string;
 }
 
-const CheckboxInput: SFC<CheckboxInputProps> = ({ inputId = uuid(), label }) => {
-    return (
-        <Container>
-            <Input id={inputId} />
-            <Label htmlFor={inputId} />
-            <HiddenLabel>{label}</HiddenLabel>
-        </Container>
-    );
-};
+const CheckboxInput: SFC<CheckboxInputProps> = ({ inputId = uuid(), label }) => (
+  <Container>
+    <Input id={inputId} />
+    <Label htmlFor={inputId} />
+    <HiddenLabel>{label}</HiddenLabel>
+  </Container>
+);
 
 export default CheckboxInput;

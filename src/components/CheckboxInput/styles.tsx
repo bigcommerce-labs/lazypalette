@@ -22,8 +22,8 @@ export const Input = styled.input.attrs({
 export const Label = styled.label`
   cursor: pointer;
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
   top: 0;
   left: 0;
   background: ${colors.lightBrilliantBlue};
@@ -32,11 +32,11 @@ export const Label = styled.label`
   :after {
     content: '';
     position: absolute;
-    width: 9px;
-    height: 4px;
+    width: .5rem;
+    height: .25rem;
     background: transparent;
-    top: 5px;
-    left: 4px;
+    top: .25rem;
+    left: .25rem;
     border: 3px solid ${colors.white};
     border-top: none;
     border-right: none;
@@ -45,6 +45,7 @@ export const Label = styled.label`
 `;
 
 export const HiddenLabel = styled.label`
-  padding: 2px 5px 2px 10px;
+  padding-left: .5rem;
+  line-height: 1.25rem;
   display: inline-block;
 `;
