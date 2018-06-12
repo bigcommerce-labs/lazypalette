@@ -19,7 +19,7 @@ export const Container = styled.div`
 `;
 
 export const Label = styled.label`
-    padding: 5px 1px;
+    padding: .3125rem .0625rem;
     color: colors.primary;
 `;
 
@@ -29,8 +29,8 @@ interface SmallProps {
 
 export const Small = styled.small`
     color: ${(props: SmallProps) => props.required ? colors.lightBrilliantRedOrange : 'initial'};
-    font-size: 12px;
-    padding-top: 4px;
+    font-size: .75rem;
+    padding-top: .25rem;
 `;
 
 const getBackgroundColor = (props: InputFieldProps) => {
@@ -86,8 +86,8 @@ export const InputField: StyledComponentClass<any, any> = styled.input`
     border: 1px solid ${(props: InputFieldProps) => getBorderColor(props)};
     border-radius: 2px;
     box-sizing: border-box;
-    height: 35px;
-    padding: 10px;
+    height: 2.1875rem;
+    padding: .625rem;
     width: 100%;
 
     :hover {

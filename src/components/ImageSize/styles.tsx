@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { colors } from '../../styleConstants';
 
 export const ImageSizeModal = styled.div`
-  width: 225px;
-  padding: 10px;
+  width: 14.0625rem;
+  padding: .625rem;
 `;
 
 export const SizeModal = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 12px;
+  margin-top: .75rem;
 `;
 
 export const Axis = styled.div`
@@ -21,7 +21,7 @@ export const Axis = styled.div`
     content: 'x';
     color: ${colors.primary};
     position: absolute;
-    top: 37px;
-    left: 106px;
+    top: 2.3125rem;
+    left: 6.625rem;
   }
 `;

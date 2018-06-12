@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { State } from '../../reducers/reducers';
 
+import { StyledSideMenu } from './styles';
 import DesignSubMenu from './DesignSubMenu';
 import MenuItems from './MenuItems';
 import SubMenu from './SubMenu';
@@ -12,13 +12,6 @@ import SubMenu from './SubMenu';
 interface SideMenuProps extends RouteComponentProps<{}> {
   themeDesignSections: string[];
 }
-
-const StyledSideMenu = styled.nav`
-  height: 100%;
-  padding-top: 1.875rem;
-  width: 13.5rem;
-  background: #F6F7F9;
-`;
 
 const items = [
   {

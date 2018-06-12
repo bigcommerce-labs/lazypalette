@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders 1`] = `
-<Component>
-  <Component
+<styled.div>
+  <styled.div
     color={
       Object {
         "a": 1,
@@ -13,12 +13,12 @@ exports[`renders 1`] = `
     }
     onClick={[Function]}
   />
-</Component>
+</styled.div>
 `;
 
 exports[`renders an initial color if provided 1`] = `
-<Component>
-  <Component
+<styled.div>
+  <styled.div
     color={
       Object {
         "a": 1,
@@ -29,5 +29,5 @@ exports[`renders an initial color if provided 1`] = `
     }
     onClick={[Function]}
   />
-</Component>
+</styled.div>
 `;

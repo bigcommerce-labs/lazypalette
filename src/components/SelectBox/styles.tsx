@@ -8,15 +8,15 @@ export const Container = styled.div`
 `;
 
 export const Label = styled.label`
-  padding: 5px;
+  padding: .3125rem;
 `;
 
 export const Select = styled.select`
-  height: 35px;
+  height: 2.1875rem;
   width: 100%;
-  font-size: 15px;
+  font-size: .9375rem;
   color: ${colors.primary};
-  padding: 6px 25px 6px 8px;
+  padding: .375rem 1.5625rem .375rem .5rem;
   background-color: ${colors.white};
   border: 1px solid ${colors.stroke};
   cursor: pointer;
