@@ -9,20 +9,22 @@ export interface ThemeState {
 
 export interface ThemeSchema extends Array<ThemeSchemaEntry> {}
 
+export interface ThemeSchemaEntrySetting {
+  content?: string;
+  force_reload?: boolean;
+  id?: string;
+  label?: string;
+  options?: Array<{
+    group?: string;
+    label: string;
+    value: string|number;
+  }>;
+  type: string;
+}
+
 export interface ThemeSchemaEntry {
   name: string;
-  settings: Array<{
-    content?: string;
-    force_reload?: boolean;
-    id?: string;
-    label?: string;
-    options?: Array<{
-      group?: string;
-      label: string;
-      value: string|number;
-    }>;
-    type: string;
-  }>;
+  settings: ThemeSchemaEntrySetting[];
 }
 
 export interface ThemeVariations extends Array<ThemeVariationsEntry> {}

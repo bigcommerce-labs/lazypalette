@@ -22,7 +22,7 @@ export const ExpandModal = styled.div`
   box-shadow: ${theme.elevation.raised};
   z-index: 999;
   animation: ${fadeIn} 300ms ease-in;
-  overflow: scroll;
+  overflow: auto;
 `;
 
 export const NavItem = styled(Link)`
