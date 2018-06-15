@@ -21,14 +21,26 @@ it('handles current theme response', () => {
 
   const action = themeActions.currentThemeResponse({
     configurationId: '123',
-    relatedVariations: themeVariations,
+    variations: themeVariations,
     versionId: '456',
   });
 
   const expectedState: ThemeState = {
     configurationId: '123',
     schema: [],
-    themeVariations,
+    variations: [{
+      configurationId: '123',
+      defaultConfigurationId: '234',
+      id: '567',
+      isCurrent: true,
+      screenshot: {
+        largePreview: 'host://meows/123.jpg',
+        largeThumb: 'host://meows/234.jpg',
+        smallThumb: 'host://meows/345.jpg',
+      },
+      themeId: '8900',
+      variationName: 'light',
+    }],
     versionId: '456',
   };
 
@@ -40,7 +52,7 @@ it('handles theme config response', () => {
   const expectedState: ThemeState = {
     configurationId: '',
     schema: [],
-    themeVariations: [],
+    variations: [],
     versionId: '',
   };
 
@@ -69,7 +81,7 @@ it('handles theme version response', () => {
   const expectedState: ThemeState = {
     configurationId: '',
     schema: themeSchema,
-    themeVariations: [],
+    variations: [],
     versionId: '',
   };
 

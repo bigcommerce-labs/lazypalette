@@ -4,7 +4,7 @@ describe('theme actions', () => {
   it('should create a CurrentThemeResponse action', () => {
     const data: themeActions.CurrentThemeResponse = {
       configurationId: '123',
-      relatedVariations: [
+      variations: [
         {
           configurationId: '123',
           defaultConfigurationId: '234',
