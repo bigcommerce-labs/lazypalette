@@ -27,7 +27,7 @@ const getItems = (sections: string[]) => {
   return sections.map((section: string, index: number) => (
     {
       label: section,
-      path: `${index}`,
+      path: `style/${index}`,
     }
   ));
 };

@@ -8,6 +8,8 @@ export const Container = styled.div`
 export const Input = styled.input.attrs({
     type: 'checkbox',
 })`
+  opacity: 0;
+
   :not(:checked) + label:after {
     opacity: 0;
   }
@@ -24,7 +26,7 @@ export const Label = styled.label`
   position: absolute;
   width: 1.25rem;
   height: 1.25rem;
-  top: 0;
+  top: 25%;
   left: 0;
   background: ${colors.lightBrilliantBlue};
   border-radius: 2px;
@@ -48,4 +50,5 @@ export const HiddenLabel = styled.label`
   padding-left: .5rem;
   line-height: 1.25rem;
   display: inline-block;
+  vertical-align: middle;
 `;

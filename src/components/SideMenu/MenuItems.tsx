@@ -3,6 +3,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { activeClassName, NavItem, StyledMenuItems } from './styles';
 
+import ThemeSettings from '../ThemeSettings/ThemeSettings';
 import ThemeVariations from '../ThemeVariations/ThemeVariations';
 
 interface MenuItem {
@@ -16,13 +17,15 @@ interface MenuItemsProps extends RouteComponentProps<{}> {
 }
 
 const ExpandMenuRoutes = ({route}: {route: string}) => {
-  switch (route) {
-    case 'theme':
-      return <ThemeVariations />;
-    // TODO: expand to include logo & settings
-    default:
-      return null;
+  if (route === 'theme') {
+    return <ThemeVariations/>;
   }
+
+  if (route.startsWith('style/')) {
+    return <ThemeSettings settingsIndex={parseInt(route.split('/')[1], 10)}/>;
+  }
+
+  return null;
 };
 
 class MenuItems extends Component<MenuItemsProps, {}> {

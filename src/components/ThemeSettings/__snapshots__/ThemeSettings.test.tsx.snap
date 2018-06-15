@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<Router
+  history={
+    Object {
+      "action": "POP",
+      "block": [Function],
+      "canGo": [Function],
+      "createHref": [Function],
+      "entries": Array [
+        Object {
+          "hash": "",
+          "key": "blah",
+          "pathname": "/",
+          "search": "",
+        },
+      ],
+      "go": [Function],
+      "goBack": [Function],
+      "goForward": [Function],
+      "index": 0,
+      "length": 1,
+      "listen": [Function],
+      "location": Object {
+        "hash": "",
+        "key": "blah",
+        "pathname": "/",
+        "search": "",
+      },
+      "push": [Function],
+      "replace": [Function],
+    }
+  }
+>
+  <withRouter(ThemeSettings)
+    settingsIndex={1}
+    themeSettings={
+      Object {
+        "name": "Typography & Icons",
+        "settings": Array [
+          Object {
+            "content": "Logo",
+            "type": "heading",
+          },
+          Object {
+            "id": "logo-font",
+            "label": "Font family",
+            "options": Array [
+              Object {
+                "group": "Oswald",
+                "label": "Oswald",
+                "value": "Google_Oswald_400",
+              },
+              Object {
+                "group": "Oswald",
+                "label": "Oswald Light",
+                "value": "Google_Oswald_300",
+              },
+            ],
+            "type": "font",
+          },
+          Object {
+            "content": "Headings",
+            "type": "heading",
+          },
+          Object {
+            "id": "color-textHeading",
+            "label": "Headings text color",
+            "type": "color",
+          },
+          Object {
+            "description": "Please specify a maximum image size for desktop display.",
+            "force_reload": true,
+            "id": "logo_size",
+            "label": "Logo size",
+            "options": Array [
+              Object {
+                "label": "Original (as uploaded)",
+                "value": "original",
+              },
+              Object {
+                "label": "Optimized for theme",
+                "value": "250x100",
+              },
+              Object {
+                "label": "Specify dimensions",
+                "value": "custom",
+              },
+            ],
+            "type": "imageDimension",
+          },
+          Object {
+            "force_reload": true,
+            "id": "logo-position",
+            "label": "Logo position",
+            "options": Array [
+              Object {
+                "label": "Right",
+                "value": "right",
+              },
+              Object {
+                "label": "Center",
+                "value": "center",
+              },
+              Object {
+                "label": "Left",
+                "value": "left",
+              },
+            ],
+            "type": "select",
+          },
+          Object {
+            "force_reload": true,
+            "id": "show_powered_by",
+            "label": "Show Powered By",
+            "type": "checkbox",
+          },
+        ],
+      }
+    }
+  />
+</Router>
+`;
