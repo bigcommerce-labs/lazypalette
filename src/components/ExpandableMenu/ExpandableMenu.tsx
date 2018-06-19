@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Header, ExpandModal, NavItem, Wrapper } from './styles';
+import { Content, Header, ExpandModal, NavItem, Wrapper } from './styles';
 
 interface ExpandableProps extends Partial<{
   title: string;
@@ -14,7 +14,7 @@ const ExpandableMenu = ({title, children, back = '/'}: ExpandableProps) => (
       {title &&
         <Header>{title}</Header>}
       <NavItem to={back} />
-      {children}
+      <Content>{children}</Content>
     </ExpandModal>
   </Wrapper>
 );

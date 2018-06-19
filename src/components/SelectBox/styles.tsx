@@ -6,16 +6,16 @@ export const Container = styled.div`
 `;
 
 export const Label = styled.label`
-  padding: .3125rem;
+  padding: .25rem;
 `;
 
 export const Select = styled.select`
-  height: 2.1875rem;
+  height: 2.25rem;
   width: 100%;
-  font-size: .9375rem;
+  font-size: ${({ theme }) => theme.typography.fontSize.small};
   color: ${({ theme }) => theme.colors.primaryText};
-  padding: .375rem 1.5625rem .375rem .5rem;
-  background-color: ${({ theme }) => theme.colors.background};
+  padding: .25rem 1.5rem .25rem .5rem;
+  background-color: #FFF;
   border: 1px solid ${({ theme }) => theme.colors.stroke};
   cursor: pointer;
 `;

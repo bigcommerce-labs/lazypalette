@@ -28,7 +28,7 @@ export const SelectedColor = styled.div.attrs<SelectedColorProps>({}) `
 `;
 
 export const Label = styled.label`
-  padding: .25rem 0rem;
+  padding: .25rem 0;
   color: ${theme.colors.primaryText};
   white-space: nowrap;
 `;
