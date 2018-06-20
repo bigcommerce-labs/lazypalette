@@ -1,8 +1,5 @@
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import { theme } from 'pattern-lab';
-
-import { colors } from '../../styleConstants';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -17,9 +14,9 @@ export const fadeIn = keyframes`
 export const ExpandModal = styled.div`
   position: absolute;
   left: 10.625rem;
-  background: ${colors.white};
+  background: ${({ theme }) => theme.colors.background};
   padding: .625rem;
-  box-shadow: ${theme.elevation.raised};
+  box-shadow: ${({ theme }) => theme.elevation.raised};
   z-index: 999;
   animation: ${fadeIn} 300ms ease-in;
   overflow: auto;
@@ -30,7 +27,7 @@ export const NavItem = styled(Link)`
   right: .9375rem;
   top: .625rem;
   text-decoration: none;
-  text-shadow: 0 1px 0 ${colors.white};
+  text-shadow: 0 1px 0 ${({ theme }) => theme.colors.background};
 
   &:after {
     content: '✕';
@@ -41,5 +38,5 @@ export const Header = styled.h2`
   padding: 1.25rem 0 0 1.25rem;
   margin: 0 0 .625rem;
   font-weight: 400;
-  color: #333843;
+  color: ${({ theme }) => theme.colors.secondaryText};
 `;

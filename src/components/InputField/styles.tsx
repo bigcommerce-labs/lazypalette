@@ -1,17 +1,17 @@
-import { theme } from 'pattern-lab';
-import { Status } from './Constants';
-import styled, { StyledComponentClass } from 'styled-components';
-import { colors } from '../../styleConstants';
+import { Theme } from 'pattern-lab';
+import React from 'react';
+import styled, { StyledComponentClass, ThemedStyledProps } from 'styled-components';
 
-const { colors: patternLabColors } = theme;
-const defaultBorderColor = colors.stroke;
-const defaultBorderColorOnHover = colors.darkBlueMagentaishGray;
+import { Status } from './Constants';
+
+const defaultBorderColor = '#D7D6D9';
+const defaultBorderColorOnHover = '#86848C';
 const immutableBorderColorOnFocus = 'none';
 const immutableBorderColorOnHover = 'none';
-const immutableInputBackgroundColor = colors.cyanishWhite;
-const mutableInputBackgroundColor = colors.white;
-const statuslessImmutableBorderColor = colors.cyanBluishWhite;
-const warningBorderColor = colors.lightBrilliantOrangeYellow;
+const immutableInputBackgroundColor = '#F4F5F5';
+const mutableInputBackgroundColor = '#FFF';
+const statuslessImmutableBorderColor = '#EDEFF3';
+const warningBorderColor = '#F2CE3D';
 
 export const Container = styled.div`
     display: flex;
@@ -20,17 +20,24 @@ export const Container = styled.div`
 
 export const Label = styled.label`
     padding: .3125rem .0625rem;
-    color: colors.primary;
+    color:  ${({ theme }) => theme.colors.primaryText};
 `;
 
 interface SmallProps {
-    required: boolean;
+    required?: boolean;
+    children?: string;
 }
 
-export const Small = styled.small`
-    color: ${(props: SmallProps) => props.required ? colors.lightBrilliantRedOrange : 'initial'};
-    font-size: .75rem;
-    padding-top: .25rem;
+const SmallRaw = ({ children }: ThemedStyledProps<SmallProps, Theme>) => <small>
+    {children}
+</small>;
+
+export const Small = styled(SmallRaw)`
+    ${props => `
+        color: ${props.required ? props.theme.colors.error : 'initial'};
+        font-size: .75rem;
+        padding-top: .25rem;
+    `}
 `;
 
 const getBackgroundColor = (props: InputFieldProps) => {
@@ -44,8 +51,8 @@ const getBackgroundColor = (props: InputFieldProps) => {
 const getBorderColor = (props: InputFieldProps) => {
     if (props.status !== Status.Undefined) {
         switch (props.status) {
-            case Status.Invalid: return patternLabColors.error;
-            case Status.Valid: return patternLabColors.success;
+            case Status.Invalid: return props.theme.colors.error;
+            case Status.Valid: return props.theme.colors.success;
             default: return defaultBorderColor;
         }
     } else if (props.warning) {
@@ -69,11 +76,12 @@ const getBorderColorOnFocus = (props: InputFieldProps) => {
     if (props.readonly || props.disabled) {
         return immutableBorderColorOnFocus;
     } else {
-        return patternLabColors.primary;
+        return props.theme.colors.primary;
     }
 };
 
 interface InputFieldProps {
+    theme: Theme;
     disabled?: boolean;
     readonly?: boolean;
     status?: Status;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import * as queryString from 'query-string';
+import { ThemeProvider as PatternLabThemeProvider } from 'pattern-lab';
 
 import { fetchInitialState } from '../../actions/theme';
 
@@ -19,12 +20,12 @@ interface AppProps extends RouteComponentProps<{}> {
 }
 
 const StyledApp = styled.div`
-  align-content: flex-start;
-  display: flex;
-  flex-wrap: wrap;
-  height: 100%;
-  position: fixed;
-  width: 100%;
+    align-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    position: fixed;
+    width: 100%;
 `;
 
 export class App extends Component<AppProps, {}> {
@@ -36,17 +37,19 @@ export class App extends Component<AppProps, {}> {
 
   render() {
     return (
-      <StyledApp>
-        <HeaderMenu />
-        <SideMenu />
-        <PreviewPane />
-      </StyledApp>
+      <PatternLabThemeProvider>
+        <StyledApp>
+          <HeaderMenu />
+          <SideMenu />
+          <PreviewPane />
+        </StyledApp>
+      </PatternLabThemeProvider>
     );
   }
 }
 
 const mapDispatchToProps = {
-  fetchInitialState,
+    fetchInitialState,
 };
 
 export default withRouter(connect(null, mapDispatchToProps)(App));
