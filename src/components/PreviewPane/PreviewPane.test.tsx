@@ -1,12 +1,11 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-
+import createMockStore from 'redux-mock-store';
 import PreviewPane from './PreviewPane';
 
 it('renders', () => {
-  const previewPane = shallow(
-    <PreviewPane/>
-  );
+  const store = createMockStore([])({ previewPane: {} });
+  const previewPane = shallow(<PreviewPane />, { context: { store }});
 
   expect(previewPane).toMatchSnapshot();
 });
