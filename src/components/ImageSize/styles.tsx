@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const ImageSizeModal = styled.div`
-  width: 14.0625rem;
-  padding: .625rem;
+  padding: .5rem;
 `;
 
 export const SizeModal = styled.div`
@@ -17,9 +16,9 @@ export const Axis = styled.div`
 
   &:first-child:after {
     content: 'x';
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primaryText};
     position: absolute;
-    top: 2.3125rem;
-    left: 6.625rem;
+    top: 2.5rem;
+    left: 10.25rem;
   }
 `;

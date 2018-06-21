@@ -9,7 +9,9 @@ exports[`renders 1`] = `
     <Styled(Link)
       to="/bar"
     />
-    <TestChildren />
+    <styled.div>
+      <TestChildren />
+    </styled.div>
   </styled.div>
 </styled.div>
 `;

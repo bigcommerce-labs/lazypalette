@@ -15,8 +15,8 @@ export const Input = styled.input.attrs({
     }
 
     :not(:checked) + label {
-      background: ${theme.colors.background};
-      border: 1px solid ${theme.colors.stroke};
+      background: #FFF;
+      border: 1px solid ${theme.colors.guideText};
       box-sizing: border-box;
     }
   `}
@@ -53,5 +53,4 @@ export const HiddenLabel = styled.label`
   padding-left: .5rem;
   line-height: 1.25rem;
   display: inline-block;
-  vertical-align: middle;
 `;
