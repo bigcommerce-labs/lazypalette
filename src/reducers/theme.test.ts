@@ -48,10 +48,11 @@ it('handles current theme response', () => {
 });
 
 it('handles theme config response', () => {
-  const action = themeActions.themeConfigResponse({ storeHash: '123' });
+  const action = themeActions.themeConfigResponse({ settings: {}, storeHash: '123' });
   const expectedState: ThemeState = {
     configurationId: '',
     schema: [],
+    settings: {},
     variations: [],
     versionId: '',
   };

@@ -9,13 +9,17 @@ it('renders', () => {
       value: '100x100',
     },
     {
-      label: 'Specify dimensions'
+      label: 'Specify dimensions',
       value: 'foo',
     },
   ];
-
   const imageSize = shallow(
-    <ImageSize label="test" options={testItems} selectedValue="foo" />
+    <ImageSize
+        label="test"
+        options={testItems}
+        selected="foo"
+        name="test"
+    />
   );
 
   expect(imageSize).toMatchSnapshot();

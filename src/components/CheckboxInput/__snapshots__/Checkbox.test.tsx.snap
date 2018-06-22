@@ -3,7 +3,9 @@
 exports[`renders 1`] = `
 <styled.div>
   <styled.input
+    checked={true}
     id="CheckboxTestId"
+    onChange={[Function]}
   />
   <styled.label
     htmlFor="CheckboxTestId"

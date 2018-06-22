@@ -5,6 +5,7 @@ export interface ThemeState {
   schema: ThemeSchema;
   variations: ThemeVariations;
   versionId: string;
+  settings?: {[key: string]: string | boolean | number};
 }
 
 export interface ThemeSchema extends Array<ThemeSchemaEntry> {}
@@ -59,9 +60,13 @@ function theme(state: ThemeState = initialState, action: ThemeAction): ThemeStat
 
       return { ...state, configurationId, variations, versionId };
     case ThemeActionTypes.THEME_CONFIG_RESPONSE:
-      return { ...state };
+      const { settings } = action.data;
+
+      return { ...state, settings };
     case ThemeActionTypes.THEME_VERSION_RESPONSE:
-      return { ...state, schema: action.data.editorSchema };
+      return { ...state, schema: [ ...action.data.editorSchema ] };
+    case ThemeActionTypes.THEME_CONFIG_CHANGE:
+      return { ...state, settings: { ...state.settings, ...action.data } };
     default:
       return state;
   }

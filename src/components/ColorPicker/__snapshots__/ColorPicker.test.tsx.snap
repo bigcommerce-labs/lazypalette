@@ -4,14 +4,7 @@ exports[`renders 1`] = `
 <styled.div>
   <styled.label />
   <styled.div
-    color={
-      Object {
-        "a": 1,
-        "b": 0,
-        "g": 0,
-        "r": 0,
-      }
-    }
+    color="#000000"
     onClick={[Function]}
   />
 </styled.div>
@@ -21,14 +14,7 @@ exports[`renders an initial color if provided 1`] = `
 <styled.div>
   <styled.label />
   <styled.div
-    color={
-      Object {
-        "a": 1,
-        "b": 255,
-        "g": 255,
-        "r": 255,
-      }
-    }
+    color="#fff"
     onClick={[Function]}
   />
 </styled.div>
