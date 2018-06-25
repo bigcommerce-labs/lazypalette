@@ -9,9 +9,4 @@ export interface State {
 
 const reducers = combineReducers({ previewPane, theme });
 
-export const updateState = <StateType>(
-  oldState: StateType,
-  newState: object
-): StateType => (Object.assign({}, oldState, newState));
-
 export default reducers;
