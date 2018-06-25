@@ -1,6 +1,5 @@
 import { FluxStandardAction } from 'flux-standard-action';
 import { PreviewPaneActionTypes } from '../actions/previewPane';
-import { updateState } from './reducers';
 
 export const initialState = {
   isError: false,
@@ -27,11 +26,11 @@ const previewPane = (
 ): PreviewPaneState => {
   switch (action.type) {
     case PreviewPaneActionTypes.REQUEST_PAGE_SOURCE:
-      return updateState(state, { ...action.payload, isFetching: true });
+      return { ...state, ...action.payload, isFetching: true };
     case PreviewPaneActionTypes.RECEIVE_PAGE_SOURCE:
-      return updateState(state, { ...action.payload, isFetching: false });
+      return { ...state, ...action.payload, isFetching: false };
     case PreviewPaneActionTypes.RECEIVE_PAGE_SOURCE_ERROR:
-      return updateState(state, { isError: true, isFetching: true });
+      return { ...state, isError: true, isFetching: true };
     default:
       return state;
   }

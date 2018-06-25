@@ -1,5 +1,4 @@
 import { ThemeAction, ThemeActionTypes } from '../actions/theme';
-import { updateState } from './reducers';
 
 export interface ThemeState {
   configurationId: string;
@@ -54,13 +53,15 @@ const initialState: ThemeState = {
 function theme(state: ThemeState = initialState, action: ThemeAction): ThemeState {
   switch (action.type) {
     case ThemeActionTypes.CURRENT_THEME_RESPONSE:
-      return updateState(state, action.data);
+      return { ...state, ...action.data };
     case ThemeActionTypes.THEME_VARIATION_RESPONSE:
-      return updateState(state, action.data);
+      const { configurationId, variations, versionId } = action.data;
+
+      return { ...state, configurationId, variations, versionId };
     case ThemeActionTypes.THEME_CONFIG_RESPONSE:
       return { ...state };
     case ThemeActionTypes.THEME_VERSION_RESPONSE:
-      return updateState(state, { schema: action.data.editorSchema });
+      return { ...state, schema: action.data.editorSchema };
     default:
       return state;
   }
