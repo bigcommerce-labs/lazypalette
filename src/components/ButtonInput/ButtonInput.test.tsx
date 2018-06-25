@@ -4,11 +4,11 @@ import React from 'react';
 import ButtonInput from './ButtonInput';
 
 it('renders', () => {
-  const buttonInput = shallow(
-    <ButtonInput disabled={false} classType="primary" type="button">
+    const buttonInput = shallow(
+        <ButtonInput disabled={false} classType="primary" type="button">
       Click Meow!
-    </ButtonInput>
-  );
+        </ButtonInput>
+    );
 
-  expect(buttonInput).toMatchSnapshot();
+    expect(buttonInput).toMatchSnapshot();
 });

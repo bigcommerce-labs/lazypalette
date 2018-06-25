@@ -24,14 +24,14 @@ const SmallRaw = ({ children }: ThemedStyledProps<SmallProps, Theme>) => <small>
 </small>;
 
 export const Small = styled(SmallRaw)`
-    ${({required, theme}) => `
+    ${({ required, theme }) => `
         color: ${required ? theme.colors.error : 'initial'};
         font-size: ${theme.typography.fontSize.smallest};
         padding-top: .25rem;
     `}
 `;
 
-const getBackgroundColor = ({theme, ...props}: InputFieldProps) => {
+const getBackgroundColor = ({ theme, ...props }: InputFieldProps) => {
     if (props.readonly || props.disabled) {
         return theme.colors.background;
     } else {
@@ -39,12 +39,15 @@ const getBackgroundColor = ({theme, ...props}: InputFieldProps) => {
     }
 };
 
-const getBorderColor = ({theme, ...props}: InputFieldProps) => {
+const getBorderColor = ({ theme, ...props }: InputFieldProps) => {
     if (props.status !== Status.Undefined) {
         switch (props.status) {
-            case Status.Invalid: return theme.colors.error;
-            case Status.Valid: return theme.colors.success;
-            default: return theme.colors.stroke;
+            case Status.Invalid:
+                return theme.colors.error;
+            case Status.Valid:
+                return theme.colors.success;
+            default:
+                return theme.colors.stroke;
         }
     } else if (props.warning) {
         return theme.colors.warning;
@@ -55,7 +58,7 @@ const getBorderColor = ({theme, ...props}: InputFieldProps) => {
     }
 };
 
-const getBorderColorOnHover = ({theme, ...props}: InputFieldProps) => {
+const getBorderColorOnHover = ({ theme, ...props }: InputFieldProps) => {
     if (props.readonly || props.disabled) {
         return 'none';
     } else {
@@ -63,7 +66,7 @@ const getBorderColorOnHover = ({theme, ...props}: InputFieldProps) => {
     }
 };
 
-const getBorderColorOnFocus = ({theme, ...props}: InputFieldProps) => {
+const getBorderColorOnFocus = ({ theme, ...props }: InputFieldProps) => {
     if (props.readonly || props.disabled) {
         return 'none';
     } else {
@@ -90,11 +93,11 @@ export const InputField: StyledComponentClass<any, any> = styled.input`
     width: 100%;
 
     :hover {
-      border-color: ${(props: InputFieldProps) => getBorderColorOnHover(props)}
+        border-color: ${(props: InputFieldProps) => getBorderColorOnHover(props)}
     }
 
     :focus {
-      border-color: ${(props: InputFieldProps) => getBorderColorOnFocus(props)}
-      outline: none;
+        border-color: ${(props: InputFieldProps) => getBorderColorOnFocus(props)}
+        outline: none;
     }
   `;

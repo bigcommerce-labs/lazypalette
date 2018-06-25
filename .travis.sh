@@ -11,4 +11,10 @@ then
 elif [ "$RUN_TESTS" == "true" ]
 then
   npm run test
+
+elif [ "$PREREQ" == "true" ]
+then
+  npm run build
+  npm run eslint
+
 fi

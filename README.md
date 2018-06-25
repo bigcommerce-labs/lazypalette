@@ -17,6 +17,10 @@ To **start development** `npm run dev`
 
 To **start testing** `npm test`
 
+To **run eslint** `npm run eslint`
+
+To **run eslint with --fix enabled** `npm run eslint -- --fix`
+
 If you are running [cloud-dev-vm](https://github.com/bigcommerce/cloud-dev-vm) and want to run this app, one option is to do the above while ssh'd into your vm. There is also work being done to support the traditional `npm run start` functionality from `create-react-app`, including hot reloading.
 
 ## Contribution

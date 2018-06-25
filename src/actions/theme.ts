@@ -95,118 +95,118 @@ export interface ThemeVariationResponse {
 }
 
 export function currentThemeResponse(data: CurrentThemeResponse): CurrentThemeResponseAction {
-  return {
-    data,
-    type: ThemeActionTypes.CURRENT_THEME_RESPONSE,
-  };
+    return {
+        data,
+        type: ThemeActionTypes.CURRENT_THEME_RESPONSE,
+    };
 }
 
 export function currentThemeError(): CurrentThemeErrorAction {
-  return {
-    type: ThemeActionTypes.CURRENT_THEME_ERROR,
-  };
+    return {
+        type: ThemeActionTypes.CURRENT_THEME_ERROR,
+    };
 }
 
 export function themeConfigResponse(data: ThemeConfigResponse): ThemeConfigResponseAction {
-  return {
-    data,
-    type: ThemeActionTypes.THEME_CONFIG_RESPONSE,
-  };
+    return {
+        data,
+        type: ThemeActionTypes.THEME_CONFIG_RESPONSE,
+    };
 }
 
 export function themeConfigError(): ThemeConfigErrorAction {
-  return {
-    type: ThemeActionTypes.THEME_CONFIG_ERROR,
-  };
+    return {
+        type: ThemeActionTypes.THEME_CONFIG_ERROR,
+    };
 }
 
 export function themeConfigChange(data: ThemeConfigChange): ThemeConfigChangeAction {
-  return {
-    data,
-    type: ThemeActionTypes.THEME_CONFIG_CHANGE,
-  };
+    return {
+        data,
+        type: ThemeActionTypes.THEME_CONFIG_CHANGE,
+    };
 }
 
 export function themeVersionResponse(data: ThemeVersionResponse): ThemeVersionResponseAction {
-  return {
-    data,
-    type: ThemeActionTypes.THEME_VERSION_RESPONSE,
-  };
+    return {
+        data,
+        type: ThemeActionTypes.THEME_VERSION_RESPONSE,
+    };
 }
 
 export function themeVersionError(): ThemeVersionErrorAction {
-  return {
-    type: ThemeActionTypes.THEME_VERSION_ERROR,
-  };
+    return {
+        type: ThemeActionTypes.THEME_VERSION_ERROR,
+    };
 }
 
 export function themeVariationResponse(data: ThemeVariationResponse): ThemeVariationResponseAction {
-  return {
-    data,
-    type: ThemeActionTypes.THEME_VARIATION_RESPONSE,
-  };
+    return {
+        data,
+        type: ThemeActionTypes.THEME_VARIATION_RESPONSE,
+    };
 }
 
 export function themeVariationError(): ThemeVariationErrorAction {
-  return {
-    type: ThemeActionTypes.THEME_VARIATION_ERROR,
-  };
+    return {
+        type: ThemeActionTypes.THEME_VARIATION_ERROR,
+    };
 }
 
 export function fetchCurrentTheme() {
-  return (dispatch: Dispatch<State>) => {
-    return api.fetchCurrentTheme()
-      .then(({ configurationId, versionId, relatedVariations: variations }) => {
-         dispatch(currentThemeResponse({ configurationId, versionId, variations }));
-         dispatch(fetchThemeConfig(configurationId));
-      })
-      .catch(() => dispatch(currentThemeError()));
-  };
+    return (dispatch: Dispatch<State>) => {
+        return api.fetchCurrentTheme()
+            .then(({ configurationId, versionId, relatedVariations: variations }) => {
+                dispatch(currentThemeResponse({ configurationId, versionId, variations }));
+                dispatch(fetchThemeConfig(configurationId));
+            })
+            .catch(() => dispatch(currentThemeError()));
+    };
 }
 
 export function fetchThemeConfig(configurationId: string) {
-  return (dispatch: Dispatch<State>) => {
-    return api.fetchThemeConfig(configurationId)
-      .then(({ storeHash, settings }) => dispatch(themeConfigResponse({ storeHash, settings })))
-      .catch(() => dispatch(themeConfigError()));
-  };
+    return (dispatch: Dispatch<State>) => {
+        return api.fetchThemeConfig(configurationId)
+            .then(({ storeHash, settings }) => dispatch(themeConfigResponse({ storeHash, settings })))
+            .catch(() => dispatch(themeConfigError()));
+    };
 }
 
 export function fetchThemeVersion(storeHash: string, versionId: string) {
-  return (dispatch: Dispatch<State>) => {
-    return api.fetchThemeVersion(storeHash, versionId)
-      .then(({ editorSchema }) => dispatch(themeVersionResponse({ editorSchema })))
-      .catch(() => dispatch(themeVersionError()));
-  };
+    return (dispatch: Dispatch<State>) => {
+        return api.fetchThemeVersion(storeHash, versionId)
+            .then(({ editorSchema }) => dispatch(themeVersionResponse({ editorSchema })))
+            .catch(() => dispatch(themeVersionError()));
+    };
 }
 
 export function fetchInitialState(storeHash: string, variationId: string) {
-  return (dispatch: Dispatch<State>, getState: () => State) => {
-    if (variationId !== '') {
-      return dispatch(fetchVariation(storeHash, variationId))
-        .then(() => dispatch(fetchThemeVersion(storeHash, getState().theme.versionId)));
-    } else {
-      return dispatch(fetchCurrentTheme())
-        .then(() => dispatch(fetchThemeVersion(storeHash, getState().theme.versionId)));
-    }
-  };
+    return (dispatch: Dispatch<State>, getState: () => State) => {
+        if (variationId !== '') {
+            return dispatch(fetchVariation(storeHash, variationId))
+                .then(() => dispatch(fetchThemeVersion(storeHash, getState().theme.versionId)));
+        } else {
+            return dispatch(fetchCurrentTheme())
+                .then(() => dispatch(fetchThemeVersion(storeHash, getState().theme.versionId)));
+        }
+    };
 }
 
 export function fetchVariation(storeHash: string, variationId: string) {
-  return (dispatch: Dispatch<State>) => {
-    return api.fetchVariation(storeHash, variationId)
-      .then(({ configurationId, versionId, relatedVariations: variations, isPurchased }) => {
-          dispatch(fetchThemeConfig(configurationId));
-          dispatch(themeVariationResponse({ configurationId, versionId, variations, isPurchased }));
-        })
-      .catch( () => dispatch(themeVariationError())
-    );
-  };
+    return (dispatch: Dispatch<State>) => {
+        return api.fetchVariation(storeHash, variationId)
+            .then(({ configurationId, versionId, relatedVariations: variations, isPurchased }) => {
+                dispatch(fetchThemeConfig(configurationId));
+                dispatch(themeVariationResponse({ configurationId, versionId, variations, isPurchased }));
+            })
+            .catch( () => dispatch(themeVariationError())
+            );
+    };
 }
 
 export function updateThemeConfigChange(configChange: ThemeConfigChange) {
-  return (dispatch: Dispatch<State>) => {
-    return dispatch(themeConfigChange(configChange));
-  };
+    return (dispatch: Dispatch<State>) => {
+        return dispatch(themeConfigChange(configChange));
+    };
 
 }

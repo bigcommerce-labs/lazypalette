@@ -1,4 +1,4 @@
-import React, { PureComponent, MouseEvent, MouseEventHandler } from 'react';
+import React, { MouseEvent, MouseEventHandler, PureComponent } from 'react';
 
 import { Button, Wrapper } from './styles';
 

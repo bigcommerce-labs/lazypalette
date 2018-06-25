@@ -1,17 +1,19 @@
 declare const window: Window;
 
 export class WindowService {
-  static getInstance(): WindowService {
-    return this.instance;
-  }
-  private static instance: WindowService = new WindowService();
-  private constructor() { }
+    static getInstance(): WindowService {
+        return this.instance;
+    }
 
-  addEventListener(type: string, listener: EventListener): void {
-    window.addEventListener('message', listener);
-  }
+    private static instance: WindowService = new WindowService();
 
-  removeEventListener(type: string, listener: EventListener): void {
-    window.removeEventListener('message', listener);
-  }
+    private constructor() { }
+
+    addEventListener(type: string, listener: EventListener): void {
+        window.addEventListener('message', listener);
+    }
+
+    removeEventListener(type: string, listener: EventListener): void {
+        window.removeEventListener('message', listener);
+    }
 }

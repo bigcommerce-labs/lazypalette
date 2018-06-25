@@ -20,11 +20,10 @@ env:
   matrix:
     - CREATE_CONTAINER=true
     - RUN_TESTS=true
+    - PREREQ=true
 
 matrix:
   fast_finish: true
-  allow_failures:
-    env: CREATE_CONTAINER=true
 
 script:
   - ./.travis.sh

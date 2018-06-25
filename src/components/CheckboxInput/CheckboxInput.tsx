@@ -1,8 +1,9 @@
-import React, { PureComponent, ChangeEvent } from 'react';
+import React, { ChangeEvent, PureComponent } from 'react';
 import uuid from 'uuid';
 
-import { Input, Label, Container, HiddenLabel } from './styles';
 import { ThemeConfigChange } from '../../actions/theme';
+
+import { Container, HiddenLabel, Input, Label } from './styles';
 
 interface CheckboxInputProps {
     inputId?: string;
@@ -13,37 +14,37 @@ interface CheckboxInputProps {
 }
 
 interface CheckboxInputState {
-  checked: boolean;
-  inputId: string;
+    checked: boolean;
+    inputId: string;
 }
 
 class CheckboxInput extends PureComponent<CheckboxInputProps, CheckboxInputState, {}> {
- readonly state: CheckboxInputState = {
-    checked: this.props.checked,
-    inputId: this.props.inputId || uuid(),
-  };
+    readonly state: CheckboxInputState = {
+        checked: this.props.checked,
+        inputId: this.props.inputId || uuid(),
+    };
 
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ checked: e.target.checked });
-    this.props.onChange!({[this.props.name]: e.target.checked});
-  };
+    handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({ checked: e.target.checked });
+        this.props.onChange!({ [this.props.name]: e.target.checked });
+    };
 
-  render() {
-    const { checked, inputId } = this.state;
-    const { label } = this.props;
+    render() {
+        const { checked, inputId } = this.state;
+        const { label } = this.props;
 
-    return (
-      <Container>
-        <Input
-          id={inputId}
-          checked={checked}
-          onChange={this.handleChange}
-        />
-        <Label htmlFor={inputId} />
-        <HiddenLabel>{label}</HiddenLabel>
-    </Container>
-    );
-  }
+        return (
+            <Container>
+                <Input
+                    id={inputId}
+                    checked={checked}
+                    onChange={this.handleChange}
+                />
+                <Label htmlFor={inputId}/>
+                <HiddenLabel>{label}</HiddenLabel>
+            </Container>
+        );
+    }
 }
 
 export default CheckboxInput;

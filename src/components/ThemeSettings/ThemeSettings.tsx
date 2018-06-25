@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 
+import { themeConfigChange, ThemeConfigChange } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
-import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import CheckboxInput from '../CheckboxInput/CheckboxInput';
 import ColorPicker from '../ColorPicker/ColorPicker';
+import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ImageSize from '../ImageSize/ImageSize';
 import SelectBox from '../SelectBox/SelectBox';
 
-import { List, Item, Heading } from './styles';
-import { ThemeConfigChange, themeConfigChange } from '../../actions/theme';
+import { Heading, Item, List  } from './styles';
 
 export interface ThemeSettingsProps extends RouteComponentProps<{}> {
     settings: {};
@@ -40,42 +40,42 @@ function getEditor(
     switch (setting.type) {
         case 'color':
             return <ColorPicker
-                        initialColor={preSetValue[`${setting.id}`]}
-                        label={setting.label}
-                        onChange={handleChange}
-                        name={setting.id!}
-                    />;
+                initialColor={preSetValue[`${setting.id}`]}
+                label={setting.label}
+                onChange={handleChange}
+                name={setting.id!}
+            />;
         case 'checkbox':
             return <CheckboxInput
-                        checked={preSetValue[`${setting.id}`]}
-                        label={setting.label}
-                        onChange={handleChange}
-                        name={setting.id!}
-                    />;
+                checked={preSetValue[`${setting.id}`]}
+                label={setting.label}
+                onChange={handleChange}
+                name={setting.id!}
+            />;
         case 'font':
             return <SelectBox
-                        selected={preSetValue[`${setting.id}`]}
-                        label={setting.label}
-                        onChange={handleChange}
-                        name={setting.id!}
-                        options={transformOptions(setting)}
-                    />;
+                selected={preSetValue[`${setting.id}`]}
+                label={setting.label}
+                onChange={handleChange}
+                name={setting.id!}
+                options={transformOptions(setting)}
+            />;
         case 'imageDimension':
             return <ImageSize
-                        selected={preSetValue[`${setting.id}`]}
-                        label={setting.label || ''}
-                        onChange={handleChange}
-                        name={setting.id!}
-                        options={transformOptions(setting)}
-                    />;
+                selected={preSetValue[`${setting.id}`]}
+                label={setting.label || ''}
+                onChange={handleChange}
+                name={setting.id!}
+                options={transformOptions(setting)}
+            />;
         case 'select':
             return <SelectBox
-                        selected={preSetValue[`${setting.id}`]}
-                        label={setting.label}
-                        onChange={handleChange}
-                        name={setting.id!}
-                        options={transformOptions(setting)}
-                    />;
+                selected={preSetValue[`${setting.id}`]}
+                label={setting.label}
+                onChange={handleChange}
+                name={setting.id!}
+                options={transformOptions(setting)}
+            />;
         case 'heading':
             return <Heading>{setting.content}</Heading>;
         default:
