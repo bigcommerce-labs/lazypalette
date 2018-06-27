@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { ThemeConfigChange } from '../../actions/theme';
 import SelectBox from '../SelectBox/SelectBox';
 
 import { ImageSizeModal } from './styles';
@@ -10,40 +9,38 @@ interface ImageSizeProps {
     label: string;
     options: Array<{
         label: string;
-        value: string;
-    }>;
-    selected: string;
-    name: string;
-    onChange?(configChange: ThemeConfigChange): void;
+    value: string;
+  }>;
+  selected: string;
+  name: string;
+  onChange?(configChange: {[key: string]: string}): void;
 }
 
-interface ImageSizeState {
-    inputValue: string | undefined;
-}
+class ImageSize extends Component<ImageSizeProps> {
 
-class ImageSize extends Component<ImageSizeProps, ImageSizeState, {}> {
-    readonly state: ImageSizeState = { inputValue: '' };
+    handleChange = (configChange: {[key: string]: string}) => {
+        const { name } = this.props;
 
-    handleChange = (configChange: any) => {
-        this.setState({ inputValue: configChange[name] });
+        configChange[name] = configChange[name] === 'custom' ? '0x0' : configChange[name];
         this.props.onChange!(configChange);
     };
 
     render() {
         const { label, options, selected, name } = this.props;
+        const optionExists = options.findIndex(({value}) => value === selected);
+        const optionSelected = optionExists < 0 ? 'custom' : selected;
 
         return (
             <ImageSizeModal>
                 <SelectBox
                     label={label}
                     options={options}
-                    selected={selected}
+                    selected={optionSelected}
                     onChange={this.handleChange}
                     name={name}
                 />
-                {this.state.inputValue === 'custom' &&
-                <CustomSize defaultValue={selected}/>
-                }
+                { optionSelected === 'custom' &&
+            <CustomSize defaultValue={selected} onChange={this.handleChange} name={name}/>}
             </ImageSizeModal>
         );
     }

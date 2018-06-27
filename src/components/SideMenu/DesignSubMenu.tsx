@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import ButtonInput from '../ButtonInput/ButtonInput';
+
 import SubMenu from './SubMenu';
 
 interface MenuItem {
@@ -10,6 +12,7 @@ interface MenuItem {
 interface DesignSubMenuProps {
     sections: string[];
     currentPath: string;
+    handleSave?(): void;
 }
 
 const staticItems: MenuItem[] = [
@@ -32,14 +35,28 @@ const getItems = (sections: string[]) => {
     ));
 };
 
-class DesignSubMenu extends Component<DesignSubMenuProps, {}> {
+class DesignSubMenu extends Component<DesignSubMenuProps> {
+    handleSave = () => {
+        this.props.handleSave!();
+    };
+
     render() {
         return (
-            <SubMenu
-                title="Design"
-                items={[...staticItems, ...getItems(this.props.sections)]}
-                currentPath={this.props.currentPath}
-            />
+            <>
+                <SubMenu
+                    title="Design"
+                    items={[...staticItems, ...getItems(this.props.sections)]}
+                    currentPath={this.props.currentPath}
+                />
+                <ButtonInput
+                    onClick={this.handleSave}
+                    disabled={false}
+                    classType="primary"
+                    type="button"
+                >
+                Save
+                </ButtonInput>
+            </>
         );
     }
 }

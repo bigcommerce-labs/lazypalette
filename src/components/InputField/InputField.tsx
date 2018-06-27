@@ -53,78 +53,70 @@ export interface InputFieldProps {
 }
 
 export default class InputField extends Component<InputFieldProps, InputFieldState> {
-    static defaultProps = {
-        disabled: false,
-        inputId: uuid(),
-        onBlur: () => undefined,
-        onChange: () => undefined,
-        readonly: false,
-        required: false,
-        warning: false,
-    };
+  static defaultProps = {
+      disabled: false,
+      inputId: uuid(),
+      onBlur: () => undefined,
+      onChange: () => undefined,
+      readonly: false,
+      required: false,
+      warning: false,
+  };
 
-    readonly state: InputFieldState = {
-        status: Status.Undefined,
-        value: '',
-    };
+  readonly state: InputFieldState = {
+      status: Status.Undefined,
+      value: this.props.defaultValue,
+  };
 
-    constructor(props: InputFieldProps) {
-        super(props);
-        this.state = {
-            status: Status.Undefined,
-            value: props.defaultValue,
-        };
-    }
+  componentWillMount() {
+      if (this.props.pattern) {
+          this.validate();
+      }
+  }
 
-    componentWillMount() {
-        if (this.props.pattern) {
-            this.validate();
-        }
-    }
+  render() {
+      const { status } = this.state;
+      const {
+          defaultValue,
+          disabled,
+          inputId,
+          label,
+          note = this.prepareNote(),
+          pattern,
+          placeholder,
+          readonly,
+          required,
+          type,
+          warning,
+      } = this.props;
 
-    render() {
-        const { status } = this.state;
-        const {
-            defaultValue,
-            disabled,
-            inputId,
-            label,
-            note = this.prepareNote(),
-            pattern,
-            placeholder,
-            readonly,
-            required,
-            type,
-            warning,
-        } = this.props;
-
-        return (
-            <Container>
-                <InputFieldLabel htmlFor={inputId}>
-                    {label}
-                </InputFieldLabel>
-                <StyledInputField
-                    defaultValue={defaultValue}
-                    disabled={disabled!}
-                    id={inputId}
-                    onChange={this.onChange}
-                    onBlur={this.onBlur}
-                    pattern={pattern!}
-                    placeholder={placeholder!}
-                    readonly={readonly!}
-                    required={required!}
-                    status={status}
-                    type={type}
-                    warning={warning!}
-                />
-                {note &&
+      return (
+          <Container>
+              <InputFieldLabel htmlFor={inputId}>
+                  {label}
+              </InputFieldLabel>
+              <StyledInputField
+                  defaultValue={defaultValue}
+                  disabled={disabled!}
+                  id={inputId}
+                  onChange={this.onChange}
+                  onBlur={this.onBlur}
+                  pattern={pattern!}
+                  placeholder={placeholder!}
+                  readonly={readonly!}
+                  required={required!}
+                  status={status}
+                  type={type}
+                  warning={warning!}
+              />
+              {note &&
                     <Small required={required!}>
                         {note}
                     </Small>
-                }
-            </Container>
-        );
-    }
+              }
+          </Container>
+      );
+  }
 
     private onBlur = (event: FocusEvent<HTMLInputElement>) => {
         this.props.onBlur!(event);
