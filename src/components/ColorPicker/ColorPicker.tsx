@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
-import { ColorResult, RGBColor, SketchPicker } from 'react-color';
+import { ColorResult, SketchPicker } from 'react-color';
 
 import { Container, SelectedColor, Label, SketchPickerModal } from './styles';
+import { ThemeConfigChange } from '../../actions/theme';
 
 interface ColorPickerProps {
   label?: string;
-  initialColor?: RGBColor;
+  initialColor?: string;
+  name: string;
+  onChange?(configChange: ThemeConfigChange): void;
 }
 
 interface ColorPickerState {
-  color: RGBColor;
+  color: string;
   displayColorPicker: boolean;
 }
 
-const defaultColor = {
-  a: 1,
-  b: 0,
-  g: 0,
-  r: 0,
-};
+const defaultColor = '#000000';
 
 class ColorPicker extends Component<ColorPickerProps, ColorPickerState> {
   readonly state: ColorPickerState = {
@@ -32,7 +30,10 @@ class ColorPicker extends Component<ColorPickerProps, ColorPickerState> {
 
   handleClose = () => this.setState({ displayColorPicker: false });
 
-  handleChange = (color: ColorResult) => this.setState({ color: color.rgb });
+  handleChange = (color: ColorResult) => {
+    this.setState({ color: color.hex });
+    this.props.onChange!({[this.props.name]: color.hex});
+  };
 
   render() {
     return (

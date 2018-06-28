@@ -4,6 +4,7 @@ exports[`renders 1`] = `
 <styled.div>
   <SelectBox
     label="test"
+    name="test"
     onChange={[Function]}
     options={
       Array [

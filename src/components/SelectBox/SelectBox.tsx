@@ -1,6 +1,7 @@
-import React, { Component, ChangeEvent, ChangeEventHandler } from 'react';
+import React, { Component, ChangeEvent } from 'react';
 
 import { Container, Label, Select } from './styles';
+import { ThemeConfigChange } from '../../actions/theme';
 
 interface SelectBoxOption {
     label: string;
@@ -11,7 +12,8 @@ interface SelectBoxProps {
     label?: string;
     options: SelectBoxOption[];
     selected?: string;
-    onChange?: ChangeEventHandler<HTMLSelectElement>;
+    name: string;
+    onChange?(configChange: ThemeConfigChange): void;
 }
 
 interface SelectBoxState {
@@ -23,7 +25,7 @@ class SelectBox extends Component<SelectBoxProps, SelectBoxState, {}> {
 
   handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     this.setState({ selected: e.target.value });
-    this.props.onChange!(e);
+    this.props.onChange!({[this.props.name]: e.target.value});
   };
 
   render() {

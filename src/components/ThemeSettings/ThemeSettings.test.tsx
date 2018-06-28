@@ -7,6 +7,24 @@ import { ThemeSettings } from './ThemeSettings';
 const WrappedThemeSettings = withRouter(ThemeSettings);
 
 it('renders', () => {
+    const settings = {
+        brandpage_products_per_page: 12,
+        categorypage_products_per_page: 12,
+        homepage_blog_posts_count: 3,
+        homepage_featured_products_column_count: 4,
+        homepage_featured_products_count: 8,
+        homepage_new_products_column_count: 4,
+        homepage_new_products_count: 12,
+        homepage_show_carousel: true,
+        homepage_top_products_column_count: 4,
+        homepage_top_products_count: 8,
+        productpage_related_products_count: 10,
+        productpage_reviews_count: 9,
+        productpage_similar_by_views_count: 10,
+        productpage_videos_count: 8,
+        searchpage_products_per_page: 12,
+        show_product_quick_view: true,
+    };
     const testItems = {
         name: 'Typography & Icons',
         settings: [
@@ -89,10 +107,15 @@ it('renders', () => {
             },
         ],
     };
-
+    const mockFetch = jest.fn();
     const themeSettings = shallow(
         <MemoryRouter initialEntries={[ { pathname: '/', key: 'blah' } ]}>
-            <WrappedThemeSettings settingsIndex={1} themeSettings={testItems}>
+            <WrappedThemeSettings
+                    settingsIndex={1}
+                    themeSettings={testItems}
+                    settings={settings}
+                    themeConfigChange={mockFetch}
+                    >
             </WrappedThemeSettings>
         </MemoryRouter>
     );

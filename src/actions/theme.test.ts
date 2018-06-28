@@ -40,6 +40,7 @@ describe('theme actions', () => {
 
   it('should create a ThemeConfigResponse action', () => {
     const data: themeActions.ThemeConfigResponse = {
+      settings: {},
       storeHash: '123',
     };
 

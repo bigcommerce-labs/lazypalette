@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { theme } from 'pattern-lab';
 
 export const Container = styled.div`
   display: flex;
@@ -8,16 +7,11 @@ export const Container = styled.div`
 `;
 
 interface SelectedColorProps {
-  color: any;
+  color: string;
 }
 
 export const SelectedColor = styled.div.attrs<SelectedColorProps>({}) `
-  background: ${(props: SelectedColorProps) => `rgba(
-    ${props.color.r},
-    ${props.color.g},
-    ${props.color.b},
-    ${props.color.a}
-  )`};
+  background: ${(props: SelectedColorProps) => `${props.color}`};
   border-radius: 3px;
   height: 1.5rem;
   width: 1.5rem;
@@ -25,11 +19,12 @@ export const SelectedColor = styled.div.attrs<SelectedColorProps>({}) `
   margin: 1px;
   align-self: center;
   flex-shrink: 0;
+  border: 1px solid ${({ theme }) => theme.colors.stroke};
 `;
 
 export const Label = styled.label`
   padding: .25rem 0;
-  color: ${theme.colors.primaryText};
+  color: ${({ theme }) => theme.colors.primaryText};
   white-space: nowrap;
 `;
 

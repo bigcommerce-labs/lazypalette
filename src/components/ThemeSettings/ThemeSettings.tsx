@@ -11,10 +11,13 @@ import ImageSize from '../ImageSize/ImageSize';
 import SelectBox from '../SelectBox/SelectBox';
 
 import { List, Item, Heading } from './styles';
+import { ThemeConfigChange, themeConfigChange } from '../../actions/theme';
 
 export interface ThemeSettingsProps extends RouteComponentProps<{}> {
+    settings: {};
     settingsIndex: number;
     themeSettings: ThemeSchemaEntry;
+    themeConfigChange(configChange: ThemeConfigChange): any;
 }
 
 function transformOptions(setting: ThemeSchemaEntrySetting) {
@@ -24,22 +27,55 @@ function transformOptions(setting: ThemeSchemaEntrySetting) {
     })) : [];
 }
 
-function getEditor(setting: ThemeSchemaEntrySetting) {
+interface SettingsType {
+    [key: string]: string & number & boolean;
+}
+
+function getEditor(
+    setting: ThemeSchemaEntrySetting,
+    preSetValue: SettingsType,
+    handleChange: any
+) {
+
     switch (setting.type) {
         case 'color':
-            return <ColorPicker label={setting.label}/>;
+            return <ColorPicker
+                        initialColor={preSetValue[`${setting.id}`]}
+                        label={setting.label}
+                        onChange={handleChange}
+                        name={setting.id!}
+                    />;
         case 'checkbox':
-            return <CheckboxInput label={setting.label}/>;
+            return <CheckboxInput
+                        checked={preSetValue[`${setting.id}`]}
+                        label={setting.label}
+                        onChange={handleChange}
+                        name={setting.id!}
+                    />;
         case 'font':
-            return <SelectBox label={setting.label} options={transformOptions(setting)}/>;
+            return <SelectBox
+                        selected={preSetValue[`${setting.id}`]}
+                        label={setting.label}
+                        onChange={handleChange}
+                        name={setting.id!}
+                        options={transformOptions(setting)}
+                    />;
         case 'imageDimension':
             return <ImageSize
-                label={setting.label || ''}
-                options={transformOptions(setting)}
-                selectedValue={setting.options![0].value.toString()}
-            />;
+                        selected={preSetValue[`${setting.id}`]}
+                        label={setting.label || ''}
+                        onChange={handleChange}
+                        name={setting.id!}
+                        options={transformOptions(setting)}
+                    />;
         case 'select':
-            return <SelectBox label={setting.label} options={transformOptions(setting)}/>;
+            return <SelectBox
+                        selected={preSetValue[`${setting.id}`]}
+                        label={setting.label}
+                        onChange={handleChange}
+                        name={setting.id!}
+                        options={transformOptions(setting)}
+                    />;
         case 'heading':
             return <Heading>{setting.content}</Heading>;
         default:
@@ -48,6 +84,9 @@ function getEditor(setting: ThemeSchemaEntrySetting) {
 }
 
 export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
+    handleChange = (configChange: ThemeConfigChange) => {
+        this.props.themeConfigChange(configChange);
+    };
     render() {
         return (
             <Route
@@ -60,7 +99,7 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
                         <List>
                             {this.props.themeSettings.settings.map((setting, index) => (
                                 <Item key={index}>
-                                    {getEditor(setting)}
+                                    {getEditor(setting, this.props.settings, this.handleChange)}
                                 </Item>
                             ))}
                         </List>
@@ -72,11 +111,23 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
 }
 
 const mapStateToProps = (state: State, ownProps: ThemeSettingsProps) => ({
+    settings: state.theme.settings,
     themeSettings: state.theme.schema[ownProps.settingsIndex],
 });
 
 interface StateFromProps {
+    settings: any;
     themeSettings: ThemeSchemaEntry;
 }
 
-export default withRouter(connect<StateFromProps, {}, { settingsIndex: number }>(mapStateToProps)(ThemeSettings));
+interface ActionFromProps {
+    themeConfigChange(configChange: ThemeConfigChange): any;
+}
+
+const mapDispatchToProps = {
+    themeConfigChange,
+};
+
+export default withRouter(
+    connect<StateFromProps, ActionFromProps, { settingsIndex: number }>(mapStateToProps,
+        mapDispatchToProps)(ThemeSettings));

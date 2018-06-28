@@ -9,6 +9,7 @@ export enum ThemeActionTypes {
   CURRENT_THEME_RESPONSE = 'CURRENT_THEME_RESPONSE',
   THEME_CONFIG_ERROR = 'THEME_CONFIG_ERROR',
   THEME_CONFIG_RESPONSE = 'THEME_CONFIG_RESPONSE',
+  THEME_CONFIG_CHANGE = 'THEME_CONFIG_CHANGE',
   THEME_VERSION_ERROR = 'THEME_VERSION_ERROR',
   THEME_VERSION_RESPONSE = 'THEME_VERSION_RESPONSE',
   THEME_VARIATION_RESPONSE = 'THEME_VARIATION_RESPONSE',
@@ -22,6 +23,7 @@ export type ThemeAction =
   | ThemeVersionErrorAction
   | ThemeConfigResponseAction
   | ThemeConfigErrorAction
+  | ThemeConfigChangeAction
   | ThemeVariationResponseAction
   | ThemeVariationErrorAction;
 
@@ -41,6 +43,11 @@ export interface ThemeConfigErrorAction {
 export interface ThemeConfigResponseAction {
   data: ThemeConfigResponse;
   type: ThemeActionTypes.THEME_CONFIG_RESPONSE;
+}
+
+export interface ThemeConfigChangeAction {
+  data: ThemeConfigChange;
+  type: ThemeActionTypes.THEME_CONFIG_CHANGE;
 }
 
 export interface ThemeVersionErrorAction {
@@ -68,7 +75,12 @@ export interface ThemeVariationErrorAction {
 }
 
 export interface ThemeConfigResponse {
+  settings: {[key: string]: string | boolean | number};
   storeHash: string;
+}
+
+export interface ThemeConfigChange {
+  [key: string]: string | boolean | number;
 }
 
 export interface ThemeVersionResponse {
@@ -108,6 +120,13 @@ export function themeConfigError(): ThemeConfigErrorAction {
   };
 }
 
+export function themeConfigChange(data: ThemeConfigChange): ThemeConfigChangeAction {
+  return {
+    data,
+    type: ThemeActionTypes.THEME_CONFIG_CHANGE,
+  };
+}
+
 export function themeVersionResponse(data: ThemeVersionResponse): ThemeVersionResponseAction {
   return {
     data,
@@ -138,7 +157,8 @@ export function fetchCurrentTheme() {
   return (dispatch: Dispatch<State>) => {
     return api.fetchCurrentTheme()
       .then(({ configurationId, versionId, relatedVariations: variations }) => {
-        return dispatch(currentThemeResponse({ configurationId, versionId, variations }));
+         dispatch(currentThemeResponse({ configurationId, versionId, variations }));
+         dispatch(fetchThemeConfig(configurationId));
       })
       .catch(() => dispatch(currentThemeError()));
   };
@@ -147,7 +167,7 @@ export function fetchCurrentTheme() {
 export function fetchThemeConfig(configurationId: string) {
   return (dispatch: Dispatch<State>) => {
     return api.fetchThemeConfig(configurationId)
-      .then(({ storeHash }) => dispatch(themeConfigResponse({ storeHash })))
+      .then(({ storeHash, settings }) => dispatch(themeConfigResponse({ storeHash, settings })))
       .catch(() => dispatch(themeConfigError()));
   };
 }
@@ -175,9 +195,18 @@ export function fetchInitialState(storeHash: string, variationId: string) {
 export function fetchVariation(storeHash: string, variationId: string) {
   return (dispatch: Dispatch<State>) => {
     return api.fetchVariation(storeHash, variationId)
-      .then(({ configurationId, versionId, relatedVariations: variations, isPurchased }) =>
-        dispatch(themeVariationResponse({ configurationId, versionId, variations, isPurchased })))
+      .then(({ configurationId, versionId, relatedVariations: variations, isPurchased }) => {
+          dispatch(fetchThemeConfig(configurationId));
+          dispatch(themeVariationResponse({ configurationId, versionId, variations, isPurchased }));
+        })
       .catch( () => dispatch(themeVariationError())
     );
   };
+}
+
+export function updateThemeConfigChange(configChange: ThemeConfigChange) {
+  return (dispatch: Dispatch<State>) => {
+    return dispatch(themeConfigChange(configChange));
+  };
+
 }

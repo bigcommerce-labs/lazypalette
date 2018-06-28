@@ -7,7 +7,11 @@ const id = 'CheckboxTestId';
 
 it('renders', () => {
   const checkbox = shallow(
-    <CheckboxInput inputId={id} label="Label" />
+    <CheckboxInput
+        checked={true}
+        inputId={id}
+        label="Label"
+        name="show_accept_amex"/>
   );
   expect(checkbox).toMatchSnapshot();
 });

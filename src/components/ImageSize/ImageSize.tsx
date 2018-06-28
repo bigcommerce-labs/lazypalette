@@ -1,9 +1,10 @@
-import React, { Component, ChangeEvent } from 'react';
+import React, { Component } from 'react';
 
 import CustomSize from './CustomSize';
 import { ImageSizeModal } from './styles';
 
 import SelectBox from '../SelectBox/SelectBox';
+import { ThemeConfigChange } from '../../actions/theme';
 
 interface ImageSizeProps {
   label: string;
@@ -11,7 +12,9 @@ interface ImageSizeProps {
     label: string;
     value: string;
   }>;
-  selectedValue: string;
+  selected: string;
+  name: string;
+  onChange?(configChange: ThemeConfigChange): void;
 }
 
 interface ImageSizeState {
@@ -21,20 +24,25 @@ interface ImageSizeState {
 class ImageSize extends Component<ImageSizeProps, ImageSizeState, {}> {
   readonly state: ImageSizeState = { inputValue: '' };
 
-  handleChange = (e: ChangeEvent<HTMLSelectElement>) => this.setState({ inputValue: e.target.value });
+  handleChange = (configChange: any) => {
+    this.setState({ inputValue: configChange[name] });
+    this.props.onChange!(configChange);
+  };
 
   render() {
-    const { label, options, selectedValue } = this.props;
+    const { label, options, selected, name } = this.props;
 
     return (
       <ImageSizeModal>
         <SelectBox
           label={label}
           options={options}
-          selected={selectedValue}
-          onChange={this.handleChange} />
+          selected={selected}
+          onChange={this.handleChange}
+          name={name}
+        />
         {this.state.inputValue === 'custom' &&
-          <CustomSize defaultValue={selectedValue} />
+          <CustomSize defaultValue={selected} />
         }
       </ImageSizeModal>
     );
