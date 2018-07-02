@@ -11,7 +11,7 @@ import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ImageSize from '../ImageSize/ImageSize';
 import SelectBox from '../SelectBox/SelectBox';
 
-import { Heading, Item, List  } from './styles';
+import { Heading, Item, List } from './styles';
 
 export interface ThemeSettingsProps extends RouteComponentProps<{}> {
     settings: {};
@@ -40,7 +40,7 @@ function getEditor(
     switch (setting.type) {
         case 'color':
             return <ColorPicker
-                initialColor={preSetValue[`${setting.id}`]}
+                color={preSetValue[`${setting.id}`]}
                 label={setting.label}
                 onChange={handleChange}
                 name={setting.id!}

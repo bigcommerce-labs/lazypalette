@@ -2,20 +2,26 @@
 
 exports[`renders 1`] = `
 <styled.div>
-  <styled.label />
-  <styled.div
-    color="#000000"
-    onClick={[Function]}
+  <styled.label
+    htmlFor="blah"
+  />
+  <styled.input
+    id="blah"
+    onChange={[Function]}
+    value="#000000"
   />
 </styled.div>
 `;
 
 exports[`renders an initial color if provided 1`] = `
 <styled.div>
-  <styled.label />
-  <styled.div
-    color="#fff"
-    onClick={[Function]}
+  <styled.label
+    htmlFor="blah"
+  />
+  <styled.input
+    id="blah"
+    onChange={[Function]}
+    value="#fff"
   />
 </styled.div>
 `;

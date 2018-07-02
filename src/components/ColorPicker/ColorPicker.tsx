@@ -1,51 +1,41 @@
-import React, { Component } from 'react';
-import { ColorResult, SketchPicker } from 'react-color';
+import React, { ChangeEvent, PureComponent } from 'react';
+import uuid from 'uuid';
 
 import { ThemeConfigChange } from '../../actions/theme';
 
-import { Container, Label, SelectedColor, SketchPickerModal } from './styles';
+import { Container, Input, Label } from './styles';
 
 interface ColorPickerProps {
+    color?: string;
     label?: string;
-    initialColor?: string;
     name: string;
+    inputId?: string;
     onChange?(configChange: ThemeConfigChange): void;
 }
 
-interface ColorPickerState {
-    color: string;
-    displayColorPicker: boolean;
-}
-
-const defaultColor = '#000000';
-
-class ColorPicker extends Component<ColorPickerProps, ColorPickerState> {
-    readonly state: ColorPickerState = {
-        color: this.props.initialColor || defaultColor,
-        displayColorPicker: false,
+class ColorPicker extends PureComponent<ColorPickerProps, {}> {
+    static defaultProps = {
+        color: '#000000',
+        inputId: uuid(),
     };
 
-    handleClick = () => {
-        this.setState((prevState: ColorPickerState) => ({ displayColorPicker: !prevState.displayColorPicker }));
-    };
-
-    handleClose = () => this.setState({ displayColorPicker: false });
-
-    handleChange = (color: ColorResult) => {
-        this.setState({ color: color.hex });
-        this.props.onChange!({ [this.props.name]: color.hex });
+    handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (this.props.onChange !== undefined) {
+            this.props.onChange({ [this.props.name]: e.target.value });
+        }
     };
 
     render() {
+        const { inputId, label, color } = this.props;
+
         return (
             <Container>
-                <Label>{this.props.label}
-                    {this.state.displayColorPicker &&
-                    <SketchPickerModal>
-                        <SketchPicker color={this.state.color} onChange={this.handleChange}/>
-                    </SketchPickerModal>}
-                </Label>
-                <SelectedColor color={this.state.color} onClick={this.handleClick}/>
+                <Label htmlFor={inputId}>{label}</Label>
+                <Input
+                    id={inputId}
+                    value={color}
+                    onChange={this.handleChange}
+                />
             </Container>
         );
     }
