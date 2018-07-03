@@ -15,10 +15,12 @@ exports[`renders 1`] = `
           Array [
             Object {
               "image": "http://meow.wow.com/123.jpg",
+              "isActive": false,
               "name": "light",
             },
             Object {
               "image": "http://meow.wow.com/123.jpg",
+              "isActive": true,
               "name": "dark",
             },
           ]
