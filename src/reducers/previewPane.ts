@@ -1,37 +1,31 @@
-import { FluxStandardAction } from 'flux-standard-action';
-
-import { PreviewPaneActionTypes } from '../actions/previewPane';
+import { Action } from '../actions/action';
+import { PageSourceResponse, PreviewPaneActionTypes } from '../actions/previewPane';
 
 export const initialState = {
-    isError: false,
     isFetching: true,
     page: '/',
     pageSource: '',
 };
 
 export interface PreviewPaneState {
-    isError: boolean;
     isFetching: boolean;
-    page: string;
-    pageSource: string;
-}
-
-interface Payload {
     page: string;
     pageSource: string;
 }
 
 const previewPane = (
     state: PreviewPaneState = initialState,
-    action: FluxStandardAction<Payload>
+    action: Action
 ): PreviewPaneState => {
+    if (action.error) {
+        return state;
+    }
+
     switch (action.type) {
-        case PreviewPaneActionTypes.REQUEST_PAGE_SOURCE:
+        case PreviewPaneActionTypes.PAGE_SOURCE_REQUEST:
             return { ...state, ...action.payload, isFetching: true };
-        case PreviewPaneActionTypes.RECEIVE_PAGE_SOURCE:
-            return { ...state, ...action.payload, isFetching: false };
-        case PreviewPaneActionTypes.RECEIVE_PAGE_SOURCE_ERROR:
-            return { ...state, isError: true, isFetching: true };
+        case PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE:
+            return { ...state, ...action.payload as PageSourceResponse, isFetching: false };
         default:
             return state;
     }

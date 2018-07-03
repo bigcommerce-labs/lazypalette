@@ -1,46 +1,59 @@
-import { ErrorFluxStandardAction, FluxStandardAction } from 'flux-standard-action';
-import { Dispatch } from 'react-redux';
+import { Dispatch } from 'redux';
 
+import { State } from '../reducers/reducers';
 import * as api from '../services/previewPane';
 
+import { Action } from './action';
+
 export enum PreviewPaneActionTypes {
-    REQUEST_PAGE_SOURCE = 'REQUEST_PAGE_SOURCE',
-    RECEIVE_PAGE_SOURCE = 'RECEIVE_PAGE_SOURCE',
-    RECEIVE_PAGE_SOURCE_ERROR = 'RECEIVE_PAGE_SOURCE_ERROR',
+    PAGE_SOURCE_REQUEST = 'PAGE_SOURCE_REQUEST',
+    PAGE_SOURCE_RESPONSE = 'PAGE_SOURCE_RESPONSE',
 }
 
-export const requestPageSource = (page: string): FluxStandardAction<{
-page: string;
-}> => ({
-    payload: {
-        page,
-    },
-    type: PreviewPaneActionTypes.REQUEST_PAGE_SOURCE,
-});
+export interface PageSourceRequestAction extends Action  {
+    payload: PageSourceRequest;
+    type: PreviewPaneActionTypes.PAGE_SOURCE_REQUEST;
+}
 
-export const receivePageSource = (page: string, pageSource: string): FluxStandardAction<{
-page: string;
-pageSource: string;
-}> => ({
-    payload: {
-        page,
-        pageSource,
-    },
-    type: PreviewPaneActionTypes.RECEIVE_PAGE_SOURCE,
-});
+export interface PageSourceResponseAction extends Action  {
+    error: boolean;
+    payload: PageSourceResponse | Error;
+    type: PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE;
+}
 
-export const receivePageSourceError = (page: string, error: Error): ErrorFluxStandardAction<Error> => ({
-    error: true,
-    payload: error,
-    type: PreviewPaneActionTypes.RECEIVE_PAGE_SOURCE_ERROR,
-});
+export interface PageSourceRequest {
+    page: string;
+}
+
+export interface PageSourceResponse {
+    page: string;
+    pageSource: string;
+}
+
+export function pageSourceRequest(payload: PageSourceRequest): PageSourceRequestAction {
+    return {
+        payload,
+        type: PreviewPaneActionTypes.PAGE_SOURCE_REQUEST,
+    };
+}
+
+export function pageSourceResponse(
+    payload: PageSourceResponse | Error,
+    error: boolean = false
+): PageSourceResponseAction {
+    return {
+        error,
+        payload,
+        type: PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE,
+    };
+}
 
 export const fetchPageSource = (page: string) => {
-    return (dispatch: Dispatch<FluxStandardAction<{ page: string }> | ErrorFluxStandardAction<Error>>) => {
-        dispatch(requestPageSource(page));
+    return (dispatch: Dispatch<State>) => {
+        dispatch(pageSourceRequest({ page }));
 
         return api.requestPageSource(page)
-            .then((pageSource: string) => dispatch(receivePageSource(page, pageSource)))
-            .catch((error: Error) => dispatch(receivePageSourceError(page, error)));
+            .then((pageSource: string) => dispatch(pageSourceResponse({page, pageSource})))
+            .catch((error: Error) => dispatch(pageSourceResponse(error, true)));
     };
 };

@@ -2,7 +2,17 @@ import * as themeActions from '../actions/theme';
 
 import theme, {ThemeSchema, ThemeState, ThemeVariations} from './theme';
 
-it('handles current theme response', () => {
+const initialState: ThemeState = {
+    configurationId: '',
+    schema: [],
+    settings: {},
+    themeId: '',
+    variationId: '',
+    variations: [],
+    versionId: '',
+};
+
+describe('currentThemeResponse', () => {
     const themeVariations: ThemeVariations = [
         {
             configurationId: '123',
@@ -19,55 +29,51 @@ it('handles current theme response', () => {
         },
     ];
 
-    const action = themeActions.currentThemeResponse({
+    const payload = {
         configurationId: '123',
         themeId: '789',
         variationId: '012',
         variations: themeVariations,
         versionId: '456',
+    };
+
+    it('handles current theme response', () => {
+        const action = themeActions.currentThemeResponse(payload);
+
+        const expectedState: ThemeState = { ...initialState, ...{
+            configurationId: '123',
+            themeId: '789',
+            variationId: '012',
+            variations: themeVariations,
+            versionId: '456',
+        } };
+
+        expect(theme(initialState, action)).toEqual(expectedState);
     });
 
-    const expectedState: ThemeState = {
-        configurationId: '123',
-        schema: [],
-        settings: {},
-        themeId: '789',
-        variationId: '012',
-        variations: [{
-            configurationId: '123',
-            defaultConfigurationId: '234',
-            id: '567',
-            isCurrent: true,
-            screenshot: {
-                largePreview: 'host://meows/123.jpg',
-                largeThumb: 'host://meows/234.jpg',
-                smallThumb: 'host://meows/345.jpg',
-            },
-            themeId: '8900',
-            variationName: 'light',
-        }],
-        versionId: '456',
-    };
+    it('does not modify state when an error occurred', () => {
+        const action = themeActions.currentThemeResponse(payload, true);
 
-    expect(theme(undefined, action)).toEqual(expectedState);
+        expect(theme(initialState, action)).toEqual(initialState);
+    });
 });
 
-it('handles theme config response', () => {
-    const action = themeActions.themeConfigResponse({ settings: {}, storeHash: '123' });
-    const expectedState: ThemeState = {
-        configurationId: '',
-        schema: [],
-        settings: {},
-        themeId: '',
-        variationId: '',
-        variations: [],
-        versionId: '',
-    };
+describe('themeConfigResponse', () => {
+    it('handles theme config response', () => {
+        const action = themeActions.themeConfigResponse({ settings: { blah: 'blah' }, storeHash: '123' });
+        const expectedState: ThemeState = { ...initialState, ...{ settings: { blah: 'blah' } } };
 
-    expect(theme(undefined, action)).toEqual(expectedState);
+        expect(theme(initialState, action)).toEqual(expectedState);
+    });
+
+    it('does not modify state when an error occurred', () => {
+        const action = themeActions.themeConfigResponse({ settings: { blah: 'blah' }, storeHash: '123' }, true);
+
+        expect(theme(initialState, action)).toEqual(initialState);
+    });
 });
 
-it('handles theme version response', () => {
+describe('themeVersionResponse', () => {
     const themeSchema: ThemeSchema = [
         {
             name: 'forms',
@@ -85,16 +91,18 @@ it('handles theme version response', () => {
         },
     ];
 
-    const action = themeActions.themeVersionResponse({ editorSchema: themeSchema });
-    const expectedState: ThemeState = {
-        configurationId: '',
-        schema: themeSchema,
-        settings: {},
-        themeId: '',
-        variationId: '',
-        variations: [],
-        versionId: '',
-    };
+    const payload = { editorSchema: themeSchema };
 
-    expect(theme(undefined, action)).toEqual(expectedState);
+    it('handles theme version response', () => {
+        const action = themeActions.themeVersionResponse(payload);
+        const expectedState: ThemeState = { ...initialState, ...{ schema: themeSchema } };
+
+        expect(theme(initialState, action)).toEqual(expectedState);
+    });
+
+    it('does not modify state when an error occurred', () => {
+        const action = themeActions.themeVersionResponse(payload, true);
+
+        expect(theme(initialState, action)).toEqual(initialState);
+    });
 });
