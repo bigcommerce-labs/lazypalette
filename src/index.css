@@ -1,8 +1,10 @@
-html { font-size: 16px; }
+html {
+    font-size: 16px;
+}
 
 body {
-  background-color: #FFF;
-  margin: 0;
-  padding: 0;
-  font-family: "Source Sans Pro", Arial, sans-serif;
+    background-color: #FFF;
+    margin: 0;
+    padding: 0;
+    font-family: "Source Sans Pro", Arial, sans-serif;
 }

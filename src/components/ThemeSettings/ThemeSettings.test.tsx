@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { MemoryRouter, withRouter } from 'react-router';
+import { withRouter, MemoryRouter } from 'react-router';
 
 import { ThemeSettings } from './ThemeSettings';
 
@@ -111,11 +111,11 @@ it('renders', () => {
     const themeSettings = shallow(
         <MemoryRouter initialEntries={[ { pathname: '/', key: 'blah' } ]}>
             <WrappedThemeSettings
-                    settingsIndex={1}
-                    themeSettings={testItems}
-                    settings={settings}
-                    themeConfigChange={mockFetch}
-                    >
+                settingsIndex={1}
+                themeSettings={testItems}
+                settings={settings}
+                themeConfigChange={mockFetch}
+            >
             </WrappedThemeSettings>
         </MemoryRouter>
     );

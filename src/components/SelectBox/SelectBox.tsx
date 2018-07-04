@@ -1,7 +1,8 @@
-import React, { Component, ChangeEvent } from 'react';
+import React, { ChangeEvent, Component } from 'react';
+
+import { ThemeConfigChange } from '../../actions/theme';
 
 import { Container, Label, Select } from './styles';
-import { ThemeConfigChange } from '../../actions/theme';
 
 interface SelectBoxOption {
     label: string;
@@ -17,33 +18,33 @@ interface SelectBoxProps {
 }
 
 interface SelectBoxState {
-  selected: string | undefined;
+    selected: string | undefined;
 }
 
 class SelectBox extends Component<SelectBoxProps, SelectBoxState, {}> {
-  readonly state: SelectBoxState = { selected: this.props.selected };
+    readonly state: SelectBoxState = { selected: this.props.selected };
 
-  handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ selected: e.target.value });
-    this.props.onChange!({[this.props.name]: e.target.value});
-  };
+    handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        this.setState({ selected: e.target.value });
+        this.props.onChange!({ [this.props.name]: e.target.value });
+    };
 
-  render() {
-    const { label, options } = this.props;
+    render() {
+        const { label, options } = this.props;
 
-    return (
-      <Container>
-        <Label>{label}</Label>
-        <Select value={this.state.selected} onChange={this.handleChange}>
-          {options.map(({ value, label: optionLabel }) => (
-            <option key={value} label={optionLabel} value={value}>
-              {optionLabel}
-            </option>
-          ))}
-        </Select>
-      </Container>
-    );
-  }
+        return (
+            <Container>
+                <Label>{label}</Label>
+                <Select value={this.state.selected} onChange={this.handleChange}>
+                    {options.map(({ value, label: optionLabel }) => (
+                        <option key={value} label={optionLabel} value={value}>
+                            {optionLabel}
+                        </option>
+                    ))}
+                </Select>
+            </Container>
+        );
+    }
 }
 
 export default SelectBox;

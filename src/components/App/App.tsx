@@ -1,10 +1,10 @@
+import { ThemeProvider as PatternLabThemeProvider } from 'pattern-lab';
+import * as queryString from 'query-string';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import 'srcdoc-polyfill';
 import styled from 'styled-components';
-import * as queryString from 'query-string';
-import { ThemeProvider as PatternLabThemeProvider } from 'pattern-lab';
 
 import { fetchInitialState } from '../../actions/theme';
 
@@ -13,11 +13,11 @@ import PreviewPane from '../PreviewPane/PreviewPane';
 import SideMenu from '../SideMenu/SideMenu';
 
 interface AppProps extends RouteComponentProps<{}> {
-  config: {
-    assetPath: string;
-    storeHash: string;
-  };
-  fetchInitialState(storeHash: string, variationID: string): any;
+    config: {
+        assetPath: string;
+        storeHash: string;
+    };
+    fetchInitialState(storeHash: string, variationID: string): any;
 }
 
 const StyledApp = styled.div`
@@ -30,23 +30,23 @@ const StyledApp = styled.div`
 `;
 
 export class App extends Component<AppProps, {}> {
-  componentDidMount() {
-    const queryParams = queryString.parse(this.props.location.search);
-    const variationId = queryParams.variationId ? queryParams.variationId : '';
-    this.props.fetchInitialState(this.props.config.storeHash, variationId);
-  }
+    componentDidMount() {
+        const queryParams = queryString.parse(this.props.location.search);
+        const variationId = queryParams.variationId ? queryParams.variationId : '';
+        this.props.fetchInitialState(this.props.config.storeHash, variationId);
+    }
 
-  render() {
-    return (
-      <PatternLabThemeProvider>
-        <StyledApp>
-          <HeaderMenu />
-          <SideMenu />
-          <PreviewPane />
-        </StyledApp>
-      </PatternLabThemeProvider>
-    );
-  }
+    render() {
+        return (
+            <PatternLabThemeProvider>
+                <StyledApp>
+                    <HeaderMenu/>
+                    <SideMenu/>
+                    <PreviewPane/>
+                </StyledApp>
+            </PatternLabThemeProvider>
+        );
+    }
 }
 
 const mapDispatchToProps = {
