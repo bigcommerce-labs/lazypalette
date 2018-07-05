@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders 1`] = `
+exports[`<ImageSize /> test should render <SelectBox /> 1`] = `
 <styled.div>
   <SelectBox
     label="test"
@@ -9,16 +9,57 @@ exports[`renders 1`] = `
     options={
       Array [
         Object {
+          "label": "Original (as uploaded)",
+          "value": "original",
+        },
+        Object {
           "label": "Optimized for theme",
-          "value": "100x100",
+          "value": "250x100",
         },
         Object {
           "label": "Specify dimensions",
-          "value": "foo",
+          "value": "custom",
         },
       ]
     }
-    selected="foo"
+    selected="custom"
+  />
+  <CustomSize
+    defaultValue="foo"
+    name="test"
+    onChange={[Function]}
+  />
+</styled.div>
+`;
+
+exports[`<ImageSize /> test should render <SelectBox /> and <CustomSize /> components 1`] = `
+<styled.div>
+  <SelectBox
+    label="test"
+    name="test"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "label": "Original (as uploaded)",
+          "value": "original",
+        },
+        Object {
+          "label": "Optimized for theme",
+          "value": "250x100",
+        },
+        Object {
+          "label": "Specify dimensions",
+          "value": "custom",
+        },
+      ]
+    }
+    selected="custom"
+  />
+  <CustomSize
+    defaultValue="custom"
+    name="test"
+    onChange={[Function]}
   />
 </styled.div>
 `;

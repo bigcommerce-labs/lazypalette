@@ -3,17 +3,22 @@ import React from 'react';
 
 import ImageSize from './ImageSize';
 
-it('renders', () => {
+describe('<ImageSize /> test', () => {
     const testItems = [
         {
+            label: 'Original (as uploaded)',
+            value: 'original',
+        },
+        {
             label: 'Optimized for theme',
-            value: '100x100',
+            value: '250x100',
         },
         {
             label: 'Specify dimensions',
-            value: 'foo',
+            value: 'custom',
         },
     ];
+
     const imageSize = shallow(
         <ImageSize
             label="test"
@@ -23,5 +28,20 @@ it('renders', () => {
         />
     );
 
-    expect(imageSize).toMatchSnapshot();
+    const imageCustomSize = shallow(
+        <ImageSize
+            label="test"
+            options={testItems}
+            selected="custom"
+            name="test"
+        />
+    );
+
+    it('should render <SelectBox />', () => {
+        expect(imageSize).toMatchSnapshot();
+    });
+
+    it('should render <SelectBox /> and <CustomSize /> components', () => {
+        expect(imageCustomSize).toMatchSnapshot();
+    });
 });
