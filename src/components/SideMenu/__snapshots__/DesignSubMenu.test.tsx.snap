@@ -1,28 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders 1`] = `
-<SubMenu
-  currentPath="/design/logo"
-  items={
-    Array [
-      Object {
-        "label": "Logo and Store Name",
-        "path": "logo",
-      },
-      Object {
-        "label": "Store Theme",
-        "path": "theme",
-      },
-      Object {
-        "label": "fred",
-        "path": "style/0",
-      },
-      Object {
-        "label": "joe",
-        "path": "style/1",
-      },
-    ]
-  }
-  title="Design"
-/>
+<React.Fragment>
+  <SubMenu
+    currentPath="/design/logo"
+    items={
+      Array [
+        Object {
+          "label": "Logo and Store Name",
+          "path": "logo",
+        },
+        Object {
+          "label": "Store Theme",
+          "path": "theme",
+        },
+        Object {
+          "label": "fred",
+          "path": "style/0",
+        },
+        Object {
+          "label": "joe",
+          "path": "style/1",
+        },
+      ]
+    }
+    title="Design"
+  />
+  <ButtonInput
+    classType="primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Save
+  </ButtonInput>
+</React.Fragment>
 `;

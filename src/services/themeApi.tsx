@@ -1,6 +1,9 @@
 import Axios from 'axios';
 
+import { ThemeConfigPostData } from '../actions/theme';
+
 const configurationAPI = (configId: string) => `/internalapi/v1/themeeditor/configurations/${configId}`;
+const configurationPostAPI = '/internalapi/v1/themeeditor/configurations';
 const currentThemeAPI = '/internalapi/v1/sfm/currenttheme';
 const themeVersionAPI = (storeHash: string, versionId: string) =>
     `/admin/services/themes/stores/${storeHash}/versions/${versionId}`;
@@ -25,4 +28,9 @@ export function fetchThemeVersion(storeHash: string, versionId: string) {
 export function fetchVariation(storeHash: string, variationId: string) {
     return Axios.get(variationAPI(storeHash, variationId))
         .then(({ data: { data } }) => data);
+}
+
+export function postThemeConfig( configData: ThemeConfigPostData) {
+    return Axios.post(configurationPostAPI, configData)
+        .then(({data: { data }}) => data);
 }

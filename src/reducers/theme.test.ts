@@ -21,6 +21,8 @@ it('handles current theme response', () => {
 
     const action = themeActions.currentThemeResponse({
         configurationId: '123',
+        themeId: '789',
+        variationId: '012',
         variations: themeVariations,
         versionId: '456',
     });
@@ -28,6 +30,9 @@ it('handles current theme response', () => {
     const expectedState: ThemeState = {
         configurationId: '123',
         schema: [],
+        settings: {},
+        themeId: '789',
+        variationId: '012',
         variations: [{
             configurationId: '123',
             defaultConfigurationId: '234',
@@ -53,6 +58,8 @@ it('handles theme config response', () => {
         configurationId: '',
         schema: [],
         settings: {},
+        themeId: '',
+        variationId: '',
         variations: [],
         versionId: '',
     };
@@ -82,6 +89,9 @@ it('handles theme version response', () => {
     const expectedState: ThemeState = {
         configurationId: '',
         schema: themeSchema,
+        settings: {},
+        themeId: '',
+        variationId: '',
         variations: [],
         versionId: '',
     };

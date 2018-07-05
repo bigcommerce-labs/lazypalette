@@ -1,8 +1,6 @@
 import React, { ChangeEvent, PureComponent } from 'react';
 import uuid from 'uuid';
 
-import { ThemeConfigChange } from '../../actions/theme';
-
 import { Container, Input, Label } from './styles';
 
 interface ColorPickerProps {
@@ -10,7 +8,7 @@ interface ColorPickerProps {
     label?: string;
     name: string;
     inputId?: string;
-    onChange?(configChange: ThemeConfigChange): void;
+    onChange?(configChange: {[key: string]: string}): void;
 }
 
 class ColorPicker extends PureComponent<ColorPickerProps, {}> {

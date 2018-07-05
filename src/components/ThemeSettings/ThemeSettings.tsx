@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 
-import { themeConfigChange, ThemeConfigChange } from '../../actions/theme';
+import { themeConfigChange, SettingsType, ThemeConfigChange, ThemeConfigChangeAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
 import CheckboxInput from '../CheckboxInput/CheckboxInput';
@@ -14,10 +14,10 @@ import SelectBox from '../SelectBox/SelectBox';
 import { Heading, Item, List } from './styles';
 
 export interface ThemeSettingsProps extends RouteComponentProps<{}> {
-    settings: {};
+    settings: SettingsType;
     settingsIndex: number;
     themeSettings: ThemeSchemaEntry;
-    themeConfigChange(configChange: ThemeConfigChange): any;
+    themeConfigChange(configChange: ThemeConfigChange): ThemeConfigChangeAction;
 }
 
 function transformOptions(setting: ThemeSchemaEntrySetting) {
@@ -27,34 +27,30 @@ function transformOptions(setting: ThemeSchemaEntrySetting) {
     })) : [];
 }
 
-interface SettingsType {
-    [key: string]: string & number & boolean;
-}
-
 function getEditor(
     setting: ThemeSchemaEntrySetting,
     preSetValue: SettingsType,
-    handleChange: any
+    handleChange: (configChange: ThemeConfigChange) => void
 ) {
 
     switch (setting.type) {
         case 'color':
             return <ColorPicker
-                color={preSetValue[`${setting.id}`]}
+                color={preSetValue[`${setting.id}`] as string}
                 label={setting.label}
                 onChange={handleChange}
                 name={setting.id!}
             />;
         case 'checkbox':
             return <CheckboxInput
-                checked={preSetValue[`${setting.id}`]}
+                checked={preSetValue[`${setting.id}`] as boolean}
                 label={setting.label}
                 onChange={handleChange}
                 name={setting.id!}
             />;
         case 'font':
             return <SelectBox
-                selected={preSetValue[`${setting.id}`]}
+                selected={preSetValue[`${setting.id}`] as string}
                 label={setting.label}
                 onChange={handleChange}
                 name={setting.id!}
@@ -62,7 +58,7 @@ function getEditor(
             />;
         case 'imageDimension':
             return <ImageSize
-                selected={preSetValue[`${setting.id}`]}
+                selected={preSetValue[`${setting.id}`] as string}
                 label={setting.label || ''}
                 onChange={handleChange}
                 name={setting.id!}
@@ -70,7 +66,7 @@ function getEditor(
             />;
         case 'select':
             return <SelectBox
-                selected={preSetValue[`${setting.id}`]}
+                selected={preSetValue[`${setting.id}`] as string}
                 label={setting.label}
                 onChange={handleChange}
                 name={setting.id!}
@@ -116,12 +112,12 @@ const mapStateToProps = (state: State, ownProps: ThemeSettingsProps) => ({
 });
 
 interface StateFromProps {
-    settings: any;
+    settings: SettingsType;
     themeSettings: ThemeSchemaEntry;
 }
 
 interface ActionFromProps {
-    themeConfigChange(configChange: ThemeConfigChange): any;
+    themeConfigChange(configChange: ThemeConfigChange): ThemeConfigChangeAction;
 }
 
 const mapDispatchToProps = {

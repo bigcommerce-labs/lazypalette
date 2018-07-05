@@ -3,6 +3,7 @@ import * as queryString from 'query-string';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { Dispatch } from 'redux';
 import 'srcdoc-polyfill';
 import styled from 'styled-components';
 
@@ -12,12 +13,14 @@ import HeaderMenu from '../HeaderMenu/HeaderMenu';
 import PreviewPane from '../PreviewPane/PreviewPane';
 import SideMenu from '../SideMenu/SideMenu';
 
+import { State } from '../../reducers/reducers';
+
 interface AppProps extends RouteComponentProps<{}> {
     config: {
-        assetPath: string;
-        storeHash: string;
+      assetPath: string;
+      storeHash: string;
     };
-    fetchInitialState(storeHash: string, variationID: string): any;
+    fetchInitialState(storeHash: string, variationID: string): Dispatch<State>;
 }
 
 const StyledApp = styled.div`
