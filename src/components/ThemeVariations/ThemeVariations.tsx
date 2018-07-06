@@ -16,6 +16,7 @@ export interface ThemePropsList extends Array<StateProps> {}
 interface StateProps {
   image: string;
   name: string;
+  isActive: boolean;
 }
 
 const ThemeVariations = ({match, themeVariants}: ThemeVariationsProps) => (
@@ -31,8 +32,9 @@ const ThemeVariations = ({match, themeVariants}: ThemeVariationsProps) => (
 );
 
 const mapStateToProps = (state: State) => ({
-    themeVariants: state.theme.variations.map(({ screenshot, variationName }): StateProps => ({
+    themeVariants: state.theme.variations.map(({ screenshot, variationName, id }): StateProps => ({
         image: screenshot.smallThumb,
+        isActive: state.theme.variationId === id,
         name: variationName,
     })),
 });

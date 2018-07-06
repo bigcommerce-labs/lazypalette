@@ -9,10 +9,12 @@ it('renders', () => {
     const testItems = [
         {
             image: 'http://meow.wow.com/123.jpg',
+            isActive: false,
             name: 'light',
         },
         {
             image: 'http://meow.wow.com/123.jpg',
+            isActive: true,
             name: 'dark',
         },
     ];

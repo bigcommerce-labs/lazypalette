@@ -5,8 +5,8 @@ import { ThemePropsList } from './ThemeVariations';
 
 const ThemeModule = (props: {variants: ThemePropsList}) => (
     <List>
-        {props.variants.map(({name, image}) => (
-            <Item key={name}>
+        {props.variants.map(({name, image, isActive}) => (
+            <Item key={name} isActive={isActive}>
                 <Title>{name}</Title>
                 <Thumb previewPath={image} />
             </Item>

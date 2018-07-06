@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import { Theme } from 'pattern-lab';
+import styled, { StyledComponentClass } from 'styled-components';
 
 export const List = styled.ul`
     width: 56.25rem;
@@ -11,9 +12,19 @@ export const List = styled.ul`
     justify-content: space-around;
 `;
 
-export const Item = styled.li`
-    margin: .5rem 0;
+interface ItemProps {
+    isActive: boolean;
+    theme: Theme;
+}
+
+const selectedBackground = ({ theme, ...props }: ItemProps) => {
+    return props.isActive ? `background-color: ${theme.colors.selectedBackground}` : '';
+};
+
+export const Item: StyledComponentClass<any, any> = styled.li`
     cursor: pointer;
+    padding: 0.5rem;
+    ${(props: ItemProps) => selectedBackground(props)};
 `;
 
 export const Title = styled.div`
