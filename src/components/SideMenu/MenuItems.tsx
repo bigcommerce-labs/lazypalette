@@ -1,10 +1,11 @@
+import { Icon } from 'pattern-lab';
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import ThemeSettings from '../ThemeSettings/ThemeSettings';
 import ThemeVariations from '../ThemeVariations/ThemeVariations';
 
-import { activeClassName, NavItem, StyledMenuItems } from './styles';
+import { activeClassName, NavItem, StyledMenuItems, StyledMenuItemIcon } from './styles';
 
 interface MenuItem {
     label: string;
@@ -13,6 +14,7 @@ interface MenuItem {
 
 interface MenuItemsProps extends RouteComponentProps<{}> {
     items: MenuItem[];
+    showArrows?: boolean;
     currentPath: string;
 }
 
@@ -29,6 +31,10 @@ const ExpandMenuRoutes = ({ route }: { route: string }) => {
 };
 
 class MenuItems extends Component<MenuItemsProps, {}> {
+    defaultProps = {
+        showArrows: false,
+    };
+
     isPathActive = (path: string) => (
         this.props.location.pathname === `${this.props.currentPath}${path}`
     );
@@ -49,6 +55,11 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                             isActive={(match, location) => this.isPathActive(path)}
                             activeClassName={activeClassName}>
                             {label}
+                            {this.props.showArrows &&
+                                <StyledMenuItemIcon>
+                                    <Icon glyph="chevronRight" size="large" />
+                                </StyledMenuItemIcon>
+                            }
                         </NavItem>
                     </li>
                 ))}

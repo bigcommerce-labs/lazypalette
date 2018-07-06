@@ -2,7 +2,7 @@ import { theme } from 'pattern-lab';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-    margin: 0 .25rem;
+    margin: 0;
 `;
 
 interface ButtonProps {

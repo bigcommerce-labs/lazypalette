@@ -1,6 +1,7 @@
+import { Icon } from 'pattern-lab';
 import React from 'react';
 
-import { activeClassName, BackLink, NavItem } from './styles';
+import { activeClassName, BackLink, BackLinkIcon, NavItem } from './styles';
 import MenuItems from './MenuItems';
 
 interface SubMenuItem {
@@ -11,15 +12,21 @@ interface SubMenuItem {
 interface SubMenuProps {
     title: string;
     items?: SubMenuItem[];
+    showArrows?: boolean;
     currentPath: string;
 }
 
-const SubMenu = ({ currentPath, items = [], title }: SubMenuProps) => (
+const SubMenu = ({ currentPath, items = [], title, showArrows }: SubMenuProps) => (
     <div>
         <BackLink>
-            <NavItem to="/" exact activeClassName={activeClassName}>&lt; {title}</NavItem>
+            <NavItem to="/" exact activeClassName={activeClassName}>
+                <BackLinkIcon>
+                    <Icon glyph="chevronLeft" size="larger" />
+                </BackLinkIcon>
+                {title}
+            </NavItem>
         </BackLink>
-        <MenuItems items={items} currentPath={currentPath}/>
+        <MenuItems items={items} currentPath={currentPath} showArrows={showArrows}/>
     </div>
 );
 
