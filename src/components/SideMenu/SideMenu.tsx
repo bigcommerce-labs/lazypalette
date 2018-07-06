@@ -29,7 +29,7 @@ const items = [
         path: 'design',
     },
     {
-        label: 'Pages and Layout',
+        label: 'Pages',
         path: 'pages',
     },
     {
@@ -82,6 +82,7 @@ class SideMenu extends Component<SideMenuProps, {}> {
                         <MenuItems
                             items={items.map(({label, path}) => ({label, path}))}
                             currentPath={match.path}
+                            showArrows={true}
                         />
                     )}
                 />
@@ -100,7 +101,7 @@ class SideMenu extends Component<SideMenuProps, {}> {
                         key={route.path}
                         path={`/${route.path}/`}
                         render={({match}) => (
-                            <SubMenu title={route.submenu_title} currentPath={match.path}/>
+                            <SubMenu title={route.submenu_title} currentPath={match.path} showArrows={true}/>
                         )}
                     />
                 ))}
@@ -120,8 +121,8 @@ const mapStateToProps = (state: State) => {
     };
 };
 
-const mapDispathToProps = {
+const mapDispatchToProps = {
     postThemeConfigData,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispathToProps)(SideMenu));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SideMenu));

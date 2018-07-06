@@ -6,11 +6,11 @@ import SubMenu from './SubMenu';
 it('renders', () => {
     const testItems = [
         {
-            label: 'Logo and Store Name',
+            label: 'Logo and name',
             path: 'logo',
         },
         {
-            label: 'Store Theme',
+            label: 'Store theme',
             path: 'theme',
         },
     ];

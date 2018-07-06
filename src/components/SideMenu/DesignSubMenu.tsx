@@ -17,11 +17,11 @@ interface DesignSubMenuProps {
 
 const staticItems: MenuItem[] = [
     {
-        label: 'Logo and Store Name',
+        label: 'Logo and name',
         path: 'logo',
     },
     {
-        label: 'Store Theme',
+        label: 'Store theme',
         path: 'theme',
     },
 ];
@@ -47,6 +47,7 @@ class DesignSubMenu extends Component<DesignSubMenuProps> {
                     title="Design"
                     items={[...staticItems, ...getItems(this.props.sections)]}
                     currentPath={this.props.currentPath}
+                    showArrows={false}
                 />
                 <ButtonInput
                     onClick={this.handleSave}
@@ -54,7 +55,7 @@ class DesignSubMenu extends Component<DesignSubMenuProps> {
                     classType="primary"
                     type="button"
                 >
-                Save
+                    Save
                 </ButtonInput>
             </>
         );

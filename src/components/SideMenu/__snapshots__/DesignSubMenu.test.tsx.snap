@@ -7,11 +7,11 @@ exports[`renders 1`] = `
     items={
       Array [
         Object {
-          "label": "Logo and Store Name",
+          "label": "Logo and name",
           "path": "logo",
         },
         Object {
-          "label": "Store Theme",
+          "label": "Store theme",
           "path": "theme",
         },
         Object {
@@ -24,6 +24,7 @@ exports[`renders 1`] = `
         },
       ]
     }
+    showArrows={false}
     title="Design"
   />
   <ButtonInput

@@ -7,7 +7,12 @@ export const BackLink = styled.div`
     color: ${({ theme }) => theme.colors.primaryText};
     font-size: ${({ theme }) => theme.typography.fontSize.larger};
     margin-bottom: 1.75rem;
-    margin-left: 1.75rem;
+`;
+
+export const BackLinkIcon = styled.span`
+    float: left;
+    position: relative;
+    top: 0.25rem;
 `;
 
 interface NavProps {
@@ -23,7 +28,6 @@ export const NavItem = styled(NavLink)
         display: block;
         height: 2.25rem;
         overflow: hidden;
-        padding-left: .5rem;
         text-decoration: none;
 
         &:visited {
@@ -38,8 +42,10 @@ export const NavItem = styled(NavLink)
 
 export const StyledSideMenu = styled.nav`
     height: 100%;
-    padding-top: 1.75rem;
-    width: 13.5rem;
+    padding-top: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 9.5rem;
     background: ${({ theme }) => theme.colors.background};
 `;
 
@@ -47,8 +53,13 @@ export const StyledMenuItems = styled.ul`
     font-size: ${({ theme }) => theme.typography.fontSize.small};
     line-height: 2.25rem;
     list-style-type: none;
-    margin-left: 2.5rem;
     margin-top: 0;
     padding-left: 0;
     vertical-align: top;
+`;
+
+export const StyledMenuItemIcon = styled.span`
+    float: right;
+    position: relative;
+    top: 0.25rem;
 `;
