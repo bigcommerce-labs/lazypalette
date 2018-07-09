@@ -96,8 +96,9 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
             return { ...state, configurationId, variations, versionId, themeId, variationId };
         case ThemeActionTypes.THEME_CONFIG_RESPONSE:
             const { settings } = action.payload as ThemeConfigResponse;
+            const isChanged = false;
 
-            return { ...state, initialSettings: settings, settings };
+            return { ...state, initialSettings: settings, settings, isChanged };
         case ThemeActionTypes.THEME_VERSION_RESPONSE:
             const { editorSchema } = action.payload as ThemeVersionResponse;
 

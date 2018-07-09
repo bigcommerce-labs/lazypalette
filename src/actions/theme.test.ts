@@ -37,7 +37,6 @@ describe('theme actions', () => {
     it('should create a ThemeConfigResponse action', () => {
         const payload = {
             settings: {},
-            storeHash: '123',
         };
 
         const expectedAction = {

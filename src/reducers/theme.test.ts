@@ -65,7 +65,6 @@ describe('themeConfigResponse', () => {
     it('handles theme config response', () => {
         const action = themeActions.themeConfigResponse({
             settings: { blah: 'blah' },
-            storeHash: '123',
         });
         const expectedState: ThemeState = { ...initialState, ...{
             initialSettings: { blah: 'blah' },
@@ -76,7 +75,7 @@ describe('themeConfigResponse', () => {
     });
 
     it('does not modify state when an error occurred', () => {
-        const action = themeActions.themeConfigResponse({ settings: { blah: 'blah' }, storeHash: '123' }, true);
+        const action = themeActions.themeConfigResponse({ settings: { blah: 'blah' } }, true);
 
         expect(theme(initialState, action)).toEqual(initialState);
     });

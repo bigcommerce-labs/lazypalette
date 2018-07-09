@@ -61,7 +61,6 @@ export interface CurrentThemeResponse {
 
 export interface ThemeConfigResponse {
     settings: SettingsType;
-    storeHash: string;
 }
 
 export interface SettingsType {
@@ -176,37 +175,47 @@ export function fetchCurrentTheme() {
 export function fetchThemeConfig(configurationId: string) {
     return (dispatch: Dispatch<State>) => {
         return api.fetchThemeConfig(configurationId)
-            .then(({ storeHash, settings }) => dispatch(themeConfigResponse({ storeHash, settings })))
+            .then(({ settings }) => dispatch(themeConfigResponse({ settings })))
             .catch(error => dispatch(themeConfigResponse(error, true)));
     };
 }
 
-export function fetchThemeVersion(storeHash: string, versionId: string) {
-    return (dispatch: Dispatch<State>) => {
+export function fetchThemeVersion(versionId: string) {
+    return (dispatch: Dispatch<State>, getState: () => State) => {
+        const { storeHash } = getState().merchant;
+
         return api.fetchThemeVersion(storeHash, versionId)
             .then(({ editorSchema }) => dispatch(themeVersionResponse({ editorSchema })))
             .catch(error => dispatch(themeVersionResponse(error, true)));
     };
 }
 
+export function changeThemeVariation(variationId: string) {
+    return (dispatch: Dispatch<State>, getState: () => State) => {
+        return dispatch(fetchVariation(variationId))
+            .then(() => dispatch(fetchThemeData(getState().theme.versionId,
+                getState().theme.configurationId)));
+    };
+}
+
 export function fetchInitialState(storeHash: string, variationId: string) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
         if (variationId !== '') {
-            return dispatch(fetchVariation(storeHash, variationId))
-                .then(() => dispatch(fetchThemeData(storeHash,
-                    getState().theme.versionId,
+            return dispatch(fetchVariation(variationId))
+                .then(() => dispatch(fetchThemeData(getState().theme.versionId,
                     getState().theme.configurationId)));
         } else {
             return dispatch(fetchCurrentTheme())
-                .then(() => dispatch(fetchThemeData(storeHash,
-                    getState().theme.versionId,
+                .then(() => dispatch(fetchThemeData(getState().theme.versionId,
                     getState().theme.configurationId)));
         }
     };
 }
 
-export function fetchVariation(storeHash: string, variationId: string) {
-    return (dispatch: Dispatch<State>) => {
+export function fetchVariation(variationId: string) {
+    return (dispatch: Dispatch<State>, getState: () => State) => {
+        const { storeHash } = getState().merchant;
+
         return api.fetchVariation(storeHash, variationId)
             .then(({ configurationId, versionId, relatedVariations: variations, isPurchased, themeId }) => {
                 dispatch(themeVariationResponse({
@@ -243,8 +252,8 @@ export function postThemeConfigData(configData: ThemeConfigPostData): Dispatch<S
     };
 }
 
-export function fetchThemeData(storeHash: string, versionId: string, configurationId: string): Dispatch<State> {
+export function fetchThemeData(versionId: string, configurationId: string): Dispatch<State> {
     return (dispatch: Dispatch<State>) => Promise.all([
-        dispatch(fetchThemeVersion(storeHash, versionId)),
+        dispatch(fetchThemeVersion(versionId)),
         dispatch(fetchThemeConfig(configurationId))]);
 }
