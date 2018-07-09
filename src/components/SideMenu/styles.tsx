@@ -46,7 +46,6 @@ export const StyledSideMenu = styled.nav`
     padding-left: 2rem;
     padding-right: 2rem;
     width: 9.5rem;
-    background: ${({ theme }) => theme.colors.background};
 `;
 
 export const StyledMenuItems = styled.ul`
