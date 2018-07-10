@@ -38,7 +38,7 @@ class CustomSize extends PureComponent<CustomSizeProps, CustomSizeState> {
 
     render() {
         const { defaultValue } = this.props;
-        const dimensions = defaultValue ? defaultValue.split('x') : [];
+        const dimensions = defaultValue ? defaultValue.split('x') : [0, 0];
 
         return (
             <SizeModal>

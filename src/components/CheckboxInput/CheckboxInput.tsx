@@ -12,34 +12,42 @@ interface CheckboxInputProps {
 }
 
 interface CheckboxInputState {
-    inputId: string;
+    checked: boolean;
+    inputId?: string;
 }
 
-class CheckboxInput extends PureComponent<CheckboxInputProps, CheckboxInputState, {}> {
- readonly state: CheckboxInputState = {
-     inputId: this.props.inputId || uuid(),
- };
+class CheckboxInput extends PureComponent<CheckboxInputProps, CheckboxInputState> {
+    readonly state: CheckboxInputState = {
+        checked: this.props.checked || false,
+        inputId: this.props.inputId || uuid(),
+    };
 
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-      this.props.onChange!({[this.props.name]: e.target.checked});
-  };
+    componentDidUpdate(prevProps: CheckboxInputProps) {
+        if (this.props.checked !== prevProps.checked) {
+            this.setState({ checked: this.props.checked });
+        }
+    }
 
-  render() {
-      const { inputId } = this.state;
-      const { label, checked } = this.props;
+    handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        this.props.onChange!({[this.props.name]: e.target.checked});
+    };
 
-      return (
-          <Container>
-              <Input
-                  id={inputId}
-                  checked={checked}
-                  onChange={this.handleChange}
-              />
-              <Label htmlFor={inputId} />
-              <HiddenLabel>{label}</HiddenLabel>
-          </Container>
-      );
-  }
+    render() {
+        const { label } = this.props;
+        const { checked, inputId } = this.state;
+
+        return (
+            <Container>
+                <Input
+                    id={inputId}
+                    checked={checked}
+                    onChange={this.handleChange}
+                />
+                <Label htmlFor={inputId} />
+                <HiddenLabel>{label}</HiddenLabel>
+            </Container>
+        );
+    }
 }
 
 export default CheckboxInput;

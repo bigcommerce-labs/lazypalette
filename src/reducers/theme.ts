@@ -3,6 +3,7 @@ import {
     CurrentThemeResponse,
     SettingsType,
     ThemeActionTypes,
+    ThemeConfigPostResponse,
     ThemeConfigResponse,
     ThemeVariationResponse,
     ThemeVersionResponse
@@ -10,6 +11,8 @@ import {
 
 export interface ThemeState {
     configurationId: string;
+    initialSettings: SettingsType;
+    isChanged: boolean;
     variationId: string;
     schema: ThemeSchema;
     variations: ThemeVariations;
@@ -56,6 +59,8 @@ export interface ThemeVariationsEntry {
 
 const initialState: ThemeState = {
     configurationId: '',
+    initialSettings: {},
+    isChanged: false,
     schema: [],
     settings: {},
     themeId: '',
@@ -63,6 +68,12 @@ const initialState: ThemeState = {
     variations: [],
     versionId: '',
 };
+
+function isNotEqual(currentObj: {}, initialObj: {}) {
+    const objectKeys = Object.keys(currentObj);
+
+    return objectKeys.some(key => currentObj[key] !== initialObj[key]);
+}
 
 function theme(state: ThemeState = initialState, action: Action): ThemeState {
     if (action.error) {
@@ -85,15 +96,25 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
         case ThemeActionTypes.THEME_CONFIG_RESPONSE:
             const { settings } = action.payload as ThemeConfigResponse;
 
-            return { ...state, settings };
+            return { ...state, initialSettings: settings, settings };
         case ThemeActionTypes.THEME_VERSION_RESPONSE:
             const { editorSchema } = action.payload as ThemeVersionResponse;
 
             return { ...state, schema: [...editorSchema] };
         case ThemeActionTypes.THEME_CONFIG_CHANGE:
-            return { ...state, settings: { ...state.settings, ...action.payload } };
+            return {
+                ...state,
+                isChanged: isNotEqual(action.payload, state.initialSettings),
+                settings: { ...state.settings, ...action.payload },
+            };
         case ThemeActionTypes.POST_THEME_CONFIG_RESPONSE:
-            return { ...state };
+            const { settings: initialSettings } = action.payload as ThemeConfigPostResponse;
+
+            return {
+                ...state,
+                initialSettings,
+                isChanged: isNotEqual(state.settings, initialSettings),
+            };
         default:
             return state;
     }
