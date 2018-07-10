@@ -105,6 +105,11 @@ it('renders', () => {
                 label: 'Show Powered By',
                 type: 'checkbox',
             },
+            {
+                id: 'pdp-sale-price-label',
+                label: 'Product sale price label',
+                type: 'text',
+            },
         ],
     };
     const mockFetch = jest.fn();

@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import { InputField } from 'pattern-lab';
+import React, { ChangeEvent, Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
@@ -33,7 +34,6 @@ function getEditor(
     preSetValue: SettingsType,
     handleChange: (configChange: ThemeConfigChange) => void
 ) {
-
     switch (setting.type) {
         case 'color':
             return <ColorPicker
@@ -72,6 +72,12 @@ function getEditor(
                 onChange={handleChange}
                 name={setting.id!}
                 options={transformOptions(setting)}
+            />;
+        case 'text':
+            return <InputField
+                value={preSetValue[`${setting.id}`] as string}
+                label={setting.label}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange({[setting.id!]: e.target.value})}
             />;
         case 'heading':
             return <Heading>{setting.content}</Heading>;

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, PureComponent } from 'react';
 
-import InputField from '../InputField/InputField';
+import { InputField } from 'pattern-lab';
 
 import { Axis, SizeModal } from './styles';
 
@@ -38,17 +38,17 @@ class CustomSize extends PureComponent<CustomSizeProps, CustomSizeState> {
 
     render() {
         const { defaultValue } = this.props;
-        const dimensions = defaultValue ? defaultValue.split('x') : [0, 0];
+        const dimensions = defaultValue ? defaultValue.split('x') : ['0', '0'];
 
         return (
             <SizeModal>
                 {['width', 'height'].map((axis, i) => (
                     <Axis key={i}>
                         <InputField
-                            defaultValue={+dimensions[i]}
+                            value={dimensions[i]}
                             label={`Max ${axis}`}
                             required={true}
-                            type="number"
+                            pattern="^[0-9]*$"
                             onChange={e => this.onChange(e, axis)}
                         />
                     </Axis>
