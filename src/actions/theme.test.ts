@@ -1,4 +1,4 @@
-import * as themeActions from './theme';
+import * as themeActions from '../actions/theme';
 
 describe('theme actions', () => {
     it('should create a CurrentThemeResponse action', () => {
@@ -12,6 +12,7 @@ describe('theme actions', () => {
                     defaultConfigurationId: '234',
                     id: '567',
                     isCurrent: true,
+                    lastCommitId: '',
                     screenshot: {
                         largePreview: 'host://meows/123.jpg',
                         largeThumb: 'host://meows/234.jpg',

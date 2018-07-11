@@ -45,6 +45,7 @@ export interface ThemeVariationsEntry {
     defaultConfigurationId: string;
     id: string;
     isCurrent: boolean;
+    lastCommitId: string;
     screenshot: {
         largePreview: string;
         largeThumb: string;
