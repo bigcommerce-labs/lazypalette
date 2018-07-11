@@ -1,9 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders 1`] = `
+exports[`<HeaderMenu /> render() renders the component 1`] = `
 <styled.nav>
   <BCPrimaryLogo
     inverted={false}
+  />
+  <Component
+    isSelected={false}
+    onClick={[Function]}
+    viewportType={
+      Object {
+        "glyphName": "desktop",
+        "viewportHeight": "100%",
+        "viewportWidth": "100%",
+      }
+    }
+  />
+  <Component
+    isSelected={false}
+    onClick={[Function]}
+    viewportType={
+      Object {
+        "glyphName": "tablet",
+        "viewportHeight": "1024px",
+        "viewportWidth": "768px",
+      }
+    }
+  />
+  <Component
+    isSelected={false}
+    onClick={[Function]}
+    viewportType={
+      Object {
+        "glyphName": "mobile",
+        "viewportHeight": "480px",
+        "viewportWidth": "320px",
+      }
+    }
   />
 </styled.nav>
 `;
