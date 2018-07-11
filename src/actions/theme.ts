@@ -4,67 +4,50 @@ import { State } from '../reducers/reducers';
 import { ThemeSchema, ThemeVariations } from '../reducers/theme';
 import * as api from '../services/themeApi';
 
+import { Action } from './action';
+
 export enum ThemeActionTypes {
-    CURRENT_THEME_ERROR = 'CURRENT_THEME_ERROR',
     CURRENT_THEME_RESPONSE = 'CURRENT_THEME_RESPONSE',
-    THEME_CONFIG_ERROR = 'THEME_CONFIG_ERROR',
     THEME_CONFIG_RESPONSE = 'THEME_CONFIG_RESPONSE',
     THEME_CONFIG_CHANGE = 'THEME_CONFIG_CHANGE',
-    POST_THEME_CONFIG = 'POST_THEME_CONFIG',
-    POST_THEME_CONFIG_RESPONSE = 'POST_THEME_CONFIG_RESPONSE',
-    THEME_VERSION_ERROR = 'THEME_VERSION_ERROR',
     THEME_VERSION_RESPONSE = 'THEME_VERSION_RESPONSE',
     THEME_VARIATION_RESPONSE = 'THEME_VARIATION_RESPONSE',
-    THEME_VARIATION_ERROR = 'THEME_VARIATION_ERROR',
+    POST_THEME_CONFIG_RESPONSE = 'POST_THEME_CONFIG_RESPONSE',
 }
 
-export type ThemeAction =
-    | CurrentThemeResponseAction
-    | CurrentThemeErrorAction
-    | ThemeVersionResponseAction
-    | ThemeVersionErrorAction
-    | ThemeConfigResponseAction
-    | ThemeConfigErrorAction
-    | ThemeConfigChangeAction
-    | ThemeConfigPostAction
-    | ThemeVariationResponseAction
-    | ThemeVariationErrorAction;
-
-export interface CurrentThemeErrorAction {
-    type: ThemeActionTypes.CURRENT_THEME_ERROR;
-}
-
-export interface CurrentThemeResponseAction {
-    data: CurrentThemeResponse;
+export interface CurrentThemeResponseAction extends Action {
+    error: boolean;
+    payload: CurrentThemeResponse | Error;
     type: ThemeActionTypes.CURRENT_THEME_RESPONSE;
 }
 
-export interface ThemeConfigErrorAction {
-    type: ThemeActionTypes.THEME_CONFIG_ERROR;
-}
-
-export interface ThemeConfigResponseAction {
-    data: ThemeConfigResponse;
+export interface ThemeConfigResponseAction extends Action  {
+    error: boolean;
+    payload: ThemeConfigResponse | Error;
     type: ThemeActionTypes.THEME_CONFIG_RESPONSE;
 }
 
-export interface ThemeConfigChangeAction {
-    data: ThemeConfigChange;
+export interface ThemeConfigChangeAction extends Action  {
+    payload: ThemeConfigChange;
     type: ThemeActionTypes.THEME_CONFIG_CHANGE;
 }
 
-export interface ThemeConfigPostAction {
-    data: ThemeConfigPostResponse;
+export interface ThemeConfigPostAction extends Action  {
+    error: boolean;
+    payload: ThemeConfigPostResponse | Error;
     type: ThemeActionTypes.POST_THEME_CONFIG_RESPONSE;
 }
 
-export interface ThemeVersionErrorAction {
-    type: ThemeActionTypes.THEME_VERSION_ERROR;
+export interface ThemeVersionResponseAction extends Action  {
+    error: boolean;
+    payload: ThemeVersionResponse | Error;
+    type: ThemeActionTypes.THEME_VERSION_RESPONSE;
 }
 
-export interface ThemeVersionResponseAction {
-    data: ThemeVersionResponse;
-    type: ThemeActionTypes.THEME_VERSION_RESPONSE;
+export interface ThemeVariationResponseAction extends Action  {
+    error: boolean;
+    payload: ThemeVariationResponse | Error;
+    type: ThemeActionTypes.THEME_VARIATION_RESPONSE;
 }
 
 export interface CurrentThemeResponse {
@@ -73,15 +56,6 @@ export interface CurrentThemeResponse {
     themeId: string;
     variations: ThemeVariations;
     versionId: string;
-}
-
-export interface ThemeVariationResponseAction {
-    data: ThemeVariationResponse;
-    type: ThemeActionTypes.THEME_VARIATION_RESPONSE;
-}
-
-export interface ThemeVariationErrorAction {
-    type: ThemeActionTypes.THEME_VARIATION_ERROR;
 }
 
 export interface ThemeConfigResponse {
@@ -125,83 +99,75 @@ export interface ThemeVariationResponse {
     isPurchased: boolean;
 }
 
-export function currentThemeResponse(data: CurrentThemeResponse): CurrentThemeResponseAction {
+export function currentThemeResponse(
+    payload: CurrentThemeResponse | Error,
+    error: boolean = false
+): CurrentThemeResponseAction {
     return {
-        data,
+        error,
+        payload,
         type: ThemeActionTypes.CURRENT_THEME_RESPONSE,
     };
 }
 
-export function currentThemeError(): CurrentThemeErrorAction {
+export function themeConfigResponse(
+    payload: ThemeConfigResponse | Error,
+    error: boolean = false
+): ThemeConfigResponseAction {
     return {
-        type: ThemeActionTypes.CURRENT_THEME_ERROR,
-    };
-}
-
-export function themeConfigResponse(data: ThemeConfigResponse): ThemeConfigResponseAction {
-    return {
-        data,
+        error,
+        payload,
         type: ThemeActionTypes.THEME_CONFIG_RESPONSE,
     };
 }
 
-export function themeConfigError(): ThemeConfigErrorAction {
+export function themeConfigChange(payload: ThemeConfigChange): ThemeConfigChangeAction {
     return {
-        type: ThemeActionTypes.THEME_CONFIG_ERROR,
-    };
-}
-
-export function themeConfigChange(data: ThemeConfigChange): ThemeConfigChangeAction {
-    return {
-        data,
+        payload,
         type: ThemeActionTypes.THEME_CONFIG_CHANGE,
     };
 }
 
-export function themeConfigPostResponse(data: ThemeConfigPostResponse): ThemeConfigPostAction {
+export function themeConfigPostResponse(
+    payload: ThemeConfigPostResponse | Error,
+    error: boolean = false
+): ThemeConfigPostAction {
     return {
-        data,
+        error,
+        payload,
         type: ThemeActionTypes.POST_THEME_CONFIG_RESPONSE,
     };
 }
 
-export function themeVersionResponse(data: ThemeVersionResponse): ThemeVersionResponseAction {
+export function themeVersionResponse(
+    payload: ThemeVersionResponse | Error,
+    error: boolean = false
+): ThemeVersionResponseAction {
     return {
-        data,
+        error,
+        payload,
         type: ThemeActionTypes.THEME_VERSION_RESPONSE,
     };
 }
 
-export function themeVersionError(): ThemeVersionErrorAction {
+export function themeVariationResponse(
+    payload: ThemeVariationResponse,
+    error: boolean = false
+): ThemeVariationResponseAction {
     return {
-        type: ThemeActionTypes.THEME_VERSION_ERROR,
-    };
-}
-
-export function themeVariationResponse(data: ThemeVariationResponse): ThemeVariationResponseAction {
-    return {
-        data,
+        error,
+        payload,
         type: ThemeActionTypes.THEME_VARIATION_RESPONSE,
-    };
-}
-
-export function themeVariationError(): ThemeVariationErrorAction {
-    return {
-        type: ThemeActionTypes.THEME_VARIATION_ERROR,
     };
 }
 
 export function fetchCurrentTheme() {
     return (dispatch: Dispatch<State>) => {
         return api.fetchCurrentTheme()
-            .then(({ configurationId,
-                versionId,
-                relatedVariations: variations,
-                themeId,
-                id: variationId }) => {
+            .then(({ configurationId, versionId, relatedVariations: variations, themeId, id: variationId }) => {
                 dispatch(currentThemeResponse({ configurationId, versionId, variations, themeId, variationId }));
             })
-            .catch(() => dispatch(currentThemeError()));
+            .catch(error => dispatch(currentThemeResponse(error, true)));
     };
 }
 
@@ -209,7 +175,7 @@ export function fetchThemeConfig(configurationId: string) {
     return (dispatch: Dispatch<State>) => {
         return api.fetchThemeConfig(configurationId)
             .then(({ storeHash, settings }) => dispatch(themeConfigResponse({ storeHash, settings })))
-            .catch(() => dispatch(themeConfigError()));
+            .catch(error => dispatch(themeConfigResponse(error, true)));
     };
 }
 
@@ -217,7 +183,7 @@ export function fetchThemeVersion(storeHash: string, versionId: string) {
     return (dispatch: Dispatch<State>) => {
         return api.fetchThemeVersion(storeHash, versionId)
             .then(({ editorSchema }) => dispatch(themeVersionResponse({ editorSchema })))
-            .catch(() => dispatch(themeVersionError()));
+            .catch(error => dispatch(themeVersionResponse(error, true)));
     };
 }
 
@@ -240,27 +206,17 @@ export function fetchInitialState(storeHash: string, variationId: string) {
 export function fetchVariation(storeHash: string, variationId: string) {
     return (dispatch: Dispatch<State>) => {
         return api.fetchVariation(storeHash, variationId)
-            .then(({ configurationId,
-                versionId,
-                relatedVariations: variations,
-                isPurchased,
-                themeId,
-            }) => {
-                dispatch(themeVariationResponse({ configurationId,
+            .then(({ configurationId, versionId, relatedVariations: variations, isPurchased, themeId }) => {
+                dispatch(themeVariationResponse({
+                    configurationId,
                     isPurchased,
                     themeId,
                     variationId,
                     variations,
-                    versionId}));
+                    versionId,
+                }));
             })
-            .catch( () => dispatch(themeVariationError())
-            );
-    };
-}
-
-export function updateThemeConfigChange(configChange: ThemeConfigChange) {
-    return (dispatch: Dispatch<State>) => {
-        return dispatch(themeConfigChange(configChange));
+            .catch(error => dispatch(themeVariationResponse(error, true)));
     };
 }
 
@@ -269,7 +225,8 @@ export function postThemeConfigData(configData: ThemeConfigPostData): Dispatch<S
         return api.postThemeConfig(configData)
             .then(({ configurationId }) => {
                 dispatch(themeConfigPostResponse(configurationId));
-            });
+            })
+            .catch(error => dispatch(themeConfigPostResponse(error, true)));
     };
 }
 

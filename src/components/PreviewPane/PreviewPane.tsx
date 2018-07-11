@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { clearErrors } from '../../actions/error';
 import { fetchPageSource } from '../../actions/previewPane';
 import { State } from '../../reducers/reducers';
 import { WindowService } from '../../services/window';
@@ -10,11 +11,12 @@ import { PreviewPaneContainer, PreviewPaneIframe } from './styles';
 import { IndicatorBoundary } from './IndicatorBoundary';
 
 interface PreviewPaneProps {
-    isError: boolean;
+    errors: Error[];
     isFetching: boolean;
     page: string;
     pageSource: string;
     loadPage(page: string): void;
+    clearErrors(): void;
 }
 
 class PreviewPane extends PureComponent<PreviewPaneProps> {
@@ -46,9 +48,12 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
     }
 }
 
-const mapStateToProps = (state: State): Partial<PreviewPaneProps> => state.previewPane;
+const mapStateToProps = (state: State): Partial<PreviewPaneProps> => {
+    return { ...state.previewPane, ...{ errors: state.error.errors } };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch): Partial<PreviewPaneProps> => bindActionCreators({
+    clearErrors,
     loadPage: fetchPageSource,
 }, dispatch);
 

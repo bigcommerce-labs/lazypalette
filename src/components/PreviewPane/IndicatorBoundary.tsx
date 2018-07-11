@@ -5,13 +5,14 @@ import { LoadingIndicator } from '../LoadingIndicator/LoadingIndicator';
 
 interface IndicatorBoundaryProps {
     children: JSX.Element;
-    isError: boolean;
+    errors: Error[];
     isFetching: boolean;
+    clearErrors(): void;
 }
 
 export const IndicatorBoundary: SFC = (props: IndicatorBoundaryProps): JSX.Element => {
-    if (props.isError) {
-        return <ErrorIndicator/>;
+    if (props.errors.length > 0) {
+        return <ErrorIndicator errors={props.errors} clearErrors={props.clearErrors} />;
     } else if (props.isFetching) {
         return <LoadingIndicator/>;
     } else {

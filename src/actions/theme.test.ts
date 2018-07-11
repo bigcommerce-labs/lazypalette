@@ -2,7 +2,7 @@ import * as themeActions from './theme';
 
 describe('theme actions', () => {
     it('should create a CurrentThemeResponse action', () => {
-        const data: themeActions.CurrentThemeResponse = {
+        const payload = {
             configurationId: '123',
             themeId: '789',
             variationId: '012',
@@ -24,46 +24,32 @@ describe('theme actions', () => {
             versionId: '456',
         };
 
-        const expectedAction: themeActions.CurrentThemeResponseAction = {
-            data,
+        const expectedAction = {
+            error: false,
+            payload,
             type: themeActions.ThemeActionTypes.CURRENT_THEME_RESPONSE,
         };
 
-        expect(themeActions.currentThemeResponse(data)).toEqual(expectedAction);
-    });
-
-    it('should create a CurrentThemeError action', () => {
-        const expectedAction: themeActions.CurrentThemeErrorAction = {
-            type: themeActions.ThemeActionTypes.CURRENT_THEME_ERROR,
-        };
-
-        expect(themeActions.currentThemeError()).toEqual(expectedAction);
+        expect(themeActions.currentThemeResponse(payload)).toEqual(expectedAction);
     });
 
     it('should create a ThemeConfigResponse action', () => {
-        const data: themeActions.ThemeConfigResponse = {
+        const payload = {
             settings: {},
             storeHash: '123',
         };
 
-        const expectedAction: themeActions.ThemeConfigResponseAction = {
-            data,
+        const expectedAction = {
+            error: false,
+            payload,
             type: themeActions.ThemeActionTypes.THEME_CONFIG_RESPONSE,
         };
 
-        expect(themeActions.themeConfigResponse(data)).toEqual(expectedAction);
-    });
-
-    it('should create a ThemeConfigError action', () => {
-        const expectedAction: themeActions.ThemeConfigErrorAction = {
-            type: themeActions.ThemeActionTypes.THEME_CONFIG_ERROR,
-        };
-
-        expect(themeActions.themeConfigError()).toEqual(expectedAction);
+        expect(themeActions.themeConfigResponse(payload)).toEqual(expectedAction);
     });
 
     it('should create a ThemeVersionResponse action', () => {
-        const data: themeActions.ThemeVersionResponse = {
+        const payload = {
             editorSchema: [
                 {
                     name: 'forms',
@@ -82,20 +68,13 @@ describe('theme actions', () => {
             ],
         };
 
-        const expectedAction: themeActions.ThemeVersionResponseAction = {
-            data,
+        const expectedAction = {
+            error: false,
+            payload,
             type: themeActions.ThemeActionTypes.THEME_VERSION_RESPONSE,
         };
 
-        expect(themeActions.themeVersionResponse(data)).toEqual(expectedAction);
-    });
-
-    it('should create a ThemeVersionError action', () => {
-        const expectedAction: themeActions.ThemeVersionErrorAction = {
-            type: themeActions.ThemeActionTypes.THEME_VERSION_ERROR,
-        };
-
-        expect(themeActions.themeVersionError()).toEqual(expectedAction);
+        expect(themeActions.themeVersionResponse(payload)).toEqual(expectedAction);
     });
 
 });
