@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders 1`] = `
+exports[`<InputField>  renders 1`] = `
 <styled.div>
   <InputFieldLabel
     htmlFor="InputTestId"
@@ -20,7 +20,7 @@ exports[`renders 1`] = `
 </styled.div>
 `;
 
-exports[`renders a valid state 1`] = `
+exports[`<InputField>  renders a valid state 1`] = `
 <styled.div>
   <InputFieldLabel
     htmlFor="InputTestId"
@@ -42,7 +42,7 @@ exports[`renders a valid state 1`] = `
 </styled.div>
 `;
 
-exports[`renders an invalid state 1`] = `
+exports[`<InputField>  renders an invalid state 1`] = `
 <styled.div>
   <InputFieldLabel
     htmlFor="InputTestId"
@@ -61,5 +61,32 @@ exports[`renders an invalid state 1`] = `
     status={0}
     warning={false}
   />
+</styled.div>
+`;
+
+exports[`<InputField>  renders the note 1`] = `
+<styled.div>
+  <InputFieldLabel
+    htmlFor="InputTestId"
+  >
+    Name your version
+  </InputFieldLabel>
+  <styled.input
+    defaultValue="adlkfj"
+    disabled={false}
+    id="InputTestId"
+    onBlur={[Function]}
+    onChange={[Function]}
+    pattern="abc"
+    readonly={false}
+    required={false}
+    status={0}
+    warning={false}
+  />
+  <Styled(SmallRaw)
+    required={false}
+  >
+    A simple note
+  </Styled(SmallRaw)>
 </styled.div>
 `;
