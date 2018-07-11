@@ -1,9 +1,7 @@
 import React, { ChangeEvent, Component } from 'react';
-import { Dispatch } from 'redux';
 import uuid from 'uuid';
 
 import { ThemeConfigChange } from '../../actions/theme';
-import { State } from '../../reducers/reducers';
 import { uploadImage } from '../../services/optimizedCheckout';
 import { LoadingIndicator } from '../LoadingIndicator/LoadingIndicator';
 
@@ -21,7 +19,7 @@ export interface CheckoutImageUploadProps {
     inputId?: string;
     label: string;
     name: string;
-    onChange(configChange: ThemeConfigChange): Dispatch<State>;
+    onChange(configChange: ThemeConfigChange): void;
 }
 
 interface CheckoutImageUploadState {
@@ -40,7 +38,7 @@ class CheckoutImageUpload extends Component<CheckoutImageUploadProps, CheckoutIm
     };
 
     broadcastImageChange = (imageURL: string) => {
-        this.props.onChange({ [this.props.name]: imageURL });
+        this.props.onChange({ setting: { type: this.props.name }, value: imageURL });
     };
 
     clearInput = (callback?: () => void) => {

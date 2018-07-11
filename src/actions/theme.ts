@@ -1,11 +1,12 @@
 import {Dispatch} from 'redux';
 
 import { State } from '../reducers/reducers';
-import { ThemeSchema, ThemeVariations } from '../reducers/theme';
+import { ThemeSchema, ThemeSchemaEntrySetting, ThemeVariations } from '../reducers/theme';
 import * as api from '../services/themeApi';
 
 import { Action } from './action';
 import { ConfigUpdateAction } from './constants';
+import { updateFonts } from './previewPane';
 
 export enum ThemeActionTypes {
     CURRENT_THEME_RESPONSE = 'CURRENT_THEME_RESPONSE',
@@ -97,7 +98,8 @@ export interface SettingsType {
 }
 
 export interface ThemeConfigChange {
-    [key: string]: string | boolean | number;
+    setting: ThemeSchemaEntrySetting;
+    value: string | boolean | number;
 }
 
 export interface ThemeConfigPostResponse {
@@ -335,6 +337,10 @@ export function fetchVariation(variationId: string) {
 export function updateThemeConfigChange(configChange: ThemeConfigChange) {
     return (dispatch: Dispatch<State>) => {
         dispatch(themeConfigChange(configChange));
+
+        if (configChange.setting.type === 'font') {
+            dispatch(updateFonts(configChange));
+        }
 
         return dispatch(postThemeConfigData(ConfigUpdateAction.PREVIEW));
     };

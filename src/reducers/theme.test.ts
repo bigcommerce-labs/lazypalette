@@ -244,7 +244,11 @@ describe('Action not in the ThemeActionTypes', () => {
 
 describe('themeConfigChange', () => {
     const payload: ThemeConfigChange = {
-        'primary-font': 'meow',
+        setting: {
+            id: 'primary-font',
+            type: 'font',
+        },
+        value: 'meow',
     };
 
     it('should add the value to settings', () => {
@@ -260,19 +264,20 @@ describe('themeConfigChange', () => {
     });
 
     describe('when no changes', () => {
-        const payloadNew: ThemeConfigChange = {
-        };
+        it('the isChanged remains false', () => {
+            const firstAction = themeActions.themeConfigChange(payload);
+            const secondAction = themeActions.themeConfigChange(payload);
+            const secondState = theme(initialState, firstAction);
 
-        it(' the isChanged remains false', () => {
-            const action = themeActions.themeConfigChange(payloadNew);
-
-            const expectedState: ThemeState = {
+            expect(secondState).toEqual({
                 ...initialState,
+                isChanged: true,
+                settings: {'primary-font': 'meow'},
+            });
+            expect(theme(secondState, secondAction)).toEqual({
+                ...secondState,
                 isChanged: false,
-                settings: {},
-            };
-
-            expect(theme(initialState, action)).toEqual(expectedState);
+            });
         });
     });
 });

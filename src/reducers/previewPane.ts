@@ -2,8 +2,10 @@ import { Action } from '../actions/action';
 import { PageSourceResponse, PreviewPaneActionTypes } from '../actions/previewPane';
 import { VIEWPORT_TYPES } from '../components/PreviewPane/constants';
 import { ViewportType } from '../components/PreviewPane/PreviewPane';
+import { parseFont } from '../services/previewPane';
 
 export const initialState = {
+    fontUrl: null,
     isFetching: true,
     isRotated: false,
     page: '/',
@@ -23,6 +25,7 @@ export interface ThemePreviewConfig {
 }
 
 export interface PreviewPaneState {
+    fontUrl: string | null;
     isFetching: boolean;
     isRotated: boolean;
     page: string;
@@ -44,6 +47,8 @@ const previewPane = (
             return { ...state, ...action.payload, isFetching: true };
         case PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE:
             return { ...state, ...action.payload as PageSourceResponse, isFetching: false };
+        case PreviewPaneActionTypes.THEME_FONT_CHANGE:
+            return { ...state, ...{ fontUrl: parseFont(action.payload.value) } };
         case PreviewPaneActionTypes.THEME_PREVIEW_CONFIG_REQUEST:
             return {
                 ...state,
