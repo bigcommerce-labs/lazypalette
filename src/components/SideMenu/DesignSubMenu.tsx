@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import ButtonInput from '../ButtonInput/ButtonInput';
 
+import { DesignMenuButtons } from './styles';
 import SubMenu from './SubMenu';
 
 interface MenuItem {
@@ -12,7 +13,9 @@ interface MenuItem {
 interface DesignSubMenuProps {
     sections: string[];
     currentPath: string;
-    handleSave?(): void;
+    isChanged: boolean;
+    handleSave(): void;
+    handleReset(): void;
 }
 
 const staticItems: MenuItem[] = [
@@ -35,28 +38,38 @@ const getItems = (sections: string[]) => {
     ));
 };
 
-class DesignSubMenu extends Component<DesignSubMenuProps> {
-    handleSave = () => {
-        this.props.handleSave!();
-    };
+class DesignSubMenu extends PureComponent<DesignSubMenuProps> {
+    handleSave = () => this.props.handleSave();
+
+    handleReset = () => this.props.handleReset();
 
     render() {
+        const { currentPath, isChanged } = this.props;
+
         return (
             <>
                 <SubMenu
                     title="Design"
                     items={[...staticItems, ...getItems(this.props.sections)]}
-                    currentPath={this.props.currentPath}
+                    currentPath={currentPath}
                     showArrows={false}
                 />
-                <ButtonInput
-                    onClick={this.handleSave}
-                    disabled={false}
-                    classType="primary"
-                    type="button"
-                >
-                    Save
-                </ButtonInput>
+                <DesignMenuButtons>
+                    <ButtonInput
+                        onClick={this.handleSave}
+                        classType="primary"
+                        type="button"
+                    >
+                        Save
+                    </ButtonInput>
+                    <ButtonInput
+                        onClick={this.handleReset}
+                        disabled={!isChanged}
+                        type="button"
+                    >
+                        Reset
+                    </ButtonInput>
+                </DesignMenuButtons>
             </>
         );
     }

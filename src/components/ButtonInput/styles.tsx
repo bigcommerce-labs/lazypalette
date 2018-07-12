@@ -23,6 +23,21 @@ export const Button = styled.button.attrs<ButtonProps>({})`
         return `
             background-color: ${isPrimary ? theme.colors.primary : '#FFF'};
             color: ${isPrimary ? '#FFF' : theme.colors.primary};
+
+            :hover {
+                background-color: ${isPrimary ? theme.colors.brandPrimary : theme.colors.background};
+                border-color: ${isPrimary ? theme.colors.brandPrimary : theme.colors.primary};
+            }
+
+            :focus {
+                outline: none !important;
+            }
+
+            :disabled {
+                background-color: ${isPrimary ? theme.colors.primary : '#FFF'};
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
         `;
     }}
 `;
