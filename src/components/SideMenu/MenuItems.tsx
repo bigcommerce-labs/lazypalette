@@ -31,7 +31,7 @@ const ExpandMenuRoutes = ({ route }: { route: string }) => {
 };
 
 class MenuItems extends Component<MenuItemsProps, {}> {
-    defaultProps = {
+    static defaultProps = {
         showArrows: false,
     };
 

@@ -74,6 +74,7 @@ export interface ThemeConfigChange {
 
 export interface ThemeConfigPostResponse {
     configurationId: string;
+    settings: {};
 }
 
 export interface ThemeConfigPostData {
@@ -231,7 +232,12 @@ export function postThemeConfigData(configData: ThemeConfigPostData): Dispatch<S
     return (dispatch: Dispatch<State>) => {
         return api.postThemeConfig(configData)
             .then(({ configurationId }) => {
-                dispatch(themeConfigPostResponse(configurationId));
+                const { settings } = configData;
+
+                dispatch(themeConfigPostResponse({
+                    configurationId,
+                    settings,
+                }));
             })
             .catch(error => dispatch(themeConfigPostResponse(error, true)));
     };

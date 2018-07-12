@@ -4,6 +4,8 @@ import theme, {ThemeSchema, ThemeState, ThemeVariations} from './theme';
 
 const initialState: ThemeState = {
     configurationId: '',
+    initialSettings: {},
+    isChanged: false,
     schema: [],
     settings: {},
     themeId: '',
@@ -61,8 +63,14 @@ describe('currentThemeResponse', () => {
 
 describe('themeConfigResponse', () => {
     it('handles theme config response', () => {
-        const action = themeActions.themeConfigResponse({ settings: { blah: 'blah' }, storeHash: '123' });
-        const expectedState: ThemeState = { ...initialState, ...{ settings: { blah: 'blah' } } };
+        const action = themeActions.themeConfigResponse({
+            settings: { blah: 'blah' },
+            storeHash: '123',
+        });
+        const expectedState: ThemeState = { ...initialState, ...{
+            initialSettings: { blah: 'blah' },
+            settings: { blah: 'blah' },
+        } };
 
         expect(theme(initialState, action)).toEqual(expectedState);
     });
