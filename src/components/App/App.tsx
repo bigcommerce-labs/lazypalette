@@ -7,6 +7,7 @@ import { Dispatch } from 'redux';
 import 'srcdoc-polyfill';
 import styled from 'styled-components';
 
+import { setStoreData } from '../../actions/merchant';
 import { fetchInitialState } from '../../actions/theme';
 
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
@@ -21,6 +22,7 @@ interface AppProps extends RouteComponentProps<{}> {
       storeHash: string;
     };
     fetchInitialState(storeHash: string, variationID: string): Dispatch<State>;
+    setStoreData(storeHash: string): Dispatch<State>;
 }
 
 const StyledApp = styled.div`
@@ -36,7 +38,9 @@ export class App extends Component<AppProps, {}> {
     componentDidMount() {
         const queryParams = queryString.parse(this.props.location.search);
         const variationId = queryParams.variationId ? queryParams.variationId : '';
-        this.props.fetchInitialState(this.props.config.storeHash, variationId);
+        const { storeHash } = this.props.config;
+        this.props.setStoreData(storeHash);
+        this.props.fetchInitialState(storeHash, variationId);
     }
 
     render() {
@@ -54,6 +58,7 @@ export class App extends Component<AppProps, {}> {
 
 const mapDispatchToProps = {
     fetchInitialState,
+    setStoreData,
 };
 
 export default withRouter(connect(null, mapDispatchToProps)(App));

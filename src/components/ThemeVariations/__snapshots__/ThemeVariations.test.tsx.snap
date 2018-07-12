@@ -11,17 +11,20 @@ exports[`renders 1`] = `
     />
     <styled.div>
       <ThemeModule
+        handleVariationChange={[MockFunction]}
         variants={
           Array [
             Object {
               "image": "http://meow.wow.com/123.jpg",
               "isActive": false,
               "name": "light",
+              "variationId": "123",
             },
             Object {
               "image": "http://meow.wow.com/123.jpg",
               "isActive": true,
               "name": "dark",
+              "variationId": "234",
             },
           ]
         }
