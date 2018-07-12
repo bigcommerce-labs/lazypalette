@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
+import { Dispatch } from 'redux';
 
-import { themeConfigChange, SettingsType, ThemeConfigChange, ThemeConfigChangeAction } from '../../actions/theme';
+import { updateThemeConfigChange, SettingsType, ThemeConfigChange } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
 import CheckboxInput from '../CheckboxInput/CheckboxInput';
@@ -17,7 +18,7 @@ export interface ThemeSettingsProps extends RouteComponentProps<{}> {
     settings: SettingsType;
     settingsIndex: number;
     themeSettings: ThemeSchemaEntry;
-    themeConfigChange(configChange: ThemeConfigChange): ThemeConfigChangeAction;
+    updateThemeConfigChange(configChange: ThemeConfigChange): Dispatch<State>;
 }
 
 function transformOptions(setting: ThemeSchemaEntrySetting) {
@@ -81,7 +82,7 @@ function getEditor(
 
 export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
     handleChange = (configChange: ThemeConfigChange) => {
-        this.props.themeConfigChange(configChange);
+        this.props.updateThemeConfigChange(configChange);
     };
     render() {
         return (
@@ -117,11 +118,11 @@ interface StateFromProps {
 }
 
 interface ActionFromProps {
-    themeConfigChange(configChange: ThemeConfigChange): ThemeConfigChangeAction;
+    updateThemeConfigChange(configChange: ThemeConfigChange): Dispatch<State>;
 }
 
 const mapDispatchToProps = {
-    themeConfigChange,
+    updateThemeConfigChange,
 };
 
 export default withRouter(

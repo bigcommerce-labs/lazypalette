@@ -19,6 +19,7 @@ describe('currentThemeResponse', () => {
             defaultConfigurationId: '234',
             id: '567',
             isCurrent: true,
+            lastCommitId: '',
             screenshot: {
                 largePreview: 'host://meows/123.jpg',
                 largeThumb: 'host://meows/234.jpg',

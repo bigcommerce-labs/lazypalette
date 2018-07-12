@@ -5,6 +5,7 @@ import { ThemeSchema, ThemeVariations } from '../reducers/theme';
 import * as api from '../services/themeApi';
 
 import { Action } from './action';
+import { receiveThemeConfigChange } from './previewPane';
 
 export enum ThemeActionTypes {
     CURRENT_THEME_RESPONSE = 'CURRENT_THEME_RESPONSE',
@@ -218,6 +219,12 @@ export function fetchVariation(storeHash: string, variationId: string) {
             })
             .catch(error => dispatch(themeVariationResponse(error, true)));
     };
+}
+
+export function updateThemeConfigChange(configChange: ThemeConfigChange) {
+    return (dispatch: Dispatch<State>) => Promise.all([
+        dispatch(themeConfigChange(configChange)),
+        dispatch(receiveThemeConfigChange(configChange))]);
 }
 
 export function postThemeConfigData(configData: ThemeConfigPostData): Dispatch<State> {

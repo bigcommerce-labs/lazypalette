@@ -114,7 +114,7 @@ it('renders', () => {
                 settingsIndex={1}
                 themeSettings={testItems}
                 settings={settings}
-                themeConfigChange={mockFetch}
+                updateThemeConfigChange={mockFetch}
             >
             </WrappedThemeSettings>
         </MemoryRouter>
