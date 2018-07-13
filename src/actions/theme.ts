@@ -11,6 +11,7 @@ export enum ThemeActionTypes {
     CURRENT_THEME_RESPONSE = 'CURRENT_THEME_RESPONSE',
     THEME_CONFIG_RESPONSE = 'THEME_CONFIG_RESPONSE',
     THEME_CONFIG_CHANGE = 'THEME_CONFIG_CHANGE',
+    THEME_CONFIG_RESET = 'THEME_CONFIG_RESET',
     THEME_VERSION_RESPONSE = 'THEME_VERSION_RESPONSE',
     THEME_VARIATION_RESPONSE = 'THEME_VARIATION_RESPONSE',
     POST_THEME_CONFIG_RESPONSE = 'POST_THEME_CONFIG_RESPONSE',
@@ -31,6 +32,10 @@ export interface ThemeConfigResponseAction extends Action  {
 export interface ThemeConfigChangeAction extends Action  {
     payload: ThemeConfigChange;
     type: ThemeActionTypes.THEME_CONFIG_CHANGE;
+}
+
+export interface ThemeConfigResetAction extends Action  {
+    type: ThemeActionTypes.THEME_CONFIG_RESET;
 }
 
 export interface ThemeConfigPostAction extends Action  {
@@ -126,6 +131,12 @@ export function themeConfigChange(payload: ThemeConfigChange): ThemeConfigChange
     return {
         payload,
         type: ThemeActionTypes.THEME_CONFIG_CHANGE,
+    };
+}
+
+export function themeConfigReset(): ThemeConfigResetAction {
+    return {
+        type: ThemeActionTypes.THEME_CONFIG_RESET,
     };
 }
 

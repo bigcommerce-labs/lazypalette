@@ -1,10 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 
-import { postThemeConfigData, ThemeConfigPostData } from '../../actions/theme';
+import {
+    postThemeConfigData,
+    themeConfigReset,
+    ThemeConfigPostData,
+    ThemeConfigResetAction,
+} from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 
 import DesignSubMenu from './DesignSubMenu';
@@ -14,6 +19,7 @@ import SubMenu from './SubMenu';
 import { StyledSideMenu } from './styles';
 
 interface SideMenuProps extends RouteComponentProps<{}> {
+    isChanged: boolean;
     themeDesignSections: string[];
     settings: {[key: string]: string & boolean & number};
     themeId: string;
@@ -21,6 +27,7 @@ interface SideMenuProps extends RouteComponentProps<{}> {
     variationId: string;
     versionId: string;
     postThemeConfigData(configData: ThemeConfigPostData): Dispatch<State>;
+    themeConfigReset(): ThemeConfigResetAction;
 }
 
 const items = [
@@ -57,7 +64,7 @@ const routes = [
     },
 ];
 
-class SideMenu extends Component<SideMenuProps, {}> {
+class SideMenu extends PureComponent<SideMenuProps> {
     handleSave = () => {
         const configData: ThemeConfigPostData = {
             configurationId: this.props.configurationId,
@@ -72,7 +79,18 @@ class SideMenu extends Component<SideMenuProps, {}> {
         this.props.postThemeConfigData(configData);
     };
 
+    handleReset = () => {
+        const { isChanged, themeConfigReset: resetTheme } = this.props;
+        const confirmChange = () => (
+            confirm('This theme has unpublished changes. Do you want to proceed?') ? resetTheme() : null
+        );
+
+        return isChanged ? confirmChange() : null;
+    };
+
     render() {
+        const { isChanged, themeDesignSections } = this.props;
+
         return (
             <StyledSideMenu>
                 <Route
@@ -91,7 +109,9 @@ class SideMenu extends Component<SideMenuProps, {}> {
                     render={({ match }) => (
                         <DesignSubMenu
                             handleSave={this.handleSave}
-                            sections={this.props.themeDesignSections}
+                            handleReset={this.handleReset}
+                            isChanged={isChanged}
+                            sections={themeDesignSections}
                             currentPath={match.path}
                         />
                     )}
@@ -110,19 +130,19 @@ class SideMenu extends Component<SideMenuProps, {}> {
     }
 }
 
-const mapStateToProps = (state: State) => {
-    return {
-        configurationId: state.theme.configurationId,
-        settings: state.theme.settings,
-        themeDesignSections: state.theme.schema.map(({ name }) => name),
-        themeId: state.theme.themeId,
-        variationId: state.theme.variationId,
-        versionId: state.theme.versionId,
-    };
-};
+const mapStateToProps = ({ theme }: State) => ({
+    configurationId: theme.configurationId,
+    isChanged: theme.isChanged,
+    settings: theme.settings,
+    themeDesignSections: theme.schema.map(({ name }) => name),
+    themeId: theme.themeId,
+    variationId: theme.variationId,
+    versionId: theme.versionId,
+});
 
 const mapDispatchToProps = {
     postThemeConfigData,
+    themeConfigReset,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SideMenu));

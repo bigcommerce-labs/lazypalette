@@ -62,3 +62,8 @@ export const StyledMenuItemIcon = styled.span`
     position: relative;
     top: 0.25rem;
 `;
+
+export const DesignMenuButtons = styled.div`
+    display: flex;
+    justify-content: space-around;
+`;

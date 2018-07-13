@@ -96,9 +96,8 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
             return { ...state, configurationId, variations, versionId, themeId, variationId };
         case ThemeActionTypes.THEME_CONFIG_RESPONSE:
             const { settings } = action.payload as ThemeConfigResponse;
-            const isChanged = false;
 
-            return { ...state, initialSettings: settings, settings, isChanged };
+            return { ...state, initialSettings: settings, settings, isChanged: false };
         case ThemeActionTypes.THEME_VERSION_RESPONSE:
             const { editorSchema } = action.payload as ThemeVersionResponse;
 
@@ -109,6 +108,8 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 isChanged: isNotEqual(action.payload, state.initialSettings),
                 settings: { ...state.settings, ...action.payload },
             };
+        case ThemeActionTypes.THEME_CONFIG_RESET:
+            return { ...state, settings: { ...state.initialSettings }, isChanged: false };
         case ThemeActionTypes.POST_THEME_CONFIG_RESPONSE:
             const { settings: initialSettings } = action.payload as ThemeConfigPostResponse;
 
