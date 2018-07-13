@@ -9,6 +9,12 @@
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.tsx",
+      "<rootDir>/src/**/*.ts",
+      "<rootDir>/src/**/*.js",
+      "<rootDir>/src/**/*.jsx"
     ]
   },
   "dependencies": {
@@ -29,6 +35,7 @@
     "build": "react-scripts build",
     "dev": "react-scripts dev",
     "test": "react-scripts test --env=jsdom",
+    "test:coverage": "react-scripts test --env=jsdom --coverage",
     "test:updateSnapshot": "react-scripts test --updateSnapshot --env=jsdom",
     "eject": "react-scripts eject",
     "travis": "react-scripts travis",
