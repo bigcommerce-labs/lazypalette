@@ -10,7 +10,7 @@ then
 
 elif [ "$RUN_TESTS" == "true" ]
 then
-  npm run test
+  npm run test:coverage
 
 elif [ "$PREREQ" == "true" ]
 then

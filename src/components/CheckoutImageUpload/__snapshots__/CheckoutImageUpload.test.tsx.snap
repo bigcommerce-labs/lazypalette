@@ -1,0 +1,321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckoutImageUpload handleChangeImage when the user upload files displays a loading indicator component when the image is being uploaded 1`] = `
+<ThemeProvider
+  theme={
+    Object {
+      "colors": Object {
+        "errors": "#c0ffee",
+        "primary": "#BADA55",
+      },
+    }
+  }
+>
+  <CheckoutImageUpload
+    imageURL=""
+    inputId="CheckoutImageUpload"
+    label="1000x400px recommended"
+    name="optimizedCheckout-logo"
+    onChange={[MockFunction]}
+  >
+    <styled.div>
+      <div
+        className="sc-bwzfXH dAsRSE"
+      >
+        <styled.div>
+          <div
+            className="sc-htpNat gMzcF"
+          >
+            <styled.label
+              htmlFor="CheckoutImageUpload"
+            >
+              <label
+                className="sc-bdVaJa bgvXfT"
+                htmlFor="CheckoutImageUpload"
+              >
+                Upload image
+              </label>
+            </styled.label>
+            <small>
+              1000x400px recommended
+            </small>
+            <input
+              id="CheckoutImageUpload"
+              onChange={[Function]}
+              style={
+                Object {
+                  "display": "none",
+                }
+              }
+              type="file"
+              value=""
+            />
+          </div>
+        </styled.div>
+        <styled.div>
+          <div
+            className="sc-bxivhb bUZGRr"
+          >
+            <Component>
+              <div>
+                Loading...
+              </div>
+            </Component>
+          </div>
+        </styled.div>
+      </div>
+    </styled.div>
+  </CheckoutImageUpload>
+</ThemeProvider>
+`;
+
+exports[`CheckoutImageUpload handleChangeImage when the user upload files when we get an api error displays an error message and updates internal error state 1`] = `
+<ThemeProvider
+  theme={
+    Object {
+      "colors": Object {
+        "errors": "#c0ffee",
+        "primary": "#BADA55",
+      },
+    }
+  }
+>
+  <CheckoutImageUpload
+    imageURL=""
+    inputId="CheckoutImageUpload"
+    label="1000x400px recommended"
+    name="optimizedCheckout-logo"
+    onChange={[MockFunction]}
+  >
+    <styled.div>
+      <div
+        className="sc-bwzfXH dAsRSE"
+      >
+        <styled.div>
+          <div
+            className="sc-htpNat gMzcF"
+          >
+            <styled.label
+              htmlFor="CheckoutImageUpload"
+            >
+              <label
+                className="sc-bdVaJa bgvXfT"
+                htmlFor="CheckoutImageUpload"
+              >
+                Upload image
+              </label>
+            </styled.label>
+            <small>
+              1000x400px recommended
+            </small>
+            <input
+              id="CheckoutImageUpload"
+              onChange={[Function]}
+              style={
+                Object {
+                  "display": "none",
+                }
+              }
+              type="file"
+              value=""
+            />
+          </div>
+        </styled.div>
+        <styled.p>
+          <p
+            className="sc-ifAKCX iAGchg"
+          >
+            There was an error uploading your image, please try again.
+          </p>
+        </styled.p>
+        <styled.div>
+          <div
+            className="sc-bxivhb bUZGRr"
+          />
+        </styled.div>
+      </div>
+    </styled.div>
+  </CheckoutImageUpload>
+</ThemeProvider>
+`;
+
+exports[`CheckoutImageUpload handleRemoveImage when the user clicks the remove button it clears the image state and broadcasts a change event 1`] = `
+<ThemeProvider
+  theme={
+    Object {
+      "colors": Object {
+        "errors": "#c0ffee",
+        "primary": "#BADA55",
+      },
+    }
+  }
+>
+  <CheckoutImageUpload
+    imageURL=""
+    inputId="CheckoutImageUpload"
+    label="1000x400px recommended"
+    name="optimizedCheckout-logo"
+    onChange={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            Object {
+              "optimizedCheckout-logo": "",
+            },
+          ],
+        ],
+      }
+    }
+  >
+    <styled.div>
+      <div
+        className="sc-bwzfXH dAsRSE"
+      >
+        <styled.div>
+          <div
+            className="sc-htpNat gMzcF"
+          >
+            <styled.label
+              htmlFor="CheckoutImageUpload"
+            >
+              <label
+                className="sc-bdVaJa bgvXfT"
+                htmlFor="CheckoutImageUpload"
+              >
+                Upload image
+              </label>
+            </styled.label>
+            <small>
+              1000x400px recommended
+            </small>
+            <input
+              id="CheckoutImageUpload"
+              onChange={[Function]}
+              style={
+                Object {
+                  "display": "none",
+                }
+              }
+              type="file"
+              value=""
+            />
+          </div>
+        </styled.div>
+        <styled.div>
+          <div
+            className="sc-bxivhb bUZGRr"
+          />
+        </styled.div>
+      </div>
+    </styled.div>
+  </CheckoutImageUpload>
+</ThemeProvider>
+`;
+
+exports[`CheckoutImageUpload handleRemoveImage when we have a previously set image there is a link to remove it 1`] = `
+<ThemeProvider
+  theme={
+    Object {
+      "colors": Object {
+        "errors": "#c0ffee",
+        "primary": "#BADA55",
+      },
+    }
+  }
+>
+  <CheckoutImageUpload
+    imageURL=""
+    inputId="CheckoutImageUpload"
+    label="1000x400px recommended"
+    name="optimizedCheckout-logo"
+    onChange={[MockFunction]}
+  >
+    <styled.div>
+      <div
+        className="sc-bwzfXH dAsRSE"
+      >
+        <styled.div>
+          <div
+            className="sc-htpNat gMzcF"
+          >
+            <styled.label
+              htmlFor="CheckoutImageUpload"
+            >
+              <label
+                className="sc-bdVaJa bgvXfT"
+                htmlFor="CheckoutImageUpload"
+              >
+                Upload image
+              </label>
+            </styled.label>
+            <small>
+              1000x400px recommended
+            </small>
+            <input
+              id="CheckoutImageUpload"
+              onChange={[Function]}
+              style={
+                Object {
+                  "display": "none",
+                }
+              }
+              type="file"
+              value=""
+            />
+          </div>
+        </styled.div>
+        <styled.div>
+          <div
+            className="sc-bxivhb bUZGRr"
+          >
+            <div>
+              <div>
+                <styled.a
+                  onClick={[Function]}
+                >
+                  <a
+                    className="sc-EHOje bBGYrN"
+                    onClick={[Function]}
+                  >
+                    Clear image
+                  </a>
+                </styled.a>
+              </div>
+              <img
+                src="https://placekitten.com/200/300"
+              />
+            </div>
+          </div>
+        </styled.div>
+      </div>
+    </styled.div>
+  </CheckoutImageUpload>
+</ThemeProvider>
+`;
+
+exports[`CheckoutImageUpload renders 1`] = `
+<styled.div>
+  <styled.div>
+    <styled.label
+      htmlFor="CheckoutImageUpload"
+    >
+      Upload image
+    </styled.label>
+    <small>
+      1000x400px recommended
+    </small>
+    <input
+      id="CheckoutImageUpload"
+      onChange={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      type="file"
+      value=""
+    />
+  </styled.div>
+  <styled.div />
+</styled.div>
+`;
