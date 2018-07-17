@@ -13,6 +13,7 @@ import { fetchInitialState } from '../../actions/theme';
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
 import PreviewPane from '../PreviewPane/PreviewPane';
 import SideMenu from '../SideMenu/SideMenu';
+import UserSessionActivity from '../UserSessionActivity/UserSessionActivity';
 
 import { State } from '../../reducers/reducers';
 
@@ -20,6 +21,7 @@ interface AppProps extends RouteComponentProps<{}> {
     config: {
       assetPath: string;
       storeHash: string;
+      oauthBaseUrl: string;
     };
     fetchInitialState(storeHash: string, variationID: string): Dispatch<State>;
     setStoreData(storeHash: string): Dispatch<State>;
@@ -46,11 +48,13 @@ export class App extends Component<AppProps, {}> {
     render() {
         return (
             <PatternLabThemeProvider>
-                <StyledApp>
-                    <HeaderMenu/>
-                    <SideMenu/>
-                    <PreviewPane/>
-                </StyledApp>
+                <UserSessionActivity oauthBaseUrl={this.props.config.oauthBaseUrl}>
+                    <StyledApp>
+                        <HeaderMenu/>
+                        <SideMenu/>
+                        <PreviewPane/>
+                    </StyledApp>
+                </UserSessionActivity>
             </PatternLabThemeProvider>
         );
     }
