@@ -32,18 +32,22 @@ interface SideMenuProps extends RouteComponentProps<{}> {
 
 const items = [
     {
+        disabled: false,
         label: 'Design',
         path: 'design',
     },
     {
+        disabled: true,
         label: 'Pages',
         path: 'pages',
     },
     {
+        disabled: true,
         label: 'Apps',
         path: 'apps',
     },
     {
+        disabled: true,
         label: 'History',
         path: 'history',
     },
@@ -98,7 +102,7 @@ class SideMenu extends PureComponent<SideMenuProps> {
                     exact
                     render={({ match }) => (
                         <MenuItems
-                            items={items.map(({label, path}) => ({label, path}))}
+                            items={items.map(({disabled, label, path}) => ({disabled, label, path}))}
                             currentPath={match.path}
                             showArrows={true}
                         />
