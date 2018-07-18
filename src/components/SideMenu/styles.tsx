@@ -17,17 +17,20 @@ export const BackLinkIcon = styled.span`
 
 interface NavProps {
     activeClassName: string;
+    disabled?: boolean;
 }
 
 export const NavItem = styled(NavLink)
     .attrs<NavProps>({
     activeClassName,
 })`
-    ${({ theme }) => `
+    ${({ disabled, theme }) => `
         color: ${theme.colors.primaryText};
         display: block;
         height: 2.25rem;
+        opacity: ${disabled ? 0.5 : 1}
         overflow: hidden;
+        pointer-events: ${disabled ? 'none' : 'auto'};
         text-decoration: none;
 
         &:visited {

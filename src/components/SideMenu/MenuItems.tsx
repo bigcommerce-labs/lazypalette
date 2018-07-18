@@ -8,6 +8,7 @@ import ThemeVariations from '../ThemeVariations/ThemeVariations';
 import { activeClassName, NavItem, StyledMenuItems, StyledMenuItemIcon } from './styles';
 
 interface MenuItem {
+    disabled?: boolean;
     label: string;
     path: string;
 }
@@ -46,14 +47,15 @@ class MenuItems extends Component<MenuItemsProps, {}> {
     render() {
         return (
             <StyledMenuItems>
-                {this.props.items.map(({ path, label }) => (
+                {this.props.items.map(({ disabled, path, label }) => (
                     <li key={path}>
                         <ExpandMenuRoutes route={path}/>
                         <NavItem
                             to={this.toggleLink(path)}
                             exact
                             isActive={(match, location) => this.isPathActive(path)}
-                            activeClassName={activeClassName}>
+                            activeClassName={activeClassName}
+                            disabled={disabled}>
                             {label}
                             {this.props.showArrows &&
                                 <StyledMenuItemIcon>
