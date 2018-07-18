@@ -23,7 +23,7 @@ interface AppProps extends RouteComponentProps<{}> {
       storeHash: string;
       oauthBaseUrl: string;
     };
-    fetchInitialState(storeHash: string, variationID: string): Dispatch<State>;
+    fetchInitialState(variationID: string): Dispatch<State>;
     setStoreData(storeHash: string): Dispatch<State>;
 }
 
@@ -42,7 +42,7 @@ export class App extends Component<AppProps, {}> {
         const variationId = queryParams.variationId ? queryParams.variationId : '';
         const { storeHash } = this.props.config;
         this.props.setStoreData(storeHash);
-        this.props.fetchInitialState(storeHash, variationId);
+        this.props.fetchInitialState(variationId);
     }
 
     render() {

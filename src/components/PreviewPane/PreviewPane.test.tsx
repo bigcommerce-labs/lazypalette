@@ -10,7 +10,13 @@ import PreviewPane from './PreviewPane';
 describe('<PreviewPane />', () => {
     describe('render()', () => {
         it('renders the component', () => {
-            const store = createMockStore([])({ previewPane: {}, error: { errors: [] } });
+            const store = createMockStore([])({
+                error: {errors: []},
+                previewPane: {},
+                theme: {
+                    configurationId: '',
+                },
+            });
             const headerMenu = shallow(<PreviewPane/>, { context: { store } });
 
             expect(toJson(headerMenu)).toMatchSnapshot();
@@ -32,6 +38,9 @@ describe('<PreviewPane />', () => {
                         previewPane: {
                             viewportType,
                         },
+                        theme: {
+                            configurationId: '012',
+                        },
                     });
                     const iframe = render(<PreviewPane/>, { context: { store } }).find('iframe');
 
@@ -46,6 +55,9 @@ describe('<PreviewPane />', () => {
                         previewPane: {
                             isRotated: true,
                             viewportType,
+                        },
+                        theme: {
+                            configurationId: '012',
                         },
                     });
                     const iframe = render(<PreviewPane/>, { context: { store } }).find('iframe');

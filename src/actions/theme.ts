@@ -1,11 +1,11 @@
-import { Dispatch } from 'redux';
+import {Dispatch} from 'redux';
 
 import { State } from '../reducers/reducers';
 import { ThemeSchema, ThemeVariations } from '../reducers/theme';
 import * as api from '../services/themeApi';
 
 import { Action } from './action';
-import { receiveThemeConfigChange } from './previewPane';
+import { ConfigUpdateAction } from './constants';
 
 export enum ThemeActionTypes {
     CURRENT_THEME_RESPONSE = 'CURRENT_THEME_RESPONSE',
@@ -62,6 +62,9 @@ export interface CurrentThemeResponse {
     themeId: string;
     variations: ThemeVariations;
     versionId: string;
+    themeName: string;
+    displayVersion: string;
+    variationName: string;
 }
 
 export interface ThemeConfigResponse {
@@ -103,6 +106,9 @@ export interface ThemeVariationResponse {
     variations: ThemeVariations;
     versionId: string;
     isPurchased: boolean;
+    themeName: string;
+    displayVersion: string;
+    variationName: string;
 }
 
 export function currentThemeResponse(
@@ -176,8 +182,26 @@ export function themeVariationResponse(
 export function fetchCurrentTheme() {
     return (dispatch: Dispatch<State>) => {
         return api.fetchCurrentTheme()
-            .then(({ configurationId, versionId, relatedVariations: variations, themeId, id: variationId }) => {
-                dispatch(currentThemeResponse({ configurationId, versionId, variations, themeId, variationId }));
+            .then(({
+                configurationId,
+                versionId,
+                relatedVariations: variations,
+                themeId,
+                id: variationId,
+                themeName,
+                variationName,
+                displayVersion,
+            }) => {
+                dispatch(currentThemeResponse({
+                    configurationId,
+                    displayVersion,
+                    themeId,
+                    themeName,
+                    variationId,
+                    variationName,
+                    variations,
+                    versionId,
+                }));
             })
             .catch(error => dispatch(currentThemeResponse(error, true)));
     };
@@ -209,7 +233,7 @@ export function changeThemeVariation(variationId: string) {
     };
 }
 
-export function fetchInitialState(storeHash: string, variationId: string) {
+export function fetchInitialState(variationId: string = '') {
     return (dispatch: Dispatch<State>, getState: () => State) => {
         if (variationId !== '') {
             return dispatch(fetchVariation(variationId))
@@ -228,12 +252,24 @@ export function fetchVariation(variationId: string) {
         const { storeHash } = getState().merchant;
 
         return api.fetchVariation(storeHash, variationId)
-            .then(({ configurationId, versionId, relatedVariations: variations, isPurchased, themeId }) => {
+            .then(({
+                configurationId,
+                versionId,
+                relatedVariations: variations,
+                isPurchased,
+                themeId,
+                themeName,
+                variationName,
+                displayVersion,
+            }) => {
                 dispatch(themeVariationResponse({
                     configurationId,
+                    displayVersion,
                     isPurchased,
                     themeId,
+                    themeName,
                     variationId,
+                    variationName,
                     variations,
                     versionId,
                 }));
@@ -243,20 +279,46 @@ export function fetchVariation(variationId: string) {
 }
 
 export function updateThemeConfigChange(configChange: ThemeConfigChange) {
-    return (dispatch: Dispatch<State>) => Promise.all([
-        dispatch(themeConfigChange(configChange)),
-        dispatch(receiveThemeConfigChange(configChange))]);
+    return (dispatch: Dispatch<State>) => {
+        dispatch(themeConfigChange(configChange));
+
+        return dispatch(postThemeConfigData(ConfigUpdateAction.PREVIEW));
+    };
 }
 
-export function postThemeConfigData(configData: ThemeConfigPostData): Dispatch<State> {
-    return (dispatch: Dispatch<State>) => {
-        return api.postThemeConfig(configData)
-            .then(({ configurationId }) => {
-                const { settings } = configData;
+export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
+    return (dispatch: Dispatch<State>, getState: () => State) => {
+        const {
+            configurationId,
+            settings,
+            themeId,
+            variationId,
+            versionId,
+        } = getState().theme;
 
+        const configData: ThemeConfigPostData = {
+            configurationId,
+            preview: configUpdateOption === ConfigUpdateAction.PREVIEW,
+            publish: configUpdateOption === ConfigUpdateAction.PUBLISH,
+            reset: false,
+            settings,
+            themeId,
+            variationId,
+            versionId,
+        };
+
+        return api.postThemeConfig(configData)
+            .then(({ configurationId: newConfigurationId }) => {
+                const { settings: newSettings } = configData;
+
+                if (configData.publish) {
+                    dispatch(fetchInitialState());
+
+                    return;
+                }
                 dispatch(themeConfigPostResponse({
-                    configurationId,
-                    settings,
+                    configurationId: newConfigurationId,
+                    settings: newSettings,
                 }));
             })
             .catch(error => dispatch(themeConfigPostResponse(error, true)));

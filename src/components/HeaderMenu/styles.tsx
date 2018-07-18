@@ -12,6 +12,10 @@ export const StyledHeaderMenu = styled.nav`
     border-bottom: 1px solid ${({ theme: { colors } }) => colors.stroke};
 `;
 
+export const BCLogo = styled.div`
+    display: inline-block;
+`;
+
 interface StyledHeaderSpanProps {
     isRotated: boolean;
     isSelected: boolean;

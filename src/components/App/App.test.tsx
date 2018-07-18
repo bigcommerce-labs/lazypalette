@@ -15,7 +15,11 @@ it('renders', () => {
     };
 
     const app = shallow(
-        <WrappedApp config={config} fetchInitialState={mockFetch} setStoreData={mockFetch}/>
+        <WrappedApp
+            config={config}
+            fetchInitialState={mockFetch}
+            setStoreData={mockFetch}
+        />
     );
 
     expect(app).toMatchSnapshot();

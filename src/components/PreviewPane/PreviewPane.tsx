@@ -3,7 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { clearErrors } from '../../actions/error';
-import { fetchPageSource } from '../../actions/previewPane';
+import { fetchPageSource, receiveThemeConfigChange } from '../../actions/previewPane';
 import { ThemePreviewConfig } from '../../reducers/previewPane';
 import { State } from '../../reducers/reducers';
 import { generateStylesheetUrl } from '../../services/previewPane';
@@ -19,6 +19,7 @@ export interface ViewportType {
 }
 
 interface PreviewPaneProps {
+    configurationId: string;
     errors: Error[];
     isFetching: boolean;
     isRotated: boolean;
@@ -28,6 +29,7 @@ interface PreviewPaneProps {
     viewportType: ViewportType;
     loadPage(page: string): void;
     clearErrors(): void;
+    receiveThemeConfigChange(): void;
 }
 
 class PreviewPane extends PureComponent<PreviewPaneProps> {
@@ -45,7 +47,10 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
         this.updateStyles();
     }
 
-    componentDidUpdate(): void {
+    componentDidUpdate(prevProps: PreviewPaneProps): void {
+        if (this.props.configurationId !== prevProps.configurationId) {
+            this.props.receiveThemeConfigChange();
+        }
         this.updateStyles();
     }
 
@@ -130,12 +135,17 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
 }
 
 const mapStateToProps = (state: State): Partial<PreviewPaneProps> => {
-    return { ...state.previewPane, ...{ errors: state.error.errors } };
+    return {
+        ...state.previewPane,
+        ...{ errors: state.error.errors},
+        ...{ configurationId: state.theme.configurationId},
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): Partial<PreviewPaneProps> => bindActionCreators({
     clearErrors,
     loadPage: fetchPageSource,
+    receiveThemeConfigChange,
 }, dispatch);
 
 export default connect<Partial<PreviewPaneProps>, Partial<PreviewPaneProps>, {}, State>(

@@ -4,12 +4,15 @@ import theme, {ThemeSchema, ThemeState, ThemeVariations} from './theme';
 
 const initialState: ThemeState = {
     configurationId: '',
+    displayVersion: '',
     initialSettings: {},
     isChanged: false,
     schema: [],
     settings: {},
     themeId: '',
+    themeName: '',
     variationId: '',
+    variationName: '',
     variations: [],
     versionId: '',
 };
@@ -34,8 +37,11 @@ describe('currentThemeResponse', () => {
 
     const payload = {
         configurationId: '123',
+        displayVersion: '2.1.0',
         themeId: '789',
+        themeName: 'Cornerstone',
         variationId: '012',
+        variationName: 'light',
         variations: themeVariations,
         versionId: '456',
     };
@@ -45,8 +51,11 @@ describe('currentThemeResponse', () => {
 
         const expectedState: ThemeState = { ...initialState, ...{
             configurationId: '123',
+            displayVersion: '2.1.0',
             themeId: '789',
+            themeName: 'Cornerstone',
             variationId: '012',
+            variationName: 'light',
             variations: themeVariations,
             versionId: '456',
         } };

@@ -4,10 +4,10 @@ import { Dispatch } from 'redux';
 
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 
+import { ConfigUpdateAction } from '../../actions/constants';
 import {
     postThemeConfigData,
     themeConfigReset,
-    ThemeConfigPostData,
     ThemeConfigResetAction,
 } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
@@ -26,7 +26,7 @@ interface SideMenuProps extends RouteComponentProps<{}> {
     configurationId: string;
     variationId: string;
     versionId: string;
-    postThemeConfigData(configData: ThemeConfigPostData): Dispatch<State>;
+    postThemeConfigData(configDataOption: ConfigUpdateAction): Dispatch<State>;
     themeConfigReset(): ThemeConfigResetAction;
 }
 
@@ -70,17 +70,7 @@ const routes = [
 
 class SideMenu extends PureComponent<SideMenuProps> {
     handleSave = () => {
-        const configData: ThemeConfigPostData = {
-            configurationId: this.props.configurationId,
-            preview: false,
-            publish: false,
-            reset: false,
-            settings: {...this.props.settings},
-            themeId: this.props.themeId,
-            variationId: this.props.variationId,
-            versionId: this.props.versionId,
-        };
-        this.props.postThemeConfigData(configData);
+        this.props.postThemeConfigData(ConfigUpdateAction.SAVE);
     };
 
     handleReset = () => {

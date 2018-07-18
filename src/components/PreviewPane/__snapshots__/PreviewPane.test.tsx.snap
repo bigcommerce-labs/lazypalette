@@ -51,7 +51,9 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET upda
 exports[`<PreviewPane /> render() renders the component 1`] = `
 <PreviewPane
   clearErrors={[Function]}
+  configurationId=""
   errors={Array []}
   loadPage={[Function]}
+  receiveThemeConfigChange={[Function]}
 />
 `;

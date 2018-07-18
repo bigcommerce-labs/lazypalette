@@ -11,11 +11,14 @@ import {
 
 export interface ThemeState {
     configurationId: string;
+    displayVersion: string;
     initialSettings: SettingsType;
     isChanged: boolean;
     variationId: string;
     schema: ThemeSchema;
+    themeName: string;
     variations: ThemeVariations;
+    variationName: string;
     versionId: string;
     settings: SettingsType;
     themeId: string;
@@ -60,12 +63,15 @@ export interface ThemeVariationsEntry {
 
 const initialState: ThemeState = {
     configurationId: '',
+    displayVersion: '',
     initialSettings: {},
     isChanged: false,
     schema: [],
     settings: {},
     themeId: '',
+    themeName: '',
     variationId: '',
+    variationName: '',
     variations: [],
     versionId: '',
 };
@@ -87,13 +93,26 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
         case ThemeActionTypes.THEME_VARIATION_RESPONSE:
             const {
                 configurationId,
+                displayVersion,
+                themeId,
+                themeName,
+                variationId,
+                variationName,
                 variations,
                 versionId,
-                themeId,
-                variationId,
             } = action.payload as ThemeVariationResponse;
 
-            return { ...state, configurationId, variations, versionId, themeId, variationId };
+            return {
+                ...state,
+                configurationId,
+                displayVersion,
+                themeId,
+                themeName,
+                variationId,
+                variationName,
+                variations,
+                versionId,
+            };
         case ThemeActionTypes.THEME_CONFIG_RESPONSE:
             const { settings } = action.payload as ThemeConfigResponse;
 
@@ -115,6 +134,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
 
             return {
                 ...state,
+                configurationId: action.payload.configurationId,
                 initialSettings,
                 isChanged: isNotEqual(state.settings, initialSettings),
             };
