@@ -7,7 +7,6 @@ describe('<CustomSize /> test', () => {
     const customImageSize = shallow(
         <CustomSize
             defaultValue="250x100"
-            name="test"
         />
     );
 

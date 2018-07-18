@@ -1,4 +1,4 @@
-import React, { ChangeEvent, PureComponent } from 'react';
+import React, { ChangeEvent, ChangeEventHandler, PureComponent } from 'react';
 import uuid from 'uuid';
 
 import { Container, Input, Label } from './styles';
@@ -6,9 +6,8 @@ import { Container, Input, Label } from './styles';
 interface ColorPickerProps {
     color?: string;
     label?: string;
-    name: string;
     inputId?: string;
-    onChange?(configChange: {[key: string]: string}): void;
+    onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 class ColorPicker extends PureComponent<ColorPickerProps, {}> {
@@ -17,9 +16,9 @@ class ColorPicker extends PureComponent<ColorPickerProps, {}> {
         inputId: uuid(),
     };
 
-    handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (this.props.onChange !== undefined) {
-            this.props.onChange({ [this.props.name]: e.target.value });
+    handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        if (this.props.onChange) {
+            this.props.onChange(event);
         }
     };
 

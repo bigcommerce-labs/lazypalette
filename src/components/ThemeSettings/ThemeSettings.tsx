@@ -1,4 +1,4 @@
-import { CheckboxInput, InputField } from 'pattern-lab';
+import { CheckboxInput, InputField, SelectBox } from 'pattern-lab';
 import React, { ChangeEvent, Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
@@ -10,7 +10,6 @@ import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme'
 import ColorPicker from '../ColorPicker/ColorPicker';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ImageSize from '../ImageSize/ImageSize';
-import SelectBox from '../SelectBox/SelectBox';
 
 import { Heading, Item, List } from './styles';
 
@@ -31,7 +30,7 @@ function transformOptions(setting: ThemeSchemaEntrySetting) {
 function getEditor(
     setting: ThemeSchemaEntrySetting,
     preSetValue: SettingsType,
-    handleChange: (configChange: ThemeConfigChange) => void
+    handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
 ) {
     switch (setting.type) {
         case 'color':
@@ -39,20 +38,18 @@ function getEditor(
                 color={preSetValue[`${setting.id}`] as string}
                 label={setting.label}
                 onChange={handleChange}
-                name={setting.id!}
             />;
         case 'checkbox':
             return <CheckboxInput
                 checked={preSetValue[`${setting.id}`] as boolean}
                 label={setting.label}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange({[setting.id!]: e.target.checked})}
+                onChange={handleChange}
             />;
         case 'font':
             return <SelectBox
                 selected={preSetValue[`${setting.id}`] as string}
                 label={setting.label}
                 onChange={handleChange}
-                name={setting.id!}
                 options={transformOptions(setting)}
             />;
         case 'imageDimension':
@@ -60,7 +57,6 @@ function getEditor(
                 selected={preSetValue[`${setting.id}`] as string}
                 label={setting.label || ''}
                 onChange={handleChange}
-                name={setting.id!}
                 options={transformOptions(setting)}
             />;
         case 'select':
@@ -68,14 +64,13 @@ function getEditor(
                 selected={preSetValue[`${setting.id}`] as string}
                 label={setting.label}
                 onChange={handleChange}
-                name={setting.id!}
                 options={transformOptions(setting)}
             />;
         case 'text':
             return <InputField
                 value={preSetValue[`${setting.id}`] as string}
                 label={setting.label}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange({[setting.id!]: e.target.value})}
+                onChange={handleChange}
             />;
         case 'heading':
             return <Heading>{setting.content}</Heading>;
@@ -85,22 +80,27 @@ function getEditor(
 }
 
 export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
-    handleChange = (configChange: ThemeConfigChange) => {
-        this.props.updateThemeConfigChange(configChange);
-    };
+    handleChange = (setting: ThemeSchemaEntrySetting) =>
+        ({target}: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+            const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
+
+            this.props.updateThemeConfigChange({[`${setting.id}`]: value});
+        };
     render() {
+        const { match, settings, settingsIndex, themeSettings } = this.props;
+
         return (
             <Route
-                path={`/design/style/${this.props.settingsIndex}`}
+                path={`/design/style/${settingsIndex}`}
                 exact
                 render={() => (
                     <ExpandableMenu
-                        title={this.props.themeSettings ? this.props.themeSettings.name : ''}
-                        back={this.props.match.url}>
+                        title={themeSettings ? themeSettings.name : ''}
+                        back={match.url}>
                         <List>
-                            {this.props.themeSettings.settings.map((setting, index) => (
+                            {themeSettings.settings.map((setting, index) => (
                                 <Item key={index}>
-                                    {getEditor(setting, this.props.settings, this.handleChange)}
+                                    {getEditor(setting, settings, this.handleChange(setting))}
                                 </Item>
                             ))}
                         </List>

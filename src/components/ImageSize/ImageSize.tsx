@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-
-import SelectBox from '../SelectBox/SelectBox';
+import { SelectBox } from 'pattern-lab';
+import React, { ChangeEvent, ChangeEventHandler, Component } from 'react';
 
 import { ImageSizeModal } from './styles';
 import CustomSize from './CustomSize';
@@ -12,21 +11,25 @@ interface ImageSizeProps {
     value: string;
   }>;
   selected: string;
-  name: string;
-  onChange?(configChange: {[key: string]: string}): void;
+  onChange?: ChangeEventHandler<HTMLSelectElement | HTMLInputElement>;
 }
 
 class ImageSize extends Component<ImageSizeProps> {
+    handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        const selectEvent = value === 'custom' ? {...event, target: {...event.target, value: '0x0'}} : event;
 
-    handleChange = (configChange: {[key: string]: string}) => {
-        const { name } = this.props;
+        if (this.props.onChange) {
+            this.props.onChange(selectEvent);
+        }
+    };
 
-        configChange[name] = configChange[name] === 'custom' ? '0x0' : configChange[name];
-        this.props.onChange!(configChange);
+    handleCustomChange = (event: ChangeEvent<HTMLInputElement>) => {
+        this.props.onChange!(event);
     };
 
     render() {
-        const { label, options, selected, name } = this.props;
+        const { label, options, selected } = this.props;
         const optionExists = options.findIndex(({value}) => value === selected);
         const optionSelected = optionExists < 0 ? 'custom' : selected;
 
@@ -36,11 +39,11 @@ class ImageSize extends Component<ImageSizeProps> {
                     label={label}
                     options={options}
                     selected={optionSelected}
-                    onChange={this.handleChange}
-                    name={name}
+                    onChange={this.handleSelectChange}
                 />
-                { optionSelected === 'custom' &&
-            <CustomSize defaultValue={selected} onChange={this.handleChange} name={name}/>}
+                {optionSelected === 'custom' &&
+                    <CustomSize defaultValue={selected} onChange={this.handleCustomChange} />
+                }
             </ImageSizeModal>
         );
     }

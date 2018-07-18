@@ -5,14 +5,14 @@ import ColorPicker from './ColorPicker';
 
 it('renders', () => {
     const colorPicker = shallow(
-        <ColorPicker inputId="blah" name="color-primary"/>
+        <ColorPicker inputId="blah" />
     );
     expect(colorPicker).toMatchSnapshot();
 });
 
 it('renders an initial color if provided', () => {
     const colorPicker = shallow(
-        <ColorPicker inputId="blah" name="color-primary" color="#fff" />
+        <ColorPicker inputId="blah" color="#fff" />
     );
     expect(colorPicker).toMatchSnapshot();
 });

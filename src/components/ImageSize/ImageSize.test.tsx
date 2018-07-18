@@ -24,7 +24,6 @@ describe('<ImageSize /> test', () => {
             label="test"
             options={testItems}
             selected="foo"
-            name="test"
         />
     );
 
@@ -33,7 +32,6 @@ describe('<ImageSize /> test', () => {
             label="test"
             options={testItems}
             selected="custom"
-            name="test"
         />
     );
 

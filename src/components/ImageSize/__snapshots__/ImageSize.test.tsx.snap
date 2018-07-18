@@ -4,7 +4,6 @@ exports[`<ImageSize /> test should render <SelectBox /> 1`] = `
 <styled.div>
   <SelectBox
     label="test"
-    name="test"
     onChange={[Function]}
     options={
       Array [
@@ -26,7 +25,6 @@ exports[`<ImageSize /> test should render <SelectBox /> 1`] = `
   />
   <CustomSize
     defaultValue="foo"
-    name="test"
     onChange={[Function]}
   />
 </styled.div>
@@ -36,7 +34,6 @@ exports[`<ImageSize /> test should render <SelectBox /> and <CustomSize /> compo
 <styled.div>
   <SelectBox
     label="test"
-    name="test"
     onChange={[Function]}
     options={
       Array [
@@ -58,7 +55,6 @@ exports[`<ImageSize /> test should render <SelectBox /> and <CustomSize /> compo
   />
   <CustomSize
     defaultValue="custom"
-    name="test"
     onChange={[Function]}
   />
 </styled.div>
