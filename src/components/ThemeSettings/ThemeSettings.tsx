@@ -1,4 +1,4 @@
-import { InputField } from 'pattern-lab';
+import { CheckboxInput, InputField } from 'pattern-lab';
 import React, { ChangeEvent, Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
@@ -7,7 +7,6 @@ import { Dispatch } from 'redux';
 import { updateThemeConfigChange, SettingsType, ThemeConfigChange } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
-import CheckboxInput from '../CheckboxInput/CheckboxInput';
 import ColorPicker from '../ColorPicker/ColorPicker';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ImageSize from '../ImageSize/ImageSize';
@@ -46,8 +45,7 @@ function getEditor(
             return <CheckboxInput
                 checked={preSetValue[`${setting.id}`] as boolean}
                 label={setting.label}
-                onChange={handleChange}
-                name={setting.id!}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange({[setting.id!]: e.target.checked})}
             />;
         case 'font':
             return <SelectBox
