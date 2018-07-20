@@ -3,7 +3,11 @@ import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { clearErrors } from '../../actions/error';
-import { fetchPageSource, receiveThemeConfigChange } from '../../actions/previewPane';
+import {
+    fetchPageSource,
+    previewPaneLoaded,
+    previewPaneLoading,
+    receiveThemeConfigChange } from '../../actions/previewPane';
 import { ThemePreviewConfig } from '../../reducers/previewPane';
 import { State } from '../../reducers/reducers';
 import { generateStylesheetUrl } from '../../services/previewPane';
@@ -30,6 +34,8 @@ interface PreviewPaneProps {
     loadPage(page: string): void;
     clearErrors(): void;
     receiveThemeConfigChange(): void;
+    previewPaneLoaded(): void;
+    previewPaneLoading(): void;
 }
 
 class PreviewPane extends PureComponent<PreviewPaneProps> {
@@ -59,13 +65,18 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
     }
 
     render(): JSX.Element {
-        const { isRotated, pageSource, viewportType } = this.props;
+        const {
+            isFetching,
+            isRotated,
+            pageSource,
+            viewportType } = this.props;
 
         return (
             <PreviewPaneContainer>
                 <IndicatorBoundary {...this.props}>
                     <PreviewPaneIframe
                         innerRef={(x: HTMLIFrameElement) => (this.iframeRef = x)}
+                        isFetching={isFetching}
                         isRotated={isRotated}
                         srcDoc={pageSource}
                         viewportType={viewportType}
@@ -83,53 +94,72 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
             const linkNodes: NodeListOf<HTMLLinkElement> = doc.head.querySelectorAll('link[data-stencil-stylesheet]');
             const links: HTMLLinkElement[] = Array.prototype.slice.call(linkNodes);
 
-            links.forEach((currentLink: HTMLLinkElement) => {
-                const url = currentLink.getAttribute('href');
-                let newLink: HTMLLinkElement;
+            const styleUpdaters: Array<Promise<any>>
+                = links.map((currentLink: HTMLLinkElement) => {
+                    const url = currentLink.getAttribute('href');
 
-                if (!url) {
-                    return;
-                }
+                    return new Promise((resolve, reject) => {
+                        let newLink: HTMLLinkElement;
 
-                if (currentLink.hasAttribute('data-is-loading')) {
-                    doc.head.removeChild(currentLink);
-                } else {
-                    newLink = (currentLink.cloneNode(false) as HTMLLinkElement);
+                        // if condition is added because generateStylesheetUrl
+                        // assumes url might be null and throws a error
+                        if (!url) {
+                            return resolve();
+                        }
 
-                    newLink.setAttribute('href', generateStylesheetUrl(url, {
-                        configurationId, lastCommitId, versionId,
-                    }));
-                    newLink.setAttribute('data-is-loading', 'true');
+                        const stylesheetLoad = () => {
+                            resolve(newLink);
 
-                    newLink.addEventListener('load', stylesheetLoad);
-                    newLink.addEventListener('error', stylesheetError);
+                            newLink.removeAttribute('data-is-loading');
+                            // Destroy any existing handlers to save memory on subsequent stylesheet changes
+                            newLink.removeEventListener('error', stylesheetError);
+                            newLink.removeEventListener('load', stylesheetLoad);
 
-                    // Insert the new stylesheet before the old one to avoid any flash of un-styled content. The load
-                    // and error events only work for the initial load, which is why we replace the link on each update.
-                    doc.head.insertBefore(newLink, currentLink);
-                }
+                            // Remove the old stylesheet to allow the new one to take over
+                            doc.head.removeChild(currentLink);
 
-                function stylesheetLoad() {
-                    newLink.removeAttribute('data-is-loading');
+                            self.document.body.focus();
+                        };
 
-                    // Destroy any existing handlers to save memory on subsequent stylesheet changes
-                    newLink.removeEventListener('error', stylesheetError);
-                    newLink.removeEventListener('load', stylesheetLoad);
+                        const stylesheetError = () => {
+                            reject(newLink);
+                            // Something went wrong with our new stylesheet, so destroy it and keep the old one
+                            newLink.removeEventListener('error', stylesheetError);
+                            newLink.removeEventListener('load', stylesheetLoad);
 
-                    // Remove the old stylesheet to allow the new one to take over
-                    doc.head.removeChild(currentLink);
+                            doc.head.removeChild(newLink);
+                        };
 
-                    self.document.body.focus();
-                }
+                        if (currentLink.hasAttribute('data-is-loading')) {
+                            doc.head.removeChild(currentLink);
+                            resolve(currentLink);
+                        } else {
+                            newLink = (currentLink.cloneNode(false) as HTMLLinkElement);
 
-                function stylesheetError() {
-                    // Something went wrong with our new stylesheet, so destroy it and keep the old one
-                    newLink.removeEventListener('error', stylesheetError);
-                    newLink.removeEventListener('load', stylesheetLoad);
+                            newLink.setAttribute('href', generateStylesheetUrl(url, {
+                                configurationId, lastCommitId, versionId,
+                            }));
+                            newLink.setAttribute('data-is-loading', 'true');
 
-                    doc.head.removeChild(newLink);
-                }
-            });
+                            newLink.addEventListener('load', stylesheetLoad);
+                            newLink.addEventListener('error', stylesheetError);
+
+                            // Insert the new stylesheet before the old one to avoid any flash of un-styled content.
+                            // The load and error events only work for the initial load,
+                            // which is why we replace the link on each update.
+                            doc.head.insertBefore(newLink, currentLink);
+                        }
+                    });
+                });
+
+            Promise.all(styleUpdaters)
+                .then(() => {
+                    this.props.previewPaneLoaded();
+                })
+                .catch(() => {
+                    this.props.previewPaneLoaded();
+                });
+
         }
     }
 }
@@ -145,6 +175,8 @@ const mapStateToProps = (state: State): Partial<PreviewPaneProps> => {
 const mapDispatchToProps = (dispatch: Dispatch): Partial<PreviewPaneProps> => bindActionCreators({
     clearErrors,
     loadPage: fetchPageSource,
+    previewPaneLoaded,
+    previewPaneLoading,
     receiveThemeConfigChange,
 }, dispatch);
 

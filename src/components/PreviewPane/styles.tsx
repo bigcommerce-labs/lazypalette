@@ -16,6 +16,7 @@ export const PreviewPaneContainer = styled.div`
 `;
 
 interface PreviewPaneIframeProps {
+    isFetching: boolean;
     isRotated: boolean;
     viewportType: ViewportType;
 }
@@ -32,6 +33,11 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
 })`
     background-color: #F2F2F2;
     border: 0px;
+    ${(props: PreviewPaneIframeProps) => {
+        return `
+                opacity: ${props.isFetching ? 0.5 : 1};
+                `;
+    }}
 
     ${(props: PreviewPaneIframeProps) => {
         const borderRadius = props.viewportType === VIEWPORT_TYPES.DESKTOP ? '0px' : '30px';
