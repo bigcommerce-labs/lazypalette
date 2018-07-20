@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 
+import { ViewportType } from '../components/PreviewPane/PreviewPane';
 import { State } from '../reducers/reducers';
 import * as api from '../services/previewPane';
 import * as themeApi from '../services/themeApi';
@@ -11,6 +12,7 @@ export enum PreviewPaneActionTypes {
     PAGE_SOURCE_REQUEST = 'PAGE_SOURCE_REQUEST',
     PAGE_SOURCE_RESPONSE = 'PAGE_SOURCE_RESPONSE',
     THEME_PREVIEW_CONFIG_REQUEST = 'THEME_PREVIEW_CONFIG_REQUEST',
+    VIEWPORT_CHANGE = 'VIEWPORT_CHANGE',
 }
 
 export interface PageSourceRequestAction extends Action  {
@@ -104,5 +106,15 @@ export function receiveThemePreviewConfig(
             versionId,
         },
         type: PreviewPaneActionTypes.THEME_PREVIEW_CONFIG_REQUEST,
+    };
+}
+
+export function viewportChange(viewportType: ViewportType, isRotated: boolean = false) {
+    return {
+        payload: {
+            isRotated,
+            viewportType,
+        },
+        type: PreviewPaneActionTypes.VIEWPORT_CHANGE,
     };
 }

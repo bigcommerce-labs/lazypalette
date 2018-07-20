@@ -1,8 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders 1`] = `
+exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP updates the rotated viewportType correctly 1`] = `
+<iframe
+  class="sc-dnqmqq eyCFXN"
+  height="100%"
+  width="100%"
+/>
+`;
+
+exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP updates the viewportType correctly 1`] = `
+<iframe
+  class="sc-dnqmqq eyCFXN"
+  height="100%"
+  width="100%"
+/>
+`;
+
+exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE updates the rotated viewportType correctly 1`] = `
+<iframe
+  class="sc-dnqmqq bHwRWu"
+  height="320px"
+  width="480px"
+/>
+`;
+
+exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE updates the viewportType correctly 1`] = `
+<iframe
+  class="sc-dnqmqq dEsAxc"
+  height="480px"
+  width="320px"
+/>
+`;
+
+exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET updates the rotated viewportType correctly 1`] = `
+<iframe
+  class="sc-dnqmqq bkZTBR"
+  height="768px"
+  width="1024px"
+/>
+`;
+
+exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET updates the viewportType correctly 1`] = `
+<iframe
+  class="sc-dnqmqq kpUSWL"
+  height="1024px"
+  width="768px"
+/>
+`;
+
+exports[`<PreviewPane /> render() renders the component 1`] = `
 <PreviewPane
   clearErrors={[Function]}
+  errors={Array []}
   loadPage={[Function]}
 />
 `;

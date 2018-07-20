@@ -1,4 +1,4 @@
-import * as themeActions from '../actions/theme';
+import * as themeActions from './theme';
 
 describe('theme actions', () => {
     it('should create a CurrentThemeResponse action', () => {

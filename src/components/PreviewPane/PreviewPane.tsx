@@ -12,12 +12,20 @@ import { WindowService } from '../../services/window';
 import { PreviewPaneContainer, PreviewPaneIframe } from './styles';
 import { IndicatorBoundary } from './IndicatorBoundary';
 
+export interface ViewportType {
+    glyphName: string;
+    viewportHeight: string;
+    viewportWidth: string;
+}
+
 interface PreviewPaneProps {
     errors: Error[];
     isFetching: boolean;
+    isRotated: boolean;
     page: string;
     pageSource: string;
     themePreviewConfig: ThemePreviewConfig;
+    viewportType: ViewportType;
     loadPage(page: string): void;
     clearErrors(): void;
 }
@@ -34,11 +42,38 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
     componentDidMount(): void {
         WindowService.getInstance().addEventListener('message', this.handleMessage);
         this.props.loadPage(this.props.page);
+        this.updateStyles();
     }
 
     componentDidUpdate(): void {
-        if (this.iframeRef && this.iframeRef.contentDocument) {
-            const { configurationId, lastCommitId, versionId } = this.props.themePreviewConfig;
+        this.updateStyles();
+    }
+
+    componentWillUnmount(): void {
+        WindowService.getInstance().removeEventListener('message', this.handleMessage);
+    }
+
+    render(): JSX.Element {
+        const { isRotated, pageSource, viewportType } = this.props;
+
+        return (
+            <PreviewPaneContainer>
+                <IndicatorBoundary {...this.props}>
+                    <PreviewPaneIframe
+                        innerRef={(x: HTMLIFrameElement) => (this.iframeRef = x)}
+                        isRotated={isRotated}
+                        srcDoc={pageSource}
+                        viewportType={viewportType}
+                    />
+                </IndicatorBoundary>
+            </PreviewPaneContainer>
+        );
+    }
+
+    private updateStyles() {
+        const { configurationId, lastCommitId, versionId } = this.props.themePreviewConfig;
+
+        if (this.iframeRef && this.iframeRef.contentDocument && configurationId !== '') {
             const doc: HTMLDocument = this.iframeRef.contentDocument;
             const linkNodes: NodeListOf<HTMLLinkElement> = doc.head.querySelectorAll('link[data-stencil-stylesheet]');
             const links: HTMLLinkElement[] = Array.from(linkNodes);
@@ -56,9 +91,9 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
                 } else {
                     newLink = (currentLink.cloneNode(false) as HTMLLinkElement);
 
-                    newLink.setAttribute('href', generateStylesheetUrl(url,
-                        { configurationId, lastCommitId, versionId,
-                        }));
+                    newLink.setAttribute('href', generateStylesheetUrl(url, {
+                        configurationId, lastCommitId, versionId,
+                    }));
                     newLink.setAttribute('data-is-loading', 'true');
 
                     newLink.addEventListener('load', stylesheetLoad);
@@ -91,22 +126,6 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
                 }
             });
         }
-    }
-
-    componentWillUnmount(): void {
-        WindowService.getInstance().removeEventListener('message', this.handleMessage);
-    }
-
-    render(): JSX.Element {
-        const { pageSource } = this.props;
-
-        return (
-            <PreviewPaneContainer>
-                <IndicatorBoundary {...this.props}>
-                    <PreviewPaneIframe innerRef={x => (this.iframeRef = x)} srcDoc={pageSource}/>
-                </IndicatorBoundary>
-            </PreviewPaneContainer>
-        );
     }
 }
 

@@ -1,5 +1,7 @@
 import { Action } from '../actions/action';
 import { PageSourceResponse, PreviewPaneActionTypes } from '../actions/previewPane';
+import { VIEWPORT_TYPES } from '../components/PreviewPane/constants';
+import { ViewportType } from '../components/PreviewPane/PreviewPane';
 
 export const initialState = {
     isFetching: true,
@@ -10,6 +12,7 @@ export const initialState = {
         lastCommitId: '',
         versionId: '',
     },
+    viewportType: VIEWPORT_TYPES.DESKTOP,
 };
 
 export interface ThemePreviewConfig {
@@ -23,6 +26,7 @@ export interface PreviewPaneState {
     page: string;
     pageSource: string;
     themePreviewConfig: ThemePreviewConfig;
+    viewportType: ViewportType;
 }
 
 const previewPane = (
@@ -40,6 +44,8 @@ const previewPane = (
             return { ...state, ...action.payload as PageSourceResponse, isFetching: false };
         case PreviewPaneActionTypes.THEME_PREVIEW_CONFIG_REQUEST:
             return { ...state, ...{ themePreviewConfig: { ...state.themePreviewConfig, ...action.payload } } };
+        case PreviewPaneActionTypes.VIEWPORT_CHANGE:
+            return { ...state, ...action.payload };
         default:
             return state;
     }
