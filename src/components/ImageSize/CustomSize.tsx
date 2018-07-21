@@ -1,13 +1,11 @@
-import React, { ChangeEvent, PureComponent } from 'react';
-
 import { InputField } from 'pattern-lab';
+import React, { ChangeEvent, ChangeEventHandler, PureComponent } from 'react';
 
 import { Axis, SizeModal } from './styles';
 
 interface CustomSizeProps {
     defaultValue: string;
-    name: string;
-    onChange?(configChange: {[key: string]: string}): void;
+    onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 interface CustomSizeState {
@@ -20,20 +18,26 @@ class CustomSize extends PureComponent<CustomSizeProps, CustomSizeState> {
         width: '0',
     };
 
-    componentDidMount() {
+    componentDidUpdate(prevProps: CustomSizeProps) {
         const { defaultValue } = this.props;
-        const [width, height] = defaultValue ? this.props.defaultValue.split('x') : ['0', '0'];
-        this.setState({height, width});
+
+        if (defaultValue !== prevProps.defaultValue) {
+            const [width, height] = defaultValue.split('x');
+            this.setState({height, width});
+        }
     }
 
-    onChange = (event: ChangeEvent<HTMLInputElement>, dimension: string) => {
-        const { name } = this.props;
+    handleChange = (event: ChangeEvent<HTMLInputElement>, axis: string) => {
         const { height, width } = this.state;
         const value = event.target.value;
+        this.setState({ [axis]: value });
 
-        const dimensions = dimension === 'height' ? `${width}x${value}` : `${value}x${height}`;
-        this.setState({ [dimension]: value });
-        this.props.onChange!({ [name]: `${dimensions}` });
+        const dimensions = axis === 'height' ? `${width}x${value}` : `${value}x${height}`;
+        const newEvent = {...event, target: {...event.target, value: dimensions}};
+
+        if (this.props.onChange) {
+            this.props.onChange(newEvent);
+        }
     };
 
     render() {
@@ -43,13 +47,13 @@ class CustomSize extends PureComponent<CustomSizeProps, CustomSizeState> {
         return (
             <SizeModal>
                 {['width', 'height'].map((axis, i) => (
-                    <Axis key={i}>
+                    <Axis key={axis}>
                         <InputField
                             value={dimensions[i]}
                             label={`Max ${axis}`}
                             required={true}
                             pattern="^[0-9]*$"
-                            onChange={e => this.onChange(e, axis)}
+                            onChange={e => this.handleChange(e, axis)}
                         />
                     </Axis>
                 ))}

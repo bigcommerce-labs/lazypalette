@@ -65,7 +65,7 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.10.0",
-    "pattern-lab": "git+ssh://git@github.com/bigcommerce/pattern-lab.git#v3.0.0-alpha.9",
+    "pattern-lab": "git+ssh://git@github.com/bigcommerce/pattern-lab.git#v3.0.0-alpha.10",
     "react-color": "^2.14.1",
     "redux-mock-store": "^1.5.3",
     "srcdoc-polyfill": "git+https://github.com/jugglinmike/srcdoc-polyfill.git",
