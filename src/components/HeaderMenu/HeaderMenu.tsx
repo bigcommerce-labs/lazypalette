@@ -104,13 +104,14 @@ class HeaderMenu extends Component <HeaderMenuProps, HeaderState> {
     }
 }
 
-const mapStateToProps = ({ theme, previewPane }: State) => ({
+const mapStateToProps = ({ theme, previewPane }: State): Partial<HeaderMenuProps> => ({
     configurationId: theme.configurationId,
     displayVersion: theme.displayVersion,
-    previewPane,
+    isRotated: previewPane.isRotated,
     themeName: theme.themeName,
     variationName: theme.variationName,
     variations: theme.variations,
+    viewportType: previewPane.viewportType,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): Partial<HeaderMenuProps> => bindActionCreators({
