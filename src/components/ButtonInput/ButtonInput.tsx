@@ -3,9 +3,10 @@ import React, { MouseEvent, MouseEventHandler, PureComponent } from 'react';
 import { Button, Wrapper } from './styles';
 
 interface ButtonInputProps extends Partial<{
+    children: JSX.Element | string;
+    classType: string;
     disabled: boolean;
     onClick: MouseEventHandler<HTMLButtonElement>;
-    classType: string;
     type: string;
 }> {}
 

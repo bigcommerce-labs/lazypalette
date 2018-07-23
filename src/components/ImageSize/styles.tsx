@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const ImageSizeModal = styled.div`
-    padding: .5rem;
-`;
+export const ImageSizeModal = styled.div``;
 
 export const SizeModal = styled.div`
     display: flex;

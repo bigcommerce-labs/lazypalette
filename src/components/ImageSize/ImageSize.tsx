@@ -8,10 +8,10 @@ interface ImageSizeProps {
     label: string;
     options: Array<{
         label: string;
-    value: string;
-  }>;
-  selected: string;
-  onChange?: ChangeEventHandler<HTMLSelectElement | HTMLInputElement>;
+        value: string;
+    }>;
+    selected: string;
+    onChange?: ChangeEventHandler<HTMLSelectElement | HTMLInputElement>;
 }
 
 class ImageSize extends Component<ImageSizeProps> {

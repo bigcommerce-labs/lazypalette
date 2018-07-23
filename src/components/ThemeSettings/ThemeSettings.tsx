@@ -7,6 +7,7 @@ import { Dispatch } from 'redux';
 import { updateThemeConfigChange, SettingsType, ThemeConfigChange } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
+import CheckoutImageUpload from '../CheckoutImageUpload/CheckoutImageUpload';
 import ColorPicker from '../ColorPicker/ColorPicker';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ImageSize from '../ImageSize/ImageSize';
@@ -30,7 +31,8 @@ function transformOptions(setting: ThemeSchemaEntrySetting) {
 function getEditor(
     setting: ThemeSchemaEntrySetting,
     preSetValue: SettingsType,
-    handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
+    handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
+    broadcastConfigChange: (configChange: ThemeConfigChange) => Dispatch<State>
 ) {
     switch (setting.type) {
         case 'color':
@@ -59,6 +61,13 @@ function getEditor(
                 onChange={handleChange}
                 options={transformOptions(setting)}
             />;
+        case 'optimizedCheckout-image':
+            return <CheckoutImageUpload
+                label={setting.label || ''}
+                name={setting.id!}
+                onChange={broadcastConfigChange}
+                imageURL={preSetValue[`${setting.id}`] as string}
+            />;
         case 'select':
             return <SelectBox
                 selected={preSetValue[`${setting.id}`] as string}
@@ -86,6 +95,7 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
 
             this.props.updateThemeConfigChange({[`${setting.id}`]: value});
         };
+
     render() {
         const { match, settings, settingsIndex, themeSettings } = this.props;
 
@@ -100,7 +110,14 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
                         <List>
                             {themeSettings.settings.map((setting, index) => (
                                 <Item key={index}>
-                                    {getEditor(setting, settings, this.handleChange(setting))}
+                                    {
+                                        getEditor(
+                                            setting,
+                                            settings,
+                                            this.handleChange(setting),
+                                            this.props.updateThemeConfigChange
+                                        )
+                                    }
                                 </Item>
                             ))}
                         </List>
