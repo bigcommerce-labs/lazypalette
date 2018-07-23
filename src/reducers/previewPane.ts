@@ -5,6 +5,7 @@ import { ViewportType } from '../components/PreviewPane/PreviewPane';
 
 export const initialState = {
     isFetching: true,
+    isRotated: false,
     page: '/',
     pageSource: '',
     themePreviewConfig: {
@@ -23,6 +24,7 @@ export interface ThemePreviewConfig {
 
 export interface PreviewPaneState {
     isFetching: boolean;
+    isRotated: boolean;
     page: string;
     pageSource: string;
     themePreviewConfig: ThemePreviewConfig;
