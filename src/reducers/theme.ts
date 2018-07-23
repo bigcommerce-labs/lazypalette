@@ -129,7 +129,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
             };
         case ThemeActionTypes.THEME_CONFIG_RESET:
             return { ...state, settings: { ...state.initialSettings }, isChanged: false };
-        case ThemeActionTypes.POST_THEME_CONFIG_RESPONSE:
+        case ThemeActionTypes.PUBLISH_THEME_CONFIG_RESPONSE:
             const { settings: initialSettings } = action.payload as ThemeConfigPostResponse;
 
             return {
@@ -137,6 +137,20 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 configurationId: action.payload.configurationId,
                 initialSettings,
                 isChanged: isNotEqual(state.settings, initialSettings),
+            };
+        case ThemeActionTypes.PREVIEW_THEME_CONFIG_RESPONSE:
+
+            return {
+                ...state,
+                configurationId: action.payload.configurationId,
+            };
+        case ThemeActionTypes.SAVE_THEME_CONFIG_RESPONSE:
+
+            return {
+                ...state,
+                configurationId: action.payload.configurationId,
+                initialSettings: action.payload.settings,
+                isChanged: isNotEqual(state.settings, action.payload.settings),
             };
         default:
             return state;

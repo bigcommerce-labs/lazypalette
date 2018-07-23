@@ -15,6 +15,9 @@ export enum ThemeActionTypes {
     THEME_VERSION_RESPONSE = 'THEME_VERSION_RESPONSE',
     THEME_VARIATION_RESPONSE = 'THEME_VARIATION_RESPONSE',
     POST_THEME_CONFIG_RESPONSE = 'POST_THEME_CONFIG_RESPONSE',
+    PUBLISH_THEME_CONFIG_RESPONSE = 'PUBLISH_THEME_CONFIG_RESPONSE',
+    PREVIEW_THEME_CONFIG_RESPONSE = 'PREVIEW_THEME_CONFIG_RESPONSE',
+    SAVE_THEME_CONFIG_RESPONSE = 'SAVE_THEME_CONFIG_RESPONSE',
 }
 
 export interface CurrentThemeResponseAction extends Action {
@@ -42,6 +45,24 @@ export interface ThemeConfigPostAction extends Action  {
     error: boolean;
     payload: ThemeConfigPostResponse | Error;
     type: ThemeActionTypes.POST_THEME_CONFIG_RESPONSE;
+}
+
+export interface ThemeConfigPublishAction extends Action  {
+    error: boolean;
+    payload: ThemeConfigPostResponse | Error;
+    type: ThemeActionTypes.PUBLISH_THEME_CONFIG_RESPONSE;
+}
+
+export interface ThemeConfigPreviewAction extends Action  {
+    error: boolean;
+    payload: ThemeConfigPostResponse | Error;
+    type: ThemeActionTypes.PREVIEW_THEME_CONFIG_RESPONSE;
+}
+
+export interface ThemeConfigSaveAction extends Action  {
+    error: boolean;
+    payload: ThemeConfigPostResponse | Error;
+    type: ThemeActionTypes.SAVE_THEME_CONFIG_RESPONSE;
 }
 
 export interface ThemeVersionResponseAction extends Action  {
@@ -154,6 +175,39 @@ export function themeConfigPostResponse(
         error,
         payload,
         type: ThemeActionTypes.POST_THEME_CONFIG_RESPONSE,
+    };
+}
+
+export function themeConfigPublishResponse(
+    payload: ThemeConfigPostResponse | Error,
+    error: boolean = false
+): ThemeConfigPublishAction {
+    return {
+        error,
+        payload,
+        type: ThemeActionTypes.PUBLISH_THEME_CONFIG_RESPONSE,
+    };
+}
+
+export function themeConfigPreviewResponse(
+    payload: ThemeConfigPostResponse | Error,
+    error: boolean = false
+): ThemeConfigPreviewAction {
+    return {
+        error,
+        payload,
+        type: ThemeActionTypes.PREVIEW_THEME_CONFIG_RESPONSE,
+    };
+}
+
+export function themeConfigSaveResponse(
+    payload: ThemeConfigPostResponse | Error,
+    error: boolean = false
+): ThemeConfigSaveAction {
+    return {
+        error,
+        payload,
+        type: ThemeActionTypes.SAVE_THEME_CONFIG_RESPONSE,
     };
 }
 
@@ -313,13 +367,17 @@ export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
 
                 if (configData.publish) {
                     dispatch(fetchInitialState());
-
-                    return;
+                } else if (configData.preview) {
+                    dispatch(themeConfigPreviewResponse({
+                        configurationId: newConfigurationId,
+                        settings: newSettings,
+                    }));
+                } else {
+                    dispatch(themeConfigSaveResponse({
+                        configurationId: newConfigurationId,
+                        settings: newSettings,
+                    }));
                 }
-                dispatch(themeConfigPostResponse({
-                    configurationId: newConfigurationId,
-                    settings: newSettings,
-                }));
             })
             .catch(error => dispatch(themeConfigPostResponse(error, true)));
     };
