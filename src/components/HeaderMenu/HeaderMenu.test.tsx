@@ -11,7 +11,14 @@ import HeaderMenu from './HeaderMenu';
 describe('<HeaderMenu />', () => {
     describe('render()', () => {
         test('renders the component', () => {
-            const store = createMockStore([])({ previewPane: {}, error: {} });
+            const store = createMockStore([])({
+                error: {},
+                previewPane: {},
+                theme: {
+                    configurationId: '012',
+                    variations: [],
+                },
+            });
             const headerMenu = shallow(<HeaderMenu/>, { context: { store } }).dive();
 
             expect(toJson(headerMenu)).toMatchSnapshot();
@@ -22,8 +29,16 @@ describe('<HeaderMenu />', () => {
         describe('onClick()', () => {
             test('updates the viewportType', () => {
                 const store = createMockStore([])({
+                    displayVersion: '1.2.1',
                     error: {},
+                    postThemeConfigData: jest.fn(),
                     previewPane: {},
+                    theme: {
+                        configurationId: '012',
+                        variations: [],
+                    },
+                    themeName: 'Cornerstone',
+                    variationName: 'Bold',
                 });
                 const styledIcons = shallow(<HeaderMenu/>, { context: { store } }).find(StyledIcon);
                 const viewportTypes = [

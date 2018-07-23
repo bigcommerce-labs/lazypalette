@@ -3,10 +3,8 @@ import { Dispatch } from 'redux';
 import { ViewportType } from '../components/PreviewPane/PreviewPane';
 import { State } from '../reducers/reducers';
 import * as api from '../services/previewPane';
-import * as themeApi from '../services/themeApi';
 
 import { Action } from './action';
-import { ThemeConfigChange } from './theme';
 
 export enum PreviewPaneActionTypes {
     PAGE_SOURCE_REQUEST = 'PAGE_SOURCE_REQUEST',
@@ -63,34 +61,22 @@ export const fetchPageSource = (page: string) => {
     };
 };
 
-export function receiveThemeConfigChange(configChange: ThemeConfigChange) {
+export function receiveThemeConfigChange() {
     return (dispatch: Dispatch<State>, getState: () => State) => {
         const {
             configurationId,
-            settings: currentSettings,
-            themeId,
-            variationId,
             variations,
             versionId,
         } = getState().theme;
-        const settings = { ...currentSettings, ...configChange };
-        const {
-            lastCommitId,
-        } = variations[variations.map(variation => variation.isCurrent).indexOf(true)];
 
-        return themeApi.postThemeConfig({
+        const isCurrentIndex = variations.map(variation => variation.isCurrent).indexOf(true);
+        const lastCommitId = isCurrentIndex >= 0 ? variations[isCurrentIndex].lastCommitId : '';
+
+        dispatch(receiveThemePreviewConfig(
             configurationId,
-            preview: true,
-            publish: false,
-            reset: false,
-            settings,
-            themeId,
-            variationId,
             versionId,
-        })
-            .then(({ configurationId: newConfigurationId }) => dispatch(receiveThemePreviewConfig(
-                newConfigurationId, versionId, lastCommitId
-            )));
+            lastCommitId
+        ));
     };
 }
 

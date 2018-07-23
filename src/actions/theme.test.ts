@@ -4,8 +4,11 @@ describe('theme actions', () => {
     it('should create a CurrentThemeResponse action', () => {
         const payload = {
             configurationId: '123',
+            displayVersion: '2.1.0',
             themeId: '789',
+            themeName: 'Cornerstone',
             variationId: '012',
+            variationName: 'Bold',
             variations: [
                 {
                     configurationId: '123',

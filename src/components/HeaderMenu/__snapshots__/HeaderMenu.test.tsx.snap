@@ -2,9 +2,11 @@
 
 exports[`<HeaderMenu /> render() renders the component 1`] = `
 <styled.nav>
-  <BCPrimaryLogo
-    inverted={false}
-  />
+  <styled.div>
+    <BCPrimaryLogo
+      inverted={false}
+    />
+  </styled.div>
   <Component
     isSelected={false}
     onClick={[Function]}
@@ -37,6 +39,10 @@ exports[`<HeaderMenu /> render() renders the component 1`] = `
         "viewportWidth": "320px",
       }
     }
+  />
+  <PubShareBox
+    canPublish={false}
+    onPublish={[Function]}
   />
 </styled.nav>
 `;
