@@ -5,13 +5,14 @@ import { VIEWPORT_TYPES } from './constants';
 import { ViewportType } from './PreviewPane';
 
 export const PreviewPaneContainer = styled.div`
-    border-radius: 4px;
+    border-radius: 0px;
     box-shadow: ${({ theme: { elevation } }) => elevation && elevation.raised};
     display: flex;
     flex: auto;
     height: 90%;
     justify-content: center;
-    margin: 0.75rem 0.75rem 0.75rem 0;
+    margin: 0.75rem 0.75rem 0 0;
+    overflow: auto;
 `;
 
 interface PreviewPaneIframeProps {
@@ -33,8 +34,9 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
     border: 0px;
 
     ${(props: PreviewPaneIframeProps) => {
-        const borderRadius = props.viewportType === VIEWPORT_TYPES.DESKTOP ? '4px' : '30px';
+        const borderRadius = props.viewportType === VIEWPORT_TYPES.DESKTOP ? '0px' : '30px';
         let boxShadow;
+        let marginBottom;
         let marginTop;
         let paddingBottom;
         let paddingLeft;
@@ -44,6 +46,7 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
         switch (props.viewportType) {
             case VIEWPORT_TYPES.DESKTOP:
                 boxShadow = 'none';
+                marginBottom = '0px';
                 marginTop = '0px';
                 paddingBottom = '0px';
                 paddingLeft = '0px';
@@ -52,16 +55,18 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
                 break;
             case VIEWPORT_TYPES.MOBILE:
                 boxShadow = theme.elevation.raised;
+                marginBottom = '50px';
                 marginTop = '50px';
-                paddingBottom = '10px';
+                paddingBottom = '50px';
                 paddingLeft = '10px';
                 paddingRight = '10px';
                 paddingTop = '60px';
                 break;
             case VIEWPORT_TYPES.TABLET:
                 boxShadow = theme.elevation.raised;
+                marginBottom = '50px';
                 marginTop = '50px';
-                paddingBottom = '20px';
+                paddingBottom = '50px';
                 paddingLeft = '20px';
                 paddingRight = '20px';
                 paddingTop = '65px';
@@ -76,6 +81,7 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
         return `
             border-radius: ${borderRadius};
             box-shadow: ${boxShadow};
+            margin-bottom: ${marginBottom};
             margin-top: ${marginTop};
             padding-bottom: ${paddingBottom};
             padding-left: ${paddingLeft};
