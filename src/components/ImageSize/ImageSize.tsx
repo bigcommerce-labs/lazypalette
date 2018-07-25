@@ -30,8 +30,8 @@ class ImageSize extends Component<ImageSizeProps> {
 
     render() {
         const { label, options, selected } = this.props;
-        const optionExists = options.findIndex(({value}) => value === selected);
-        const optionSelected = optionExists < 0 ? 'custom' : selected;
+        const optionExists = options.some(({value}) => value === selected);
+        const optionSelected = optionExists ? selected : 'custom';
 
         return (
             <ImageSizeModal>
