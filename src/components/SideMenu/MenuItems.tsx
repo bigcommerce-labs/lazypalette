@@ -24,7 +24,7 @@ const ExpandMenuRoutes = ({ route }: { route: string }) => {
         return <ThemeVariations/>;
     }
 
-    if (route.startsWith('style/')) {
+    if (route.indexOf('style/') === 0) {
         return <ThemeSettings settingsIndex={parseInt(route.split('/')[1], 10)}/>;
     }
 
