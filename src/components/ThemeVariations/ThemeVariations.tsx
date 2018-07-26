@@ -7,6 +7,9 @@ import { changeThemeVariation } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 
+import { Messages } from '../Modal/constants';
+import ConfirmModal from '../Modal/ConfirmModal';
+
 import ThemeModule from './ThemeModule';
 
 interface ThemeVariationsProps extends RouteComponentProps<{}> {
@@ -24,34 +27,69 @@ interface StateProps {
     variationId: string;
 }
 
-class ThemeVariations extends PureComponent <ThemeVariationsProps> {
-    alertAndChange = (variationId: string) => {
-        const status = confirm('This variation has unpublished changes. Do you want to proceed?');
-        if (status) {
+interface ThemeVariationsState {
+    isConfirmOpen: boolean;
+    variationId: string;
+}
+
+class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeVariationsState> {
+    readonly state: ThemeVariationsState = {
+        isConfirmOpen: false,
+        variationId: '',
+    };
+
+    open = (variationId: string) => this.setState({
+        isConfirmOpen: true,
+        variationId,
+    });
+
+    close = () => this.setState({
+        isConfirmOpen: false,
+        variationId: '',
+    });
+
+    handleChange = () => {
+        const { variationId } = this.state;
+
+        this.setState({
+            isConfirmOpen: false,
+            variationId: '',
+        }, () => {
             this.props.changeThemeVariation(variationId);
-        }
+        });
     };
 
     handleVariationChange = (variationId: string): void => {
         const { isChanged } = this.props;
 
-        isChanged ? this.alertAndChange(variationId) : this.props.changeThemeVariation(variationId);
+        isChanged ? this.open(variationId) : this.props.changeThemeVariation(variationId);
     };
 
     render() {
         const { match, themeVariants} = this.props;
+        const { isConfirmOpen } = this.state;
 
         return (
             <Route
                 path="/design/theme"
                 exact
                 render={() => (
-                    <ExpandableMenu title="Store theme" back={match.url}>
-                        <ThemeModule
-                            variants={themeVariants}
-                            handleVariationChange={this.handleVariationChange}
-                        />
-                    </ExpandableMenu>
+                    <>
+                        <ExpandableMenu title="Store theme" back={match.url}>
+                            <ThemeModule
+                                variants={themeVariants}
+                                handleVariationChange={this.handleVariationChange}
+                            />
+                        </ExpandableMenu>
+                        {isConfirmOpen &&
+                            <ConfirmModal
+                                body={Messages.Variation}
+                                onClose={this.close}
+                                secondaryAction={this.handleChange}
+                                title="Theme Change Warning"
+                            />
+                        }
+                    </>
                 )}
             />
         );

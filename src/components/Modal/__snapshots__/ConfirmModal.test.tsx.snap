@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfirmModal renders 1`] = `
+<Modal
+  isTransparent={false}
+  onClose={[MockFunction]}
+  title="Please Confirm:"
+>
+  <styled.div>
+    <styled.div>
+      This theme will self-destruct in T-minus
+    </styled.div>
+    <styled.div>
+      <styled.div>
+        <ButtonInput
+          classType="primary"
+          onClick={[MockFunction]}
+          type="button"
+        >
+          Cancel
+        </ButtonInput>
+        <ButtonInput
+          onClick={[MockFunction]}
+          type="button"
+        >
+          OK
+        </ButtonInput>
+      </styled.div>
+    </styled.div>
+  </styled.div>
+</Modal>
+`;
