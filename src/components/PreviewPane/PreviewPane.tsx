@@ -81,7 +81,7 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
         if (this.iframeRef && this.iframeRef.contentDocument && configurationId !== '') {
             const doc: HTMLDocument = this.iframeRef.contentDocument;
             const linkNodes: NodeListOf<HTMLLinkElement> = doc.head.querySelectorAll('link[data-stencil-stylesheet]');
-            const links: HTMLLinkElement[] = Array.from(linkNodes);
+            const links: HTMLLinkElement[] = Array.prototype.slice.call(linkNodes);
 
             links.forEach((currentLink: HTMLLinkElement) => {
                 const url = currentLink.getAttribute('href');
