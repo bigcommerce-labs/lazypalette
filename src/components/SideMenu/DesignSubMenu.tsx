@@ -1,6 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import ButtonInput from '../ButtonInput/ButtonInput';
+import { Messages } from '../Modal/constants';
+import ConfirmModal from '../Modal/ConfirmModal';
 
 import { DesignMenuButtons } from './styles';
 import SubMenu from './SubMenu';
@@ -15,7 +17,11 @@ interface DesignSubMenuProps {
     currentPath: string;
     isChanged: boolean;
     handleSave(): void;
-    handleReset(): void;
+    resetTheme(): void;
+}
+
+interface DesignSubMenuState {
+    isResetOpen: boolean;
 }
 
 const staticItems: MenuItem[] = [
@@ -38,13 +44,24 @@ const getItems = (sections: string[]) => {
     ));
 };
 
-class DesignSubMenu extends PureComponent<DesignSubMenuProps> {
+class DesignSubMenu extends Component<DesignSubMenuProps, DesignSubMenuState> {
+    readonly state: DesignSubMenuState = { isResetOpen: false };
+
+    open = () => this.setState({ isResetOpen: true });
+
+    close = () => this.setState({ isResetOpen: false });
+
     handleSave = () => this.props.handleSave();
 
-    handleReset = () => this.props.handleReset();
+    handleReset = () => {
+        this.setState({ isResetOpen: false }, () => {
+            this.props.resetTheme();
+        });
+    };
 
     render() {
         const { currentPath, isChanged } = this.props;
+        const { isResetOpen } = this.state;
 
         return (
             <>
@@ -63,13 +80,21 @@ class DesignSubMenu extends PureComponent<DesignSubMenuProps> {
                         Save
                     </ButtonInput>
                     <ButtonInput
-                        onClick={this.handleReset}
+                        onClick={this.open}
                         disabled={!isChanged}
                         type="button"
                     >
                         Reset
                     </ButtonInput>
                 </DesignMenuButtons>
+                {isResetOpen &&
+                    <ConfirmModal
+                        body={Messages.Reset}
+                        onClose={this.close}
+                        secondaryAction={this.handleReset}
+                        title="Reset Warning"
+                    />
+                }
             </>
         );
     }

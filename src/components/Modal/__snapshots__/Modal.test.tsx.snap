@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal renders 1`] = `
+<styled.div
+  onClick={[Function]}
+>
+  <styled.div
+    isTransparent={false}
+  />
+  <styled.div
+    onClick={[Function]}
+  >
+    <styled.h3>
+      Test Modal
+    </styled.h3>
+    <styled.div>
+      <TestChildren />
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;

@@ -73,17 +73,8 @@ class SideMenu extends PureComponent<SideMenuProps> {
         this.props.postThemeConfigData(ConfigUpdateAction.SAVE);
     };
 
-    handleReset = () => {
-        const { isChanged, themeConfigReset: resetTheme } = this.props;
-        const confirmChange = () => (
-            confirm('This theme has unpublished changes. Do you want to proceed?') ? resetTheme() : null
-        );
-
-        return isChanged ? confirmChange() : null;
-    };
-
     render() {
-        const { isChanged, themeDesignSections } = this.props;
+        const { isChanged, themeDesignSections, themeConfigReset: resetTheme } = this.props;
 
         return (
             <StyledSideMenu>
@@ -103,7 +94,7 @@ class SideMenu extends PureComponent<SideMenuProps> {
                     render={({ match }) => (
                         <DesignSubMenu
                             handleSave={this.handleSave}
-                            handleReset={this.handleReset}
+                            resetTheme={resetTheme}
                             isChanged={isChanged}
                             sections={themeDesignSections}
                             currentPath={match.path}

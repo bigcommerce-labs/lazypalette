@@ -17,7 +17,7 @@ export const ExpandModal = styled.div`
     background: #FFF;
     padding: .5rem;
     box-shadow: ${({ theme }) => theme.elevation.raised};
-    z-index: 999;
+    z-index: ${({ theme }) => theme.layers.high};
     animation: ${fadeIn} 400ms ease-in;
     overflow: auto;
 `;
@@ -29,8 +29,13 @@ export const NavItem = styled(Link)`
     text-decoration: none;
     text-shadow: 0 1px 0 ${({ theme }) => theme.colors.background};
 
-    &:after {
+    :after {
         content: '✕';
+        color: ${({ theme }) => theme.colors.primaryText};
+
+        :visited, :hover, :active {
+            color: ${({ theme }) => theme.colors.primaryText};
+        }
     }
 `;
 
