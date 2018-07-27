@@ -45,9 +45,23 @@ const previewPane = (
         case PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE:
             return { ...state, ...action.payload as PageSourceResponse, isFetching: false };
         case PreviewPaneActionTypes.THEME_PREVIEW_CONFIG_REQUEST:
-            return { ...state, ...{ themePreviewConfig: { ...state.themePreviewConfig, ...action.payload } } };
+            return {
+                ...state,
+                ...{ themePreviewConfig: { ...state.themePreviewConfig, ...action.payload } },
+                isFetching: true,
+            };
         case PreviewPaneActionTypes.VIEWPORT_CHANGE:
             return { ...state, ...action.payload };
+        case PreviewPaneActionTypes.PREVIEW_PANE_LOADING:
+            return {
+                ...state,
+                isFetching: true,
+            };
+        case PreviewPaneActionTypes.PREVIEW_PANE_LOADED:
+            return {
+                ...state,
+                isFetching: false,
+            };
         default:
             return state;
     }

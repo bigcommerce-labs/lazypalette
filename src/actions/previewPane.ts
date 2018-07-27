@@ -9,6 +9,8 @@ import { Action } from './action';
 export enum PreviewPaneActionTypes {
     PAGE_SOURCE_REQUEST = 'PAGE_SOURCE_REQUEST',
     PAGE_SOURCE_RESPONSE = 'PAGE_SOURCE_RESPONSE',
+    PREVIEW_PANE_LOADED = 'PREVIEW_PANE_LOADED',
+    PREVIEW_PANE_LOADING = 'PREVIEW_PANE_LOADING',
     THEME_PREVIEW_CONFIG_REQUEST = 'THEME_PREVIEW_CONFIG_REQUEST',
     VIEWPORT_CHANGE = 'VIEWPORT_CHANGE',
 }
@@ -31,6 +33,26 @@ export interface PageSourceRequest {
 export interface PageSourceResponse {
     page: string;
     pageSource: string;
+}
+
+export interface PreviewPaneLoadingAction extends Action  {
+    type: PreviewPaneActionTypes.PREVIEW_PANE_LOADING;
+}
+
+export interface PreviewPaneLoadedAction extends Action  {
+    type: PreviewPaneActionTypes.PREVIEW_PANE_LOADED;
+}
+
+export function previewPaneLoading(): PreviewPaneLoadingAction {
+    return {
+        type: PreviewPaneActionTypes.PREVIEW_PANE_LOADING,
+    };
+}
+
+export function previewPaneLoaded(): PreviewPaneLoadedAction {
+    return {
+        type: PreviewPaneActionTypes.PREVIEW_PANE_LOADED,
+    };
 }
 
 export function pageSourceRequest(payload: PageSourceRequest): PageSourceRequestAction {
@@ -72,6 +94,7 @@ export function receiveThemeConfigChange() {
         const isCurrentIndex = variations.map(variation => variation.isCurrent).indexOf(true);
         const lastCommitId = isCurrentIndex >= 0 ? variations[isCurrentIndex].lastCommitId : '';
 
+        dispatch(previewPaneLoading());
         dispatch(receiveThemePreviewConfig(
             configurationId,
             versionId,
