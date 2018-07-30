@@ -15,46 +15,31 @@ export enum PreviewPaneActionTypes {
     VIEWPORT_CHANGE = 'VIEWPORT_CHANGE',
 }
 
-export interface PageSourceRequestAction extends Action  {
-    payload: PageSourceRequest;
-    type: PreviewPaneActionTypes.PAGE_SOURCE_REQUEST;
-}
-
-export interface PageSourceResponseAction extends Action  {
-    error: boolean;
-    payload: PageSourceResponse | Error;
-    type: PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE;
-}
-
-export interface PageSourceRequest {
-    page: string;
-}
-
-export interface PageSourceResponse {
-    page: string;
-    pageSource: string;
-}
-
 export interface PreviewPaneLoadingAction extends Action  {
     type: PreviewPaneActionTypes.PREVIEW_PANE_LOADING;
 }
-
-export interface PreviewPaneLoadedAction extends Action  {
-    type: PreviewPaneActionTypes.PREVIEW_PANE_LOADED;
-}
-
 export function previewPaneLoading(): PreviewPaneLoadingAction {
     return {
         type: PreviewPaneActionTypes.PREVIEW_PANE_LOADING,
     };
 }
 
+export interface PreviewPaneLoadedAction extends Action  {
+    type: PreviewPaneActionTypes.PREVIEW_PANE_LOADED;
+}
 export function previewPaneLoaded(): PreviewPaneLoadedAction {
     return {
         type: PreviewPaneActionTypes.PREVIEW_PANE_LOADED,
     };
 }
 
+export interface PageSourceRequest {
+    page: string;
+}
+export interface PageSourceRequestAction extends Action  {
+    payload: PageSourceRequest;
+    type: PreviewPaneActionTypes.PAGE_SOURCE_REQUEST;
+}
 export function pageSourceRequest(payload: PageSourceRequest): PageSourceRequestAction {
     return {
         payload,
@@ -62,6 +47,15 @@ export function pageSourceRequest(payload: PageSourceRequest): PageSourceRequest
     };
 }
 
+export interface PageSourceResponse {
+    page: string;
+    pageSource: string;
+}
+export interface PageSourceResponseAction extends Action  {
+    error: boolean;
+    payload: PageSourceResponse | Error;
+    type: PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE;
+}
 export function pageSourceResponse(
     payload: PageSourceResponse | Error,
     error: boolean = false
@@ -73,18 +67,22 @@ export function pageSourceResponse(
     };
 }
 
-export const fetchPageSource = (page: string) => {
-    return (dispatch: Dispatch<State>) => {
+export interface FetchPageSource {
+    page: string;
+}
+export function fetchPageSource(
+    { page }: FetchPageSource
+): (dispatch: Dispatch<State>) => void {
+    return (dispatch: Dispatch<State>): void => {
         dispatch(pageSourceRequest({ page }));
-
-        return api.requestPageSource(page)
+        api.requestPageSource(page)
             .then((pageSource: string) => dispatch(pageSourceResponse({page, pageSource})))
             .catch((error: Error) => dispatch(pageSourceResponse(error, true)));
     };
-};
+}
 
-export function receiveThemeConfigChange() {
-    return (dispatch: Dispatch<State>, getState: () => State) => {
+export function receiveThemeConfigChange(): (dispatch: Dispatch<State>, getState: () => State) => void {
+    return (dispatch: Dispatch<State>, getState: () => State): void => {
         const {
             configurationId,
             variations,
@@ -95,35 +93,41 @@ export function receiveThemeConfigChange() {
         const lastCommitId = isCurrentIndex >= 0 ? variations[isCurrentIndex].lastCommitId : '';
 
         dispatch(previewPaneLoading());
-        dispatch(receiveThemePreviewConfig(
-            configurationId,
-            versionId,
-            lastCommitId
-        ));
-    };
-}
-
-export function receiveThemePreviewConfig(
-    configurationId: string,
-    versionId: string,
-    lastCommitId: string
-) {
-    return {
-        payload: {
+        dispatch(receiveThemePreviewConfig({
             configurationId,
             lastCommitId,
             versionId,
-        },
+        }));
+    };
+}
+
+export interface RecieveThemePreviewConfig {
+    configurationId: string;
+    lastCommitId: string;
+    versionId: string;
+}
+export interface RecieveThemePreviewConfigAction extends Action {
+    payload: RecieveThemePreviewConfig;
+    type: PreviewPaneActionTypes.THEME_PREVIEW_CONFIG_REQUEST;
+}
+export function receiveThemePreviewConfig(payload: RecieveThemePreviewConfig): RecieveThemePreviewConfigAction {
+    return {
+        payload,
         type: PreviewPaneActionTypes.THEME_PREVIEW_CONFIG_REQUEST,
     };
 }
 
-export function viewportChange(viewportType: ViewportType, isRotated: boolean = false) {
+export interface ViewportChange {
+    isRotated?: boolean;
+    viewportType: ViewportType;
+}
+export interface ViewportChangeAction extends Action {
+    payload: ViewportChange;
+    type: PreviewPaneActionTypes.VIEWPORT_CHANGE;
+}
+export function viewportChange(payload: ViewportChange): ViewportChangeAction {
     return {
-        payload: {
-            isRotated,
-            viewportType,
-        },
+        payload,
         type: PreviewPaneActionTypes.VIEWPORT_CHANGE,
     };
 }
