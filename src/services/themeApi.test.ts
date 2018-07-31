@@ -1,6 +1,8 @@
 import Axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
+import { themeAPI } from '../services/themeApi';
+
 import {
     fetchCurrentTheme,
     fetchThemeConfig,
@@ -26,7 +28,7 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper data', done => {
-                axiosMock.onGet('/internalapi/v1/sfm/currenttheme')
+                axiosMock.onGet(themeAPI.currentThemeAPI)
                     .reply(status, response);
 
                 fetchCurrentTheme().then(result => {
@@ -45,7 +47,7 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper error', done => {
-                axiosMock.onGet('/internalapi/v1/sfm/currenttheme')
+                axiosMock.onGet(themeAPI.currentThemeAPI)
                     .reply(status, response);
 
                 fetchCurrentTheme().catch(error => {
@@ -69,7 +71,7 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper data', done => {
-                axiosMock.onGet('/internalapi/v1/themeeditor/configurations/12345')
+                axiosMock.onGet(themeAPI.configurationAPI(configurationId))
                     .reply(status, response);
 
                 fetchThemeConfig(configurationId).then(result => {
@@ -88,7 +90,7 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper error', done => {
-                axiosMock.onGet('/internalapi/v1/themeeditor/configurations/12345')
+                axiosMock.onGet(themeAPI.configurationAPI(configurationId))
                     .reply(status, response);
 
                 fetchThemeConfig(configurationId).catch(error => {
@@ -113,7 +115,7 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper data', done => {
-                axiosMock.onGet('/admin/services/themes/stores/abcde/versions/12345')
+                axiosMock.onGet(themeAPI.themeVersionAPI(storeHash, versionId))
                     .reply(status, response);
 
                 fetchThemeVersion(storeHash, versionId).then(result => {
@@ -132,7 +134,7 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper error', done => {
-                axiosMock.onGet('/admin/services/themes/stores/abcde/versions/12345')
+                axiosMock.onGet(themeAPI.themeVersionAPI(storeHash, versionId))
                     .reply(status, response);
 
                 fetchThemeVersion(storeHash, versionId).catch(error => {
@@ -157,7 +159,7 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper data', done => {
-                axiosMock.onGet('/admin/services/themes/stores/abcde/variations/12345')
+                axiosMock.onGet(themeAPI.variationAPI(storeHash, variationId))
                     .reply(status, response);
 
                 fetchVariation(storeHash, variationId).then(result => {
@@ -176,7 +178,7 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper error', done => {
-                axiosMock.onGet('/admin/services/themes/stores/abcde/variations/12345')
+                axiosMock.onGet(themeAPI.variationAPI(storeHash, variationId))
                     .reply(status, response);
 
                 fetchVariation(storeHash, variationId).catch(error => {
@@ -209,7 +211,7 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper data', done => {
-                axiosMock.onPost('/internalapi/v1/themeeditor/configurations')
+                axiosMock.onPost(themeAPI.configurationPostAPI)
                     .reply(status, response);
 
                 postThemeConfig(themeConfigData).then(result => {
@@ -228,7 +230,7 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper error', done => {
-                axiosMock.onPost('/internalapi/v1/themeeditor/configurations')
+                axiosMock.onPost(themeAPI.configurationPostAPI)
                     .reply(status, response);
 
                 postThemeConfig(themeConfigData).catch(error => {
