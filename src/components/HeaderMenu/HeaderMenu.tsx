@@ -4,7 +4,7 @@ import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { ConfigUpdateAction } from '../../actions/constants';
-import { viewportChange } from '../../actions/previewPane';
+import { viewportChange, ViewportChange } from '../../actions/previewPane';
 import { postThemeConfigData } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeVariations, ThemeVariationsEntry } from '../../reducers/theme';
@@ -24,7 +24,7 @@ interface HeaderMenuProps {
     variations: ThemeVariations;
     viewportType: ViewportType;
     postThemeConfigData(configDataOption: ConfigUpdateAction): void;
-    toggleViewport(viewportType: ViewportType, isRotated?: boolean): void;
+    toggleViewport(payload: ViewportChange): void;
 }
 
 interface HeaderState {
@@ -77,25 +77,25 @@ class HeaderMenu extends Component <HeaderMenuProps, HeaderState> {
                 </BCLogo>
                 <StyledIcon
                     isSelected={viewportType === VIEWPORT_TYPES.DESKTOP}
-                    onClick={() => toggleViewport(VIEWPORT_TYPES.DESKTOP)}
+                    onClick={() => toggleViewport({ viewportType: VIEWPORT_TYPES.DESKTOP })}
                     viewportType={VIEWPORT_TYPES.DESKTOP}
                 />
                 <StyledIcon
                     isRotated={isRotated}
                     isSelected={viewportType === VIEWPORT_TYPES.TABLET}
-                    onClick={() => toggleViewport(
-                        VIEWPORT_TYPES.TABLET,
-                        viewportType === VIEWPORT_TYPES.TABLET ? !isRotated : isRotated
-                    )}
+                    onClick={() => toggleViewport({
+                        isRotated: viewportType === VIEWPORT_TYPES.TABLET ? !isRotated : isRotated,
+                        viewportType: VIEWPORT_TYPES.TABLET,
+                    })}
                     viewportType={VIEWPORT_TYPES.TABLET}
                 />
                 <StyledIcon
                     isRotated={isRotated}
                     isSelected={viewportType === VIEWPORT_TYPES.MOBILE}
-                    onClick={() => toggleViewport(
-                        VIEWPORT_TYPES.MOBILE,
-                        viewportType === VIEWPORT_TYPES.MOBILE ? !isRotated : isRotated
-                    )}
+                    onClick={() => toggleViewport({
+                        isRotated: viewportType === VIEWPORT_TYPES.MOBILE ? !isRotated : isRotated,
+                        viewportType: VIEWPORT_TYPES.MOBILE,
+                    })}
                     viewportType={VIEWPORT_TYPES.MOBILE}
                 />
                 <PubShareBox onPublish={this.handlePublish} canPublish={this.state.canPublish}/>

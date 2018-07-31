@@ -7,7 +7,8 @@ import {
     fetchPageSource,
     previewPaneLoaded,
     previewPaneLoading,
-    receiveThemeConfigChange } from '../../actions/previewPane';
+    receiveThemeConfigChange,
+} from '../../actions/previewPane';
 import { ThemePreviewConfig } from '../../reducers/previewPane';
 import { State } from '../../reducers/reducers';
 import { generateStylesheetUrl } from '../../services/previewPane';
@@ -31,7 +32,7 @@ interface PreviewPaneProps {
     pageSource: string;
     themePreviewConfig: ThemePreviewConfig;
     viewportType: ViewportType;
-    loadPage(page: string): void;
+    loadPage(page: string): (dispatch: Dispatch) => void;
     clearErrors(): void;
     receiveThemeConfigChange(): void;
     previewPaneLoaded(): void;
@@ -174,7 +175,7 @@ const mapStateToProps = (state: State): Partial<PreviewPaneProps> => {
 
 const mapDispatchToProps = (dispatch: Dispatch): Partial<PreviewPaneProps> => bindActionCreators({
     clearErrors,
-    loadPage: fetchPageSource,
+    loadPage: (page: string) => fetchPageSource({ page }),
     previewPaneLoaded,
     previewPaneLoading,
     receiveThemeConfigChange,
