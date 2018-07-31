@@ -84,7 +84,7 @@ class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeVariatio
                         {isConfirmOpen &&
                             <ConfirmModal
                                 body={Messages.Variation}
-                                onClose={this.close}
+                                primaryAction={this.close}
                                 secondaryAction={this.handleChange}
                                 title="Theme Change Warning"
                             />

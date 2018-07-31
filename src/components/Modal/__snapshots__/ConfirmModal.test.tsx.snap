@@ -11,21 +11,10 @@ exports[`ConfirmModal renders 1`] = `
       This theme will self-destruct in T-minus
     </styled.div>
     <styled.div>
-      <styled.div>
-        <ButtonInput
-          classType="primary"
-          onClick={[MockFunction]}
-          type="button"
-        >
-          Cancel
-        </ButtonInput>
-        <ButtonInput
-          onClick={[MockFunction]}
-          type="button"
-        >
-          OK
-        </ButtonInput>
-      </styled.div>
+      <CTAButtons
+        primaryAction={[MockFunction]}
+        secondaryAction={[MockFunction]}
+      />
     </styled.div>
   </styled.div>
 </Modal>
