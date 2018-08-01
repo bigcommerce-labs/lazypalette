@@ -18,7 +18,9 @@ export interface ThemeSettingsProps extends RouteComponentProps<{}> {
     settings: SettingsType;
     settingsIndex: number;
     themeSettings: ThemeSchemaEntry;
-    updateThemeConfigChange(configChange: ThemeConfigChange): (dispatch: Dispatch<State>) => void;
+    updateThemeConfigChange(
+        configChange: ThemeConfigChange
+    ): (dispatch: Dispatch<State>, getState: () => State) => void;
 }
 
 function transformOptions(setting: ThemeSchemaEntrySetting) {
@@ -32,7 +34,9 @@ function getEditor(
     setting: ThemeSchemaEntrySetting,
     preSetValue: SettingsType,
     handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
-    broadcastConfigChange: (configChange: ThemeConfigChange) => (dispatch: Dispatch<State>) => void
+    broadcastConfigChange: (
+        configChange: ThemeConfigChange
+    ) => (dispatch: Dispatch<State>, getState: () => State) => void
 ) {
     switch (setting.type) {
         case 'color':
@@ -139,7 +143,9 @@ interface StateFromProps {
 }
 
 interface ActionFromProps {
-    updateThemeConfigChange(configChange: ThemeConfigChange): (dispatch: Dispatch<State>) => void;
+    updateThemeConfigChange(
+        configChange: ThemeConfigChange
+    ): (dispatch: Dispatch<State>, getState: () => State) => void;
 }
 
 const mapDispatchToProps = {

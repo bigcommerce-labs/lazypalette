@@ -1,4 +1,5 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { entries } from 'lodash';
 
 import { StoreDesignSdk } from './storeDesignSdk';
 
@@ -12,6 +13,7 @@ interface Serializer {
 
 export function requestPageSource(
     page: string,
+    queryParams: object,
     parser: Parser = new DOMParser(),
     serializer: Serializer = new XMLSerializer()
 ) {
@@ -25,8 +27,9 @@ export function requestPageSource(
             return serializer.serializeToString(doc);
         }],
     };
+    const queryString = entries(queryParams).map(keyValuePair => keyValuePair.join('=')).join('&');
 
-    return Axios.get(page, requestConfig)
+    return Axios.get(`${page}?${queryString}`, requestConfig)
         .then(({ data }: AxiosResponse) => data);
 }
 
