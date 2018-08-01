@@ -32,7 +32,7 @@ interface ThemeVariationsState {
     variationId: string;
 }
 
-class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeVariationsState> {
+export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeVariationsState> {
     readonly state: ThemeVariationsState = {
         isConfirmOpen: false,
         variationId: '',
@@ -109,4 +109,5 @@ const mapStateToProps = (state: State) => ({
 const mapDispatchToProps = {
     changeThemeVariation,
 };
+
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ThemeVariations));

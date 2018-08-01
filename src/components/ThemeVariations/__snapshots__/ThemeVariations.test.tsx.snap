@@ -1,35 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders 1`] = `
-<styled.div>
-  <styled.div>
-    <styled.h2>
-      foo
-    </styled.h2>
-    <Styled(Link)
-      to="/"
-    />
-    <styled.div>
-      <ThemeModule
-        handleVariationChange={[MockFunction]}
-        variants={
-          Array [
-            Object {
-              "image": "http://meow.wow.com/123.jpg",
-              "isActive": false,
-              "name": "light",
-              "variationId": "123",
-            },
-            Object {
-              "image": "http://meow.wow.com/123.jpg",
-              "isActive": true,
-              "name": "dark",
-              "variationId": "234",
-            },
-          ]
-        }
-      />
-    </styled.div>
-  </styled.div>
-</styled.div>
+exports[`ThemeVariations renders 1`] = `
+<Router
+  history={
+    Object {
+      "action": "POP",
+      "block": [Function],
+      "createHref": [Function],
+      "go": [Function],
+      "goBack": [Function],
+      "goForward": [Function],
+      "listen": [Function],
+      "location": Object {
+        "hash": "",
+        "pathname": "/design/theme",
+        "search": "",
+      },
+      "push": [Function],
+      "replace": [Function],
+    }
+  }
+>
+  <ThemeVariations
+    changeThemeVariation={[MockFunction]}
+    history={[MockFunction]}
+    isChanged={false}
+    location={[MockFunction]}
+    match={[MockFunction]}
+    staticContext={[MockFunction]}
+    themeVariants={
+      Array [
+        Object {
+          "image": "http://meow.wow.com/123.jpg",
+          "isActive": true,
+          "name": "light",
+          "variationId": "123",
+        },
+        Object {
+          "image": "http://meow.wow.com/123.jpg",
+          "isActive": false,
+          "name": "dark",
+          "variationId": "234",
+        },
+      ]
+    }
+  />
+</Router>
 `;
