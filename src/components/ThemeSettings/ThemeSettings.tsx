@@ -18,7 +18,7 @@ export interface ThemeSettingsProps extends RouteComponentProps<{}> {
     settings: SettingsType;
     settingsIndex: number;
     themeSettings: ThemeSchemaEntry;
-    updateThemeConfigChange(configChange: ThemeConfigChange): Dispatch<State>;
+    updateThemeConfigChange(configChange: ThemeConfigChange): (dispatch: Dispatch<State>) => void;
 }
 
 function transformOptions(setting: ThemeSchemaEntrySetting) {
@@ -32,7 +32,7 @@ function getEditor(
     setting: ThemeSchemaEntrySetting,
     preSetValue: SettingsType,
     handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
-    broadcastConfigChange: (configChange: ThemeConfigChange) => Dispatch<State>
+    broadcastConfigChange: (configChange: ThemeConfigChange) => (dispatch: Dispatch<State>) => void
 ) {
     switch (setting.type) {
         case 'color':
@@ -93,7 +93,7 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
         ({target}: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
             const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
 
-            this.props.updateThemeConfigChange({[`${setting.id}`]: value});
+            this.props.updateThemeConfigChange({ setting, value });
         };
 
     render() {
@@ -139,7 +139,7 @@ interface StateFromProps {
 }
 
 interface ActionFromProps {
-    updateThemeConfigChange(configChange: ThemeConfigChange): Dispatch<State>;
+    updateThemeConfigChange(configChange: ThemeConfigChange): (dispatch: Dispatch<State>) => void;
 }
 
 const mapDispatchToProps = {

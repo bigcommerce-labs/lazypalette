@@ -7,8 +7,7 @@ import {
     fetchPageSource,
     previewPaneLoaded,
     previewPaneLoading,
-    receiveThemeConfigChange,
-} from '../../actions/previewPane';
+    updatePreviewPaneConfig } from '../../actions/previewPane';
 import { ThemePreviewConfig } from '../../reducers/previewPane';
 import { State } from '../../reducers/reducers';
 import { generateStylesheetUrl } from '../../services/previewPane';
@@ -26,6 +25,7 @@ export interface ViewportType {
 interface PreviewPaneProps {
     configurationId: string;
     errors: Error[];
+    fontUrl: string | null;
     isFetching: boolean;
     isRotated: boolean;
     page: string;
@@ -34,9 +34,9 @@ interface PreviewPaneProps {
     viewportType: ViewportType;
     loadPage(page: string): (dispatch: Dispatch) => void;
     clearErrors(): void;
-    receiveThemeConfigChange(): void;
     previewPaneLoaded(): void;
     previewPaneLoading(): void;
+    updatePreviewPaneConfig(): void;
 }
 
 class PreviewPane extends PureComponent<PreviewPaneProps> {
@@ -52,13 +52,22 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
         WindowService.getInstance().addEventListener('message', this.handleMessage);
         this.props.loadPage(this.props.page);
         this.updateStyles();
+
+        if (this.props.fontUrl) {
+            this.updateFonts();
+        }
     }
 
     componentDidUpdate(prevProps: PreviewPaneProps): void {
         if (this.props.configurationId !== prevProps.configurationId) {
-            this.props.receiveThemeConfigChange();
+            this.props.updatePreviewPaneConfig();
         }
+
         this.updateStyles();
+
+        if (this.props.fontUrl !== prevProps.fontUrl) {
+            this.updateFonts();
+        }
     }
 
     componentWillUnmount(): void {
@@ -109,8 +118,6 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
                         }
 
                         const stylesheetLoad = () => {
-                            resolve(newLink);
-
                             newLink.removeAttribute('data-is-loading');
                             // Destroy any existing handlers to save memory on subsequent stylesheet changes
                             newLink.removeEventListener('error', stylesheetError);
@@ -120,20 +127,24 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
                             doc.head.removeChild(currentLink);
 
                             self.document.body.focus();
+
+                            resolve();
                         };
 
                         const stylesheetError = () => {
-                            reject(newLink);
                             // Something went wrong with our new stylesheet, so destroy it and keep the old one
                             newLink.removeEventListener('error', stylesheetError);
                             newLink.removeEventListener('load', stylesheetLoad);
 
                             doc.head.removeChild(newLink);
+
+                            reject();
                         };
 
                         if (currentLink.hasAttribute('data-is-loading')) {
                             doc.head.removeChild(currentLink);
-                            resolve(currentLink);
+
+                            resolve();
                         } else {
                             newLink = (currentLink.cloneNode(false) as HTMLLinkElement);
 
@@ -163,6 +174,24 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
 
         }
     }
+
+    private updateFonts() {
+        if (this.props.fontUrl && this.iframeRef && this.iframeRef.contentDocument) {
+            const doc: HTMLDocument = this.iframeRef.contentDocument;
+            const link = doc.createElement('link');
+
+            link.setAttribute('rel', 'stylesheet');
+            link.setAttribute('href', this.props.fontUrl);
+
+            link.addEventListener('load', function linkLoadHandler() {
+                link.removeEventListener('load', linkLoadHandler);
+
+                doc.body.focus();
+            });
+
+            doc.head.appendChild(link);
+        }
+    }
 }
 
 const mapStateToProps = (state: State): Partial<PreviewPaneProps> => {
@@ -178,7 +207,7 @@ const mapDispatchToProps = (dispatch: Dispatch): Partial<PreviewPaneProps> => bi
     loadPage: (page: string) => fetchPageSource({ page }),
     previewPaneLoaded,
     previewPaneLoading,
-    receiveThemeConfigChange,
+    updatePreviewPaneConfig,
 }, dispatch);
 
 export default connect<Partial<PreviewPaneProps>, Partial<PreviewPaneProps>, {}, State>(

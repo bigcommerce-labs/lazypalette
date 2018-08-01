@@ -5,12 +5,14 @@ import { State } from '../reducers/reducers';
 import * as api from '../services/previewPane';
 
 import { Action } from './action';
+import { ThemeConfigChange } from './theme';
 
 export enum PreviewPaneActionTypes {
     PAGE_SOURCE_REQUEST = 'PAGE_SOURCE_REQUEST',
     PAGE_SOURCE_RESPONSE = 'PAGE_SOURCE_RESPONSE',
     PREVIEW_PANE_LOADED = 'PREVIEW_PANE_LOADED',
     PREVIEW_PANE_LOADING = 'PREVIEW_PANE_LOADING',
+    THEME_FONT_CHANGE = 'THEME_FONT_CHANGE',
     THEME_PREVIEW_CONFIG_REQUEST = 'THEME_PREVIEW_CONFIG_REQUEST',
     VIEWPORT_CHANGE = 'VIEWPORT_CHANGE',
 }
@@ -81,7 +83,7 @@ export function fetchPageSource(
     };
 }
 
-export function receiveThemeConfigChange(): (dispatch: Dispatch<State>, getState: () => State) => void {
+export function updatePreviewPaneConfig(): (dispatch: Dispatch<State>, getState: () => State) => void {
     return (dispatch: Dispatch<State>, getState: () => State): void => {
         const {
             configurationId,
@@ -114,6 +116,13 @@ export function receiveThemePreviewConfig(payload: RecieveThemePreviewConfig): R
     return {
         payload,
         type: PreviewPaneActionTypes.THEME_PREVIEW_CONFIG_REQUEST,
+    };
+}
+
+export function updateFonts(payload: ThemeConfigChange) {
+    return {
+        payload,
+        type: PreviewPaneActionTypes.THEME_FONT_CHANGE,
     };
 }
 

@@ -122,10 +122,15 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
 
             return { ...state, schema: [...editorSchema] };
         case ThemeActionTypes.THEME_CONFIG_CHANGE:
+            const themeConfigChange = { [`${action.payload.setting.id}`]: action.payload.value };
+
             return {
                 ...state,
-                isChanged: isNotEqual(action.payload, state.initialSettings),
-                settings: { ...state.settings, ...action.payload },
+                isChanged: isNotEqual(themeConfigChange, state.settings),
+                settings: {
+                    ...state.settings,
+                    ...themeConfigChange,
+                },
             };
         case ThemeActionTypes.THEME_CONFIG_RESET:
             return { ...state, settings: { ...state.initialSettings }, isChanged: false };
