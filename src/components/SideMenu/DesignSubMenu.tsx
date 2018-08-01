@@ -90,7 +90,7 @@ class DesignSubMenu extends Component<DesignSubMenuProps, DesignSubMenuState> {
                 {isResetOpen &&
                     <ConfirmModal
                         body={Messages.Reset}
-                        onClose={this.close}
+                        primaryAction={this.close}
                         secondaryAction={this.handleReset}
                         title="Reset Warning"
                     />

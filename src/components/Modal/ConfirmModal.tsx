@@ -8,9 +8,27 @@ import Modal from './Modal';
 interface ConfirmModalProps extends Partial<{
     body: string;
     title: string;
-    onClose(): void;
+    primaryAction(): void;
     secondaryAction(): void;
 }> {}
+
+const CTAButtons = ({ primaryAction, secondaryAction }: ConfirmModalProps) => (
+    <ConfirmButtons>
+        <ButtonInput
+            onClick={primaryAction}
+            classType="primary"
+            type="button"
+        >
+            Cancel
+        </ButtonInput>
+        <ButtonInput
+            onClick={secondaryAction}
+            type="button"
+        >
+            OK
+        </ButtonInput>
+    </ConfirmButtons>
+);
 
 class ConfirmModal extends PureComponent<ConfirmModalProps> {
     static defaultProps: ConfirmModalProps = {
@@ -20,35 +38,25 @@ class ConfirmModal extends PureComponent<ConfirmModalProps> {
     render() {
         const {
             body,
-            onClose,
+            primaryAction,
             secondaryAction,
             title,
         } = this.props;
 
         return (
             <Modal
-                onClose={onClose}
+                onClose={primaryAction}
                 title={title}
                 isTransparent={false}
             >
                 <Confirm>
-                    <ConfirmBody>{body}</ConfirmBody>
+                    {body &&
+                        <ConfirmBody>{body}</ConfirmBody>}
                     <ConfirmFooter>
-                        <ConfirmButtons>
-                            <ButtonInput
-                                onClick={onClose}
-                                classType="primary"
-                                type="button"
-                            >
-                                Cancel
-                            </ButtonInput>
-                            <ButtonInput
-                                onClick={secondaryAction}
-                                type="button"
-                            >
-                                OK
-                            </ButtonInput>
-                        </ConfirmButtons>
+                        <CTAButtons
+                            primaryAction={primaryAction}
+                            secondaryAction={secondaryAction}
+                        />
                     </ConfirmFooter>
                 </Confirm>
             </Modal>
