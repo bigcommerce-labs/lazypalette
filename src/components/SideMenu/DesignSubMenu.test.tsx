@@ -44,7 +44,6 @@ describe('DesignSubMenu', () => {
 
                 saveButton.simulate('click');
                 expect(mockHandleSave).toHaveBeenCalledTimes(1);
-
             });
         });
     });
