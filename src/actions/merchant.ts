@@ -7,7 +7,8 @@ export enum MerchantActionTypes {
 }
 
 export interface SetStoreDataAction {
-    payload: StoreDefaultData;
+    error?: boolean;
+    payload: StoreDefaultData | Error;
     type: MerchantActionTypes.SET_STORE_DEFAULTS;
 }
 
@@ -15,8 +16,12 @@ export interface StoreDefaultData {
     storeHash: string;
 }
 
-export function setStoreDefault(payload: StoreDefaultData): SetStoreDataAction {
+export function setStoreDefault(
+    payload: StoreDefaultData | Error,
+    error: boolean = false
+): SetStoreDataAction {
     return {
+        error,
         payload,
         type: MerchantActionTypes.SET_STORE_DEFAULTS,
     };
