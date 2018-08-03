@@ -35,8 +35,8 @@ exports[`<HeaderMenu /> render() renders the component 1`] = `
     viewportType={
       Object {
         "glyphName": "mobile",
-        "viewportHeight": "480px",
-        "viewportWidth": "320px",
+        "viewportHeight": "667px",
+        "viewportWidth": "375px",
       }
     }
   />

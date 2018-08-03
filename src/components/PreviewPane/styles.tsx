@@ -9,10 +9,11 @@ export const PreviewPaneContainer = styled.div`
     box-shadow: ${({ theme: { elevation } }) => elevation && elevation.raised};
     display: flex;
     flex: auto;
-    height: 90%;
+    height: calc(100% - 6rem);
     justify-content: center;
     margin: 0.75rem 0.75rem 0 0;
-    overflow: auto;
+    overflow: hidden;
+    width: 0;
 `;
 
 interface PreviewPaneIframeProps {
@@ -35,6 +36,7 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
     border: 0px;
     ${(props: PreviewPaneIframeProps) => {
         return `
+                min-width: ${props.isRotated ? props.viewportType.viewportHeight : props.viewportType.viewportWidth};
                 opacity: ${props.isFetching ? 0.5 : 1};
                 `;
     }}
@@ -61,8 +63,8 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
                 break;
             case VIEWPORT_TYPES.MOBILE:
                 boxShadow = theme.elevation.raised;
-                marginBottom = '50px';
-                marginTop = '50px';
+                marginBottom = '3rem';
+                marginTop = '3rem';
                 paddingBottom = '50px';
                 paddingLeft = '10px';
                 paddingRight = '10px';
@@ -70,8 +72,8 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
                 break;
             case VIEWPORT_TYPES.TABLET:
                 boxShadow = theme.elevation.raised;
-                marginBottom = '50px';
-                marginTop = '50px';
+                marginBottom = '3rem';
+                marginTop = '3rem';
                 paddingBottom = '50px';
                 paddingLeft = '20px';
                 paddingRight = '20px';
@@ -89,6 +91,7 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
             box-shadow: ${boxShadow};
             margin-bottom: ${marginBottom};
             margin-top: ${marginTop};
+            max-height: calc(100% - ${paddingTop} - ${marginTop});
             padding-bottom: ${paddingBottom};
             padding-left: ${paddingLeft};
             padding-right: ${paddingRight};
