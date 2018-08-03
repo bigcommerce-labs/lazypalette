@@ -8,6 +8,7 @@ import App from './components/App/App';
 import './index.css';
 import middleware from './middleware/middleware';
 import reducers from './reducers/reducers';
+import * as analytics from './services/analytics';
 
 const store = createStore(reducers, middleware);
 
@@ -16,6 +17,8 @@ const config = JSON.parse(root!.getAttribute('config')!);
 
 const baseHref: string = document.getElementsByTagName('base')[0]
     .getAttribute('href')!;
+
+analytics.init(store);
 
 render(
     <Provider store={store}>
