@@ -6,8 +6,8 @@ export const VIEWPORT_TYPES = {
     },
     MOBILE: {
         glyphName: 'mobile',
-        viewportHeight: '480px',
-        viewportWidth: '320px',
+        viewportHeight: '667px',
+        viewportWidth: '375px',
     },
     TABLET: {
         glyphName: 'tablet',
