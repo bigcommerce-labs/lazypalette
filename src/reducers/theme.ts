@@ -12,6 +12,7 @@ import {
 export interface ThemeState {
     configurationId: string;
     displayVersion: string;
+    initialConfigurationId: string;
     initialSettings: SettingsType;
     isChanged: boolean;
     variationId: string;
@@ -64,6 +65,7 @@ export interface ThemeVariationsEntry {
 const initialState: ThemeState = {
     configurationId: '',
     displayVersion: '',
+    initialConfigurationId: '',
     initialSettings: {},
     isChanged: false,
     schema: [],
@@ -89,7 +91,10 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
 
     switch (action.type) {
         case ThemeActionTypes.CURRENT_THEME_RESPONSE:
-            return { ...state, ...action.payload as CurrentThemeResponse };
+            return { ...state,
+                initialConfigurationId: action.payload.configurationId,
+                ...action.payload as CurrentThemeResponse,
+            };
         case ThemeActionTypes.THEME_VARIATION_RESPONSE:
             const {
                 configurationId,
@@ -106,6 +111,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 ...state,
                 configurationId,
                 displayVersion,
+                initialConfigurationId: configurationId,
                 themeId,
                 themeName,
                 variationId,
@@ -133,7 +139,12 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 },
             };
         case ThemeActionTypes.THEME_CONFIG_RESET:
-            return { ...state, settings: { ...state.initialSettings }, isChanged: false };
+            return {
+                ...state,
+                configurationId: state.initialConfigurationId,
+                isChanged: false,
+                settings: {...state.initialSettings},
+            };
         case ThemeActionTypes.PUBLISH_THEME_CONFIG_RESPONSE:
             const { settings: initialSettings } = action.payload as ThemeConfigPostResponse;
 

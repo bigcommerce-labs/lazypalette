@@ -6,6 +6,7 @@ import theme, { ThemeSchema, ThemeState, ThemeVariations } from './theme';
 const initialState: ThemeState = {
     configurationId: '',
     displayVersion: '',
+    initialConfigurationId: '',
     initialSettings: {},
     isChanged: false,
     schema: [],
@@ -53,6 +54,7 @@ describe('currentThemeResponse', () => {
         const expectedState: ThemeState = { ...initialState, ...{
             configurationId: '123',
             displayVersion: '2.1.0',
+            initialConfigurationId: '123',
             themeId: '789',
             themeName: 'Cornerstone',
             variationId: '012',
@@ -161,6 +163,7 @@ describe('themeVariationResponse test', () => {
         const expectedState: ThemeState = { ...initialState, ...{
             configurationId: '123',
             displayVersion: '2.1.0',
+            initialConfigurationId: '123',
             themeId: '789',
             themeName: 'Cornerstone',
             variationId: '012',
@@ -287,12 +290,22 @@ describe('themeConfigReset', () => {
     it('should reset changes to original value', () => {
         const action = themeActions.themeConfigReset();
 
-        const expectedState: ThemeState = {
+        const changedState: ThemeState = {
             ...initialState,
-            isChanged: false,
-            settings: {},
+            configurationId: '321',
+            initialConfigurationId: '123',
+            initialSettings: {'primary-font': 'meow'},
+            isChanged: true,
+            settings: {'primary-font': 'bark'},
         };
 
-        expect(theme(initialState, action)).toEqual(expectedState);
+        const expectedState: ThemeState = {
+            ...changedState,
+            configurationId: '123',
+            isChanged: false,
+            settings: {'primary-font': 'meow'},
+        };
+
+        expect(theme(changedState, action)).toEqual(expectedState);
     });
 });
