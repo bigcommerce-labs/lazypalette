@@ -51,7 +51,7 @@ class HeaderMenu extends Component <HeaderMenuProps, HeaderState> {
         let canPublish = false;
         const { configurationId, variations } = this.props;
 
-        const currentVariation = this.props.variations.filter((variation: ThemeVariationsEntry) => {
+        const currentVariation = variations.filter((variation: ThemeVariationsEntry) => {
             return variation.isCurrent;
         });
 
