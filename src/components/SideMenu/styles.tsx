@@ -3,16 +3,11 @@ import styled from 'styled-components';
 
 export const activeClassName = 'nav-item-active';
 
-export const BackLink = styled.div`
+export const Title = styled.div`
     color: ${({ theme }) => theme.colors.primaryText};
     font-size: ${({ theme }) => theme.typography.fontSize.larger};
-    margin-bottom: 1.75rem;
-`;
-
-export const BackLinkIcon = styled.span`
-    float: left;
-    position: relative;
-    top: 0.25rem;
+    line-height: 2rem;
+    margin-bottom: 1rem;
 `;
 
 interface NavProps {
@@ -26,8 +21,9 @@ export const NavItem = styled(NavLink)
 })`
     ${({ disabled, theme }) => `
         color: ${theme.colors.primaryText};
-        display: block;
+        display: flex;
         height: 2.25rem;
+        justify-content: space-between;
         opacity: ${disabled ? 0.5 : 1}
         overflow: hidden;
         pointer-events: ${disabled ? 'none' : 'auto'};
@@ -46,14 +42,14 @@ export const NavItem = styled(NavLink)
 export const StyledSideMenu = styled.nav`
     height: 100%;
     padding-top: 1.5rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    width: 9.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    width: 11.5rem;
 `;
 
 export const StyledMenuItems = styled.ul`
     font-size: ${({ theme }) => theme.typography.fontSize.small};
-    line-height: 2.25rem;
+    line-height: 1.5rem;
     list-style-type: none;
     margin-top: 0;
     padding-left: 0;
@@ -61,6 +57,7 @@ export const StyledMenuItems = styled.ul`
 `;
 
 export const StyledMenuItemIcon = styled.span`
+    color: ${({ theme }) => theme.colors.guideText};
     float: right;
     position: relative;
     top: 0.25rem;

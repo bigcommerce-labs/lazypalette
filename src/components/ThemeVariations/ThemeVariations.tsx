@@ -71,7 +71,7 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
 
         return (
             <Route
-                path="/design/theme"
+                path="/styles"
                 exact
                 render={() => (
                     <>

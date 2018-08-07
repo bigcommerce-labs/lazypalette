@@ -12,7 +12,7 @@ export const fadeIn = keyframes`
 
 export const ExpandModal = styled.div`
     position: absolute;
-    left: 13.5rem;
+    left: 14.5rem;
     top: 3.75rem;
     background: #FFF;
     padding: .5rem;

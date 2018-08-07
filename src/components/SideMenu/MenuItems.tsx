@@ -20,11 +20,11 @@ interface MenuItemsProps extends RouteComponentProps<{}> {
 }
 
 const ExpandMenuRoutes = ({ route }: { route: string }) => {
-    if (route === 'theme') {
+    if (route === 'styles') {
         return <ThemeVariations/>;
     }
 
-    if (route.indexOf('style/') === 0) {
+    if (route.indexOf('section/') === 0) {
         return <ThemeSettings settingsIndex={parseInt(route.split('/')[1], 10)}/>;
     }
 
@@ -56,10 +56,12 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                             isActive={(match, location) => this.isPathActive(path)}
                             activeClassName={activeClassName}
                             disabled={disabled}>
-                            {label}
+                            <div>
+                                {label}
+                            </div>
                             {this.props.showArrows &&
                                 <StyledMenuItemIcon>
-                                    <Icon glyph="chevronRight" size="large" />
+                                    <Icon glyph="chevronRight" size="small" />
                                 </StyledMenuItemIcon>
                             }
                         </NavItem>

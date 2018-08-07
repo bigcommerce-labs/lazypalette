@@ -101,7 +101,7 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
 
         return (
             <Route
-                path={`/design/style/${settingsIndex}`}
+                path={`/section/${settingsIndex}`}
                 exact
                 render={() => (
                     <ExpandableMenu

@@ -16,6 +16,7 @@ interface DesignSubMenuProps {
     sections: string[];
     currentPath: string;
     isChanged: boolean;
+    themeName: string;
     handleSave(): void;
     resetTheme(): void;
 }
@@ -26,12 +27,8 @@ interface DesignSubMenuState {
 
 const staticItems: MenuItem[] = [
     {
-        label: 'Logo and name',
-        path: 'logo',
-    },
-    {
-        label: 'Store theme',
-        path: 'theme',
+        label: 'Styles',
+        path: 'styles',
     },
 ];
 
@@ -39,7 +36,7 @@ const getItems = (sections: string[]) => {
     return sections.map((section: string, index: number) => (
         {
             label: section,
-            path: `style/${index}`,
+            path: `section/${index}`,
         }
     ));
 };
@@ -60,16 +57,16 @@ class DesignSubMenu extends Component<DesignSubMenuProps, DesignSubMenuState> {
     };
 
     render() {
-        const { currentPath, isChanged } = this.props;
+        const { currentPath, isChanged, themeName } = this.props;
         const { isResetOpen } = this.state;
 
         return (
             <>
                 <SubMenu
-                    title="Design"
+                    title={themeName}
                     items={[...staticItems, ...getItems(this.props.sections)]}
                     currentPath={currentPath}
-                    showArrows={false}
+                    showArrows={true}
                 />
                 <DesignMenuButtons>
                     <ButtonInput

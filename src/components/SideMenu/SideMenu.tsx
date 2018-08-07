@@ -13,8 +13,6 @@ import {
 import { State } from '../../reducers/reducers';
 
 import DesignSubMenu from './DesignSubMenu';
-import MenuItems from './MenuItems';
-import SubMenu from './SubMenu';
 
 import { StyledSideMenu } from './styles';
 
@@ -23,6 +21,7 @@ interface SideMenuProps extends RouteComponentProps<{}> {
     themeDesignSections: string[];
     settings: {[key: string]: string & boolean & number};
     themeId: string;
+    themeName: string;
     configurationId: string;
     variationId: string;
     versionId: string;
@@ -30,86 +29,29 @@ interface SideMenuProps extends RouteComponentProps<{}> {
     themeConfigReset(): ThemeConfigResetAction;
 }
 
-const items = [
-    {
-        disabled: false,
-        label: 'Design',
-        path: 'design',
-    },
-    {
-        disabled: true,
-        label: 'Pages',
-        path: 'pages',
-    },
-    {
-        disabled: true,
-        label: 'Apps',
-        path: 'apps',
-    },
-    {
-        disabled: true,
-        label: 'History',
-        path: 'history',
-    },
-];
-
-const routes = [
-    {
-        path: 'pages',
-        submenu_title: 'Pages',
-    },
-    {
-        path: 'apps',
-        submenu_title: 'Apps',
-    },
-    {
-        path: 'history',
-        submenu_title: 'History',
-    },
-];
-
 class SideMenu extends PureComponent<SideMenuProps> {
     handleSave = () => {
         this.props.postThemeConfigData(ConfigUpdateAction.SAVE);
     };
 
     render() {
-        const { isChanged, themeDesignSections, themeConfigReset: resetTheme } = this.props;
+        const { isChanged, themeDesignSections, themeName, themeConfigReset: resetTheme } = this.props;
 
         return (
             <StyledSideMenu>
                 <Route
                     path="/"
-                    exact
-                    render={({ match }) => (
-                        <MenuItems
-                            items={items.map(({disabled, label, path}) => ({disabled, label, path}))}
-                            currentPath={match.path}
-                            showArrows={true}
-                        />
-                    )}
-                />
-                <Route
-                    path="/design/"
                     render={({ match }) => (
                         <DesignSubMenu
-                            handleSave={this.handleSave}
-                            resetTheme={resetTheme}
-                            isChanged={isChanged}
-                            sections={themeDesignSections}
                             currentPath={match.path}
+                            handleSave={this.handleSave}
+                            isChanged={isChanged}
+                            resetTheme={resetTheme}
+                            sections={themeDesignSections}
+                            themeName={themeName}
                         />
                     )}
                 />
-                {routes.map(route => (
-                    <Route
-                        key={route.path}
-                        path={`/${route.path}/`}
-                        render={({match}) => (
-                            <SubMenu title={route.submenu_title} currentPath={match.path} showArrows={true}/>
-                        )}
-                    />
-                ))}
             </StyledSideMenu>
         );
     }
@@ -121,6 +63,7 @@ const mapStateToProps = ({ theme }: State) => ({
     settings: theme.settings,
     themeDesignSections: theme.schema.map(({ name }) => name),
     themeId: theme.themeId,
+    themeName: theme.themeName,
     variationId: theme.variationId,
     versionId: theme.versionId,
 });
