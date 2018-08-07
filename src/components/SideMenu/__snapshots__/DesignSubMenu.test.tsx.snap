@@ -3,29 +3,25 @@
 exports[`DesignSubMenu renders 1`] = `
 <React.Fragment>
   <SubMenu
-    currentPath="/design/logo"
+    currentPath="/styles"
     items={
       Array [
         Object {
-          "label": "Logo and name",
-          "path": "logo",
-        },
-        Object {
-          "label": "Store theme",
-          "path": "theme",
+          "label": "Styles",
+          "path": "styles",
         },
         Object {
           "label": "fred",
-          "path": "style/0",
+          "path": "section/0",
         },
         Object {
           "label": "joe",
-          "path": "style/1",
+          "path": "section/1",
         },
       ]
     }
-    showArrows={false}
-    title="Design"
+    showArrows={true}
+    title="fred"
   />
   <styled.div>
     <ButtonInput

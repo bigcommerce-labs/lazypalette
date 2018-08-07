@@ -15,9 +15,10 @@ describe('DesignSubMenu', () => {
             <DesignSubMenu
                 sections={['fred', 'joe']}
                 isChanged={false}
-                currentPath="/design/logo"
+                currentPath="/styles"
                 handleSave={mockHandleSave}
                 resetTheme={mockResetTheme}
+                themeName="fred"
             />
         );
 
@@ -34,9 +35,10 @@ describe('DesignSubMenu', () => {
                     <DesignSubMenu
                         sections={['fred', 'joe']}
                         isChanged={true} // theme has unsaved changes
-                        currentPath="/design/logo"
+                        currentPath="/styles"
                         handleSave={mockHandleSave}
                         resetTheme={mockHandler}
+                        themeName="fred"
                     />
                 );
 
@@ -57,9 +59,10 @@ describe('DesignSubMenu', () => {
                 <DesignSubMenu
                     sections={['fred', 'joe']}
                     isChanged={true} // theme has unsaved changes
-                    currentPath="/design/logo"
+                    currentPath="/styles"
                     handleSave={mockHandler}
                     resetTheme={mockResetTheme}
+                    themeName="fred"
                 />
             );
 

@@ -13,7 +13,7 @@ exports[`ThemeVariations renders 1`] = `
       "listen": [Function],
       "location": Object {
         "hash": "",
-        "pathname": "/design/theme",
+        "pathname": "/styles",
         "search": "",
       },
       "push": [Function],

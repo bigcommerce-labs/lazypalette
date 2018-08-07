@@ -41,7 +41,7 @@ describe('ThemeVariations', () => {
         const mockHandler = jest.fn();
 
         const themeVariations = shallow(
-            <StaticRouter location="/design/theme" context={{}}>
+            <StaticRouter location="/styles" context={{}}>
                 <ThemeVariations
                     isChanged={false}
                     themeVariants={testItems}
@@ -60,7 +60,7 @@ describe('ThemeVariations', () => {
                 const mockChangeVariation = jest.fn();
 
                 const wrapper = mount(
-                    <StaticRouter location="/design/theme" context={{}}>
+                    <StaticRouter location="/styles" context={{}}>
                         <ThemeProvider theme={theme}>
                             <ThemeVariations
                                 isChanged={false} // no theme changes
@@ -90,7 +90,7 @@ describe('ThemeVariations', () => {
                 const mockHandler = jest.fn();
 
                 const wrapper = mount(
-                    <StaticRouter location="/design/theme" context={{}}>
+                    <StaticRouter location="/styles" context={{}}>
                         <ThemeProvider theme={theme}>
                             <ThemeVariations
                                 isChanged={true} // theme has unsaved changes
