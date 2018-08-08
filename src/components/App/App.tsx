@@ -14,6 +14,7 @@ import HeaderMenu from '../HeaderMenu/HeaderMenu';
 import PreviewPane from '../PreviewPane/PreviewPane';
 import SideMenu from '../SideMenu/SideMenu';
 import UserSessionActivity from '../UserSessionActivity/UserSessionActivity';
+import UIWindowProvider from '../UIWindowProvider/UIWindowProvider';
 
 import { State } from '../../reducers/reducers';
 
@@ -50,11 +51,13 @@ export class App extends Component<AppProps, {}> {
         return (
             <PatternLabThemeProvider>
                 <UserSessionActivity oauthBaseUrl={this.props.config.oauthBaseUrl}>
-                    <StyledApp>
-                        <HeaderMenu/>
-                        <SideMenu/>
-                        <PreviewPane/>
-                    </StyledApp>
+                    <UIWindowProvider>
+                        <StyledApp>
+                            <HeaderMenu/>
+                            <SideMenu/>
+                            <PreviewPane/>
+                        </StyledApp>
+                    </UIWindowProvider>
                 </UserSessionActivity>
             </PatternLabThemeProvider>
         );

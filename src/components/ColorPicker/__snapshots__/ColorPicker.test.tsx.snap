@@ -1,27 +1,328 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders 1`] = `
-<styled.div>
-  <styled.label
-    htmlFor="blah"
-  />
-  <styled.input
-    id="blah"
-    onChange={[Function]}
-    value="#000000"
-  />
-</styled.div>
+exports[`ColorPicker when a change occurs calls its onChange prop with the appropriate new color 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "hex": "#bbbbbb",
+        "hsl": Object {
+          "a": 1,
+          "h": 0,
+          "l": 0.7333333333333333,
+          "s": 0,
+        },
+        "hsv": Object {
+          "a": 1,
+          "h": 0,
+          "s": 0,
+          "v": 0.7333333333333333,
+        },
+        "oldHue": 0,
+        "rgb": Object {
+          "a": 1,
+          "b": 187,
+          "g": 187,
+          "r": 187,
+        },
+        "source": undefined,
+      },
+      undefined,
+    ],
+  ],
+}
 `;
 
-exports[`renders an initial color if provided 1`] = `
-<styled.div>
-  <styled.label
-    htmlFor="blah"
-  />
-  <styled.input
-    id="blah"
-    onChange={[Function]}
-    value="#fff"
-  />
-</styled.div>
+exports[`ColorPicker when a change occurs calls its onChangeComplete prop with the appropriate new color after debounce timer expires 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "hex": "#cccccc",
+        "hsl": Object {
+          "a": 1,
+          "h": 0,
+          "l": 0.8,
+          "s": 0,
+        },
+        "hsv": Object {
+          "a": 1,
+          "h": 0,
+          "s": 0,
+          "v": 0.8,
+        },
+        "oldHue": 0,
+        "rgb": Object {
+          "a": 1,
+          "b": 204,
+          "g": 204,
+          "r": 204,
+        },
+        "source": undefined,
+      },
+      undefined,
+    ],
+  ],
+}
+`;
+
+exports[`ColorPicker when rendered matches the snapshot 1`] = `
+<div
+  class="sc-fjdhpX laXROq"
+>
+  <div
+    class="sc-jzJRlG bYscyQ"
+  >
+    <div
+      style="position:absolute;top:0px;right:0px;bottom:0px;left:0px"
+    >
+      <div
+        class="hue-horizontal"
+        style="padding:0 2px;position:relative;height:100%"
+      >
+        <div
+          style="position:absolute;left:0%"
+        >
+          <div
+            class="sc-kGXeez bjkqlh"
+            color="#FFFFFF"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="sc-cSHVUG fnKjrY"
+  >
+    <div
+      style="position:absolute;top:0px;right:0px;bottom:0px;left:0px;background:hsl(0,100%, 50%)"
+    >
+      <div
+        class="saturation-white"
+        style="position:absolute;top:0px;right:0px;bottom:0px;left:0px"
+      >
+        <div
+          class="saturation-black"
+          style="position:absolute;top:0px;right:0px;bottom:0px;left:0px"
+        />
+        <div
+          style="position:absolute;top:0%;left:0%;cursor:default"
+        >
+          <div
+            class="sc-kpOJdX iVbJgM"
+            color="#FFFFFF"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="sc-kAzzGY fhjfvO"
+  >
+    <div
+      class="sc-chPdSV iGQTy"
+    >
+      <div
+        style="position:relative"
+      >
+        <input
+          spellcheck="false"
+          style="border:1px solid #CFD6E5;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
+          value="FFFFFF"
+        />
+        <span
+          style="color:#303540;display:block;font-size:12px;text-align:center;text-transform:capitalize"
+        >
+          hex
+        </span>
+      </div>
+    </div>
+    <div
+      class="sc-kgoBCf eerGWY"
+    >
+      <div
+        style="position:relative"
+      >
+        <input
+          spellcheck="false"
+          style="border:1px solid #CFD6E5;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
+          value="255"
+        />
+        <span
+          style="color:#303540;display:block;font-size:12px;text-align:center;text-transform:capitalize"
+        >
+          r
+        </span>
+      </div>
+    </div>
+    <div
+      class="sc-kgoBCf eerGWY"
+    >
+      <div
+        style="position:relative"
+      >
+        <input
+          spellcheck="false"
+          style="border:1px solid #CFD6E5;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
+          value="255"
+        />
+        <span
+          style="color:#303540;display:block;font-size:12px;text-align:center;text-transform:capitalize"
+        >
+          g
+        </span>
+      </div>
+    </div>
+    <div
+      class="sc-kgoBCf eerGWY"
+    >
+      <div
+        style="position:relative"
+      >
+        <input
+          spellcheck="false"
+          style="border:1px solid #CFD6E5;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
+          value="255"
+        />
+        <span
+          style="color:#303540;display:block;font-size:12px;text-align:center;text-transform:capitalize"
+        >
+          b
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ColorPicker when the b field is modified calls its onChange prop with the proper arguments 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "hex": "#ffff78",
+        "hsl": Object {
+          "a": 1,
+          "h": 60,
+          "l": 0.7352941176470589,
+          "s": 1,
+        },
+        "hsv": Object {
+          "a": 1,
+          "h": 60,
+          "s": 0.5294117647058824,
+          "v": 1,
+        },
+        "oldHue": 60,
+        "rgb": Object {
+          "a": 1,
+          "b": 120,
+          "g": 255,
+          "r": 255,
+        },
+        "source": undefined,
+      },
+      undefined,
+    ],
+  ],
+}
+`;
+
+exports[`ColorPicker when the g field is modified calls its onChange prop with the proper arguments 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "hex": "#ff78ff",
+        "hsl": Object {
+          "a": 1,
+          "h": 300,
+          "l": 0.7352941176470589,
+          "s": 1,
+        },
+        "hsv": Object {
+          "a": 1,
+          "h": 300,
+          "s": 0.5294117647058824,
+          "v": 1,
+        },
+        "oldHue": 300,
+        "rgb": Object {
+          "a": 1,
+          "b": 255,
+          "g": 120,
+          "r": 255,
+        },
+        "source": undefined,
+      },
+      undefined,
+    ],
+  ],
+}
+`;
+
+exports[`ColorPicker when the hex field is modified calls its onChange prop with the proper arguments 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "hex": "#aaaaaa",
+        "hsl": Object {
+          "a": 1,
+          "h": 0,
+          "l": 0.6666666666666666,
+          "s": 0,
+        },
+        "hsv": Object {
+          "a": 1,
+          "h": 0,
+          "s": 0,
+          "v": 0.6666666666666666,
+        },
+        "oldHue": 0,
+        "rgb": Object {
+          "a": 1,
+          "b": 170,
+          "g": 170,
+          "r": 170,
+        },
+        "source": undefined,
+      },
+      undefined,
+    ],
+  ],
+}
+`;
+
+exports[`ColorPicker when the r field is modified calls its onChange prop with the proper arguments 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "hex": "#78ffff",
+        "hsl": Object {
+          "a": 1,
+          "h": 180,
+          "l": 0.7352941176470589,
+          "s": 1,
+        },
+        "hsv": Object {
+          "a": 1,
+          "h": 180,
+          "s": 0.5294117647058824,
+          "v": 1,
+        },
+        "oldHue": 180,
+        "rgb": Object {
+          "a": 1,
+          "b": 255,
+          "g": 255,
+          "r": 120,
+        },
+        "source": undefined,
+      },
+      undefined,
+    ],
+  ],
+}
 `;

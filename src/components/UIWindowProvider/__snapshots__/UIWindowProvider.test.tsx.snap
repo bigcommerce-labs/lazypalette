@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIWindowProvider when given some windows to render renders correctly 1`] = `
+<React.Fragment>
+  <p>
+    blah
+  </p>
+  <UIWindow
+    id="1235"
+    key="1235"
+    onClose={[Function]}
+    position={
+      Object {
+        "x": 15,
+        "y": 20,
+      }
+    }
+    topmost={false}
+  >
+    <ColorPicker
+      color={
+        Object {
+          "a": 1,
+          "h": 250,
+          "l": 0.2,
+          "s": 0.5,
+        }
+      }
+      key="1235"
+    />
+  </UIWindow>
+  <UIWindow
+    id="9876"
+    key="9876"
+    onClose={[Function]}
+    position={
+      Object {
+        "x": 45,
+        "y": 70,
+      }
+    }
+    topmost={true}
+  >
+    <ColorPicker
+      color={
+        Object {
+          "a": 1,
+          "h": 250,
+          "l": 0.2,
+          "s": 0.5,
+        }
+      }
+      key="9876"
+    />
+  </UIWindow>
+</React.Fragment>
+`;
