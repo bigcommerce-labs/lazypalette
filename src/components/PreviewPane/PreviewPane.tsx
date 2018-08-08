@@ -61,12 +61,14 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
     componentDidUpdate(prevProps: PreviewPaneProps): void {
         if (this.props.configurationId !== prevProps.configurationId) {
             this.props.updatePreviewPaneConfig();
+        }
 
+        if (this.props.themePreviewConfig !== prevProps.themePreviewConfig) {
             this.updateStyles();
+        }
 
-            if (this.props.fontUrl !== prevProps.fontUrl) {
-                this.updateFonts();
-            }
+        if (this.props.fontUrl !== prevProps.fontUrl) {
+            this.updateFonts();
         }
     }
 
