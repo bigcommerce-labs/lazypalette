@@ -8,6 +8,7 @@ import { viewportChange, ViewportChange } from '../../actions/previewPane';
 import { postThemeConfigData } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeVariations, ThemeVariationsEntry } from '../../reducers/theme';
+import { trackPublish } from '../../services/analytics';
 
 import { VIEWPORT_TYPES } from '../PreviewPane/constants';
 import { ViewportType } from '../PreviewPane/PreviewPane';
@@ -38,11 +39,12 @@ class HeaderMenu extends Component <HeaderMenuProps, HeaderState> {
     };
 
     handlePublish = () => {
-        const { themeName, variationName, displayVersion } = this.props;
+        const { configurationId, themeName, variationName, displayVersion } = this.props;
         const themeDetails = `${themeName} ${variationName} v${displayVersion}`;
         const status =  confirm(`Do you want to apply “${themeDetails}” to your store?`);
 
         if (status) {
+            trackPublish(configurationId);
             this.props.postThemeConfigData(ConfigUpdateAction.PUBLISH);
         }
     };
