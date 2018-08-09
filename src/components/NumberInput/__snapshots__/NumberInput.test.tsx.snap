@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NumberInput renders 1`] = `
+<styled.div>
+  <styled.label
+    htmlFor="meow123"
+  >
+    FooBar
+  </styled.label>
+  <styled.div>
+    <styled.input
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="-"
+    />
+    <styled.input
+      disabled={false}
+      id="meow123"
+      onBlur={[Function]}
+      onChange={[Function]}
+      status="Undefined"
+      type="number"
+      value="5"
+    />
+    <styled.input
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="+"
+    />
+  </styled.div>
+</styled.div>
+`;
+
+exports[`NumberInput should render a default state 1`] = `
+<styled.div>
+  <styled.label
+    htmlFor="meow123"
+  >
+    Max width
+  </styled.label>
+  <styled.div>
+    <styled.input
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="-"
+    />
+    <styled.input
+      id="meow123"
+      onBlur={[Function]}
+      onChange={[Function]}
+      status="Undefined"
+      type="number"
+      value="12"
+    />
+    <styled.input
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="+"
+    />
+  </styled.div>
+</styled.div>
+`;
+
+exports[`NumberInput should render an invalid state for required fields 1`] = `
+<styled.div>
+  <styled.label
+    htmlFor="meow123"
+  >
+    Min height
+  </styled.label>
+  <styled.div>
+    <styled.input
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+      value="-"
+    />
+    <styled.input
+      id="meow123"
+      onBlur={[Function]}
+      onChange={[Function]}
+      required={true}
+      status="Undefined"
+      type="number"
+      value="0"
+    />
+    <styled.input
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="+"
+    />
+  </styled.div>
+</styled.div>
+`;

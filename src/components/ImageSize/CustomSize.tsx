@@ -1,5 +1,6 @@
-import { InputField } from 'pattern-lab';
 import React, { ChangeEvent, ChangeEventHandler, PureComponent } from 'react';
+
+import NumberInput from '../NumberInput/NumberInput';
 
 import { Axis, SizeModal } from './styles';
 
@@ -29,7 +30,7 @@ class CustomSize extends PureComponent<CustomSizeProps, CustomSizeState> {
 
     handleChange = (event: ChangeEvent<HTMLInputElement>, axis: string) => {
         const { height, width } = this.state;
-        const value = event.target.value;
+        const { value } = event.target;
         this.setState({ [axis]: value });
 
         const dimensions = axis === 'height' ? `${width}x${value}` : `${value}x${height}`;
@@ -48,11 +49,10 @@ class CustomSize extends PureComponent<CustomSizeProps, CustomSizeState> {
             <SizeModal>
                 {['width', 'height'].map((axis, i) => (
                     <Axis key={axis}>
-                        <InputField
+                        <NumberInput
                             value={dimensions[i]}
                             label={`Max ${axis}`}
                             required={true}
-                            pattern="^[0-9]*$"
                             onChange={e => this.handleChange(e, axis)}
                         />
                     </Axis>
