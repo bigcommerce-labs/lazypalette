@@ -28,6 +28,7 @@ interface AppProps extends RouteComponentProps<{}> {
 }
 
 const StyledApp = styled.div`
+    background: ${({ theme: { colors } }) => colors.background};
     align-content: flex-start;
     display: flex;
     flex-wrap: wrap;
