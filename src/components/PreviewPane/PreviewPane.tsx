@@ -11,6 +11,7 @@ import {
 import { ThemePreviewConfig } from '../../reducers/previewPane';
 import { State } from '../../reducers/reducers';
 import { generateStylesheetUrl } from '../../services/previewPane';
+import { StoreDesignSdkEvents } from '../../services/storeDesignSdk';
 import { WindowService } from '../../services/window';
 
 import { PreviewPaneContainer, PreviewPaneIframe } from './styles';
@@ -32,7 +33,7 @@ interface PreviewPaneProps {
     pageSource: string;
     themePreviewConfig: ThemePreviewConfig;
     viewportType: ViewportType;
-    loadPage(page: string): (dispatch: Dispatch) => void;
+    loadPage(page: string): (dispatch: Dispatch, getState: () => State) => void;
     clearErrors(): void;
     previewPaneLoaded(): void;
     previewPaneLoading(): void;
@@ -43,8 +44,16 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
     private iframeRef: HTMLIFrameElement;
 
     handleMessage = (event: MessageEvent) => {
-        if (event.data === 'ping') {
-            console.log('pong'); // tslint:disable-line
+        const { configurationId, lastCommitId, versionId } = this.props.themePreviewConfig;
+
+        if (event.data === StoreDesignSdkEvents.IFRAME_LOAD) {
+            const message = {
+                configurationId,
+                sessionId: lastCommitId,
+                versionId,
+            };
+
+            event.source!.postMessage(JSON.stringify(message), event.origin);
         }
     };
 

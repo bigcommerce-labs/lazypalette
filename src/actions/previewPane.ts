@@ -74,10 +74,17 @@ export interface FetchPageSource {
 }
 export function fetchPageSource(
     { page }: FetchPageSource
-): (dispatch: Dispatch<State>) => void {
-    return (dispatch: Dispatch<State>): void => {
+): (dispatch: Dispatch<State>, getState: () => State) => void {
+    return (dispatch: Dispatch<State>, getState: () => State): void => {
         dispatch(pageSourceRequest({ page }));
-        api.requestPageSource(page)
+
+        const { configurationId, lastCommitId, versionId } = getState().previewPane.themePreviewConfig;
+        const token = `${versionId}@${configurationId}`;
+        const queryParams = {
+            stencilEditor: lastCommitId ? `${token}@${lastCommitId}` : token,
+        };
+
+        api.requestPageSource(page, queryParams)
             .then((pageSource: string) => dispatch(pageSourceResponse({page, pageSource})))
             .catch((error: Error) => dispatch(pageSourceResponse(error, true)));
     };

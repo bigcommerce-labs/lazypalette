@@ -6,7 +6,7 @@ import * as api from '../services/themeApi';
 
 import { Action } from './action';
 import { ConfigUpdateAction } from './constants';
-import { updateFonts } from './previewPane';
+import { fetchPageSource, updateFonts } from './previewPane';
 
 export enum ThemeActionTypes {
     CURRENT_THEME_RESPONSE = 'CURRENT_THEME_RESPONSE',
@@ -335,14 +335,19 @@ export function fetchVariation(variationId: string) {
 }
 
 export function updateThemeConfigChange(configChange: ThemeConfigChange) {
-    return (dispatch: Dispatch<State>) => {
+    return (dispatch: Dispatch<State>, getState: () => State) => {
         dispatch(themeConfigChange(configChange));
 
         if (configChange.setting.type === 'font') {
             dispatch(updateFonts(configChange));
         }
 
-        return dispatch(postThemeConfigData(ConfigUpdateAction.PREVIEW));
+        return dispatch(postThemeConfigData(ConfigUpdateAction.PREVIEW))
+            .then(() => {
+                if (configChange.setting.force_reload) {
+                    dispatch(fetchPageSource({ page: getState().previewPane.page }));
+                }
+            });
     };
 }
 
