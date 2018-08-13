@@ -5,6 +5,7 @@ import { VIEWPORT_TYPES } from './constants';
 import { ViewportType } from './PreviewPane';
 
 export const PreviewPaneContainer = styled.div`
+    background: ${({ theme: { colors } }) => colors && colors.empty};
     border-radius: 0px;
     box-shadow: ${({ theme: { elevation } }) => elevation && elevation.raised};
     display: flex;
