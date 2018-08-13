@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`uiWindow reducer when we dispatch an closeUIWindow action removes a window from its state 1`] = `
+Object {
+  "uiWindows": Array [
+    Object {
+      "content": Object {
+        "position": Object {
+          "x": 15,
+          "y": 20,
+        },
+      },
+      "id": "0987",
+      "type": "COLOR_PICKER",
+    },
+  ],
+}
+`;
+
+exports[`uiWindow reducer when we dispatch an error action does not change its state 1`] = `
+Object {
+  "uiWindows": Array [
+    Object {
+      "content": Object {
+        "position": Object {
+          "x": 5,
+          "y": 10,
+        },
+      },
+      "id": "5678",
+      "type": "COLOR_PICKER",
+    },
+    Object {
+      "content": Object {
+        "position": Object {
+          "x": 15,
+          "y": 20,
+        },
+      },
+      "id": "0987",
+      "type": "COLOR_PICKER",
+    },
+  ],
+}
+`;
+
+exports[`uiWindow reducer when we dispatch an openColorPicker action adds a window to its state 1`] = `
+Object {
+  "uiWindows": Array [
+    Object {
+      "content": Object {
+        "position": Object {
+          "x": 5,
+          "y": 10,
+        },
+      },
+      "id": "5678",
+      "type": "COLOR_PICKER",
+    },
+    Object {
+      "content": Object {
+        "position": Object {
+          "x": 15,
+          "y": 20,
+        },
+      },
+      "id": "0987",
+      "type": "COLOR_PICKER",
+    },
+    Object {
+      "content": Object {
+        "color": "#FFFFFF",
+        "onChange": undefined,
+        "position": Object {
+          "x": 10,
+          "y": 10,
+        },
+      },
+      "id": "1234",
+      "type": "COLOR_PICKER",
+    },
+  ],
+}
+`;
+
+exports[`uiWindow reducer when we dispatch an unrelated action does not change its state 1`] = `
+Object {
+  "uiWindows": Array [
+    Object {
+      "content": Object {
+        "position": Object {
+          "x": 5,
+          "y": 10,
+        },
+      },
+      "id": "5678",
+      "type": "COLOR_PICKER",
+    },
+    Object {
+      "content": Object {
+        "position": Object {
+          "x": 15,
+          "y": 20,
+        },
+      },
+      "id": "0987",
+      "type": "COLOR_PICKER",
+    },
+  ],
+}
+`;

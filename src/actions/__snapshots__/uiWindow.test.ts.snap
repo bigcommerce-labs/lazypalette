@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`uiWindow actions when we create a closeUIWindow action creates the correct action 1`] = `
+Object {
+  "payload": Object {
+    "id": "5678",
+  },
+  "type": "CLOSE_UI_WINDOW",
+}
+`;
+
+exports[`uiWindow actions when we create an openColorPicker action creates the correct action 1`] = `
+Object {
+  "payload": Object {
+    "content": Object {
+      "color": "FFFFFF",
+      "onChange": [Function],
+      "position": Object {
+        "x": 10,
+        "y": 15,
+      },
+    },
+    "id": "1234",
+    "type": "COLOR_PICKER",
+  },
+  "type": "OPEN_UI_WINDOW",
+}
+`;

@@ -8,7 +8,7 @@ import { updateThemeConfigChange, SettingsType, ThemeConfigChange } from '../../
 import { State } from '../../reducers/reducers';
 import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
 import CheckoutImageUpload from '../CheckoutImageUpload/CheckoutImageUpload';
-import ColorPicker from '../ColorPicker/ColorPicker';
+import ColorPicker from '../ColorSetting/ColorSetting';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ImageSize from '../ImageSize/ImageSize';
 
@@ -43,7 +43,8 @@ function getEditor(
             return <ColorPicker
                 color={preSetValue[`${setting.id}`] as string}
                 label={setting.label}
-                onChange={handleChange}
+                name={setting.id!}
+                onChange={broadcastConfigChange}
             />;
         case 'checkbox':
             return <CheckboxInput

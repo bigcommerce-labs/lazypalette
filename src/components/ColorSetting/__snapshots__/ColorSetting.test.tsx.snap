@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<styled.div>
+  <styled.label />
+  <styled.div
+    color="#000000"
+    onClick={[Function]}
+  />
+</styled.div>
+`;
+
+exports[`renders an initial color if provided 1`] = `
+<styled.div>
+  <styled.label />
+  <styled.div
+    color="#fff"
+    onClick={[Function]}
+  />
+</styled.div>
+`;
