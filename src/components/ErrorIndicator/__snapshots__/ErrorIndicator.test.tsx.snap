@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorIndicator when rendering renders with errors 1`] = `
+<styled.div>
+  <p
+    key="Error: hello"
+  >
+    Error: hello
+  </p>
+  <p
+    key="Error: goodbye"
+  >
+    Error: goodbye
+  </p>
+  <ButtonInput
+    onClick={[MockFunction]}
+  >
+    OK
+  </ButtonInput>
+</styled.div>
+`;
+
+exports[`ErrorIndicator when rendering renders with no errors 1`] = `
+<styled.div>
+  <ButtonInput
+    onClick={[MockFunction]}
+  >
+    OK
+  </ButtonInput>
+</styled.div>
+`;
