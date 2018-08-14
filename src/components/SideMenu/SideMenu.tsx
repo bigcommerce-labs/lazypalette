@@ -36,22 +36,24 @@ class SideMenu extends PureComponent<SideMenuProps> {
 
     render() {
         const { isChanged, themeDesignSections, themeName, themeConfigReset: resetTheme } = this.props;
+        const isLoaded = themeDesignSections.length > 0;
 
         return (
             <StyledSideMenu>
-                <Route
-                    path="/"
-                    render={({ match }) => (
-                        <DesignSubMenu
-                            currentPath={match.path}
-                            handleSave={this.handleSave}
-                            isChanged={isChanged}
-                            resetTheme={resetTheme}
-                            sections={themeDesignSections}
-                            themeName={themeName}
-                        />
-                    )}
-                />
+                {isLoaded &&
+                  <Route
+                      path="/"
+                      render={({ match }) => (
+                          <DesignSubMenu
+                              currentPath={match.path}
+                              handleSave={this.handleSave}
+                              isChanged={isChanged}
+                              resetTheme={resetTheme}
+                              sections={themeDesignSections}
+                              themeName={themeName}
+                          />
+                      )}
+                  />}
             </StyledSideMenu>
         );
     }
