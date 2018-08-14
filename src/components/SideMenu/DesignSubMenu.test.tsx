@@ -3,10 +3,13 @@ import React from 'react';
 
 import ButtonInput from '../ButtonInput/ButtonInput';
 import ConfirmModal from '../Modal/ConfirmModal';
+import { appRoutes } from '../Routes/Routes';
 
 import DesignSubMenu from './DesignSubMenu';
 
 describe('DesignSubMenu', () => {
+    const { styles } = appRoutes;
+
     it('renders', () => {
         const mockHandleSave = jest.fn();
         const mockResetTheme = jest.fn();
@@ -15,7 +18,7 @@ describe('DesignSubMenu', () => {
             <DesignSubMenu
                 sections={['fred', 'joe']}
                 isChanged={false}
-                currentPath="/styles"
+                currentPath={styles.path}
                 handleSave={mockHandleSave}
                 resetTheme={mockResetTheme}
                 themeName="fred"
@@ -35,7 +38,7 @@ describe('DesignSubMenu', () => {
                     <DesignSubMenu
                         sections={['fred', 'joe']}
                         isChanged={true} // theme has unsaved changes
-                        currentPath="/styles"
+                        currentPath={styles.path}
                         handleSave={mockHandleSave}
                         resetTheme={mockHandler}
                         themeName="fred"
@@ -59,7 +62,7 @@ describe('DesignSubMenu', () => {
                 <DesignSubMenu
                     sections={['fred', 'joe']}
                     isChanged={true} // theme has unsaved changes
-                    currentPath="/styles"
+                    currentPath={styles.path}
                     handleSave={mockHandler}
                     resetTheme={mockResetTheme}
                     themeName="fred"

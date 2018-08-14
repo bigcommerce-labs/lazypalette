@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ButtonInput from '../ButtonInput/ButtonInput';
 import { Messages } from '../Modal/constants';
 import ConfirmModal from '../Modal/ConfirmModal';
+import { appRoutes } from '../Routes/Routes';
 
 import { DesignMenuButtons } from './styles';
 import SubMenu from './SubMenu';
@@ -28,7 +29,7 @@ interface DesignSubMenuState {
 const staticItems: MenuItem[] = [
     {
         label: 'Styles',
-        path: 'styles',
+        path: appRoutes.styles.route,
     },
 ];
 
@@ -36,7 +37,7 @@ const getItems = (sections: string[]) => {
     return sections.map((section: string, index: number) => (
         {
             label: section,
-            path: `section/${index}`,
+            path: `${appRoutes.section.route}${index}`,
         }
     ));
 };

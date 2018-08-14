@@ -11,7 +11,7 @@ import { setStoreData } from '../../actions/merchant';
 import { fetchInitialState } from '../../actions/theme';
 
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
-import PreviewPane from '../PreviewPane/PreviewPane';
+import Routes from '../Routes/Routes';
 import SideMenu from '../SideMenu/SideMenu';
 import UserSessionActivity from '../UserSessionActivity/UserSessionActivity';
 import UIWindowProvider from '../UIWindowProvider/UIWindowProvider';
@@ -53,9 +53,9 @@ export class App extends Component<AppProps, {}> {
                 <UserSessionActivity oauthBaseUrl={this.props.config.oauthBaseUrl}>
                     <UIWindowProvider>
                         <StyledApp>
-                            <HeaderMenu/>
-                            <SideMenu/>
-                            <PreviewPane/>
+                            <HeaderMenu />
+                            <SideMenu />
+                            <Routes />
                         </StyledApp>
                     </UIWindowProvider>
                 </UserSessionActivity>
