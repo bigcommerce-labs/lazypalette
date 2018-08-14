@@ -50,6 +50,15 @@ export function trackPublish(configurationId: string) {
     });
 }
 
+export function trackSave() {
+    track('store-design_click', {
+        category: 'store-design_save',
+        element: 'button',
+        label: 'store-design_save',
+        text: 'Save',
+    });
+}
+
 export function trackResetClick() {
     track('store-design_click', {
         category: 'store-design_reset',

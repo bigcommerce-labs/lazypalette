@@ -7,6 +7,7 @@ import {
     trackResetClick,
     trackResetConfirmation,
     trackResetModalClose,
+    trackSave,
 } from './analytics';
 
 declare const global: any;
@@ -53,6 +54,25 @@ describe('analytics service', () => {
                     element: 'button',
                     label: 'store-design_header-publish',
                     text: 'Publish',
+                    theme_configuration_id: '1234',
+                    theme_id: '7890',
+                    theme_name: '4567',
+                    theme_variation: '5678',
+                    theme_variation_id: '3456',
+                    theme_version: '2345',
+                    theme_version_id: '6789',
+                });
+            });
+        });
+
+        describe('trackSave', () => {
+            it('calls analytics.track with the proper arguments', () => {
+                trackSave();
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    category: 'store-design_save',
+                    element: 'button',
+                    label: 'store-design_save',
+                    text: 'Save',
                     theme_configuration_id: '1234',
                     theme_id: '7890',
                     theme_name: '4567',
