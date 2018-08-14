@@ -10,6 +10,7 @@ interface ConfirmModalProps extends Partial<{
     title: string;
     primaryAction(): void;
     secondaryAction(): void;
+    overlayClose(): void;
 }> {}
 
 const CTAButtons = ({ primaryAction, secondaryAction }: ConfirmModalProps) => (
@@ -40,12 +41,14 @@ class ConfirmModal extends PureComponent<ConfirmModalProps> {
             body,
             primaryAction,
             secondaryAction,
+            overlayClose,
             title,
         } = this.props;
 
         return (
             <Modal
                 onClose={primaryAction}
+                overlayClose={overlayClose}
                 title={title}
                 isTransparent={false}
             >

@@ -8,6 +8,7 @@ interface ModalProps extends Partial<{
     isTransparent: boolean;
     title: string;
     onClose: MouseEventHandler<HTMLDivElement>;
+    overlayClose: MouseEventHandler<HTMLDivElement>;
 }> {}
 
 class Modal extends PureComponent<ModalProps> {
@@ -16,8 +17,8 @@ class Modal extends PureComponent<ModalProps> {
     };
 
     handleContainerClick = (event: MouseEvent<HTMLDivElement>) => {
-        if (this.props.onClose) {
-            this.props.onClose(event);
+        if (this.props.overlayClose) {
+            this.props.overlayClose(event);
         }
     };
 

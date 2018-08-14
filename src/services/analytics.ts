@@ -41,11 +41,47 @@ function track(eventName: string, data: EventData) {
 }
 
 export function trackPublish(configurationId: string) {
-    track('store-design_publish', {
+    track('store-design_click', {
         category: 'store-design_publish',
         configurationId,
         element: 'button',
         label: 'store-design_header-publish',
         text: 'Publish',
+    });
+}
+
+export function trackResetClick() {
+    track('store-design_click', {
+        category: 'store-design_reset',
+        element: 'button',
+        label: 'store-design_reset',
+        text: 'Reset',
+    });
+}
+
+export function trackResetConfirmation() {
+    track('store-design_click', {
+        category: 'store-design_reset',
+        element: 'button',
+        label: 'store-design_reset_confirmation',
+        text: 'OK',
+    });
+}
+
+export function trackResetCancel() {
+    track('store-design_click', {
+        category: 'store-design_reset',
+        element: 'button',
+        label: 'store-design_reset_cancel',
+        text: 'Cancel',
+    });
+}
+
+export function trackResetModalClose() {
+    track('store-design_click', {
+        category: 'store-design_reset',
+        element: 'div',
+        label: 'store-design_modal_close',
+        text: '',
     });
 }

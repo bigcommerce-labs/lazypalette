@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 
+import {
+    trackResetCancel,
+    trackResetClick,
+    trackResetConfirmation,
+    trackResetModalClose,
+} from '../../services/analytics';
 import ButtonInput from '../ButtonInput/ButtonInput';
 import { Messages } from '../Modal/constants';
 import ConfirmModal from '../Modal/ConfirmModal';
@@ -44,13 +50,25 @@ const getItems = (sections: string[]) => {
 class DesignSubMenu extends Component<DesignSubMenuProps, DesignSubMenuState> {
     readonly state: DesignSubMenuState = { isResetOpen: false };
 
-    open = () => this.setState({ isResetOpen: true });
+    open = () => {
+        trackResetClick();
+        this.setState({ isResetOpen: true });
+    };
 
-    close = () => this.setState({ isResetOpen: false });
+    close = () => {
+        trackResetCancel();
+        this.setState({ isResetOpen: false });
+    };
+
+    overlayClose = () => {
+        trackResetModalClose();
+        this.setState({ isResetOpen: false });
+    };
 
     handleSave = () => this.props.handleSave();
 
     handleReset = () => {
+        trackResetConfirmation();
         this.setState({ isResetOpen: false }, () => {
             this.props.resetTheme();
         });
@@ -89,6 +107,7 @@ class DesignSubMenu extends Component<DesignSubMenuProps, DesignSubMenuState> {
                         body={Messages.Reset}
                         primaryAction={this.close}
                         secondaryAction={this.handleReset}
+                        overlayClose={this.overlayClose}
                         title="Reset Warning"
                     />
                 }
