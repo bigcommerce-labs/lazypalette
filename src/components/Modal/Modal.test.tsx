@@ -59,7 +59,7 @@ describe('Modal', () => {
                         backLink=""
                         isTransparent={false}
                         title="Test Modal"
-                        onClose={mockHandler}
+                        overlayClose={mockHandler}
                     >
                         <TestChildren />
                     </Modal>

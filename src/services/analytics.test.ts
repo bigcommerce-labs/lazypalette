@@ -3,6 +3,10 @@ import createMockStore from 'redux-mock-store';
 import {
     init,
     trackPublish,
+    trackResetCancel,
+    trackResetClick,
+    trackResetConfirmation,
+    trackResetModalClose,
 } from './analytics';
 
 declare const global: any;
@@ -43,12 +47,88 @@ describe('analytics service', () => {
             it('calls analytics.track with the proper arguments', () => {
                 const configurationId = '1234';
                 trackPublish(configurationId);
-                expect(global.analytics.track).toHaveBeenCalledWith('store-design_publish', {
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
                     category: 'store-design_publish',
                     configurationId,
                     element: 'button',
                     label: 'store-design_header-publish',
                     text: 'Publish',
+                    theme_configuration_id: '1234',
+                    theme_id: '7890',
+                    theme_name: '4567',
+                    theme_variation: '5678',
+                    theme_variation_id: '3456',
+                    theme_version: '2345',
+                    theme_version_id: '6789',
+                });
+            });
+        });
+
+        describe('trackResetClick', () => {
+            it('calls analytics.track with proper arguments', () => {
+                trackResetClick();
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    category: 'store-design_reset',
+                    element: 'button',
+                    label: 'store-design_reset',
+                    text: 'Reset',
+                    theme_configuration_id: '1234',
+                    theme_id: '7890',
+                    theme_name: '4567',
+                    theme_variation: '5678',
+                    theme_variation_id: '3456',
+                    theme_version: '2345',
+                    theme_version_id: '6789',
+                });
+            });
+        });
+
+        describe('trackResetConfirmation', () => {
+            it('calls analytics.track with proper arguments', () => {
+                trackResetConfirmation();
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    category: 'store-design_reset',
+                    element: 'button',
+                    label: 'store-design_reset_confirmation',
+                    text: 'OK',
+                    theme_configuration_id: '1234',
+                    theme_id: '7890',
+                    theme_name: '4567',
+                    theme_variation: '5678',
+                    theme_variation_id: '3456',
+                    theme_version: '2345',
+                    theme_version_id: '6789',
+                });
+            });
+        });
+
+        describe('trackResetCancel', () => {
+            it('calls analytics.track with proper arguments', () => {
+                trackResetCancel();
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    category: 'store-design_reset',
+                    element: 'button',
+                    label: 'store-design_reset_cancel',
+                    text: 'Cancel',
+                    theme_configuration_id: '1234',
+                    theme_id: '7890',
+                    theme_name: '4567',
+                    theme_variation: '5678',
+                    theme_variation_id: '3456',
+                    theme_version: '2345',
+                    theme_version_id: '6789',
+                });
+            });
+        });
+
+        describe('trackResetModalClose', () => {
+            it('calls analytics.track with proper arguments', () => {
+                trackResetModalClose();
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    category: 'store-design_reset',
+                    element: 'div',
+                    label: 'store-design_modal_close',
+                    text: '',
                     theme_configuration_id: '1234',
                     theme_id: '7890',
                     theme_name: '4567',
