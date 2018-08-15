@@ -36,8 +36,8 @@ export class StoreDesignSdk {
                         : versionId + '@' + configurationId;
 
                     // Adding a dot because cookie set by bcapp also adds a dot
-                    setCookie(STENCIL_COOKIE_NAME, cookieValue);
-                    setCookie(STAPLER_PROXY_COOKIE_NAME, STAPLER_PROXY_COOKIE_VALUE);
+                    // setCookie(STENCIL_COOKIE_NAME, cookieValue);
+                    // setCookie(STAPLER_PROXY_COOKIE_NAME, STAPLER_PROXY_COOKIE_VALUE);
                 });
 
                 function setCookie(cookieName, cookieValue) {
