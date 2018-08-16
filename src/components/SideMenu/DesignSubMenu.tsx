@@ -5,6 +5,7 @@ import {
     trackResetClick,
     trackResetConfirmation,
     trackResetModalClose,
+    trackSave,
 } from '../../services/analytics';
 import ButtonInput from '../ButtonInput/ButtonInput';
 import { Messages } from '../Modal/constants';
@@ -65,7 +66,10 @@ class DesignSubMenu extends Component<DesignSubMenuProps, DesignSubMenuState> {
         this.setState({ isResetOpen: false });
     };
 
-    handleSave = () => this.props.handleSave();
+    handleSave = () => {
+        trackSave();
+        this.props.handleSave();
+    };
 
     handleReset = () => {
         trackResetConfirmation();
