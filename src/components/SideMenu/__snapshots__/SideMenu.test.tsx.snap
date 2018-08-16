@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SideMenu renders 1`] = `
+<Router
+  history={
+    Object {
+      "action": "POP",
+      "block": [Function],
+      "createHref": [Function],
+      "go": [Function],
+      "goBack": [Function],
+      "goForward": [Function],
+      "listen": [Function],
+      "location": Object {
+        "hash": "",
+        "pathname": "/",
+        "search": "",
+      },
+      "push": [Function],
+      "replace": [Function],
+    }
+  }
+>
+  <SideMenu
+    configurationId="4444-55555-77777-00000"
+    history={[MockFunction]}
+    isChanged={false}
+    location={[MockFunction]}
+    match={[MockFunction]}
+    postThemeConfigData={[MockFunction]}
+    settings={
+      Object {
+        "alert-color": "#fff",
+        "body-font": "Google_Karla_400",
+        "brandpage_products_per_page": 12,
+        "show_accept_amex": true,
+      }
+    }
+    staticContext={[MockFunction]}
+    themeConfigReset={[MockFunction]}
+    themeDesignSections={
+      Array [
+        "cat",
+        "named",
+        "moe",
+      ]
+    }
+    themeId="1234567-1223-011123-111111"
+    themeName="Caterstone"
+    variationId="2222-11111-0000-44444"
+    versionId="2221-211111-0111-41111"
+  />
+</Router>
+`;

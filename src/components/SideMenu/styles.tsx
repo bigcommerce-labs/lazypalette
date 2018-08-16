@@ -1,7 +1,18 @@
+import { Theme } from 'pattern-lab';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+import { ExpandModal } from '../ExpandableMenu/styles';
+
+import { Collapsed } from './constants';
 
 export const activeClassName = 'nav-item-active';
+
+export const Container = styled.div`
+    position: relative;
+    margin: 0;
+    height: 100%;
+`;
 
 export const Title = styled.div`
     color: ${({ theme }) => theme.colors.primaryText};
@@ -39,12 +50,113 @@ export const NavItem = styled(NavLink)
     `}
 `;
 
-export const StyledSideMenu = styled.nav`
-    height: 100%;
+export const fadeIn = keyframes`
+    0% {
+        width: 11.5rem;
+        opacity: 1;
+        visibility: visible;
+        padding-left: 1.5rem;
+    }
+    25% {
+        width: 10rem;
+        opacity: .33;
+    }
+    50% {
+        width: 7rem;
+        opacity: .33;
+        visibility: hidden;
+    }
+    100% {
+        width: 1rem;
+        opacity: 1;
+        visibility: hidden;
+    }
+`;
+
+export const fadeOut = keyframes`
+    0% {
+        width: 1rem;
+        opacity: 1;
+        visibility: hidden;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    50% {
+        width: 6rem;
+        opacity: .33;
+        visibility: hidden;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    75% {
+        width: 10rem;
+        opacity: 0.33;
+    }
+    100% {
+        width: 11.5rem;
+        opacity: 1;
+        visibility: visible;
+    }
+`;
+
+const getSideMenuStyles = ({collapsed}: CollapsedProps) => {
+    if (collapsed === Collapsed.Yes) {
+        return `
+            width: 1rem;
+            visibility: hidden;
+            animation: ${fadeIn} 250ms linear;
+        `;
+    } else if (collapsed === Collapsed.No) {
+        return `
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            width: 11.5rem;
+            visibility: visible;
+            animation: ${fadeOut} 250ms linear;
+        `;
+    }
+
+    return `
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        width: 11.5rem;
+        visibility: visible;
+    `;
+};
+
+interface CollapsedProps {
+    collapsed: string;
+}
+
+export const slideIn = keyframes`
+    from { left: 14.5rem; }
+    to { left: 1rem; }
+`;
+
+export const slideOut = keyframes`
+    from { left: 1rem; }
+    to { left: 14.5rem; }
+`;
+
+export const StyledSideMenu = styled.nav.attrs<CollapsedProps>({})`
+    position: relative;
     padding-top: 1.5rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    width: 11.5rem;
+    height: 100%;
+
+    ${props => getSideMenuStyles(props)};
+
+    ${ExpandModal} {
+        ${props => props.collapsed === Collapsed.Yes && `
+            left: 1rem;
+            visibility: visible;
+            animation: ${slideIn} 250ms linear !important;
+        `};
+        ${props => props.collapsed === Collapsed.No && `
+            left: 14.5rem;
+            visibility: visible;
+            animation: ${slideOut} 250ms linear !important;
+        `};
+    }
 `;
 
 export const StyledMenuItems = styled.ul`
@@ -58,7 +170,6 @@ export const StyledMenuItems = styled.ul`
 
 export const StyledMenuItemIcon = styled.span`
     color: ${({ theme }) => theme.colors.guideText};
-    float: right;
     position: relative;
     top: 0.25rem;
 `;
@@ -66,4 +177,100 @@ export const StyledMenuItemIcon = styled.span`
 export const DesignMenuButtons = styled.div`
     display: flex;
     justify-content: space-around;
+`;
+
+interface CollapsedStyles extends CollapsedProps {
+    theme: Theme;
+}
+
+export const fadeBtnIn = keyframes`
+    from {
+        left: 10rem;
+        right: 1rem;
+    }
+
+    to {
+        left: 3rem;
+        right: 0;
+    }
+`;
+
+export const fadeBtnOut = keyframes`
+    from {
+        left: 3rem;
+        right: 0;
+    }
+
+    to {
+        left: 12rem;
+        right: 1rem;
+    }
+`;
+
+const getCollapseStyles = ({collapsed, theme}: CollapsedStyles) => {
+    if (collapsed === Collapsed.Yes) {
+        return `
+            left: 3rem;
+            background: ${theme.colors.primary};
+            box-shadow: ${theme.elevation.raised};
+            animation: ${fadeBtnIn} 250ms linear;
+
+            :after {
+                content: '»';
+                color: ${theme.colors.empty};
+            }
+
+            :hover {
+                background: ${theme.colors.brandPrimary};
+            }
+
+            :hover:after {
+                color: ${theme.colors.empty};
+            }
+        `;
+    } else if (collapsed === Collapsed.No) {
+        return `
+            right: 1rem;
+            background: ${theme.colors.empty};
+            animation: ${fadeBtnOut} 250ms linear;
+        `;
+    }
+
+    return `
+        right: 1rem;
+        background: ${theme.colors.empty};
+    `;
+};
+
+export const CollapseButton = styled.button.attrs<CollapsedProps>({})`
+    position: absolute;
+    bottom: 5rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1px solid ${({ theme }) => theme.colors.stroke};
+    cursor: pointer;
+    padding-bottom: .25rem;
+    visibility: visible;
+
+    :after {
+        font-size: 1.25rem;
+        font-weight: ${({ theme }) => theme.typography.fontWeight.thin};
+        content: '«';
+        color: ${({ theme }) => theme.colors.secondaryText};
+    }
+
+    :hover {
+        background: ${({ theme }) => theme.colors.selectedBackground};
+    }
+
+    :hover:after {
+        color: ${({ theme }) => theme.colors.primaryText};
+    }
+
+    :focus {
+        outline: none !important;
+    }
+
+    ${props => getCollapseStyles(props)};
 `;

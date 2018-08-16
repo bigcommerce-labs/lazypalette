@@ -20,6 +20,7 @@ export const ExpandModal = styled.div`
     z-index: ${({ theme }) => theme.layers.high};
     animation: ${fadeIn} 400ms ease-in;
     overflow: auto;
+    visibility: visible;
 `;
 
 export const NavItem = styled(Link)`
