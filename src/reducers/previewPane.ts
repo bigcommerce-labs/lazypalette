@@ -1,5 +1,5 @@
 import { Action } from '../actions/action';
-import { PageSourceResponse, PreviewPaneActionTypes } from '../actions/previewPane';
+import { PageUrlResponse, PreviewPaneActionTypes } from '../actions/previewPane';
 import { VIEWPORT_TYPES } from '../components/PreviewPane/constants';
 import { ViewportType } from '../components/PreviewPane/PreviewPane';
 import { parseFont } from '../services/previewPane';
@@ -9,7 +9,7 @@ export const initialState = {
     isFetching: true,
     isRotated: false,
     page: '/',
-    pageSource: '',
+    pageUrl: '',
     themePreviewConfig: {
         configurationId: '',
         lastCommitId: '',
@@ -29,7 +29,7 @@ export interface PreviewPaneState {
     isFetching: boolean;
     isRotated: boolean;
     page: string;
-    pageSource: string;
+    pageUrl: string;
     themePreviewConfig: ThemePreviewConfig;
     viewportType: ViewportType;
 }
@@ -46,7 +46,7 @@ const previewPane = (
         case PreviewPaneActionTypes.PAGE_SOURCE_REQUEST:
             return { ...state, ...action.payload, isFetching: true };
         case PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE:
-            return { ...state, ...action.payload as PageSourceResponse, isFetching: false };
+            return { ...state, ...action.payload as PageUrlResponse, isFetching: false };
         case PreviewPaneActionTypes.THEME_FONT_CHANGE:
             return { ...state, ...{ fontUrl: parseFont(action.payload.value) } };
         case PreviewPaneActionTypes.THEME_PREVIEW_CONFIG_REQUEST:

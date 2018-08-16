@@ -1,5 +1,3 @@
-import Axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import createMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
@@ -16,7 +14,7 @@ describe ('previewPane actions', () => {
                     type: 'PAGE_SOURCE_REQUEST',
                 };
 
-                expect(previewPane.pageSourceRequest({page: 'doge'}
+                expect(previewPane.pageUrlRequest({page: 'doge'}
                 )).toEqual(expectedAction);
             });
         });
@@ -27,12 +25,12 @@ describe ('previewPane actions', () => {
             it('responds with the expected action', () => {
                 const expectedAction = {
                     error: false,
-                    payload: {page: 'doge', pageSource: 'cat'},
+                    payload: {page: 'doge', pageUrl: 'cat'},
                     type: 'PAGE_SOURCE_RESPONSE',
                 };
 
-                expect(previewPane.pageSourceResponse(
-                    {page: 'doge', pageSource: 'cat'})
+                expect(previewPane.pageUrlResponse(
+                    {page: 'doge', pageUrl: 'cat'})
                 ).toEqual(expectedAction);
             });
         });
@@ -45,7 +43,7 @@ describe ('previewPane actions', () => {
                     type: 'PAGE_SOURCE_RESPONSE',
                 };
 
-                expect(previewPane.pageSourceResponse(
+                expect(previewPane.pageUrlResponse(
                     new Error('doge cat'), true
                 )).toEqual(expectedAction);
             });
@@ -179,9 +177,9 @@ describe ('previewPane actions', () => {
         });
     });
 
-    describe('fetchPageSource', () => {
-        describe('when api call is successful', () => {
-            it('creates with the expected actions', done => {
+    describe('fetchPageUrl', () => {
+        describe('when requesting a page src', () => {
+            it('creates with the expected actions', () => {
                 const store = createMockStore([thunk])({
                     previewPane: {
                         themePreviewConfig: {
@@ -191,20 +189,7 @@ describe ('previewPane actions', () => {
                         },
                     },
                 });
-
-                const axiosMock = new MockAdapter(Axios);
                 const page = 'doge';
-
-                const mockXMLSerializer = jest.fn(() => ({
-                    serializeToString: () => 'hello',
-                }));
-
-                global['XMLSerializer'] = mockXMLSerializer; // tslint:disable-line
-                axiosMock.onGet(`${page}?stencilEditor=3@1@2`).reply(200, {
-                    data: {
-                        pageSource: 'hello',
-                    },
-                });
                 const expectedActions = [
                     {
                         payload: {page: 'doge'},
@@ -212,47 +197,13 @@ describe ('previewPane actions', () => {
                     },
                     {
                         error: false,
-                        payload: {page: 'doge', pageSource: 'hello'},
+                        payload: {page: 'doge', pageUrl: 'doge?stencilEditor=3@1@2'},
                         type: 'PAGE_SOURCE_RESPONSE',
                     },
                 ];
 
-                previewPane.fetchPageSource({page})(store.dispatch, store.getState as () => State).then(() => {
-                    expect(store.getActions()).toEqual(expect.arrayContaining(expectedActions));
-                    done();
-                });
-            });
-
-            describe('when api call is unsuccessful', () => {
-                it('should call fetchPageSource with error status', done => {
-                    const store = createMockStore([thunk])({
-                        previewPane: {
-                            themePreviewConfig: {
-                                configurationId: '1',
-                                lastCommitId: '2',
-                                versionId: '3',
-                            },
-                        },
-                    });
-                    const axiosMock = new MockAdapter(Axios);
-                    const page = 'doge';
-                    axiosMock.onGet(`${page}?stencilEditor=3@1@2`).reply(500);
-                    const expectedActions = [
-                        {
-                            payload: {page: 'doge'},
-                            type: 'PAGE_SOURCE_REQUEST',
-                        },
-                        {
-                            error: true,
-                            payload: new Error('Request failed with status code 500'),
-                            type: 'PAGE_SOURCE_RESPONSE',
-                        },
-                    ];
-                    previewPane.fetchPageSource({page})(store.dispatch, store.getState as () => State).then(() => {
-                        expect(store.getActions()).toEqual(expect.arrayContaining(expectedActions));
-                        done();
-                    });
-                });
+                previewPane.fetchPageUrl({page})(store.dispatch, store.getState as () => State);
+                expect(store.getActions()).toEqual(expect.arrayContaining(expectedActions));
             });
         });
     });

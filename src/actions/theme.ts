@@ -6,7 +6,7 @@ import * as api from '../services/themeApi';
 
 import { Action } from './action';
 import { ConfigUpdateAction } from './constants';
-import { fetchPageSource, updateFonts } from './previewPane';
+import { fetchPageUrl, updateFonts } from './previewPane';
 
 export enum ThemeActionTypes {
     CURRENT_THEME_RESPONSE = 'CURRENT_THEME_RESPONSE',
@@ -345,7 +345,7 @@ export function updateThemeConfigChange(configChange: ThemeConfigChange) {
         return dispatch(postThemeConfigData(ConfigUpdateAction.PREVIEW))
             .then(() => {
                 if (configChange.setting.force_reload) {
-                    dispatch(fetchPageSource({ page: getState().previewPane.page }));
+                    dispatch(fetchPageUrl({ page: getState().previewPane.page }));
                 }
             });
     };
