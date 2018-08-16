@@ -2,6 +2,7 @@ import { Icon } from 'pattern-lab';
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
+import { appRoutes } from '../Routes/Routes';
 import ThemeSettings from '../ThemeSettings/ThemeSettings';
 import ThemeVariations from '../ThemeVariations/ThemeVariations';
 
@@ -20,11 +21,13 @@ interface MenuItemsProps extends RouteComponentProps<{}> {
 }
 
 const ExpandMenuRoutes = ({ route }: { route: string }) => {
-    if (route === 'styles') {
+    const { section, styles } = appRoutes;
+
+    if (route === styles.route) {
         return <ThemeVariations/>;
     }
 
-    if (route.indexOf('section/') === 0) {
+    if (route.indexOf(section.route) === 0) {
         return <ThemeSettings settingsIndex={parseInt(route.split('/')[1], 10)}/>;
     }
 

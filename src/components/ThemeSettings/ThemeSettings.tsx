@@ -7,10 +7,12 @@ import { Dispatch } from 'redux';
 import { updateThemeConfigChange, SettingsType, ThemeConfigChange } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
+
 import CheckoutImageUpload from '../CheckoutImageUpload/CheckoutImageUpload';
 import ColorPicker from '../ColorSetting/ColorSetting';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ImageSize from '../ImageSize/ImageSize';
+import { appRoutes } from '../Routes/Routes';
 
 import { Heading, Item, List } from './styles';
 
@@ -103,10 +105,11 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
 
     render() {
         const { match, settings, settingsIndex, themeSettings } = this.props;
+        const { section } = appRoutes;
 
         return (
             <Route
-                path={`/section/${settingsIndex}`}
+                path={`/${section.route}${settingsIndex}`}
                 exact
                 render={() => (
                     <ExpandableMenu

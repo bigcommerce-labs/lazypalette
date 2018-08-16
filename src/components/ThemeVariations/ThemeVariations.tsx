@@ -9,6 +9,7 @@ import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 
 import { Messages } from '../Modal/constants';
 import ConfirmModal from '../Modal/ConfirmModal';
+import { appRoutes } from '../Routes/Routes';
 
 import ThemeModule from './ThemeModule';
 
@@ -66,12 +67,13 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
     };
 
     render() {
+        const { styles } = appRoutes;
         const { match, themeVariants} = this.props;
         const { isConfirmOpen } = this.state;
 
         return (
             <Route
-                path="/styles"
+                path={styles.path}
                 exact
                 render={() => (
                     <>

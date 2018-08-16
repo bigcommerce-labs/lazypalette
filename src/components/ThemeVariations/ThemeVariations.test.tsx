@@ -3,10 +3,13 @@ import React from 'react';
 import { StaticRouter } from 'react-router';
 import { ThemeProvider } from 'styled-components';
 
+import { appRoutes } from '../Routes/Routes';
+
 import { Item } from './styles';
 import { ThemeVariations } from './ThemeVariations';
 
 describe('ThemeVariations', () => {
+    const { styles } = appRoutes;
     const theme = {
         colors: {},
         elevation: {},
@@ -41,7 +44,7 @@ describe('ThemeVariations', () => {
         const mockHandler = jest.fn();
 
         const themeVariations = shallow(
-            <StaticRouter location="/styles" context={{}}>
+            <StaticRouter location={styles.path} context={{}}>
                 <ThemeVariations
                     isChanged={false}
                     themeVariants={testItems}
@@ -60,7 +63,7 @@ describe('ThemeVariations', () => {
                 const mockChangeVariation = jest.fn();
 
                 const wrapper = mount(
-                    <StaticRouter location="/styles" context={{}}>
+                    <StaticRouter location={styles.path} context={{}}>
                         <ThemeProvider theme={theme}>
                             <ThemeVariations
                                 isChanged={false} // no theme changes
@@ -90,7 +93,7 @@ describe('ThemeVariations', () => {
                 const mockHandler = jest.fn();
 
                 const wrapper = mount(
-                    <StaticRouter location="/styles" context={{}}>
+                    <StaticRouter location={styles.path} context={{}}>
                         <ThemeProvider theme={theme}>
                             <ThemeVariations
                                 isChanged={true} // theme has unsaved changes

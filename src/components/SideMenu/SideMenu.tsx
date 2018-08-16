@@ -12,6 +12,8 @@ import {
 } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 
+import { appRoutes } from '../Routes/Routes';
+
 import DesignSubMenu from './DesignSubMenu';
 
 import { StyledSideMenu } from './styles';
@@ -35,14 +37,20 @@ class SideMenu extends PureComponent<SideMenuProps> {
     };
 
     render() {
-        const { isChanged, themeDesignSections, themeName, themeConfigReset: resetTheme } = this.props;
+        const {
+            isChanged,
+            themeDesignSections,
+            themeName,
+            themeConfigReset: resetTheme,
+        } = this.props;
+        const { home } = appRoutes;
         const isLoaded = themeDesignSections.length > 0;
 
         return (
             <StyledSideMenu>
                 {isLoaded &&
                   <Route
-                      path="/"
+                      path={home.path}
                       render={({ match }) => (
                           <DesignSubMenu
                               currentPath={match.path}
