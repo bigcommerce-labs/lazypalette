@@ -14,7 +14,7 @@ import { VIEWPORT_TYPES } from '../PreviewPane/constants';
 import { ViewportType } from '../PreviewPane/PreviewPane';
 import PubShareBox from '../PubShareBox/PubShareBox';
 
-import { BCLogo, StyledHeaderMenu, StyledIcon } from './styles';
+import { BCLogo, StyledHeaderMenu, StyledIcon, StyledStatus } from './styles';
 
 interface HeaderMenuProps {
     configurationId: string;
@@ -100,6 +100,8 @@ class HeaderMenu extends Component <HeaderMenuProps, HeaderState> {
                     })}
                     viewportType={VIEWPORT_TYPES.MOBILE}
                 />
+
+                <StyledStatus>{'ACTIVE THEME'}</StyledStatus>
                 <PubShareBox onPublish={this.handlePublish} canPublish={this.state.canPublish}/>
             </StyledHeaderMenu>
         );

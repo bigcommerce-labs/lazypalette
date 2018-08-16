@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Publish = styled.div`
-    vertical-align: top;
-    float: right;
+    margin-left: auto;
     padding-right: 1rem;
 `;
