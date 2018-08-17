@@ -3,3 +3,8 @@ export const enum Collapsed {
     No = 'no',
     Yes = 'yes',
 }
+
+export const enum Tips {
+    Primary = 'Collapse menu',
+    Secondary = 'Expand menu',
+}

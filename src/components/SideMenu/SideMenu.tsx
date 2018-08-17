@@ -14,10 +14,15 @@ import { State } from '../../reducers/reducers';
 
 import { appRoutes } from '../Routes/Routes';
 
-import { Collapsed } from './constants';
+import { Collapsed, Tips } from './constants';
 import DesignSubMenu from './DesignSubMenu';
 
-import { CollapseButton, Container, StyledSideMenu } from './styles';
+import {
+    CollapseButton,
+    Container,
+    StyledSideMenu,
+    ToolTip,
+} from './styles';
 
 interface SideMenuProps extends RouteComponentProps<{}> {
     isChanged: boolean;
@@ -79,7 +84,13 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                 <CollapseButton
                     collapsed={collapsed}
                     onClick={this.handleCollapse}
-                />
+                >
+                    <ToolTip
+                        key={collapsed}
+                        primaryTip={Tips.Primary}
+                        secondaryTip={Tips.Secondary}
+                    />
+                </CollapseButton>
             </Container>
         );
     }
