@@ -14,14 +14,15 @@ import { State } from '../../reducers/reducers';
 
 import { appRoutes } from '../Routes/Routes';
 
+import { Collapsed } from './constants';
 import DesignSubMenu from './DesignSubMenu';
 
-import { StyledSideMenu } from './styles';
+import { CollapseButton, Container, StyledSideMenu } from './styles';
 
 interface SideMenuProps extends RouteComponentProps<{}> {
     isChanged: boolean;
     themeDesignSections: string[];
-    settings: {[key: string]: string & boolean & number};
+    settings: {[key: string]: string | boolean | number};
     themeId: string;
     themeName: string;
     configurationId: string;
@@ -31,10 +32,20 @@ interface SideMenuProps extends RouteComponentProps<{}> {
     themeConfigReset(): ThemeConfigResetAction;
 }
 
-class SideMenu extends PureComponent<SideMenuProps> {
+interface SideMenuState {
+    collapsed: string;
+}
+
+export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
+    readonly state: SideMenuState = { collapsed: Collapsed.Initial };
+
     handleSave = () => {
         this.props.postThemeConfigData(ConfigUpdateAction.SAVE);
     };
+
+    handleCollapse = () => this.setState(({collapsed}) => ({
+        collapsed: `${Collapsed.Yes}`.includes(collapsed) ? Collapsed.No : Collapsed.Yes,
+    }));
 
     render() {
         const {
@@ -44,25 +55,32 @@ class SideMenu extends PureComponent<SideMenuProps> {
             themeConfigReset: resetTheme,
         } = this.props;
         const { home } = appRoutes;
+        const { collapsed } = this.state;
         const isLoaded = themeDesignSections.length > 0;
 
         return (
-            <StyledSideMenu>
-                {isLoaded &&
-                  <Route
-                      path={home.path}
-                      render={({ match }) => (
-                          <DesignSubMenu
-                              currentPath={match.path}
-                              handleSave={this.handleSave}
-                              isChanged={isChanged}
-                              resetTheme={resetTheme}
-                              sections={themeDesignSections}
-                              themeName={themeName}
-                          />
-                      )}
-                  />}
-            </StyledSideMenu>
+            <Container>
+                <StyledSideMenu collapsed={collapsed}>
+                    {isLoaded &&
+                        <Route
+                            path={home.path}
+                            render={({ match }) => (
+                                <DesignSubMenu
+                                    currentPath={match.path}
+                                    handleSave={this.handleSave}
+                                    isChanged={isChanged}
+                                    resetTheme={resetTheme}
+                                    sections={themeDesignSections}
+                                    themeName={themeName}
+                                />
+                            )}
+                        />}
+                </StyledSideMenu>
+                <CollapseButton
+                    collapsed={collapsed}
+                    onClick={this.handleCollapse}
+                />
+            </Container>
         );
     }
 }
