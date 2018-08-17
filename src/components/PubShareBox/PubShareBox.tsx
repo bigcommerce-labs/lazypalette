@@ -103,6 +103,7 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                         border={false}
                         onClick={this.handleModalOpen}
                         type="button"
+                        testId="undo-changes"
                     >
                         Undo Changes
                     </ButtonInput>
@@ -110,6 +111,7 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                 <ButtonInput
                     onClick={this.handleSave}
                     type="button"
+                    testId="save"
                     disabled={!canSave}
                 >
                     Save
@@ -118,6 +120,7 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                     onClick={onPublish}
                     classType="primary"
                     disabled={!canPublish}
+                    testId="publish"
                 >
                     Publish
                 </ButtonInput>

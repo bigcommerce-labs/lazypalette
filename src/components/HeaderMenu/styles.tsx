@@ -56,6 +56,7 @@ export const StyledIcon = (props: StyledIconProps) => {
                 glyph={props.viewportType.glyphName}
                 primaryColor={props.isSelected ? theme.colors.primary : undefined}
                 size={'larger'}
+                data-test-id={props.viewportType.glyphName}
             />
         </StyledHeaderSpan>
     );

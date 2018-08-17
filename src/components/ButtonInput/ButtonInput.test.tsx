@@ -1,10 +1,13 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import { Button } from './styles';
+import { sel } from '../../utils/testUtil';
+
 import ButtonInput from './ButtonInput';
 
 describe('<ButtonInput />', () => {
+
+    const testId = 'buttonInput';
 
     it('renders', () => {
         const buttonInput = shallow(
@@ -29,12 +32,13 @@ describe('<ButtonInput />', () => {
                 classType="primary"
                 type="button"
                 onClick={mockClick}
+                testId={testId}
             >
           Click Meow!
             </ButtonInput>
         );
 
-        buttonInput.find(Button).simulate('click', event);
+        buttonInput.find(sel(testId)).simulate('click', event);
         expect(mockClick).toBeCalledWith(event);
     });
 

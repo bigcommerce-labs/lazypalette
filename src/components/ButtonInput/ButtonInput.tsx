@@ -8,6 +8,7 @@ interface ButtonInputProps extends Partial<{
     classType: string;
     disabled: boolean;
     onClick: MouseEventHandler<HTMLButtonElement>;
+    testId?: string;
     type: string;
 }> {}
 
@@ -23,6 +24,7 @@ class ButtonInput extends PureComponent<ButtonInputProps> {
             border = true,
             disabled,
             classType,
+            testId,
             type,
             children,
         } = this.props;
@@ -34,7 +36,9 @@ class ButtonInput extends PureComponent<ButtonInputProps> {
                     disabled={disabled}
                     onClick={this.handleClick}
                     classType={classType}
-                    type={type}>
+                    type={type}
+                    {...(testId ? {'data-test-id': testId} : {})}
+                >
                     {children}
                 </Button>
             </Wrapper>

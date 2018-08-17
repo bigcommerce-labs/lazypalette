@@ -42,6 +42,7 @@ function getEditor(
         configChange: ThemeConfigChange
     ) => (dispatch: Dispatch<State>, getState: () => State) => void
 ) {
+    const testId = `${setting.type}.${setting.id}`;
     switch (setting.type) {
         case 'color':
             return <ColorPicker
@@ -49,12 +50,14 @@ function getEditor(
                 label={setting.label}
                 name={setting.id!}
                 onChange={broadcastConfigChange}
+                testId={testId}
             />;
         case 'checkbox':
             return <CheckboxInput
                 checked={preSetValue[`${setting.id}`] as boolean}
                 label={setting.label}
                 onChange={handleChange}
+                testId={testId}
             />;
         case 'font':
             return <SelectBox
@@ -62,6 +65,7 @@ function getEditor(
                 label={setting.label}
                 onChange={handleChange}
                 options={transformOptions(setting)}
+                testId={testId}
             />;
         case 'imageDimension':
             return <ImageSize
@@ -69,6 +73,7 @@ function getEditor(
                 label={setting.label || ''}
                 onChange={handleChange}
                 options={transformOptions(setting)}
+                testId={testId}
             />;
         case 'optimizedCheckout-image':
             return <CheckoutImageUpload
@@ -76,6 +81,7 @@ function getEditor(
                 name={setting.id!}
                 onChange={broadcastConfigChange}
                 imageURL={preSetValue[`${setting.id}`] as string}
+                testId={testId}
             />;
         case 'select':
             return <SelectBox
@@ -83,12 +89,14 @@ function getEditor(
                 label={setting.label}
                 onChange={handleChange}
                 options={transformOptions(setting)}
+                testId={testId}
             />;
         case 'text':
             return <InputField
                 value={preSetValue[`${setting.id}`] as string}
                 label={setting.label}
                 onChange={handleChange}
+                testId={testId}
             />;
         case 'heading':
             return <Heading>{setting.content}</Heading>;
