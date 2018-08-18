@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
-import { changeThemeVariation } from '../../actions/theme';
+import { loadTheme } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 
@@ -16,7 +16,7 @@ import ThemeModule from './ThemeModule';
 interface ThemeVariationsProps extends RouteComponentProps<{}> {
     isChanged: boolean;
     themeVariants: ThemePropsList;
-    changeThemeVariation(variationID: string): Dispatch<State>;
+    loadTheme(variationID: string): Dispatch<State>;
 }
 
 export interface ThemePropsList extends Array<StateProps> {}
@@ -56,14 +56,14 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
             isConfirmOpen: false,
             variationId: '',
         }, () => {
-            this.props.changeThemeVariation(variationId);
+            this.props.loadTheme(variationId);
         });
     };
 
     handleVariationChange = (variationId: string): void => {
         const { isChanged } = this.props;
 
-        isChanged ? this.open(variationId) : this.props.changeThemeVariation(variationId);
+        isChanged ? this.open(variationId) : this.props.loadTheme(variationId);
     };
 
     render() {
@@ -109,7 +109,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = {
-    changeThemeVariation,
+    loadTheme,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ThemeVariations));

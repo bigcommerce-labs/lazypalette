@@ -7,6 +7,10 @@ import { NoMatch } from './constants';
 import { Body, Container, Heading } from './styles';
 
 export const appRoutes = {
+    history: {
+        path: '/history',
+        route: 'history',
+    },
     home: {
         path: '/',
         route: '/',
@@ -32,10 +36,11 @@ interface RoutesProps extends RouteComponentProps<{}> {}
 
 export class Routes extends PureComponent<RoutesProps> {
     render() {
-        const { home, styles, section  } = appRoutes;
+        const { history, home, styles, section  } = appRoutes;
 
         return (
             <Switch>
+                <Route path={history.path} exact component={PreviewPane} />
                 <Route path={home.path} exact component={PreviewPane} />
                 <Route path={styles.path} exact component={PreviewPane} />
                 <Route path={section.path} exact component={PreviewPane} />

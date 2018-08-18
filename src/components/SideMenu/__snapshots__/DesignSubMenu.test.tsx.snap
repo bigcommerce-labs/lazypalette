@@ -17,6 +17,11 @@ exports[`DesignSubMenu renders 1`] = `
         "label": "joe",
         "path": "section/1",
       },
+      Object {
+        "divider": true,
+        "label": "History",
+        "path": "history",
+      },
     ]
   }
   showArrows={true}

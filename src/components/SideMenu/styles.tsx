@@ -24,13 +24,14 @@ export const Title = styled.div`
 interface NavProps {
     activeClassName: string;
     disabled?: boolean;
+    divider?: boolean;
 }
 
 export const NavItem = styled(NavLink)
     .attrs<NavProps>({
     activeClassName,
 })`
-    ${({ disabled, theme }) => `
+    ${({ disabled, divider, theme }) => `
         color: ${theme.colors.primaryText};
         display: flex;
         height: 2.25rem;
@@ -49,6 +50,22 @@ export const NavItem = styled(NavLink)
         }
     `}
 `;
+
+interface ListItemProps {
+    divider?: boolean;
+}
+
+export const ListItem = styled.li.attrs<ListItemProps>({})`
+    ${({ divider, theme }) => {
+        if (divider) {
+            return `border-top: 1px solid ${theme.colors.stroke};
+                    margin-top: 0.5rem;
+                    padding-top: 1rem;`;
+        }
+
+        return ``;
+    }
+}`;
 
 export const fadeIn = keyframes`
     0% {

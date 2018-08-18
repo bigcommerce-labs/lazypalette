@@ -5,6 +5,7 @@ import { appRoutes } from '../Routes/Routes';
 import SubMenu from './SubMenu';
 
 interface MenuItem {
+    divider?: boolean;
     label: string;
     path: string;
 }
@@ -15,10 +16,18 @@ interface DesignSubMenuProps {
     themeName: string;
 }
 
-const staticItems: MenuItem[] = [
+const staticTopItems: MenuItem[] = [
     {
         label: 'Styles',
         path: appRoutes.styles.route,
+    },
+];
+
+const staticBottomItems: MenuItem[] = [
+    {
+        divider: true,
+        label: 'History',
+        path: appRoutes.history.route,
     },
 ];
 
@@ -38,7 +47,7 @@ class DesignSubMenu extends PureComponent<DesignSubMenuProps> {
         return (
             <SubMenu
                 title={themeName}
-                items={[...staticItems, ...getItems(this.props.sections)]}
+                items={[...staticTopItems, ...getItems(this.props.sections), ...staticBottomItems]}
                 currentPath={currentPath}
                 showArrows={true}
             />

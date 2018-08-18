@@ -1,7 +1,12 @@
 import {Dispatch} from 'redux';
 
 import { State } from '../reducers/reducers';
-import { ThemeSchema, ThemeSchemaEntrySetting, ThemeVariations } from '../reducers/theme';
+import {
+    ThemeSchema,
+    ThemeSchemaEntrySetting,
+    ThemeVariations,
+    ThemeVariationHistory
+} from '../reducers/theme';
 import * as api from '../services/themeApi';
 
 import { Action } from './action';
@@ -15,6 +20,7 @@ export enum ThemeActionTypes {
     THEME_CONFIG_RESET = 'THEME_CONFIG_RESET',
     THEME_VERSION_RESPONSE = 'THEME_VERSION_RESPONSE',
     THEME_VARIATION_RESPONSE = 'THEME_VARIATION_RESPONSE',
+    THEME_VARIATION_HISTORY_RESPONSE = 'THEME_VARIATION_HISTORY_RESPONSE',
     POST_THEME_CONFIG_RESPONSE = 'POST_THEME_CONFIG_RESPONSE',
     PUBLISH_THEME_CONFIG_RESPONSE = 'PUBLISH_THEME_CONFIG_RESPONSE',
     PREVIEW_THEME_CONFIG_RESPONSE = 'PREVIEW_THEME_CONFIG_RESPONSE',
@@ -78,6 +84,12 @@ export interface ThemeVariationResponseAction extends Action  {
     type: ThemeActionTypes.THEME_VARIATION_RESPONSE;
 }
 
+export interface ThemeVariationHistoryResponseAction extends Action  {
+    error: boolean;
+    payload: ThemeVariationHistoryResponse | Error;
+    type: ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE;
+}
+
 export interface CurrentThemeResponse {
     configurationId: string;
     variationId: string;
@@ -134,6 +146,10 @@ export interface ThemeVariationResponse {
     variationName: string;
 }
 
+export interface ThemeVariationHistoryResponse {
+    variationHistory: ThemeVariationHistory;
+}
+
 export function currentThemeResponse(
     payload: CurrentThemeResponse | Error,
     error: boolean = false
@@ -180,17 +196,6 @@ export function themeConfigPostResponse(
     };
 }
 
-export function themeConfigPublishResponse(
-    payload: ThemeConfigPostResponse | Error,
-    error: boolean = false
-): ThemeConfigPublishAction {
-    return {
-        error,
-        payload,
-        type: ThemeActionTypes.PUBLISH_THEME_CONFIG_RESPONSE,
-    };
-}
-
 export function themeConfigPreviewResponse(
     payload: ThemeConfigPostResponse | Error,
     error: boolean = false
@@ -232,6 +237,17 @@ export function themeVariationResponse(
         error,
         payload,
         type: ThemeActionTypes.THEME_VARIATION_RESPONSE,
+    };
+}
+
+export function themeVariationHistoryResponse(
+    payload: ThemeVariationHistoryResponse,
+    error: boolean = false
+): ThemeVariationHistoryResponseAction {
+    return {
+        error,
+        payload,
+        type: ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
     };
 }
 
@@ -281,35 +297,31 @@ export function fetchThemeVersion(versionId: string) {
     };
 }
 
-export function changeThemeVariation(variationId: string) {
+export function loadTheme(variationId?: string, configurationId?: string) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
-        return dispatch(fetchVariation(variationId))
-            .then(() => dispatch(fetchThemeData(getState().theme.versionId,
-                getState().theme.configurationId)));
-    };
-}
-
-export function fetchInitialState(variationId: string = '') {
-    return (dispatch: Dispatch<State>, getState: () => State) => {
-        if (variationId !== '') {
-            return dispatch(fetchVariation(variationId))
-                .then(() => dispatch(fetchThemeData(getState().theme.versionId,
-                    getState().theme.configurationId)));
+        if (variationId) {
+            return dispatch(fetchVariation(variationId, configurationId))
+                .then(() => dispatch(fetchThemeData(
+                    getState().theme.configurationId,
+                    getState().theme.variationId,
+                    getState().theme.versionId)));
         } else {
             return dispatch(fetchCurrentTheme())
-                .then(() => dispatch(fetchThemeData(getState().theme.versionId,
-                    getState().theme.configurationId)));
+                .then(() => dispatch(fetchThemeData(
+                    getState().theme.configurationId,
+                    getState().theme.variationId,
+                    getState().theme.versionId)));
         }
     };
 }
 
-export function fetchVariation(variationId: string) {
+export function fetchVariation(variationId: string, configurationId?: string) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
         const { storeHash } = getState().merchant;
 
         return api.fetchVariation(storeHash, variationId)
             .then(({
-                configurationId,
+                configurationId: activeConfigurationId,
                 versionId,
                 relatedVariations: variations,
                 isPurchased,
@@ -319,7 +331,7 @@ export function fetchVariation(variationId: string) {
                 displayVersion,
             }) => {
                 dispatch(themeVariationResponse({
-                    configurationId,
+                    configurationId: configurationId || activeConfigurationId,
                     displayVersion,
                     isPurchased,
                     themeId,
@@ -331,6 +343,18 @@ export function fetchVariation(variationId: string) {
                 }));
             })
             .catch(error => dispatch(themeVariationResponse(error, true)));
+    };
+}
+
+export function fetchVariationHistory(variationId: string) {
+    return (dispatch: Dispatch<State>, getState: () => State) => {
+        const { storeHash } = getState().merchant;
+
+        return api.fetchVariationHistory(storeHash, variationId)
+            .then(data => {
+                dispatch(themeVariationHistoryResponse({ variationHistory: data }));
+            })
+            .catch(error => dispatch(themeVariationHistoryResponse(error, true)));
     };
 }
 
@@ -377,7 +401,7 @@ export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
                 const { settings: newSettings } = configData;
 
                 if (configData.publish) {
-                    dispatch(fetchInitialState());
+                    dispatch(loadTheme());
                 } else if (configData.preview) {
                     dispatch(themeConfigPreviewResponse({
                         configurationId: newConfigurationId,
@@ -388,14 +412,16 @@ export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
                         configurationId: newConfigurationId,
                         settings: newSettings,
                     }));
+                    dispatch(fetchVariationHistory(variationId));
                 }
             })
             .catch(error => dispatch(themeConfigPostResponse(error, true)));
     };
 }
 
-export function fetchThemeData(versionId: string, configurationId: string): Dispatch<State> {
+export function fetchThemeData(configurationId: string, variationId: string, versionId: string): Dispatch<State> {
     return (dispatch: Dispatch<State>) => Promise.all([
+        dispatch(fetchVariationHistory(variationId)),
         dispatch(fetchThemeVersion(versionId)),
         dispatch(fetchThemeConfig(configurationId))]);
 }

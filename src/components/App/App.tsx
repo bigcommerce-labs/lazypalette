@@ -8,7 +8,7 @@ import 'srcdoc-polyfill';
 import styled from 'styled-components';
 
 import { setStoreData } from '../../actions/merchant';
-import { fetchInitialState } from '../../actions/theme';
+import { loadTheme } from '../../actions/theme';
 
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
 import Routes from '../Routes/Routes';
@@ -65,7 +65,7 @@ export class App extends Component<AppProps, {}> {
 }
 
 const mapDispatchToProps = {
-    fetchInitialState,
+    fetchInitialState: loadTheme,
     setStoreData,
 };
 

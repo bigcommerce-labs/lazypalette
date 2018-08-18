@@ -24,6 +24,17 @@ export const ExpandModal = styled.div`
     visibility: visible;
 `;
 
+ExpandModal.defaultProps = {
+    theme: {
+        elevation: {
+            raised: '0 1px 6px rgba(48, 53, 64, 0.2)',
+        },
+        layers: {
+            high: 50,
+        },
+    },
+};
+
 export const NavItem = styled(Link)`
     text-decoration: none;
     text-shadow: 0 1px 0 ${({ theme }) => theme.colors.background};
@@ -37,6 +48,15 @@ export const NavItem = styled(Link)`
         }
     }
 `;
+
+NavItem.defaultProps = {
+    theme: {
+        colors: {
+            background: '#000000',
+            primaryText: '#AAAAAA',
+        },
+    },
+};
 
 export const Header = styled.div`
     align-items: center;
@@ -55,6 +75,19 @@ export const Title = styled.h2`
     font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
     color: ${({ theme }) => theme.colors.primaryText};
 `;
+
+Header.defaultProps = {
+    theme: {
+        colors: {
+            primaryText: '#AAAAAA',
+        },
+        typography: {
+            fontWeight: {
+                normal: 400,
+            },
+        },
+    },
+};
 
 export const Content = styled.div`
     margin: 0;

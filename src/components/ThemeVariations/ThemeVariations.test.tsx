@@ -48,7 +48,7 @@ describe('ThemeVariations', () => {
                 <ThemeVariations
                     isChanged={false}
                     themeVariants={testItems}
-                    changeThemeVariation={mockHandler}
+                    loadTheme={mockHandler}
                     {...routeProps}
                 />
             </StaticRouter>
@@ -59,8 +59,8 @@ describe('ThemeVariations', () => {
 
     describe('handleVariationChange', () => {
         describe('when there are no unsaved theme changes', () => {
-            it('should call changeThemeVariation', () => {
-                const mockChangeVariation = jest.fn();
+            it('should call loadTheme', () => {
+                const mockLoadTheme = jest.fn();
 
                 const wrapper = mount(
                     <StaticRouter location={styles.path} context={{}}>
@@ -68,7 +68,7 @@ describe('ThemeVariations', () => {
                             <ThemeVariations
                                 isChanged={false} // no theme changes
                                 themeVariants={testItems}
-                                changeThemeVariation={mockChangeVariation}
+                                loadTheme={mockLoadTheme}
                                 {...routeProps}
                             />
                         </ThemeProvider>
@@ -82,8 +82,8 @@ describe('ThemeVariations', () => {
                 const otherThemeVariant = wrapper.find(Item).last();
                 otherThemeVariant.simulate('click');
 
-                // should directly call changeThemeVariation
-                expect(mockChangeVariation).toHaveBeenCalledTimes(1);
+                // should directly call loadTheme
+                expect(mockLoadTheme).toHaveBeenCalledTimes(1);
                 expect(themeVariations.state.isConfirmOpen).toEqual(false);
             });
         });
@@ -98,7 +98,7 @@ describe('ThemeVariations', () => {
                             <ThemeVariations
                                 isChanged={true} // theme has unsaved changes
                                 themeVariants={testItems}
-                                changeThemeVariation={mockHandler}
+                                loadTheme={mockHandler}
                                 {...routeProps}
                             />
                         </ThemeProvider>
@@ -112,7 +112,7 @@ describe('ThemeVariations', () => {
                 const otherThemeVariant = wrapper.find(Item).last();
                 otherThemeVariant.simulate('click');
 
-                // should open confirm modal - not directly call changeThemeVariation
+                // should open confirm modal - not directly call loadTheme
                 expect(mockHandler).toHaveBeenCalledTimes(0);
                 expect(themeVariations.state.isConfirmOpen).toEqual(true);
             });

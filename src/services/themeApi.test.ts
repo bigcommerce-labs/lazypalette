@@ -8,6 +8,7 @@ import {
     fetchThemeConfig,
     fetchThemeVersion,
     fetchVariation,
+    fetchVariationHistory,
     postThemeConfig
 } from './themeApi';
 
@@ -182,6 +183,50 @@ describe('themeApi service', () => {
                     .reply(status, response);
 
                 fetchVariation(storeHash, variationId).catch(error => {
+                    expect(error.response.status).toEqual(404);
+                    expect(error.response.data).toEqual(response);
+                    done();
+                });
+            });
+        });
+    });
+
+    describe('fetchVariationHistory', () => {
+        const storeHash = 'abcde';
+        const variationId = '12345';
+
+        describe('when we get a successful response', () => {
+            const status = 200;
+            const response = {
+                data: {
+                    mockResults: true,
+                },
+            };
+
+            it('returns the proper data', done => {
+                axiosMock.onGet(themeAPI.variationHistoryAPI(storeHash, variationId))
+                    .reply(status, response);
+
+                fetchVariationHistory(storeHash, variationId).then(result => {
+                    expect(result).toEqual({ mockResults: true });
+                    done();
+                });
+            });
+        });
+
+        describe('when we get an error', () => {
+            const status = 404;
+            const response = {
+                data: {
+                    mockResults: true,
+                },
+            };
+
+            it('returns the proper error', done => {
+                axiosMock.onGet(themeAPI.variationHistoryAPI(storeHash, variationId))
+                    .reply(status, response);
+
+                fetchVariationHistory(storeHash, variationId).catch(error => {
                     expect(error.response.status).toEqual(404);
                     expect(error.response.data).toEqual(response);
                     done();

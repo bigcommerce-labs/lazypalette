@@ -22,9 +22,9 @@ exports[`ThemeVariations renders 1`] = `
   }
 >
   <ThemeVariations
-    changeThemeVariation={[MockFunction]}
     history={[MockFunction]}
     isChanged={false}
+    loadTheme={[MockFunction]}
     location={[MockFunction]}
     match={[MockFunction]}
     staticContext={[MockFunction]}
