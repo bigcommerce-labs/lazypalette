@@ -3,6 +3,9 @@
 exports[`renders 1`] = `
 <styled.div>
   <styled.label />
+  <styled.div>
+    #000000
+  </styled.div>
   <styled.div
     color="#000000"
     onClick={[Function]}
@@ -13,6 +16,9 @@ exports[`renders 1`] = `
 exports[`renders an initial color if provided 1`] = `
 <styled.div>
   <styled.label />
+  <styled.div>
+    #FFF
+  </styled.div>
   <styled.div
     color="#fff"
     onClick={[Function]}
