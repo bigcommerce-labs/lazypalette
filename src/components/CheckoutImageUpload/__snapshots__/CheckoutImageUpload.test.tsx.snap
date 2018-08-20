@@ -161,7 +161,8 @@ exports[`CheckoutImageUpload handleRemoveImage when the user clicks the remove b
           Array [
             Object {
               "setting": Object {
-                "type": "optimizedCheckout-logo",
+                "id": "optimizedCheckout-logo",
+                "type": "optimizedCheckout-image",
               },
               "value": "",
             },

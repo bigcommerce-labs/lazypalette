@@ -116,18 +116,26 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
                         title={themeSettings ? themeSettings.name : ''}
                         back={match.url}>
                         <List>
-                            {themeSettings.settings.map((setting, index) => (
-                                <Item key={index}>
-                                    {
-                                        getEditor(
-                                            setting,
-                                            settings,
-                                            this.handleChange(setting),
-                                            this.props.updateThemeConfigChange
-                                        )
-                                    }
-                                </Item>
-                            ))}
+                            {themeSettings.settings.map((setting, index) => {
+                                if (setting.reference && settings[setting.reference] === setting.reference_default) {
+
+                                    return null;
+                                } else {
+
+                                    return (
+                                        <Item key={index}>
+                                            {
+                                                getEditor(
+                                                    setting,
+                                                    settings,
+                                                    this.handleChange(setting),
+                                                    this.props.updateThemeConfigChange
+                                                )
+                                            }
+                                        </Item>
+                                    );
+                                }
+                            })}
                         </List>
                     </ExpandableMenu>
                 )}

@@ -37,6 +37,8 @@ export interface ThemeSchemaEntrySetting {
         label: string;
         value: string | number;
     }>;
+    reference?: string;
+    reference_default?: boolean;
     type: string;
 }
 

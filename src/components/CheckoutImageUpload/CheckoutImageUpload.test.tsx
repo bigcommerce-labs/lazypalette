@@ -129,7 +129,7 @@ describe('CheckoutImageUpload', () => {
                 wrapper.find('a').simulate('click', event);
 
                 expect(mockHandler).toBeCalledWith({
-                    setting: { type: 'optimizedCheckout-logo' }, value: '',
+                    setting: { id: 'optimizedCheckout-logo', type: 'optimizedCheckout-image' }, value: '',
                 });
                 expect(checkoutImageUpload.state.value).toEqual('');
                 expect(checkoutImageUpload.state.loading).toEqual(false);
@@ -283,7 +283,7 @@ describe('CheckoutImageUpload', () => {
 
                     process.nextTick(() => {
                         expect(mockHandler).toBeCalledWith({
-                            setting: { type: 'optimizedCheckout-logo' }, value: imageURL,
+                            setting: { id: 'optimizedCheckout-logo', type: 'optimizedCheckout-image' }, value: imageURL,
                         });
                         expect(checkoutImageUpload.state().value).toEqual('');
                         expect(checkoutImageUpload.state().loading).toEqual(false);
