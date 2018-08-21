@@ -11,11 +11,12 @@ export const fadeIn = keyframes`
 `;
 
 export const ExpandModal = styled.div`
+    border-radius: 6px;
     position: absolute;
     left: 14.5rem;
     top: 3.75rem;
     background: #FFF;
-    padding: .5rem;
+    padding: 0rem;
     box-shadow: ${({ theme }) => theme.elevation.raised};
     z-index: ${({ theme }) => theme.layers.high};
     animation: ${fadeIn} 400ms ease-in;
@@ -24,9 +25,6 @@ export const ExpandModal = styled.div`
 `;
 
 export const NavItem = styled(Link)`
-    position: absolute;
-    right: 1rem;
-    top: .5rem;
     text-decoration: none;
     text-shadow: 0 1px 0 ${({ theme }) => theme.colors.background};
 
@@ -40,9 +38,20 @@ export const NavItem = styled(Link)`
     }
 `;
 
-export const Header = styled.h2`
-    padding: 1.25rem 0 0 1.25rem;
-    margin: 0 0 .5rem;
+export const Header = styled.div`
+    align-items: center;
+    background-color: ${({ theme }) => theme.colors.background};
+    display: flex;
+    justify-content: space-between;
+    line-height: 2rem;
+    padding: 0.75rem 0.75rem 0.75rem 1.5rem;
+    margin: 0;
+    font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
+    color: ${({ theme }) => theme.colors.primaryText};
+`;
+
+export const Title = styled.h2`
+    margin: 0;
     font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
     color: ${({ theme }) => theme.colors.primaryText};
 `;

@@ -85,7 +85,7 @@ describe('UIWindow', () => {
             describe('inside the modal', () => {
                 it('does not call the onClose prop', () => {
                     const paragraph = uiWindow.find('#blah').first().getDOMNode();
-                    uiWindow.instance().handleClickOutside({ target: paragraph });
+                    uiWindow.instance().handleDocumentClick({ target: paragraph });
 
                     expect(mockCloseWindow).not.toHaveBeenCalled();
                 });
@@ -94,7 +94,7 @@ describe('UIWindow', () => {
             describe('outside the modal', () => {
                 it('does call the onClose prop', () => {
                     const paragraph = mount(<p>blah</p>).first().getDOMNode();
-                    uiWindow.instance().handleClickOutside({ target: paragraph });
+                    uiWindow.instance().handleDocumentClick({ target: paragraph, button: 0 });
 
                     expect(mockCloseWindow).toHaveBeenCalledWith('1234');
                 });
@@ -119,9 +119,111 @@ describe('UIWindow', () => {
             describe('outside the modal', () => {
                 it('does not call the onClose prop', () => {
                     const paragraph = mount(<p>blah</p>).first().getDOMNode();
-                    uiWindow.instance().handleClickOutside({ target: paragraph });
+                    uiWindow.instance().handleDocumentClick({ target: paragraph });
 
                     expect(mockCloseWindow).not.toHaveBeenCalled();
+                });
+            });
+        });
+    });
+
+    describe('when dragging', () => {
+        let uiWindow: any;
+
+        beforeEach(() => {
+            uiWindow = mount(<UIWindow
+                id="1234"
+                position={{ x: 5, y: 10 }}
+                title="hello"
+                topmost={false}
+                onClose={mockCloseWindow}>
+                <p id="blah">blah</p>
+            </UIWindow>);
+        });
+
+        describe('when a mousedown occurs on the header', () => {
+            describe('when the left button was pressed', () => {
+                it('begins dragging', () => {
+                    const header = uiWindow.find('Header');
+                    header.simulate('mousedown', { button: 0, pageX: 50, pageY: 50 });
+
+                    expect(uiWindow.state().dragging).toEqual(true);
+                    expect(uiWindow.state().dragStartPos).toEqual({ x: 45, y: 40 });
+                });
+            });
+
+            describe('when another button was pressed', () => {
+                it('does nothing', () => {
+                    const header = uiWindow.find('Header');
+                    header.simulate('mousedown', { button: 1 }); // right click
+
+                    expect(uiWindow.state().dragging).toEqual(false);
+                });
+            });
+        });
+
+        describe('when a mousemove occurs', () => {
+            describe('when currently dragging', () => {
+                it('updates position correctly', done => {
+                    uiWindow.setState({
+                        dragStartPos: { x: 10, y: 10 },
+                        dragging: true,
+                    }, () => {
+                        const event = { pageX: 100, pageY: 50, stopPropagation: jest.fn(), preventDefault: jest.fn() };
+                        uiWindow.instance().drag(event);
+
+                        expect(event.stopPropagation).toHaveBeenCalled();
+                        expect(event.preventDefault).toHaveBeenCalled();
+
+                        setTimeout(() => {
+                            expect(uiWindow.state().position).toEqual({ x: 90, y: 40 });
+                            done();
+                        });
+                    });
+                });
+            });
+
+            describe('when not dragging', () => {
+                it('does not update position', done => {
+                    uiWindow.setState({
+                        dragStartPos: { x: 10, y: 10 },
+                        dragging: false,
+                    }, () => {
+
+                        const event = { pageX: 100, pageY: 50, stopPropagation: jest.fn(), preventDefault: jest.fn() };
+                        uiWindow.instance().drag(event);
+
+                        expect(event.stopPropagation).not.toHaveBeenCalled();
+                        expect(event.preventDefault).not.toHaveBeenCalled();
+
+                        // to allow uiWindow to perform an async state update.
+                        setTimeout(() => {
+                            expect(uiWindow.state().position).toEqual({ x: 5, y: 10 });
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+
+        describe('when a mouseup occurs', () => {
+            describe('when dragging', () => {
+                it('ends the dragging state', done => {
+                    uiWindow.setState({
+                        dragging: true,
+                    }, () => {
+
+                        const event = { pageX: 100, pageY: 50, stopPropagation: jest.fn(), preventDefault: jest.fn() };
+                        uiWindow.instance().stopDrag(event);
+
+                        expect(event.stopPropagation).toHaveBeenCalled();
+                        expect(event.preventDefault).toHaveBeenCalled();
+
+                        setTimeout(() => {
+                            expect(uiWindow.state().dragging).toEqual(false);
+                            done();
+                        });
+                    });
                 });
             });
         });

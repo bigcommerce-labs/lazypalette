@@ -1,8 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UIWindow when given a window renders correctly 1`] = `
-<div>
+<styled.div>
   <styled.div
+    innerRef={
+      Object {
+        "current": null,
+      }
+    }
     onClick={[Function]}
     position={
       Object {
@@ -22,7 +27,9 @@ exports[`UIWindow when given a window renders correctly 1`] = `
       }
     }
   >
-    <styled.h3
+    <Header
+      dragging={false}
+      onMouseDown={[Function]}
       theme={
         Object {
           "colors": Object {
@@ -36,13 +43,28 @@ exports[`UIWindow when given a window renders correctly 1`] = `
         }
       }
     >
-      hello
-    </styled.h3>
+      <styled.h4
+        theme={
+          Object {
+            "colors": Object {
+              "primaryText": "#FFFFFF",
+            },
+            "typography": Object {
+              "fontWeight": Object {
+                "normal": 200,
+              },
+            },
+          }
+        }
+      >
+        hello
+      </styled.h4>
+    </Header>
     <styled.div>
       <p>
         blah
       </p>
     </styled.div>
   </styled.div>
-</div>
+</styled.div>
 `;

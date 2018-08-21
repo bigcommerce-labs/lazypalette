@@ -47,7 +47,7 @@ describe('Modal', () => {
 
     describe('Container', () => {
         describe('onClose', () => {
-            it('should clear the uiWindow when Container clicked', () => {
+            it('should clear the modal when Container clicked', () => {
                 const mockHandler = jest.fn();
 
                 const TestChildren = () => (
