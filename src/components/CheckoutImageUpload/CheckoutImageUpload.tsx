@@ -38,7 +38,7 @@ class CheckoutImageUpload extends Component<CheckoutImageUploadProps, CheckoutIm
     };
 
     broadcastImageChange = (imageURL: string) => {
-        this.props.onChange({ setting: { type: this.props.name }, value: imageURL });
+        this.props.onChange({ setting: { id: this.props.name , type: 'optimizedCheckout-image'}, value: imageURL });
     };
 
     clearInput = (callback?: () => void) => {
