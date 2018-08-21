@@ -27,6 +27,12 @@ exports[`ThemeVariations renders 1`] = `
     loadTheme={[MockFunction]}
     location={[MockFunction]}
     match={[MockFunction]}
+    position={
+      Object {
+        "x": 5,
+        "y": 10,
+      }
+    }
     staticContext={[MockFunction]}
     themeVariants={
       Array [

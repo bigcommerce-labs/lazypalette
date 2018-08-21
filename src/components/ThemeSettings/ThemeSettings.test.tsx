@@ -118,6 +118,7 @@ describe('<ThemeSettings />', () => {
             const themeSettings = shallow(
                 <MemoryRouter initialEntries={[ { pathname: '/', key: 'blah' } ]}>
                     <WrappedThemeSettings
+                        position={{ x: 5, y: 10 }}
                         settingsIndex={1}
                         themeSettings={testItems}
                         settings={settings}

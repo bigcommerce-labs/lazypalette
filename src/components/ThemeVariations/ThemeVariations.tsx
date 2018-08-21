@@ -7,6 +7,7 @@ import { loadTheme } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 
+import Draggable from '../Draggable/Draggable';
 import { Messages } from '../Modal/constants';
 import ConfirmModal from '../Modal/ConfirmModal';
 import { appRoutes } from '../Routes/Routes';
@@ -15,6 +16,7 @@ import ThemeModule from './ThemeModule';
 
 interface ThemeVariationsProps extends RouteComponentProps<{}> {
     isChanged: boolean;
+    position: { x: number, y: number };
     themeVariants: ThemePropsList;
     loadTheme(variationID: string): Dispatch<State>;
 }
@@ -68,7 +70,7 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
 
     render() {
         const { styles } = appRoutes;
-        const { match, themeVariants} = this.props;
+        const { position, match, themeVariants} = this.props;
         const { isConfirmOpen } = this.state;
 
         return (
@@ -77,12 +79,14 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
                 exact
                 render={() => (
                     <>
-                        <ExpandableMenu title="Store theme" back={match.url}>
-                            <ThemeModule
-                                variants={themeVariants}
-                                handleVariationChange={this.handleVariationChange}
-                            />
-                        </ExpandableMenu>
+                        <Draggable position={position}>
+                            <ExpandableMenu title="Store theme" back={match.url}>
+                                <ThemeModule
+                                    variants={themeVariants}
+                                    handleVariationChange={this.handleVariationChange}
+                                />
+                            </ExpandableMenu>
+                        </Draggable>
                         {isConfirmOpen &&
                             <ConfirmModal
                                 body={Messages.Variation}

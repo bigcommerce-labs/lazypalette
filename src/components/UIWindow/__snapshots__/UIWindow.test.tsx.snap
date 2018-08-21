@@ -3,11 +3,6 @@
 exports[`UIWindow when given a window renders correctly 1`] = `
 <styled.div>
   <styled.div
-    innerRef={
-      Object {
-        "current": null,
-      }
-    }
     onClick={[Function]}
     position={
       Object {
@@ -24,12 +19,13 @@ exports[`UIWindow when given a window renders correctly 1`] = `
         "elevation": Object {
           "raised": 1,
         },
+        "layers": Object {
+          "higher": 100,
+        },
       }
     }
   >
     <Header
-      dragging={false}
-      onMouseDown={[Function]}
       theme={
         Object {
           "colors": Object {

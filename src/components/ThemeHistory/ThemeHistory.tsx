@@ -6,6 +6,7 @@ import { Dispatch } from 'redux';
 import { loadTheme } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeVariationHistory, ThemeVariationHistoryEntry } from '../../reducers/theme';
+import Draggable from '../Draggable/Draggable';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import { Messages } from '../Modal/constants';
 import ConfirmModal from '../Modal/ConfirmModal';
@@ -16,6 +17,7 @@ import { EntryActive, EntryDate, EntryTitle, HistoryEntry, List } from './styles
 interface ThemeHistoryProps extends RouteComponentProps<{}> {
     configurationId: string;
     isChanged: boolean;
+    position: { x: number, y: number };
     variationHistory: ThemeVariationHistory;
     loadTheme(configurationId: string, variationId: string): Dispatch<State>;
 }
@@ -89,30 +91,32 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
     }
 
     render() {
-        const { match, variationHistory} = this.props;
+        const { match, position, variationHistory} = this.props;
         const { isConfirmOpen } = this.state;
 
         return (
             <>
-                <ExpandableMenu title="History" back={match.url}>
-                    <List>
-                        {variationHistory.map(entry => (
-                            <HistoryEntry
-                                onClick={() =>
-                                    this.handleEntrySelect(entry.variationId, entry.configurationId)}
-                                key={entry.configurationId}>
-                                <EntryDate>
-                                    {this.getEntryDateString(entry)}
-                                    {entry.configurationId === this.props.configurationId &&
-                                        <EntryActive/>}
-                                </EntryDate>
-                                <EntryTitle>
-                                    Version {entry.displayVersion}
-                                </EntryTitle>
-                            </HistoryEntry>
-                        ))}
-                    </List>
-                </ExpandableMenu>
+                <Draggable position={position}>
+                    <ExpandableMenu title="History" back={match.url}>
+                        <List>
+                            {variationHistory.map(entry => (
+                                <HistoryEntry
+                                    onClick={() =>
+                                        this.handleEntrySelect(entry.variationId, entry.configurationId)}
+                                    key={entry.configurationId}>
+                                    <EntryDate>
+                                        {this.getEntryDateString(entry)}
+                                        {entry.configurationId === this.props.configurationId &&
+                                            <EntryActive/>}
+                                    </EntryDate>
+                                    <EntryTitle>
+                                        Version {entry.displayVersion}
+                                    </EntryTitle>
+                                </HistoryEntry>
+                            ))}
+                        </List>
+                    </ExpandableMenu>
+                </Draggable>
                 {isConfirmOpen &&
                     <ConfirmModal
                         body={Messages.Reset}

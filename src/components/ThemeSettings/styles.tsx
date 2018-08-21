@@ -2,7 +2,7 @@ import { theme } from 'pattern-lab';
 import styled from 'styled-components';
 
 export const List = styled.ul`
-    min-width: 25rem;
+    width: 22.5rem;
     max-height: 55vh;
     list-style: none;
     padding: 0;

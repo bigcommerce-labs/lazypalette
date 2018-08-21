@@ -25,6 +25,9 @@ describe('ThemeVariations', () => {
         match: mockProp,
         staticContext: mockProp,
     };
+
+    routeProps.match.url = './';
+
     const testItems = [
         {
             image: 'http://meow.wow.com/123.jpg',
@@ -47,6 +50,7 @@ describe('ThemeVariations', () => {
             <StaticRouter location={styles.path} context={{}}>
                 <ThemeVariations
                     isChanged={false}
+                    position={{ x: 5, y: 10}}
                     themeVariants={testItems}
                     loadTheme={mockHandler}
                     {...routeProps}
@@ -67,6 +71,7 @@ describe('ThemeVariations', () => {
                         <ThemeProvider theme={theme}>
                             <ThemeVariations
                                 isChanged={false} // no theme changes
+                                position={{ x: 5, y: 10}}
                                 themeVariants={testItems}
                                 loadTheme={mockLoadTheme}
                                 {...routeProps}
@@ -97,6 +102,7 @@ describe('ThemeVariations', () => {
                         <ThemeProvider theme={theme}>
                             <ThemeVariations
                                 isChanged={true} // theme has unsaved changes
+                                position={{ x: 5, y: 10}}
                                 themeVariants={testItems}
                                 loadTheme={mockHandler}
                                 {...routeProps}
