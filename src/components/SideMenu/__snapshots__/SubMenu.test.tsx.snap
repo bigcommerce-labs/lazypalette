@@ -5,6 +5,9 @@ exports[`renders 1`] = `
   <styled.div>
     Menu
   </styled.div>
+  <styled.div>
+    ACTIVE THEME
+  </styled.div>
   <withRouter(MenuItems)
     currentPath="/"
     items={

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Title } from './styles';
+import { StyledStatus, Title } from './styles';
 import MenuItems from './MenuItems';
 
 interface SubMenuItem {
@@ -20,6 +20,7 @@ const SubMenu = ({ currentPath, items = [], title, showArrows }: SubMenuProps) =
         <Title>
             {title}
         </Title>
+        <StyledStatus>ACTIVE THEME</StyledStatus>
         <MenuItems items={items} currentPath={currentPath} showArrows={showArrows}/>
     </div>
 );
