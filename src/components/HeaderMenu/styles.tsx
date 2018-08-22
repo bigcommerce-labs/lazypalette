@@ -59,13 +59,3 @@ export const StyledIcon = (props: StyledIconProps) => {
         </StyledHeaderSpan>
     );
 };
-
-export const StyledStatus = styled.div`
-  background: ${({ theme: { colors } }) => colors.warning};
-  font-size: ${({ theme: { typography }}) => typography.fontSize.smallest};
-  font-weight: ${({ theme: { typography }}) => theme.typography.fontWeight.bold};
-  border-radius: 2px;
-  padding: 0 1rem;
-  margin-left: 2rem;
-  line-height: 1.25rem;
-`;

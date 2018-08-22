@@ -320,3 +320,18 @@ export const ToolTip = styled.span.attrs<ToolTipProps>({})`
         `};
     }
 `;
+
+export const StyledStatus = styled.div`
+  background: ${({ theme }) => theme.colors.empty};
+  color: ${({ theme }) => theme.colors.success};
+  font-size: ${({ theme }) => theme.typography.fontSize.smallest};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold}
+  border: 1px solid;
+  border-radius: 2px;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0 .5rem;
+  margin-bottom: 1.5rem;
+  height: 1.25rem;
+  line-height: calc(1.25rem - 2px);
+`;

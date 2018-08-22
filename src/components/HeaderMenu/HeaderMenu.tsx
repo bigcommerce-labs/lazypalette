@@ -12,7 +12,7 @@ import { VIEWPORT_TYPES } from '../PreviewPane/constants';
 import { ViewportType } from '../PreviewPane/PreviewPane';
 import PubShareBox from '../PubShareBox/PubShareBox';
 
-import { BCLogo, StyledHeaderMenu, StyledIcon, StyledStatus } from './styles';
+import { BCLogo, StyledHeaderMenu, StyledIcon } from './styles';
 
 interface HeaderMenuProps {
     configurationId: string;
@@ -72,7 +72,6 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
                         viewportType={VIEWPORT_TYPES[view]}
                     />
                 ))}
-                <StyledStatus>{'ACTIVE THEME'}</StyledStatus>
                 <PubShareBox
                     onPublish={this.handlePublish}
                     onSave={this.handleSave}

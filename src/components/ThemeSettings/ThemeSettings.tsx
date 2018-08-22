@@ -117,8 +117,8 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
                         back={match.url}>
                         <List>
                             {themeSettings.settings.map((setting, index) => {
-                                if (setting.reference && settings[setting.reference] === setting.reference_default) {
-
+                                const { reference, reference_default } = setting;
+                                if (reference && settings[reference] === reference_default) {
                                     return null;
                                 } else {
 
