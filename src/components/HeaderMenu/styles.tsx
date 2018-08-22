@@ -1,4 +1,4 @@
-import { theme, Icon } from 'pattern-lab';
+import { theme, BCPrimaryLogo, Icon } from 'pattern-lab';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -13,9 +13,15 @@ export const StyledHeaderMenu = styled.nav`
     align-items: center;
 `;
 
-export const BCLogo = styled.div`
+export const BCLogoInline = styled.div`
     display: inline-block;
 `;
+
+export const BCLogo = () => (
+    <BCLogoInline>
+        <BCPrimaryLogo />
+    </BCLogoInline>
+);
 
 interface StyledHeaderSpanProps {
     isRotated: boolean;

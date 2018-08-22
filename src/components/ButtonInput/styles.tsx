@@ -6,18 +6,19 @@ export const Wrapper = styled.div`
 `;
 
 interface ButtonProps {
+    border?: boolean;
     classType?: string;
 }
 
 export const Button = styled.button.attrs<ButtonProps>({})`
     height: 2rem;
     border-radius: 2px;
-    border: 1px solid ${theme.colors.primary};
-    padding: 0 .75em;
+    border: ${({ border }) => border ? `1px solid ${theme.colors.primary}` : 'none'};
+    padding: ${({ border }) => border ? '0 .75em' : '0'};
     font-size: .75rem;
     cursor: pointer;
 
-    ${({ classType }) => {
+    ${({ classType, border }) => {
         const isPrimary = classType === 'primary';
 
         return `
@@ -26,7 +27,11 @@ export const Button = styled.button.attrs<ButtonProps>({})`
 
             :hover {
                 background-color: ${isPrimary ? theme.colors.brandPrimary : theme.colors.background};
+                ${!border && `
+                    background-color: transparent;
+                `}
                 border-color: ${isPrimary ? theme.colors.brandPrimary : theme.colors.primary};
+                text-decoration: ${border ? 'none' : 'underline'};
             }
 
             :focus {

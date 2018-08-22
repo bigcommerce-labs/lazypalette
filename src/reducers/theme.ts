@@ -134,7 +134,10 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
 
             return {
                 ...state,
-                isChanged: isNotEqual(themeConfigChange, state.settings),
+                isChanged: isNotEqual({
+                    ...state.settings,
+                    ...themeConfigChange,
+                }, state.initialSettings),
                 settings: {
                     ...state.settings,
                     ...themeConfigChange,

@@ -268,25 +268,36 @@ describe('themeConfigChange', () => {
 
     describe('when no changes', () => {
         it('the isChanged remains false', () => {
-            const firstAction = themeActions.themeConfigChange(payload);
+            const firstState: ThemeState = { ...initialState, ...{
+                initialSettings: {'primary-font': 'meow'},
+                isChanged: false,
+            }};
+            const firstPayload: ThemeConfigChange = {
+                setting: {
+                    id: 'primary-font',
+                    type: 'font',
+                },
+                value: 'woof',
+            };
+            const firstAction = themeActions.themeConfigChange(firstPayload);
             const secondAction = themeActions.themeConfigChange(payload);
-            const secondState = theme(initialState, firstAction);
+            const secondState = theme(firstState, firstAction);
 
             expect(secondState).toEqual({
-                ...initialState,
+                ...firstState,
                 isChanged: true,
-                settings: {'primary-font': 'meow'},
+                settings: { 'primary-font': 'woof' },
             });
             expect(theme(secondState, secondAction)).toEqual({
-                ...secondState,
+                ...firstState,
                 isChanged: false,
+                settings: { 'primary-font': 'meow' },
             });
         });
     });
 });
 
 describe('themeConfigReset', () => {
-
     it('should reset changes to original value', () => {
         const action = themeActions.themeConfigReset();
 

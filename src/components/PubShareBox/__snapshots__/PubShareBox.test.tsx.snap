@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PubShareBox renders 1`] = `
+<styled.div
+  isChanged={false}
+>
+  <ButtonInput
+    onClick={[Function]}
+    type="button"
+  >
+    Save
+  </ButtonInput>
+  <ButtonInput
+    classType="primary"
+    disabled={true}
+    onClick={[MockFunction]}
+  >
+    Publish
+  </ButtonInput>
+</styled.div>
+`;

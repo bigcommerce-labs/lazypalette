@@ -1,18 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-import {
-    trackResetCancel,
-    trackResetClick,
-    trackResetConfirmation,
-    trackResetModalClose,
-    trackSave,
-} from '../../services/analytics';
-import ButtonInput from '../ButtonInput/ButtonInput';
-import { Messages } from '../Modal/constants';
-import ConfirmModal from '../Modal/ConfirmModal';
 import { appRoutes } from '../Routes/Routes';
 
-import { DesignMenuButtons } from './styles';
 import SubMenu from './SubMenu';
 
 interface MenuItem {
@@ -23,14 +12,7 @@ interface MenuItem {
 interface DesignSubMenuProps {
     sections: string[];
     currentPath: string;
-    isChanged: boolean;
     themeName: string;
-    handleSave(): void;
-    resetTheme(): void;
-}
-
-interface DesignSubMenuState {
-    isResetOpen: boolean;
 }
 
 const staticItems: MenuItem[] = [
@@ -49,74 +31,17 @@ const getItems = (sections: string[]) => {
     ));
 };
 
-class DesignSubMenu extends Component<DesignSubMenuProps, DesignSubMenuState> {
-    readonly state: DesignSubMenuState = { isResetOpen: false };
-
-    open = () => {
-        trackResetClick();
-        this.setState({ isResetOpen: true });
-    };
-
-    close = () => {
-        trackResetCancel();
-        this.setState({ isResetOpen: false });
-    };
-
-    overlayClose = () => {
-        trackResetModalClose();
-        this.setState({ isResetOpen: false });
-    };
-
-    handleSave = () => {
-        trackSave();
-        this.props.handleSave();
-    };
-
-    handleReset = () => {
-        trackResetConfirmation();
-        this.setState({ isResetOpen: false }, () => {
-            this.props.resetTheme();
-        });
-    };
-
+class DesignSubMenu extends PureComponent<DesignSubMenuProps> {
     render() {
-        const { currentPath, isChanged, themeName } = this.props;
-        const { isResetOpen } = this.state;
+        const { currentPath, themeName } = this.props;
 
         return (
-            <>
-                <SubMenu
-                    title={themeName}
-                    items={[...staticItems, ...getItems(this.props.sections)]}
-                    currentPath={currentPath}
-                    showArrows={true}
-                />
-                <DesignMenuButtons>
-                    <ButtonInput
-                        onClick={this.handleSave}
-                        classType="primary"
-                        type="button"
-                    >
-                        Save
-                    </ButtonInput>
-                    <ButtonInput
-                        onClick={this.open}
-                        disabled={!isChanged}
-                        type="button"
-                    >
-                        Reset
-                    </ButtonInput>
-                </DesignMenuButtons>
-                {isResetOpen &&
-                    <ConfirmModal
-                        body={Messages.Reset}
-                        primaryAction={this.close}
-                        secondaryAction={this.handleReset}
-                        overlayClose={this.overlayClose}
-                        title="Reset Warning"
-                    />
-                }
-            </>
+            <SubMenu
+                title={themeName}
+                items={[...staticItems, ...getItems(this.props.sections)]}
+                currentPath={currentPath}
+                showArrows={true}
+            />
         );
     }
 }

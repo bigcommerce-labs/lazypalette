@@ -15,7 +15,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     overflow-y: auto;
-    z-index: ${({ theme }) => theme.layers.high};
+    z-index: ${({ theme }) => theme.layers.higher};
 `;
 
 export const Overlay = styled.div.attrs<OverlayProps>({})`
