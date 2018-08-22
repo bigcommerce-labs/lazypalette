@@ -3,6 +3,7 @@
 exports[`<ButtonInput /> renders 1`] = `
 <styled.div>
   <styled.button
+    border={true}
     classType="primary"
     disabled={false}
     onClick={[Function]}

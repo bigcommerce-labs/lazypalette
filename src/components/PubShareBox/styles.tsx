@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-    margin: 0;
-`;
+interface ContainerProps {
+    isChanged: boolean;
+}
 
-export const Publish = styled.div`
+export const Container = styled.div.attrs<ContainerProps>({})`
     margin-left: auto;
     padding-right: 1rem;
+    display: flex;
+    justify-content: space-between;
+    width: ${({ isChanged }) => isChanged ? '15rem' : '8.25rem'};
 `;

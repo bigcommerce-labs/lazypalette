@@ -1,43 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DesignSubMenu renders 1`] = `
-<React.Fragment>
-  <SubMenu
-    currentPath="/styles"
-    items={
-      Array [
-        Object {
-          "label": "Styles",
-          "path": "styles",
-        },
-        Object {
-          "label": "fred",
-          "path": "section/0",
-        },
-        Object {
-          "label": "joe",
-          "path": "section/1",
-        },
-      ]
-    }
-    showArrows={true}
-    title="fred"
-  />
-  <styled.div>
-    <ButtonInput
-      classType="primary"
-      onClick={[Function]}
-      type="button"
-    >
-      Save
-    </ButtonInput>
-    <ButtonInput
-      disabled={true}
-      onClick={[Function]}
-      type="button"
-    >
-      Reset
-    </ButtonInput>
-  </styled.div>
-</React.Fragment>
+<SubMenu
+  currentPath="/styles"
+  items={
+    Array [
+      Object {
+        "label": "Styles",
+        "path": "styles",
+      },
+      Object {
+        "label": "fred",
+        "path": "section/0",
+      },
+      Object {
+        "label": "joe",
+        "path": "section/1",
+      },
+    ]
+  }
+  showArrows={true}
+  title="fred"
+/>
 `;

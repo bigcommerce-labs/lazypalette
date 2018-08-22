@@ -24,7 +24,6 @@ exports[`SideMenu renders 1`] = `
   <SideMenu
     configurationId="4444-55555-77777-00000"
     history={[MockFunction]}
-    isChanged={false}
     location={[MockFunction]}
     match={[MockFunction]}
     postThemeConfigData={[MockFunction]}
@@ -37,7 +36,6 @@ exports[`SideMenu renders 1`] = `
       }
     }
     staticContext={[MockFunction]}
-    themeConfigReset={[MockFunction]}
     themeDesignSections={
       Array [
         "cat",

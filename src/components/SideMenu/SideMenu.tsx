@@ -5,11 +5,7 @@ import { Dispatch } from 'redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 
 import { ConfigUpdateAction } from '../../actions/constants';
-import {
-    postThemeConfigData,
-    themeConfigReset,
-    ThemeConfigResetAction,
-} from '../../actions/theme';
+import { postThemeConfigData } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 
 import { appRoutes } from '../Routes/Routes';
@@ -25,7 +21,6 @@ import {
 } from './styles';
 
 interface SideMenuProps extends RouteComponentProps<{}> {
-    isChanged: boolean;
     themeDesignSections: string[];
     settings: {[key: string]: string | boolean | number};
     themeId: string;
@@ -34,7 +29,6 @@ interface SideMenuProps extends RouteComponentProps<{}> {
     variationId: string;
     versionId: string;
     postThemeConfigData(configDataOption: ConfigUpdateAction): Dispatch<State>;
-    themeConfigReset(): ThemeConfigResetAction;
 }
 
 interface SideMenuState {
@@ -44,20 +38,14 @@ interface SideMenuState {
 export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
     readonly state: SideMenuState = { collapsed: Collapsed.Initial };
 
-    handleSave = () => {
-        this.props.postThemeConfigData(ConfigUpdateAction.SAVE);
-    };
-
     handleCollapse = () => this.setState(({collapsed}) => ({
         collapsed: `${Collapsed.Yes}`.includes(collapsed) ? Collapsed.No : Collapsed.Yes,
     }));
 
     render() {
         const {
-            isChanged,
             themeDesignSections,
             themeName,
-            themeConfigReset: resetTheme,
         } = this.props;
         const { home } = appRoutes;
         const { collapsed } = this.state;
@@ -72,9 +60,6 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                             render={({ match }) => (
                                 <DesignSubMenu
                                     currentPath={match.path}
-                                    handleSave={this.handleSave}
-                                    isChanged={isChanged}
-                                    resetTheme={resetTheme}
                                     sections={themeDesignSections}
                                     themeName={themeName}
                                 />
@@ -98,7 +83,6 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
 
 const mapStateToProps = ({ theme }: State) => ({
     configurationId: theme.configurationId,
-    isChanged: theme.isChanged,
     settings: theme.settings,
     themeDesignSections: theme.schema.map(({ name }) => name),
     themeId: theme.themeId,
@@ -109,7 +93,6 @@ const mapStateToProps = ({ theme }: State) => ({
 
 const mapDispatchToProps = {
     postThemeConfigData,
-    themeConfigReset,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SideMenu));

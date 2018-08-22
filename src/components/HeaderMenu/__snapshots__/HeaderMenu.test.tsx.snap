@@ -2,13 +2,10 @@
 
 exports[`<HeaderMenu /> render() renders the component 1`] = `
 <styled.nav>
-  <styled.div>
-    <BCPrimaryLogo
-      inverted={false}
-    />
-  </styled.div>
+  <Component />
   <Component
     isSelected={false}
+    key="DESKTOP"
     onClick={[Function]}
     viewportType={
       Object {
@@ -20,6 +17,7 @@ exports[`<HeaderMenu /> render() renders the component 1`] = `
   />
   <Component
     isSelected={false}
+    key="TABLET"
     onClick={[Function]}
     viewportType={
       Object {
@@ -31,6 +29,7 @@ exports[`<HeaderMenu /> render() renders the component 1`] = `
   />
   <Component
     isSelected={false}
+    key="MOBILE"
     onClick={[Function]}
     viewportType={
       Object {
@@ -43,9 +42,10 @@ exports[`<HeaderMenu /> render() renders the component 1`] = `
   <styled.div>
     ACTIVE THEME
   </styled.div>
-  <PubShareBox
-    canPublish={false}
+  <Connect(PubShareBox)
     onPublish={[Function]}
+    onReset={[Function]}
+    onSave={[Function]}
   />
 </styled.nav>
 `;

@@ -1,13 +1,11 @@
-import { BCPrimaryLogo } from 'pattern-lab';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { ConfigUpdateAction } from '../../actions/constants';
 import { viewportChange, ViewportChange } from '../../actions/previewPane';
-import { postThemeConfigData } from '../../actions/theme';
+import { postThemeConfigData, themeConfigReset, ThemeConfigResetAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
-import { ThemeVariations, ThemeVariationsEntry } from '../../reducers/theme';
 import { trackPublish } from '../../services/analytics';
 
 import { VIEWPORT_TYPES } from '../PreviewPane/constants';
@@ -22,22 +20,13 @@ interface HeaderMenuProps {
     isRotated: boolean;
     themeName: string;
     variationName: string;
-    variations: ThemeVariations;
     viewportType: ViewportType;
     postThemeConfigData(configDataOption: ConfigUpdateAction): void;
+    themeConfigReset(): ThemeConfigResetAction;
     toggleViewport(payload: ViewportChange): void;
 }
 
-interface HeaderState {
-    canPublish: boolean;
-}
-
-class HeaderMenu extends Component <HeaderMenuProps, HeaderState> {
-
-    readonly state: HeaderState = {
-        canPublish: false,
-    };
-
+class HeaderMenu extends PureComponent<HeaderMenuProps> {
     handlePublish = () => {
         const { configurationId, themeName, variationName, displayVersion } = this.props;
         const themeDetails = `${themeName} ${variationName} v${displayVersion}`;
@@ -49,60 +38,46 @@ class HeaderMenu extends Component <HeaderMenuProps, HeaderState> {
         }
     };
 
-    componentDidUpdate(prevProps: HeaderMenuProps) {
-        let canPublish = false;
-        const { configurationId, variations } = this.props;
+    handleSave = () => this.props.postThemeConfigData(ConfigUpdateAction.SAVE);
 
-        const currentVariation = variations.filter((variation: ThemeVariationsEntry) => {
-            return variation.isCurrent;
+    handleReset = () => this.props.themeConfigReset();
+
+    handleIconClick = (view: string) => () => {
+        const { isRotated, toggleViewport, viewportType } = this.props;
+
+        if (VIEWPORT_TYPES[view] === VIEWPORT_TYPES.DESKTOP) {
+            return toggleViewport({ viewportType: VIEWPORT_TYPES.DESKTOP });
+        }
+
+        return toggleViewport({
+            isRotated: viewportType === VIEWPORT_TYPES[view] ? !isRotated : isRotated,
+            viewportType: VIEWPORT_TYPES[view],
         });
-
-        if (variations.length > 0) {
-            if (currentVariation.length > 0) {
-                canPublish = currentVariation[0].configurationId !== configurationId;
-            } else {
-                canPublish = true;
-            }
-        }
-        if (canPublish !== this.state.canPublish) {
-            this.setState({canPublish});
-        }
-    }
+    };
 
     render() {
-        const { isRotated, toggleViewport, viewportType } = this.props;
+        const { isRotated, viewportType } = this.props;
+        const [DESKTOP, MOBILE, TABLET] = Object.keys(VIEWPORT_TYPES);
+        const viewportKeys = [DESKTOP, TABLET, MOBILE];
 
         return (
             <StyledHeaderMenu>
-                <BCLogo>
-                    <BCPrimaryLogo />
-                </BCLogo>
-                <StyledIcon
-                    isSelected={viewportType === VIEWPORT_TYPES.DESKTOP}
-                    onClick={() => toggleViewport({ viewportType: VIEWPORT_TYPES.DESKTOP })}
-                    viewportType={VIEWPORT_TYPES.DESKTOP}
-                />
-                <StyledIcon
-                    isRotated={isRotated}
-                    isSelected={viewportType === VIEWPORT_TYPES.TABLET}
-                    onClick={() => toggleViewport({
-                        isRotated: viewportType === VIEWPORT_TYPES.TABLET ? !isRotated : isRotated,
-                        viewportType: VIEWPORT_TYPES.TABLET,
-                    })}
-                    viewportType={VIEWPORT_TYPES.TABLET}
-                />
-                <StyledIcon
-                    isRotated={isRotated}
-                    isSelected={viewportType === VIEWPORT_TYPES.MOBILE}
-                    onClick={() => toggleViewport({
-                        isRotated: viewportType === VIEWPORT_TYPES.MOBILE ? !isRotated : isRotated,
-                        viewportType: VIEWPORT_TYPES.MOBILE,
-                    })}
-                    viewportType={VIEWPORT_TYPES.MOBILE}
-                />
-
+                <BCLogo />
+                {viewportKeys.map(view => (
+                    <StyledIcon
+                        isRotated={VIEWPORT_TYPES[view] === VIEWPORT_TYPES.DESKTOP ? undefined : isRotated}
+                        isSelected={viewportType === VIEWPORT_TYPES[view]}
+                        key={view}
+                        onClick={this.handleIconClick(view)}
+                        viewportType={VIEWPORT_TYPES[view]}
+                    />
+                ))}
                 <StyledStatus>{'ACTIVE THEME'}</StyledStatus>
-                <PubShareBox onPublish={this.handlePublish} canPublish={this.state.canPublish}/>
+                <PubShareBox
+                    onPublish={this.handlePublish}
+                    onSave={this.handleSave}
+                    onReset={this.handleReset}
+                />
             </StyledHeaderMenu>
         );
     }
@@ -114,12 +89,12 @@ const mapStateToProps = ({ theme, previewPane }: State): Partial<HeaderMenuProps
     isRotated: previewPane.isRotated,
     themeName: theme.themeName,
     variationName: theme.variationName,
-    variations: theme.variations,
     viewportType: previewPane.viewportType,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): Partial<HeaderMenuProps> => bindActionCreators({
     postThemeConfigData,
+    themeConfigReset,
     toggleViewport: viewportChange,
 }, dispatch);
 

@@ -8,7 +8,6 @@ import { SideMenu } from './SideMenu';
 
 describe('SideMenu', () => {
     const mockpostThemeConfig = jest.fn();
-    const mockConfigReset = jest.fn();
     const mockSettings = {
         'alert-color': '#fff',
         'body-font': 'Google_Karla_400',
@@ -27,7 +26,6 @@ describe('SideMenu', () => {
         const sideMenu = shallow(
             <StaticRouter location="/" context={{}}>
                 <SideMenu
-                    isChanged={false}
                     themeDesignSections={['cat', 'named', 'moe']}
                     settings={mockSettings}
                     themeId="1234567-1223-011123-111111"
@@ -36,7 +34,6 @@ describe('SideMenu', () => {
                     variationId="2222-11111-0000-44444"
                     versionId="2221-211111-0111-41111"
                     postThemeConfigData={mockpostThemeConfig}
-                    themeConfigReset={mockConfigReset}
                     {...routeProps}
                 />
             </StaticRouter>
@@ -48,7 +45,6 @@ describe('SideMenu', () => {
     describe('Collapse Menu Button', () => {
         const sideMenu = shallow(
             <SideMenu
-                isChanged={false}
                 themeDesignSections={['cat', 'named', 'joe']}
                 settings={mockSettings}
                 themeId="7777-9999-1111-0000"
@@ -57,7 +53,6 @@ describe('SideMenu', () => {
                 variationId="2222-11111-0000-44444"
                 versionId="2221-211111-0111-41111"
                 postThemeConfigData={mockpostThemeConfig}
-                themeConfigReset={mockConfigReset}
                 {...routeProps}
             />
         );
