@@ -53,7 +53,7 @@ describe('Preview Pane reducer', () => {
         });
     });
 
-    describe('when PAGE_SOURCE_REQUEST action is received', () => {
+    describe('when PAGE_URL_REQUEST action is received', () => {
         it('should update the state', () => {
             const payload = { page: 'hello'};
             const action = previewPaneActions.pageUrlRequest(payload);
@@ -63,7 +63,7 @@ describe('Preview Pane reducer', () => {
         });
     });
 
-    describe('when PAGE_SOURCE_RESPONSE action is received', () => {
+    describe('when PAGE_URL_RESPONSE action is received', () => {
         it('should update the state', () => {
             const payload = { page: 'hello', pageUrl: 'bye'};
             const action = previewPaneActions.pageUrlResponse(payload);

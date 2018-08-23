@@ -4,25 +4,36 @@ import uuid from 'uuid';
 export enum StoreDesignSdkEvents {
     STORE_DESIGN_SDK_LOAD = 'StoreDesignSdkEvents.STORE_DESIGN_SDK_LOAD',
     STORE_DESIGN_UPDATE_COOKIES = 'StoreDesignSdkEvents.STORE_DESIGN_UPDATE_COOKIES',
+    STORE_DESIGN_UPDATED_COOKIES = 'StoreDesignSdkEvents.STORE_DESIGN_UPDATED_COOKIES',
     STORE_DESIGN_REMOVE_COOKIES = 'StoreDesignSdkEvents.STORE_DESIGN_REMOVE_COOKIES',
 }
 
 export class StoreDesignSdk {
     static getScripts(doc: HTMLDocument) {
-        const jsCookieScript: HTMLScriptElement = doc.createElement('script');
-        const storeDesignSdkScript: HTMLScriptElement = doc.createElement('script');
-        const jsCookieScriptId = uuid();
+        const jsCookieScriptElem: HTMLScriptElement = doc.createElement('script');
+        const storeDesignSdkScriptElem: HTMLScriptElement = doc.createElement('script');
+        const jsCookieScriptUuId = uuid();
 
-        jsCookieScript.setAttribute('id', jsCookieScriptId);
-        jsCookieScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.js');
-        jsCookieScript.setAttribute('type', 'text/javascript');
-        storeDesignSdkScript.setAttribute('type', 'text/javascript');
-        storeDesignSdkScript.text = `(${init.toString()})('${jsCookieScriptId}', ${getCookieDomain});`;
+        jsCookieScriptElem.setAttribute('id', jsCookieScriptUuId);
+        jsCookieScriptElem.setAttribute('src', 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js');
+        jsCookieScriptElem.setAttribute('type', 'text/javascript');
+        storeDesignSdkScriptElem.setAttribute('type', 'text/javascript');
+        storeDesignSdkScriptElem.text = `(${init.toString()})(
+            '${jsCookieScriptUuId}',
+            ${getCookieDomain},
+            '${JSON.stringify(StoreDesignSdkEvents)}',
+        );`;
 
-        function init(jsCookieScriptId: string, getCookieDomain: (hostname: string) => string) { // tslint:disable-line
+        function init(
+            jsCookieScriptId: string,
+            getCookieDomainFn: (hostname: string) => string,
+            eventTypesString: string
+        ) {
             const STENCIL_COOKIE_NAME = 'stencil_preview';
-            const data = { type: 'StoreDesignSdkEvents.STORE_DESIGN_SDK_LOAD' };
-            const jsCookieScript = document.getElementById(jsCookieScriptId); // tslint:disable-line
+            const eventTypes = JSON.parse(eventTypesString);
+            const cookiesUpdatedEvent = { type: eventTypes.STORE_DESIGN_UPDATED_COOKIES };
+            const dataLoadedEvent = { type: eventTypes.STORE_DESIGN_SDK_LOAD };
+            const jsCookieScript = document.getElementById(jsCookieScriptId);
 
             window.addEventListener('message', (messageEvent: MessageEvent) => {
                 if (!messageEvent.data) {
@@ -41,7 +52,7 @@ export class StoreDesignSdk {
                     return;
                 }
 
-                if (messageData.type === 'StoreDesignSdkEvents.STORE_DESIGN_UPDATE_COOKIES') {
+                if (messageData.type === eventTypes.STORE_DESIGN_UPDATE_COOKIES) {
                     const { lastCommitId, versionId, configurationId } = messageData.payload;
                     const cookieValue = lastCommitId
                         ? versionId + '@' + configurationId + '@' + lastCommitId
@@ -49,12 +60,13 @@ export class StoreDesignSdk {
 
                     // Adding a dot because cookie set by bcapp also adds a dot
                     setCookie(STENCIL_COOKIE_NAME, cookieValue);
+                    window.parent.postMessage(JSON.stringify(cookiesUpdatedEvent), '*');
                 }
             });
 
             if (jsCookieScript) {
                 jsCookieScript.onload = () => {
-                    window.parent.postMessage(JSON.stringify(data), '*');
+                    window.parent.postMessage(JSON.stringify(dataLoadedEvent), '*');
                 };
             }
 
@@ -65,7 +77,7 @@ export class StoreDesignSdk {
                     return;
                 }
 
-                let domain = getCookieDomain(window.location.hostname);
+                let domain = getCookieDomainFn(window.location.hostname);
 
                 jsCookie.set(cookieName, cookieValue, { domain });
 
@@ -77,7 +89,7 @@ export class StoreDesignSdk {
             }
         }
 
-        return [jsCookieScript, storeDesignSdkScript];
+        return [jsCookieScriptElem, storeDesignSdkScriptElem];
     }
 
     static removeCookie(cookieName: string) {

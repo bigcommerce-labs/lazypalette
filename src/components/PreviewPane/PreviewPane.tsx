@@ -7,7 +7,10 @@ import {
     fetchPageUrl,
     previewPaneLoaded,
     previewPaneLoading,
-    updatePreviewPaneConfig } from '../../actions/previewPane';
+    updatePage,
+    updatePreviewPaneConfig,
+    UpdatePageAction,
+    UpdatePagePayload } from '../../actions/previewPane';
 import { ThemePreviewConfig } from '../../reducers/previewPane';
 import { State } from '../../reducers/reducers';
 import { generateStylesheetUrl } from '../../services/previewPane';
@@ -44,6 +47,7 @@ interface PreviewPaneProps {
     clearErrors(): void;
     previewPaneLoaded(): void;
     previewPaneLoading(): void;
+    updatePage(payload: UpdatePagePayload): UpdatePageAction;
     updatePreviewPaneConfig(): void;
 }
 
@@ -69,6 +73,8 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
 
         if (message && message.type === StoreDesignSdkEvents.STORE_DESIGN_SDK_LOAD) {
             this.updateCookies();
+        } else if (message && message.type === StoreDesignSdkEvents.STORE_DESIGN_UPDATED_COOKIES) {
+            this.updateStyles();
         }
     };
 
@@ -88,7 +94,7 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
         }
 
         if (this.props.themePreviewConfig !== prevProps.themePreviewConfig) {
-            this.updateStyles();
+            this.updateCookies();
         }
 
         if (this.props.fontUrl !== prevProps.fontUrl) {
@@ -122,17 +128,27 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
     }
 
     private onLoad = () => {
-        if (!this.iframeRef || !this.iframeRef.contentDocument) {
+        if (!this.iframeRef || !this.iframeRef.contentDocument || !this.iframeRef.contentWindow) {
             return;
         }
 
+        const href = this.iframeRef.contentWindow.location.href;
+        const page = href.split(/https?:\/\/[^\/]+/)[1];
         const doc: HTMLDocument = this.iframeRef.contentDocument;
         const storeDesignSdkScripts = StoreDesignSdk.getScripts(doc);
+
+        if (page !== this.props.page) {
+            this.props.updatePage({ page });
+        }
 
         storeDesignSdkScripts.forEach(script => doc.body.appendChild(script));
     };
 
     private updateCookies() {
+        if (!this.iframeRef || !this.iframeRef.contentWindow) {
+            return;
+        }
+
         const { configurationId, lastCommitId, versionId } = this.props.themePreviewConfig;
         const data = {
             payload: {
@@ -143,9 +159,7 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
             type: StoreDesignSdkEvents.STORE_DESIGN_UPDATE_COOKIES,
         };
 
-        if (this.iframeRef && this.iframeRef.contentWindow) {
-            this.iframeRef.contentWindow.postMessage(JSON.stringify(data), '*');
-        }
+        this.iframeRef.contentWindow.postMessage(JSON.stringify(data), '*');
     }
 
     private updateStyles() {
@@ -262,6 +276,7 @@ const mapDispatchToProps = (dispatch: Dispatch): Partial<PreviewPaneProps> => bi
     loadPage: (page: string) => fetchPageUrl({ page }),
     previewPaneLoaded,
     previewPaneLoading,
+    updatePage,
     updatePreviewPaneConfig,
 }, dispatch);
 
