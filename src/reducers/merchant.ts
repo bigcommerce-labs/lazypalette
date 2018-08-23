@@ -2,10 +2,14 @@ import { Action } from '../actions/action';
 import { MerchantActionTypes } from '../actions/merchant';
 
 export const initialState = {
+    isDownForMaintenance: false,
+    isPrelaunchStore: false,
     storeHash: '',
 };
 
 export interface MerchantStoreState {
+    isDownForMaintenance: boolean;
+    isPrelaunchStore: boolean;
     storeHash: string;
 }
 

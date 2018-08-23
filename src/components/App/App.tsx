@@ -7,7 +7,7 @@ import { Dispatch } from 'redux';
 import 'srcdoc-polyfill';
 import styled from 'styled-components';
 
-import { setStoreData } from '../../actions/merchant';
+import { setStoreData, StoreDefaultData } from '../../actions/merchant';
 import { loadTheme } from '../../actions/theme';
 
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
@@ -21,11 +21,13 @@ import { State } from '../../reducers/reducers';
 interface AppProps extends RouteComponentProps<{}> {
     config: {
       assetPath: string;
+      isDownForMaintenance: boolean;
+      isPrelaunchStore: boolean;
       storeHash: string;
       oauthBaseUrl: string;
     };
     fetchInitialState(variationID: string): Dispatch<State>;
-    setStoreData(storeHash: string): Dispatch<State>;
+    setStoreData(storeData: StoreDefaultData): Dispatch<State>;
 }
 
 const StyledApp = styled.div`
@@ -42,8 +44,8 @@ export class App extends Component<AppProps, {}> {
     componentDidMount() {
         const queryParams = queryString.parse(this.props.location.search);
         const variationId = queryParams.variationId ? queryParams.variationId : '';
-        const { storeHash } = this.props.config;
-        this.props.setStoreData(storeHash);
+        const { storeHash, isDownForMaintenance, isPrelaunchStore } = this.props.config;
+        this.props.setStoreData({ storeHash, isDownForMaintenance, isPrelaunchStore });
         this.props.fetchInitialState(variationId);
     }
 

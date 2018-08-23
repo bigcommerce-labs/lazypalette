@@ -92,6 +92,8 @@ export interface ThemeVariationHistoryResponseAction extends Action  {
 
 export interface CurrentThemeResponse {
     configurationId: string;
+    isCurrent: boolean;
+    isPurchased: boolean;
     variationId: string;
     themeId: string;
     variations: ThemeVariations;
@@ -260,13 +262,17 @@ export function fetchCurrentTheme() {
                 relatedVariations: variations,
                 themeId,
                 id: variationId,
+                isCurrent,
                 themeName,
                 variationName,
                 displayVersion,
+                isPurchased,
             }) => {
                 dispatch(currentThemeResponse({
                     configurationId,
                     displayVersion,
+                    isCurrent,
+                    isPurchased,
                     themeId,
                     themeName,
                     variationId,

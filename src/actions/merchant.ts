@@ -13,6 +13,8 @@ export interface SetStoreDataAction {
 }
 
 export interface StoreDefaultData {
+    isDownForMaintenance: boolean;
+    isPrelaunchStore: boolean;
     storeHash: string;
 }
 
@@ -27,6 +29,6 @@ export function setStoreDefault(
     };
 }
 
-export function setStoreData(storeHash: string): Dispatch<State> {
-    return (dispatch: Dispatch<State>) => dispatch(setStoreDefault({storeHash}));
+export function setStoreData(storeData: StoreDefaultData): Dispatch<State> {
+    return (dispatch: Dispatch<State>) => dispatch(setStoreDefault(storeData));
 }
