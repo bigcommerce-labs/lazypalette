@@ -11,7 +11,6 @@ export const List = styled.ul`
 
 export const Item = styled.li`
     margin: .5rem 1.5rem;
-    cursor: pointer;
 `;
 
 export const Title = styled.div`

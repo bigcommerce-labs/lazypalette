@@ -2,7 +2,7 @@
 
 exports[`<ImageSize /> test should render <SelectBox /> 1`] = `
 <styled.div>
-  <SelectBox
+  <WithTheme(SelectBox)
     label="test"
     onChange={[Function]}
     options={
@@ -32,7 +32,7 @@ exports[`<ImageSize /> test should render <SelectBox /> 1`] = `
 
 exports[`<ImageSize /> test should render <SelectBox /> and <CustomSize /> components 1`] = `
 <styled.div>
-  <SelectBox
+  <WithTheme(SelectBox)
     label="test"
     onChange={[Function]}
     options={

@@ -28,7 +28,7 @@ export interface ThemeSettingsProps extends RouteComponentProps<{}> {
 function transformOptions(setting: ThemeSchemaEntrySetting) {
     return setting.options ? setting.options.map(({label, value}) => ({
         label,
-        value: value.toString(),
+        value: value ? value.toString() : '',
     })) : [];
 }
 

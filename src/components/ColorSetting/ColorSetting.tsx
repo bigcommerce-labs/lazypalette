@@ -7,7 +7,7 @@ import uuid from 'uuid';
 import { ThemeConfigChange } from '../../actions/theme';
 import { openColorPicker, ColorPickerContent, OpenColorPickerArgs, OpenUIWindowAction } from '../../actions/uiWindow';
 
-import { Container, Label, SelectedColor } from './styles';
+import { ColorText, Container, Label, SelectedColor } from './styles';
 
 interface ColorSettingProps {
     color?: string;
@@ -70,6 +70,7 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
             <Container>
                 <Label>{this.props.label}
                 </Label>
+                <ColorText>{this.state.color.toUpperCase()}</ColorText>
                 <SelectedColor
                     color={this.state.color}
                     ref={this.state.inputId}
