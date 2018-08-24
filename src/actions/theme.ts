@@ -10,7 +10,8 @@ import {
 import * as api from '../services/themeApi';
 
 import { Action } from './action';
-import { ConfigUpdateAction } from './constants';
+import { ConfigUpdateAction, ToastMessages, ToastType } from './constants';
+import { createNotification } from './notifications';
 import { fetchPageUrl, updateFonts } from './previewPane';
 
 export enum ThemeActionTypes {
@@ -419,6 +420,7 @@ export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
                         settings: newSettings,
                     }));
                     dispatch(fetchVariationHistory(variationId));
+                    dispatch(createNotification(true, ToastMessages.SaveTheme, ToastType.Success));
                 }
             })
             .catch(error => dispatch(themeConfigPostResponse(error, true)));

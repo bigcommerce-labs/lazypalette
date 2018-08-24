@@ -3,6 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { ConfigUpdateAction } from '../../actions/constants';
+import { closeNotification, CloseNotificationAction, NotificationsProps } from '../../actions/notifications';
 import { viewportChange, ViewportChange } from '../../actions/previewPane';
 import { postThemeConfigData, themeConfigReset, ThemeConfigResetAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
@@ -10,6 +11,7 @@ import { State } from '../../reducers/reducers';
 import { VIEWPORT_TYPES } from '../PreviewPane/constants';
 import { ViewportType } from '../PreviewPane/PreviewPane';
 import PubShareBox from '../PubShareBox/PubShareBox';
+import Toast from '../Toast/Toast';
 
 import { BCLogo, StyledHeaderMenu, StyledIcon } from './styles';
 
@@ -17,9 +19,11 @@ interface HeaderMenuProps {
     configurationId: string;
     displayVersion: string;
     isRotated: boolean;
+    notifications: NotificationsProps;
     themeName: string;
     variationName: string;
     viewportType: ViewportType;
+    closeNotification(): CloseNotificationAction;
     postThemeConfigData(configDataOption: ConfigUpdateAction): void;
     themeConfigReset(): ThemeConfigResetAction;
     toggleViewport(payload: ViewportChange): void;
@@ -45,8 +49,11 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
         });
     };
 
+    handleToastClose = () => this.props.closeNotification();
+
     render() {
-        const { isRotated, viewportType } = this.props;
+        const { isRotated, notifications, viewportType } = this.props;
+        const { autoDismiss, message, type } = notifications;
         const [DESKTOP, MOBILE, TABLET] = Object.keys(VIEWPORT_TYPES);
         const viewportKeys = [DESKTOP, TABLET, MOBILE];
 
@@ -68,21 +75,32 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
                     onSave={this.handleSave}
                     onReset={this.handleReset}
                 />
+                {message &&
+                    <Toast
+                        autoDismiss={autoDismiss}
+                        onClose={this.handleToastClose}
+                        type={type}
+                    >
+                        {message}
+                    </Toast>
+                }
             </StyledHeaderMenu>
         );
     }
 }
 
-const mapStateToProps = ({ theme, previewPane }: State): Partial<HeaderMenuProps> => ({
+const mapStateToProps = ({ theme, notifications, previewPane }: State): Partial<HeaderMenuProps> => ({
     configurationId: theme.configurationId,
     displayVersion: theme.displayVersion,
     isRotated: previewPane.isRotated,
+    notifications,
     themeName: theme.themeName,
     variationName: theme.variationName,
     viewportType: previewPane.viewportType,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): Partial<HeaderMenuProps> => bindActionCreators({
+    closeNotification,
     postThemeConfigData,
     themeConfigReset,
     toggleViewport: viewportChange,

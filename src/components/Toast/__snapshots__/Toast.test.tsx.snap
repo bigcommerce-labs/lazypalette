@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toast renders 1`] = `
+<styled.div
+  autoDismiss={true}
+>
+  <styled.div
+    type="Success"
+  >
+    Changes have been saved.
+    <styled.div
+      onClick={[Function]}
+    />
+  </styled.div>
+</styled.div>
+`;
