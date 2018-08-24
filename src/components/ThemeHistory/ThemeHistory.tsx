@@ -76,7 +76,7 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
     };
 
     getEntryDateString(entry: ThemeVariationHistoryEntry) {
-        const dateString = new Date(entry.timestamp).toLocaleDateString(undefined, {
+        const dateString = new Date(entry.timestamp).toLocaleDateString('en', {
             day: 'numeric',
             hour: 'numeric',
             minute: 'numeric',

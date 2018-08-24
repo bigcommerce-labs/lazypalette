@@ -2,6 +2,8 @@ import { theme, Icon } from 'pattern-lab';
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
+import { trackSectionOpen } from '../../services/analytics';
+
 import {
     activeClassName,
     ExternalNavItem,
@@ -39,6 +41,10 @@ class MenuItems extends Component<MenuItemsProps, {}> {
         this.isPathActive(path) ? this.props.currentPath : `${this.props.currentPath}${path}`
     );
 
+    handleClick = (label: string) => (
+        trackSectionOpen(label)
+    );
+
     render() {
         return (
             <StyledMenuItems>
@@ -66,7 +72,9 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                                     key={path}
                                     isActive={(match, location) => this.isPathActive(path)}
                                     activeClassName={activeClassName}
-                                    disabled={disabled}>
+                                    disabled={disabled}
+                                    onClick={() => this.handleClick(label)}
+                                >
                                     <ItemLabel>
                                         {label}
                                     </ItemLabel>

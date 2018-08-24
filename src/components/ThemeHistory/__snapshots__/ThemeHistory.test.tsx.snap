@@ -32,7 +32,7 @@ exports[`ThemeHistory when rendering when it has history items when an item is c
               }
             }
           >
-            Published 2018 M08 17 18:13
+            Published August 17, 2018, 6:13 PM
             <styled.div
               theme={
                 Object {
@@ -75,7 +75,7 @@ exports[`ThemeHistory when rendering when it has history items when an item is c
               }
             }
           >
-            Saved 2015 M08 13 12:13
+            Saved August 13, 2015, 12:13 PM
           </styled.div>
           <styled.div
             theme={
@@ -128,7 +128,7 @@ exports[`ThemeHistory when rendering when it has history items when no items are
               }
             }
           >
-            Published 2018 M08 17 18:13
+            Published August 17, 2018, 6:13 PM
           </styled.div>
           <styled.div
             theme={
@@ -161,7 +161,7 @@ exports[`ThemeHistory when rendering when it has history items when no items are
               }
             }
           >
-            Saved 2015 M08 13 12:13
+            Saved August 13, 2015, 12:13 PM
           </styled.div>
           <styled.div
             theme={
@@ -233,7 +233,7 @@ exports[`ThemeHistory when rendering when the modal is open renders correctly 1`
               }
             }
           >
-            Published 2018 M08 17 18:13
+            Published August 17, 2018, 6:13 PM
             <styled.div
               theme={
                 Object {
@@ -276,7 +276,7 @@ exports[`ThemeHistory when rendering when the modal is open renders correctly 1`
               }
             }
           >
-            Saved 2015 M08 13 12:13
+            Saved August 13, 2015, 12:13 PM
           </styled.div>
           <styled.div
             theme={
