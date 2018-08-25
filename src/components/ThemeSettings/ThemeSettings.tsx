@@ -7,6 +7,12 @@ import { Dispatch } from 'redux';
 import { updateThemeConfigChange, SettingsType, ThemeConfigChange } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
+import {
+    trackCheckboxChange,
+    trackImageDimensionChange,
+    trackSelectChange,
+    trackTextChange,
+} from '../../services/analytics';
 
 import CheckoutImageUpload from '../CheckoutImageUpload/CheckoutImageUpload';
 import ColorPicker from '../ColorSetting/ColorSetting';
@@ -48,10 +54,22 @@ function transformOptions(setting: ThemeSchemaEntrySetting) {
     }) : [];
 }
 
+function checkTrackingType(setting: ThemeSchemaEntrySetting, target: HTMLInputElement | HTMLSelectElement) {
+    switch (setting.type) {
+        case 'checkbox':
+            return trackCheckboxChange(setting.id, (target as HTMLInputElement).checked);
+        case 'font':
+            return trackSelectChange(setting.id, (target as HTMLSelectElement).value);
+        case 'imageDimension':
+            return trackImageDimensionChange(setting.id, (target as HTMLInputElement).value);
+    }
+}
+
 export function getEditor(
     setting: ThemeSchemaEntrySetting,
     preSetValue: SettingsType,
     handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
+    handleOnBlur: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
     broadcastConfigChange: (
         configChange: ThemeConfigChange
     ) => (dispatch: Dispatch<State>, getState: () => State) => void
@@ -102,7 +120,8 @@ export function getEditor(
                 selected={formatOptionValue(preSetValue[`${setting.id}`])}
                 label={setting.label}
                 onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-                    return broadcastConfigChange({
+                    trackSelectChange(setting.id, event.target.value);
+                    broadcastConfigChange({
                         setting: {
                             id: setting.id,
                             type: 'select',
@@ -119,6 +138,7 @@ export function getEditor(
                 label={setting.label}
                 onChange={handleChange}
                 testId={testId}
+                onBlur={handleOnBlur}
             />;
         case 'heading':
             return <Heading>{setting.content}</Heading>;
@@ -132,8 +152,13 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
         ({target}: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 
             const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
-
+            checkTrackingType(setting, target);
             this.props.updateThemeConfigChange({ setting, value });
+        };
+
+    handleOnBlur = (setting: ThemeSchemaEntrySetting) =>
+        ({target}: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+            trackTextChange(setting.label, (target as HTMLInputElement).value);
         };
 
     render() {
@@ -151,14 +176,15 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
                             if (reference && settings[reference] === reference_default) {
                                 return null;
                             } else {
-
                                 return (
+
                                     <Item key={index}>
                                         {
                                             getEditor(
                                                 setting,
                                                 settings,
                                                 this.handleChange(setting),
+                                                this.handleOnBlur(setting),
                                                 this.props.updateThemeConfigChange
                                             )
                                         }

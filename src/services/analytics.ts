@@ -113,3 +113,57 @@ export function trackSectionClose(title: string) {
         title,
     });
 }
+
+export function trackCheckboxChange(id: any, checked: boolean) {
+    track('store-design_change', {
+        category: 'store-design_change',
+        checked: checked ? 'true' : 'false',
+        element: 'input',
+        id,
+        label: 'store-design_checkbox_change',
+        text: '',
+    });
+}
+
+export function trackImageDimensionChange(id: any, dimension: string) {
+    track('store-design_change', {
+        category: 'store-design_change',
+        dimension,
+        element: 'input',
+        id,
+        label: 'store-design_image_dimension_change',
+        text: '',
+    });
+}
+
+export function trackSelectChange(id: any, selected: string) {
+    track('store-design_change', {
+        category: 'store-design_change',
+        element: 'select',
+        id,
+        label: 'store-design_select_change',
+        selected,
+        text: selected,
+    });
+}
+
+export function trackTextChange(id: any, text: string) {
+    track('store-design_change', {
+        category: 'store-design_change',
+        element: 'input',
+        id,
+        label: 'store-design_text_change',
+        text,
+    });
+}
+
+export function trackImageUpload(id: any, imageName: string) {
+    track('store-design_change', {
+        category: 'store-design_change',
+        element: 'div',
+        id,
+        imageName,
+        label: 'store-design_image_upload',
+        text: 'Upload image',
+    });
+}

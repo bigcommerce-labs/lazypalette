@@ -193,6 +193,32 @@ exports[`<ThemeSettings /> getEditor when type equals select should return corre
 exports[`<ThemeSettings /> getEditor when type equals text should return correct type 1`] = `
 <InputField
   label=""
+  onBlur={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "setting": Object {
+              "id": "hide_content",
+              "label": "Hide links on webpage",
+              "type": "checkbox",
+            },
+            "value": false,
+          },
+        ],
+        Array [
+          Object {
+            "setting": Object {
+              "id": "color-textHeading",
+              "label": "Headings text color",
+              "type": "color",
+            },
+            "value": "#FF123",
+          },
+        ],
+      ],
+    }
+  }
   onChange={
     [MockFunction] {
       "calls": Array [
@@ -347,6 +373,7 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
       >
         <InputField
           label="Product sale price label"
+          onBlur={[Function]}
           onChange={[Function]}
           testId="text.pdp-sale-price-label"
         />
