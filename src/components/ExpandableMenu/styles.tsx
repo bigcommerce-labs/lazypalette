@@ -1,27 +1,37 @@
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
-export const Wrapper = styled.div`
-    margin: 0;
+const openAnimation = keyframes`
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 `;
 
-export const fadeIn = keyframes`
-    from { opacity: 0.25;}
-    to { opacity: 1; }
-`;
+interface ExpandModalProps {
+    position?: { x: number, y: number };
+}
 
-export const ExpandModal = styled.div`
+export const ExpandModal = styled.div.attrs<ExpandModalProps>({})`
     border-radius: 6px;
     position: absolute;
-    left: 14.5rem;
-    top: 3.75rem;
     background: #FFF;
     padding: 0rem;
     box-shadow: ${({ theme }) => theme.elevation.raised};
-    z-index: ${({ theme }) => theme.layers.high};
-    animation: ${fadeIn} 400ms ease-in;
+    animation: ${openAnimation} 100ms ease-out;
     overflow: auto;
+    pointer-events: auto;
     visibility: visible;
+
+    ${({ position }) => position && `
+                left: ${position.x}px;
+                top: ${position.y}px;
+    `}}
 `;
 
 ExpandModal.defaultProps = {
@@ -36,8 +46,10 @@ ExpandModal.defaultProps = {
 };
 
 export const NavItem = styled(Link)`
+    text-align: center;
     text-decoration: none;
     text-shadow: 0 1px 0 ${({ theme }) => theme.colors.background};
+    width: 3.5rem;
 
     :after {
         content: '✕';
@@ -59,19 +71,22 @@ NavItem.defaultProps = {
 };
 
 export const Header = styled.div`
-    align-items: center;
+    align-items: stretch;
     background-color: ${({ theme }) => theme.colors.background};
+    cursor: pointer;
+    cursor: move;
     display: flex;
     justify-content: space-between;
-    line-height: 2rem;
-    padding: 0.75rem 0.75rem 0.75rem 1.5rem;
+    line-height: 3.5rem;
     margin: 0;
     font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
     color: ${({ theme }) => theme.colors.primaryText};
 `;
 
 export const Title = styled.h2`
+    flex-grow: 1;
     margin: 0;
+    padding: 0 0 0 1.5rem;
     font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
     color: ${({ theme }) => theme.colors.primaryText};
 `;

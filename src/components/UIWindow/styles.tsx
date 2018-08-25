@@ -6,15 +6,11 @@ export const Content = styled.div`
     overflow: auto;
 `;
 
-interface HeaderProps {
-    dragging: boolean;
-}
-
-export const Header = styled.div.attrs<HeaderProps>({})`
+export const Header = styled.div`
     align-items: center;
     background-color: ${({ theme }) => theme.colors.background};
     cursor: pointer;
-    cursor: ${({ dragging }) => dragging ? 'grabbing' : 'grab'};
+    cursor: move;
     display: flex;
     justify-content: space-between;
     height: 1rem;
@@ -82,6 +78,8 @@ export const StyledWindow = styled.div.attrs<StyledWindowProps>({})`
     box-shadow: ${({ theme }) => theme.elevation.raised};
     overflow: auto;
     animation: ${openAnimation} 50ms linear;
+    pointer-events: auto;
+    z-index: ${({ theme }) => theme.layers.higher};
     ${({ position }) => {
         if (position) {
             return `
@@ -102,6 +100,9 @@ StyledWindow.defaultProps = {
         },
         elevation: {
             raised: 1,
+        },
+        layers: {
+            higher: 100,
         },
     },
 };

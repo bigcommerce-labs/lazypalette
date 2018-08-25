@@ -10,6 +10,7 @@ import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme'
 
 import CheckoutImageUpload from '../CheckoutImageUpload/CheckoutImageUpload';
 import ColorPicker from '../ColorSetting/ColorSetting';
+import Draggable from '../Draggable/Draggable';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ImageSize from '../ImageSize/ImageSize';
 import { appRoutes } from '../Routes/Routes';
@@ -17,6 +18,7 @@ import { appRoutes } from '../Routes/Routes';
 import { Heading, Item, List } from './styles';
 
 export interface ThemeSettingsProps extends RouteComponentProps<{}> {
+    position: { x: number, y: number };
     settings: SettingsType;
     settingsIndex: number;
     themeSettings: ThemeSchemaEntry;
@@ -104,7 +106,7 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
         };
 
     render() {
-        const { match, settings, settingsIndex, themeSettings } = this.props;
+        const { match, position, settings, settingsIndex, themeSettings } = this.props;
         const { section } = appRoutes;
 
         return (
@@ -112,32 +114,34 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
                 path={`/${section.route}${settingsIndex}`}
                 exact
                 render={() => (
-                    <ExpandableMenu
-                        title={themeSettings ? themeSettings.name : ''}
-                        back={match.url}>
-                        <List>
-                            {themeSettings.settings.map((setting, index) => {
-                                const { reference, reference_default } = setting;
-                                if (reference && settings[reference] === reference_default) {
-                                    return null;
-                                } else {
+                    <Draggable position={position} >
+                        <ExpandableMenu
+                            title={themeSettings ? themeSettings.name : ''}
+                            back={match.url}>
+                            <List>
+                                {themeSettings.settings.map((setting, index) => {
+                                    const { reference, reference_default } = setting;
+                                    if (reference && settings[reference] === reference_default) {
+                                        return null;
+                                    } else {
 
-                                    return (
-                                        <Item key={index}>
-                                            {
-                                                getEditor(
-                                                    setting,
-                                                    settings,
-                                                    this.handleChange(setting),
-                                                    this.props.updateThemeConfigChange
-                                                )
-                                            }
-                                        </Item>
-                                    );
-                                }
-                            })}
-                        </List>
-                    </ExpandableMenu>
+                                        return (
+                                            <Item key={index}>
+                                                {
+                                                    getEditor(
+                                                        setting,
+                                                        settings,
+                                                        this.handleChange(setting),
+                                                        this.props.updateThemeConfigChange
+                                                    )
+                                                }
+                                            </Item>
+                                        );
+                                    }
+                                })}
+                            </List>
+                        </ExpandableMenu>
+                    </Draggable>
                 )}
             />
         );

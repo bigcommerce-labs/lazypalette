@@ -50,6 +50,7 @@ describe('ThemeHistory', () => {
                         <ThemeHistory
                             configurationId={history[0].configurationId}
                             isChanged={false}
+                            position={{ x: 5, y: 10 }}
                             loadTheme={mockLoadTheme}
                             variationHistory={history}
                             {...routeProps}/>);
@@ -64,6 +65,7 @@ describe('ThemeHistory', () => {
                         <ThemeHistory
                             configurationId={'blaaaah'}
                             isChanged={false}
+                            position={{ x: 5, y: 10 }}
                             loadTheme={mockLoadTheme}
                             variationHistory={history}
                             {...routeProps}/>);
@@ -79,6 +81,7 @@ describe('ThemeHistory', () => {
                     <ThemeHistory
                         configurationId={history[0].configurationId}
                         isChanged={false}
+                        position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
                         variationHistory={[]}
                         {...routeProps}/>);
@@ -93,6 +96,7 @@ describe('ThemeHistory', () => {
                     <ThemeHistory
                         configurationId={history[0].configurationId}
                         isChanged={true}
+                        position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
                         variationHistory={history}
                         {...routeProps}/>);
@@ -116,6 +120,7 @@ describe('ThemeHistory', () => {
                     <ThemeHistory
                         configurationId={'blaaaah'}
                         isChanged={false}
+                        position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
                         variationHistory={history}
                         {...routeProps}/>);
@@ -132,6 +137,7 @@ describe('ThemeHistory', () => {
                     <ThemeHistory
                         configurationId={'blaaaah'}
                         isChanged={true}
+                        position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
                         variationHistory={history}
                         {...routeProps}/>);
@@ -158,6 +164,7 @@ describe('ThemeHistory', () => {
                 <ThemeHistory
                     configurationId={'blaaaah'}
                     isChanged={true}
+                    position={{ x: 5, y: 10 }}
                     loadTheme={mockLoadTheme}
                     variationHistory={history}
                     {...routeProps}/>);
