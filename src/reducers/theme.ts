@@ -18,6 +18,7 @@ export interface ThemeState {
     variationId: string;
     schema: ThemeSchema;
     themeName: string;
+    variationHistory: ThemeVariationHistory;
     variations: ThemeVariations;
     variationName: string;
     versionId: string;
@@ -64,6 +65,20 @@ export interface ThemeVariationsEntry {
     variationName: string;
 }
 
+export interface ThemeVariationHistory extends Array<ThemeVariationHistoryEntry> {}
+
+export interface ThemeVariationHistoryEntry {
+    configurationId: string;
+    variationId: string;
+    variationName: string;
+    versionId: string;
+    themeName: string;
+    displayVersion: string;
+    themeId: string;
+    type: string;
+    timestamp: string;
+}
+
 const initialState: ThemeState = {
     configurationId: '',
     displayVersion: '',
@@ -74,6 +89,7 @@ const initialState: ThemeState = {
     settings: {},
     themeId: '',
     themeName: '',
+    variationHistory: [],
     variationId: '',
     variationName: '',
     variations: [],
@@ -121,6 +137,13 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 variations,
                 versionId,
             };
+        case ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE:
+            const { variationHistory } = action.payload;
+
+            return {
+                ...state,
+                variationHistory,
+            };
         case ThemeActionTypes.THEME_CONFIG_RESPONSE:
             const { settings } = action.payload as ThemeConfigResponse;
 
@@ -156,6 +179,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
             return {
                 ...state,
                 configurationId: action.payload.configurationId,
+                initialConfigurationId: action.payload.configurationId,
                 initialSettings,
                 isChanged: isNotEqual(state.settings, initialSettings),
             };
@@ -170,6 +194,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
             return {
                 ...state,
                 configurationId: action.payload.configurationId,
+                initialConfigurationId: action.payload.configurationId,
                 initialSettings: action.payload.settings,
                 isChanged: isNotEqual(state.settings, action.payload.settings),
             };

@@ -13,6 +13,7 @@ const initialState: ThemeState = {
     settings: {},
     themeId: '',
     themeName: '',
+    variationHistory: [],
     variationId: '',
     variationName: '',
     variations: [],
@@ -81,13 +82,15 @@ describe('themeConfigResponse', () => {
         const expectedState: ThemeState = { ...initialState, ...{
             initialSettings: { blah: 'blah' },
             settings: { blah: 'blah' },
-        } };
+        }};
 
         expect(theme(initialState, action)).toEqual(expectedState);
     });
 
     it('does not modify state when an error occurred', () => {
-        const action = themeActions.themeConfigResponse({ settings: { blah: 'blah' } }, true);
+        const action = themeActions.themeConfigResponse({
+            settings: { blah: 'blah' },
+        }, true);
 
         expect(theme(initialState, action)).toEqual(initialState);
     });
@@ -177,6 +180,28 @@ describe('themeVariationResponse test', () => {
 
 });
 
+describe('when processing themeVariationHistoryResponse', () => {
+    const variationHistory = [{
+        configurationId: '123',
+        displayVersion: 'ver',
+        themeId: '567',
+        themeName: 'name',
+        timestamp: '',
+        type: 'blah',
+        variationId: '234',
+        variationName: 'variation',
+        versionId: '345',
+    }];
+
+    it('updates state correctly', () => {
+        const action = themeActions.themeVariationHistoryResponse({ variationHistory });
+
+        const expectedState: ThemeState = { ...initialState, ...{ variationHistory }};
+
+        expect(theme(initialState, action)).toEqual(expectedState);
+    });
+});
+
 describe('themeConfigPreviewResponse', () => {
     const payload: ThemeConfigPostResponse = {
         configurationId: '012',
@@ -205,6 +230,7 @@ describe('themeConfigSaveResponse', () => {
 
         const expectedState: ThemeState = { ...initialState, ...{
             configurationId: '012',
+            initialConfigurationId: '012',
             initialSettings: {},
             isChanged: false,
         }};
@@ -222,6 +248,7 @@ describe('themeConfigSaveResponse', () => {
 
             const expectedState: ThemeState = { ...initialState, ...{
                 configurationId: '012',
+                initialConfigurationId: '012',
                 initialSettings: {'primary-font': 'meow'},
                 isChanged: false,
             }};

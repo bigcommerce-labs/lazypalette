@@ -10,6 +10,8 @@ export const themeAPI = {
         `/admin/services/themes/stores/${storeHash}/versions/${versionId}`,
     variationAPI: (storeHash: string, variationId: string) =>
         `/admin/services/themes/stores/${storeHash}/variations/${variationId}`,
+    variationHistoryAPI: (storeHash: string, variationId: string) =>
+        `/admin/services/themes/stores/${storeHash}/variations/${variationId}/history`,
 };
 
 export function fetchCurrentTheme() {
@@ -29,6 +31,11 @@ export function fetchThemeVersion(storeHash: string, versionId: string) {
 
 export function fetchVariation(storeHash: string, variationId: string) {
     return Axios.get(themeAPI.variationAPI(storeHash, variationId))
+        .then(({ data: { data } }) => data);
+}
+
+export function fetchVariationHistory(storeHash: string, variationId: string) {
+    return Axios.get(themeAPI.variationHistoryAPI(storeHash, variationId))
         .then(({ data: { data } }) => data);
 }
 

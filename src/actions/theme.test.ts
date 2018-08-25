@@ -114,7 +114,34 @@ describe('theme actions', () => {
 
     });
 
-    describe('fetchInitialState Action - Success', () => {
+    it('should create a ThemeVariationHistoryResponseAction', () => {
+        const payload = {
+            variationHistory: [
+                {
+                    configurationId: '123',
+                    displayVersion: 'ver',
+                    themeId: '567',
+                    themeName: 'name',
+                    timestamp: '',
+                    type: 'blah',
+                    variationId: '234',
+                    variationName: 'variation',
+                    versionId: '345',
+                },
+            ],
+        };
+
+        const expectedAction = {
+            error: false,
+            payload,
+            type: themeActions.ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
+        };
+
+        expect(themeActions.themeVariationHistoryResponse(payload)).toEqual(expectedAction);
+
+    });
+
+    describe('loadTheme Action - Success', () => {
         const variationId = '222';
         const storeHash = '012';
         const configurationId = '012';
@@ -135,6 +162,18 @@ describe('theme actions', () => {
                 variationId: '234',
             },
         ];
+
+        const variationHistory = [{
+            configurationId: '123',
+            displayVersion: 'ver',
+            themeId: '567',
+            themeName: 'name',
+            timestamp: '',
+            type: 'blah',
+            variationId: '234',
+            variationName: 'variation',
+            versionId: '345',
+        }];
 
         beforeEach(() => {
             axiosMock.reset();
@@ -176,6 +215,11 @@ describe('theme actions', () => {
                     data: {
                         editorSchema: {},
                     }});
+
+            axiosMock.onGet(themeAPI.variationHistoryAPI(storeHash, variationId))
+                .reply(200, {
+                    data: variationHistory,
+                });
         });
 
         it('should call fetchCurrentTheme when called without variationId', () => {
@@ -196,6 +240,7 @@ describe('theme actions', () => {
                 .mockReturnValue({
                     theme: {
                         configurationId,
+                        variationId,
                         versionId,
                     },
 
@@ -230,9 +275,16 @@ describe('theme actions', () => {
                     },
                     type: themeActions.ThemeActionTypes.THEME_CONFIG_RESPONSE,
                 },
+                {
+                    error: false,
+                    payload: {
+                        variationHistory,
+                    },
+                    type: themeActions.ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
+                },
             ];
 
-            return themeActions.fetchInitialState('')(store.dispatch, getState)
+            return themeActions.loadTheme('')(store.dispatch, getState)
                 .then(() => {
                     expect(store.getActions()).toEqual(expect.arrayContaining(expectedActions));
                 });
@@ -255,6 +307,7 @@ describe('theme actions', () => {
                 .mockReturnValue({
                     theme: {
                         configurationId,
+                        variationId,
                         versionId,
                     },
 
@@ -290,9 +343,16 @@ describe('theme actions', () => {
                     },
                     type: themeActions.ThemeActionTypes.THEME_CONFIG_RESPONSE,
                 },
+                {
+                    error: false,
+                    payload: {
+                        variationHistory,
+                    },
+                    type: themeActions.ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
+                },
             ];
 
-            return themeActions.fetchInitialState(variationId)(store.dispatch, getState)
+            return themeActions.loadTheme(variationId)(store.dispatch, getState)
                 .then(() => {
                     expect(store.getActions()).toEqual(expect.arrayContaining(expectedActions));
                 });
@@ -300,7 +360,7 @@ describe('theme actions', () => {
 
     });
 
-    describe('fetchInitialState Action - Failure', () => {
+    describe('loadTheme Action - Failure', () => {
         const variationId = '222';
         const storeHash = '012';
         const configurationId = '012';
@@ -341,6 +401,9 @@ describe('theme actions', () => {
 
             axiosMock.onGet(themeAPI.themeVersionAPI(storeHash, versionId))
                 .reply(status);
+
+            axiosMock.onGet(themeAPI.variationHistoryAPI(storeHash, variationId))
+                .reply(status);
         });
 
         it('should call fetchCurrentTheme with error status', () => {
@@ -361,9 +424,14 @@ describe('theme actions', () => {
                     payload: new Error('Request failed with status code 404'),
                     type: themeActions.ThemeActionTypes.CURRENT_THEME_RESPONSE,
                 },
+                {
+                    error: true,
+                    payload: new Error('Request failed with status code 404'),
+                    type: themeActions.ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
+                },
             ];
 
-            return themeActions.fetchInitialState('')(store.dispatch, getState)
+            return themeActions.loadTheme('')(store.dispatch, getState)
                 .then(() => {
                     expect(store.getActions()).toEqual(expect.arrayContaining(expectedActions));
                 });
@@ -388,9 +456,14 @@ describe('theme actions', () => {
                     payload: new Error('Request failed with status code 404'),
                     type: themeActions.ThemeActionTypes.THEME_CONFIG_RESPONSE,
                 },
+                {
+                    error: true,
+                    payload: new Error('Request failed with status code 404'),
+                    type: themeActions.ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
+                },
             ];
 
-            return themeActions.fetchInitialState('222')(store.dispatch, getState)
+            return themeActions.loadTheme('222')(store.dispatch, getState)
                 .then(() => {
                     expect(store.getActions()).toEqual(expect.arrayContaining(expectedActions));
                 });

@@ -3,13 +3,15 @@ import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { appRoutes } from '../Routes/Routes';
+import ThemeHistory from '../ThemeHistory/ThemeHistory';
 import ThemeSettings from '../ThemeSettings/ThemeSettings';
 import ThemeVariations from '../ThemeVariations/ThemeVariations';
 
-import { activeClassName, NavItem, StyledMenuItems, StyledMenuItemIcon } from './styles';
+import { activeClassName, ListItem, NavItem, StyledMenuItems, StyledMenuItemIcon } from './styles';
 
 interface MenuItem {
     disabled?: boolean;
+    divider?: boolean;
     label: string;
     path: string;
 }
@@ -21,10 +23,13 @@ interface MenuItemsProps extends RouteComponentProps<{}> {
 }
 
 const ExpandMenuRoutes = ({ route }: { route: string }) => {
-    const { section, styles } = appRoutes;
+    const { history, section, styles } = appRoutes;
 
-    if (route === styles.route) {
-        return <ThemeVariations/>;
+    switch (route) {
+        case styles.route:
+            return <ThemeVariations/>;
+        case history.route:
+            return <ThemeHistory/>;
     }
 
     if (route.indexOf(section.route) === 0) {
@@ -50,8 +55,8 @@ class MenuItems extends Component<MenuItemsProps, {}> {
     render() {
         return (
             <StyledMenuItems>
-                {this.props.items.map(({ disabled, path, label }) => (
-                    <li key={path}>
+                {this.props.items.map(({ disabled, divider, path, label }) => (
+                    <ListItem divider={divider}>
                         <ExpandMenuRoutes route={path}/>
                         <NavItem
                             to={this.toggleLink(path)}
@@ -68,7 +73,7 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                                 </StyledMenuItemIcon>
                             }
                         </NavItem>
-                    </li>
+                    </ListItem>
                 ))}
             </StyledMenuItems>
         );

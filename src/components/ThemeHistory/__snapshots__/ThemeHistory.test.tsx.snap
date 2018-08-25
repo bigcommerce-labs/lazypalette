@@ -1,0 +1,268 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ThemeHistory when rendering when it has history items when an item is currently active renders correctly 1`] = `
+<React.Fragment>
+  <ExpandableMenu
+    title="History"
+  >
+    <styled.ul>
+      <styled.li
+        key="config123"
+        onClick={[Function]}
+      >
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+              "typography": Object {
+                "fontWeight": Object {
+                  "bold": 600,
+                },
+              },
+            }
+          }
+        >
+          Published 2018 M08 17 18:13
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "empty": "#FFFFFF",
+                  "success": "#AAAAAA",
+                },
+              }
+            }
+          />
+        </styled.div>
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "secondaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Version 
+          Version 1.0
+        </styled.div>
+      </styled.li>
+      <styled.li
+        key="config456"
+        onClick={[Function]}
+      >
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+              "typography": Object {
+                "fontWeight": Object {
+                  "bold": 600,
+                },
+              },
+            }
+          }
+        >
+          Saved 2015 M08 13 12:13
+        </styled.div>
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "secondaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Version 
+          Version 2.0
+        </styled.div>
+      </styled.li>
+    </styled.ul>
+  </ExpandableMenu>
+</React.Fragment>
+`;
+
+exports[`ThemeHistory when rendering when it has history items when no items are currently active renders correctly 1`] = `
+<React.Fragment>
+  <ExpandableMenu
+    title="History"
+  >
+    <styled.ul>
+      <styled.li
+        key="config123"
+        onClick={[Function]}
+      >
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+              "typography": Object {
+                "fontWeight": Object {
+                  "bold": 600,
+                },
+              },
+            }
+          }
+        >
+          Published 2018 M08 17 18:13
+        </styled.div>
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "secondaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Version 
+          Version 1.0
+        </styled.div>
+      </styled.li>
+      <styled.li
+        key="config456"
+        onClick={[Function]}
+      >
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+              "typography": Object {
+                "fontWeight": Object {
+                  "bold": 600,
+                },
+              },
+            }
+          }
+        >
+          Saved 2015 M08 13 12:13
+        </styled.div>
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "secondaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Version 
+          Version 2.0
+        </styled.div>
+      </styled.li>
+    </styled.ul>
+  </ExpandableMenu>
+</React.Fragment>
+`;
+
+exports[`ThemeHistory when rendering when it has no history items renders correctly 1`] = `
+<React.Fragment>
+  <ExpandableMenu
+    title="History"
+  >
+    <styled.ul />
+  </ExpandableMenu>
+</React.Fragment>
+`;
+
+exports[`ThemeHistory when rendering when the modal is open renders correctly 1`] = `
+<React.Fragment>
+  <ExpandableMenu
+    title="History"
+  >
+    <styled.ul>
+      <styled.li
+        key="config123"
+        onClick={[Function]}
+      >
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+              "typography": Object {
+                "fontWeight": Object {
+                  "bold": 600,
+                },
+              },
+            }
+          }
+        >
+          Published 2018 M08 17 18:13
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "empty": "#FFFFFF",
+                  "success": "#AAAAAA",
+                },
+              }
+            }
+          />
+        </styled.div>
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "secondaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Version 
+          Version 1.0
+        </styled.div>
+      </styled.li>
+      <styled.li
+        key="config456"
+        onClick={[Function]}
+      >
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+              "typography": Object {
+                "fontWeight": Object {
+                  "bold": 600,
+                },
+              },
+            }
+          }
+        >
+          Saved 2015 M08 13 12:13
+        </styled.div>
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "secondaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Version 
+          Version 2.0
+        </styled.div>
+      </styled.li>
+    </styled.ul>
+  </ExpandableMenu>
+  <ConfirmModal
+    body="This theme has unpublished changes. Do you want to proceed?"
+    primaryAction={[Function]}
+    secondaryAction={[Function]}
+    title="Theme Change Warning"
+  />
+</React.Fragment>
+`;
