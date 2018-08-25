@@ -5,53 +5,59 @@ exports[`UIWindowProvider when given some windows to render renders correctly 1`
   <p>
     blah
   </p>
-  <UIWindow
-    id="1235"
+  <Draggable
     key="1235"
-    onClose={[Function]}
     position={
       Object {
         "x": 15,
         "y": 20,
       }
     }
-    topmost={false}
   >
-    <ColorPicker
-      color={
-        Object {
-          "a": 1,
-          "h": 250,
-          "l": 0.2,
-          "s": 0.5,
+    <UIWindow
+      id="1235"
+      onClose={[Function]}
+      topmost={false}
+    >
+      <ColorPicker
+        color={
+          Object {
+            "a": 1,
+            "h": 250,
+            "l": 0.2,
+            "s": 0.5,
+          }
         }
-      }
-      key="1235"
-    />
-  </UIWindow>
-  <UIWindow
-    id="9876"
+        key="1235"
+      />
+    </UIWindow>
+  </Draggable>
+  <Draggable
     key="9876"
-    onClose={[Function]}
     position={
       Object {
         "x": 45,
         "y": 70,
       }
     }
-    topmost={true}
   >
-    <ColorPicker
-      color={
-        Object {
-          "a": 1,
-          "h": 250,
-          "l": 0.2,
-          "s": 0.5,
+    <UIWindow
+      id="9876"
+      onClose={[Function]}
+      topmost={true}
+    >
+      <ColorPicker
+        color={
+          Object {
+            "a": 1,
+            "h": 250,
+            "l": 0.2,
+            "s": 0.5,
+          }
         }
-      }
-      key="9876"
-    />
-  </UIWindow>
+        key="9876"
+      />
+    </UIWindow>
+  </Draggable>
 </React.Fragment>
 `;

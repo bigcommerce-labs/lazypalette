@@ -9,6 +9,7 @@ import {
 import { State } from '../../reducers/reducers';
 import { UIWindowData } from '../../reducers/uiWindow';
 import ColorPicker from '../ColorPicker/ColorPicker';
+import Draggable from '../Draggable/Draggable';
 import UIWindow from '../UIWindow/UIWindow';
 
 interface UIWindowProviderProps {
@@ -27,14 +28,15 @@ export class UIWindowProvider extends Component<UIWindowProviderProps, {}> {
             case UIWindowTypes.COLOR_PICKER: {
                 const content = uiWindowData.content as ColorPickerContent;
 
-                return <ColorPicker
-                    color={content.color}
-                    key={uiWindowData.id}
-                    onChangeComplete={content.onChange}
-                />;
+                return (
+                    <ColorPicker
+                        color={content.color}
+                        key={uiWindowData.id}
+                        onChangeComplete={content.onChange}
+                    />);
             }
             default:
-                return null;
+                return;
         }
     };
 
@@ -48,15 +50,20 @@ export class UIWindowProvider extends Component<UIWindowProviderProps, {}> {
 
                     const topmost = uiWindows.length - 1 === index;
 
-                    return <UIWindow
-                        id={uiWindowData.id}
-                        key={uiWindowData.id}
-                        onClose={this.close}
-                        position={uiWindowData.content.position}
-                        topmost={topmost}
-                    >
-                        {this.getUIWindowContents(uiWindowData)}
-                    </UIWindow>;
+                    return (
+                        <Draggable
+                            position={uiWindowData.content.position}
+                            key={uiWindowData.id}
+                        >
+                            <UIWindow
+                                id={uiWindowData.id}
+                                onClose={this.close}
+                                topmost={topmost}
+                            >
+                                {this.getUIWindowContents(uiWindowData)}
+                            </UIWindow>
+                        </Draggable>
+                    );
                 })}
             </>
         );

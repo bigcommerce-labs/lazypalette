@@ -1,51 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders 1`] = `
-<styled.div>
+<styled.div
+  theme={
+    Object {
+      "elevation": Object {
+        "raised": "0 1px 6px rgba(48, 53, 64, 0.2)",
+      },
+      "layers": Object {
+        "high": 50,
+      },
+    }
+  }
+>
   <styled.div
     theme={
       Object {
-        "elevation": Object {
-          "raised": "0 1px 6px rgba(48, 53, 64, 0.2)",
+        "colors": Object {
+          "primaryText": "#AAAAAA",
         },
-        "layers": Object {
-          "high": 50,
+        "typography": Object {
+          "fontWeight": Object {
+            "normal": 400,
+          },
         },
       }
     }
   >
-    <styled.div
+    <styled.h2>
+      foo
+    </styled.h2>
+    <Styled(Link)
       theme={
         Object {
           "colors": Object {
+            "background": "#000000",
             "primaryText": "#AAAAAA",
-          },
-          "typography": Object {
-            "fontWeight": Object {
-              "normal": 400,
-            },
           },
         }
       }
-    >
-      <styled.h2>
-        foo
-      </styled.h2>
-      <Styled(Link)
-        theme={
-          Object {
-            "colors": Object {
-              "background": "#000000",
-              "primaryText": "#AAAAAA",
-            },
-          }
-        }
-        to="/bar"
-      />
-    </styled.div>
-    <styled.div>
-      <TestChildren />
-    </styled.div>
+      to="/bar"
+    />
+  </styled.div>
+  <styled.div>
+    <TestChildren />
   </styled.div>
 </styled.div>
 `;

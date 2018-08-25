@@ -34,6 +34,12 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
   }
 >
   <withRouter(ThemeSettings)
+    position={
+      Object {
+        "x": 5,
+        "y": 10,
+      }
+    }
     settings={
       Object {
         "brandpage_products_per_page": 12,

@@ -5,7 +5,7 @@ export const List = styled.ul`
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 55vh;
+    height: 55vh;
     min-width: 25rem;
     overflow-y: auto;
     width:
