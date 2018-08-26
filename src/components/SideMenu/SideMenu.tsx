@@ -1,13 +1,13 @@
+import { Icon } from 'pattern-lab';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
+import { Dispatch } from 'redux';
 
 import { ConfigUpdateAction } from '../../actions/constants';
 import { postThemeConfigData } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
-
+import MoreOptions from '../MoreOptions/MoreOptions';
 import { appRoutes } from '../Routes/Routes';
 import ThemeHistory from '../ThemeHistory/ThemeHistory';
 import ThemeSettings from '../ThemeSettings/ThemeSettings';
@@ -19,7 +19,14 @@ import DesignSubMenu from './DesignSubMenu';
 import {
     CollapseButton,
     Container,
-    StyledSideMenu,
+    ExternalNavItem,
+    Footer,
+    Header,
+    ItemLabel,
+    MenuContents,
+    StyledMenuItemIcon,
+    StyledStatus,
+    Title,
     ToolTip,
 } from './styles';
 
@@ -39,14 +46,16 @@ interface SideMenuState {
 }
 
 const ExpandMenuRoutes = ({ route }: { route: string }) => {
-    const { history, section, styles } = appRoutes;
-    const position = { x: 200, y: 64 };
+    const { history, options, section, styles } = appRoutes;
+    const position = { x: 248, y: 104 };
 
     switch (route) {
         case styles.route:
             return <ThemeVariations position={position} />;
         case history.route:
             return <ThemeHistory position={position} />;
+        case options.route:
+            return <MoreOptions position={position} />;
     }
 
     if (route.indexOf(section.route) === 0) {
@@ -76,12 +85,19 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
             <>
                 <ExpandMenuRoutes route={`${appRoutes.styles.route}`}/>
                 <ExpandMenuRoutes route={`${appRoutes.history.route}`}/>
+                <ExpandMenuRoutes route={`${appRoutes.options.route}`}/>
                 {this.props.themeDesignSections.map((name, index) => (
                     <ExpandMenuRoutes key={index} route={`${appRoutes.section.route}${index}`}/>
                 ))}
 
-                <Container>
-                    <StyledSideMenu collapsed={collapsed}>
+                <Container collapsed={collapsed}>
+                    <Header>
+                        <Title>
+                            {themeName}
+                        </Title>
+                        <StyledStatus>ACTIVE THEME</StyledStatus>
+                    </Header>
+                    <MenuContents>
                         {isLoaded &&
                             <Route
                                 path={home.path}
@@ -89,21 +105,32 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                                     <DesignSubMenu
                                         currentPath={match.path}
                                         sections={themeDesignSections}
-                                        themeName={themeName}
                                     />
                                 )}
                             />}
-                    </StyledSideMenu>
-                    <CollapseButton
-                        collapsed={collapsed}
-                        onClick={this.handleCollapse}
-                    >
-                        <ToolTip
-                            key={collapsed}
-                            primaryTip={Tips.Primary}
-                            secondaryTip={Tips.Secondary}
-                        />
-                    </CollapseButton>
+                    </MenuContents>
+                    <Footer>
+                        <ExternalNavItem
+                            href=""
+                        >
+                            <ItemLabel>
+                                View store
+                            </ItemLabel>
+                            <StyledMenuItemIcon>
+                                <Icon glyph="externalLink" size="small" />
+                            </StyledMenuItemIcon>
+                        </ExternalNavItem>
+                        <CollapseButton
+                            collapsed={collapsed}
+                            onClick={this.handleCollapse}
+                        >
+                            <ToolTip
+                                collapsed={collapsed}
+                                primaryTip={Tips.Primary}
+                                secondaryTip={Tips.Secondary}
+                            />
+                        </CollapseButton>
+                    </Footer>
                 </Container>
             </>
         );

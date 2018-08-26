@@ -22,7 +22,7 @@ export const ExpandModal = styled.div.attrs<ExpandModalProps>({})`
     position: absolute;
     background: #FFF;
     padding: 0rem;
-    box-shadow: ${({ theme }) => theme.elevation.raised};
+    box-shadow: ${({ theme }) => theme.elevation.floating};
     animation: ${openAnimation} 100ms ease-out;
     overflow: auto;
     pointer-events: auto;
@@ -37,7 +37,7 @@ export const ExpandModal = styled.div.attrs<ExpandModalProps>({})`
 ExpandModal.defaultProps = {
     theme: {
         elevation: {
-            raised: '0 1px 6px rgba(48, 53, 64, 0.2)',
+            floating: '0 2px 12px rgba(48, 53, 64, 0.2)',
         },
         layers: {
             high: 50,
@@ -105,7 +105,7 @@ Header.defaultProps = {
 };
 
 export const Content = styled.div`
-    margin: 0;
-    padding: 0;
+    margin: 0.5rem 0 0.5rem 0;
+    padding: 1.5rem 0 0 0;
     overflow: auto;
 `;

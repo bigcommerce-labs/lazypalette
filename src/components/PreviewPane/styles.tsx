@@ -1,21 +1,45 @@
-import { theme } from 'pattern-lab';
 import styled from 'styled-components';
 
 import { VIEWPORT_TYPES } from './constants';
 import { ViewportType } from './PreviewPane';
 
-export const PreviewPaneContainer = styled.div`
-    background: ${({ theme: { colors } }) => colors && colors.empty};
-    border-radius: 8px;
-    box-shadow: ${({ theme: { elevation } }) => elevation && elevation.raised};
+interface PreviewPaneContainerProps {
+    showBorder: boolean;
+}
+
+export const PreviewPaneContainer = styled.div.attrs<PreviewPaneContainerProps>({})`
     display: flex;
     flex: auto;
-    height: calc(100% - 6rem);
     justify-content: center;
-    margin: 0.75rem 0.75rem 0 0;
     overflow: hidden;
     width: 0;
+
+    ${({ showBorder, theme }) => {
+        if (showBorder) {
+            return `
+                background: ${theme.colors.empty};
+                border-radius: 8px;
+                box-shadow: ${theme.elevation.raised};
+                margin: 1.5rem 0.75rem 1.5rem 0;
+            `;
+        } else {
+            return `
+                margin: 1.5rem 0.75rem 0 0;
+            `;
+        }
+    }}
 `;
+
+PreviewPaneContainer.defaultProps = {
+    theme: {
+        colors: {
+            empty: '#FFFFFF',
+        },
+        elevation: {
+            raised: 100,
+        },
+    },
+};
 
 interface PreviewPaneIframeProps {
     isFetching: boolean;
@@ -33,30 +57,17 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
             ? props.viewportType.viewportHeight
             : props.viewportType.viewportWidth,
 })`
-    background-color: #F2F2F2;
-    border: 0px;
-    ${(props: PreviewPaneIframeProps) => {
-        return `
-                min-width: ${props.isRotated ? props.viewportType.viewportHeight : props.viewportType.viewportWidth};
-                opacity: ${props.isFetching ? 0.5 : 1};
-                `;
-    }}
-
-    ${(props: PreviewPaneIframeProps) => {
-        const borderRadius = props.viewportType === VIEWPORT_TYPES.DESKTOP ? '0px' : '30px';
+    ${({ isFetching, isRotated, theme, viewportType }) => {
+        const borderRadius = viewportType === VIEWPORT_TYPES.DESKTOP ? '0px' : '30px';
         let boxShadow;
-        let marginBottom;
-        let marginTop;
         let paddingBottom;
         let paddingLeft;
         let paddingRight;
         let paddingTop;
 
-        switch (props.viewportType) {
+        switch (viewportType) {
             case VIEWPORT_TYPES.DESKTOP:
                 boxShadow = 'none';
-                marginBottom = '0px';
-                marginTop = '0px';
                 paddingBottom = '0px';
                 paddingLeft = '0px';
                 paddingRight = '0px';
@@ -64,8 +75,6 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
                 break;
             case VIEWPORT_TYPES.MOBILE:
                 boxShadow = theme.elevation.raised;
-                marginBottom = '3rem';
-                marginTop = '3rem';
                 paddingBottom = '50px';
                 paddingLeft = '10px';
                 paddingRight = '10px';
@@ -73,8 +82,6 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
                 break;
             case VIEWPORT_TYPES.TABLET:
                 boxShadow = theme.elevation.raised;
-                marginBottom = '3rem';
-                marginTop = '3rem';
                 paddingBottom = '50px';
                 paddingLeft = '20px';
                 paddingRight = '20px';
@@ -82,21 +89,32 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
                 break;
         }
 
-        if (props.isRotated) {
+        if (isRotated) {
             [paddingBottom, paddingLeft] = [paddingLeft, paddingBottom];
             [paddingRight, paddingTop] = [paddingTop, paddingRight];
         }
 
         return `
+            background-color: ${viewportType === VIEWPORT_TYPES.DESKTOP ? theme.colors.empty : theme.colors.stroke}
+            border: 0px;
             border-radius: ${borderRadius};
             box-shadow: ${boxShadow};
-            margin-bottom: ${marginBottom};
-            margin-top: ${marginTop};
-            max-height: calc(100% - ${paddingTop} - ${marginTop});
-            padding-bottom: ${paddingBottom};
-            padding-left: ${paddingLeft};
-            padding-right: ${paddingRight};
-            padding-top: ${paddingTop};
+            max-height: calc(100% - ${paddingTop});
+            min-width: ${isRotated ? viewportType.viewportHeight : viewportType.viewportWidth};
+            opacity: ${isFetching ? 0.5 : 1};
+            padding: ${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft}
         `;
     }}
 `;
+
+PreviewPaneIframe.defaultProps = {
+    theme: {
+        colors: {
+            empty: '#FFFFFF',
+            stroke: '#CFD6E5',
+        },
+        elevation: {
+            raised: '0 1px 6px rgba(48, 53, 64, 0.2)',
+        },
+    },
+};

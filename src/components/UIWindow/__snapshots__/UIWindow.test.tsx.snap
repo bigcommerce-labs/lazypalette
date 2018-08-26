@@ -17,7 +17,7 @@ exports[`UIWindow when given a window renders correctly 1`] = `
           "guideText": "#AAAAAA",
         },
         "elevation": Object {
-          "raised": 1,
+          "floating": "0 2px 12px rgba(48, 53, 64, 0.2)",
         },
         "layers": Object {
           "higher": 100,

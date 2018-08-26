@@ -1,12 +1,21 @@
-import { Icon } from 'pattern-lab';
+import { theme, Icon } from 'pattern-lab';
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { activeClassName, ListItem, NavItem, StyledMenuItems, StyledMenuItemIcon } from './styles';
+import {
+    activeClassName,
+    ExternalNavItem,
+    ItemLabel,
+    ListItem,
+    NavItem,
+    StyledMenuItems,
+    StyledMenuItemIcon
+} from './styles';
 
 interface MenuItem {
     disabled?: boolean;
     divider?: boolean;
+    externalLink?: boolean;
     label: string;
     path: string;
 }
@@ -33,26 +42,49 @@ class MenuItems extends Component<MenuItemsProps, {}> {
     render() {
         return (
             <StyledMenuItems>
-                {this.props.items.map(({ disabled, divider, path, label }) => (
-                    <ListItem divider={divider}>
-                        <NavItem
-                            to={this.toggleLink(path)}
-                            exact
-                            key={path}
-                            isActive={(match, location) => this.isPathActive(path)}
-                            activeClassName={activeClassName}
-                            disabled={disabled}>
-                            <div>
-                                {label}
-                            </div>
-                            {this.props.showArrows &&
-                                <StyledMenuItemIcon>
-                                    <Icon glyph="chevronRight" size="small" />
-                                </StyledMenuItemIcon>
-                            }
-                        </NavItem>
-                    </ListItem>
-                ))}
+                {this.props.items.map(({ disabled, divider, externalLink, path, label }) => {
+                    const isActive = this.isPathActive(path);
+
+                    return (
+                        <ListItem divider={divider} isActive={isActive}>
+                            {externalLink ?
+                                <ExternalNavItem
+                                    href={path}
+                                    target="_blank"
+                                >
+                                    <ItemLabel>
+                                        {label}
+                                    </ItemLabel>
+                                    <StyledMenuItemIcon>
+                                        <Icon glyph="externalLink" size="small" />
+                                    </StyledMenuItemIcon>
+                                </ExternalNavItem>
+
+                                : <NavItem
+                                    to={this.toggleLink(path)}
+                                    exact
+                                    key={path}
+                                    isActive={(match, location) => this.isPathActive(path)}
+                                    activeClassName={activeClassName}
+                                    disabled={disabled}>
+                                    <ItemLabel>
+                                        {label}
+                                    </ItemLabel>
+                                    {this.props.showArrows &&
+                                        <StyledMenuItemIcon>
+                                            <Icon
+                                                primaryColor={isActive
+                                                    ? theme.colors.primaryText
+                                                    : theme.colors.guideText}
+                                                glyph="chevronRight"
+                                                size="large"
+                                            />
+                                        </StyledMenuItemIcon>
+                                    }
+                                </NavItem>}
+                        </ListItem>
+                    );
+                })}
             </StyledMenuItems>
         );
     }

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DesignSubMenu renders 1`] = `
-<SubMenu
+<withRouter(MenuItems)
   currentPath="/styles"
   items={
     Array [
@@ -22,9 +22,17 @@ exports[`DesignSubMenu renders 1`] = `
         "label": "History",
         "path": "history",
       },
+      Object {
+        "label": "More Options",
+        "path": "options",
+      },
+      Object {
+        "externalLink": true,
+        "label": "Help",
+        "path": "https://support.bigcommerce.com/articles/Public/Stencil-Themes/#enabling",
+      },
     ]
   }
   showArrows={true}
-  title="fred"
 />
 `;

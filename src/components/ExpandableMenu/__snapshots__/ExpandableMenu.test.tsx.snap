@@ -5,7 +5,7 @@ exports[`renders 1`] = `
   theme={
     Object {
       "elevation": Object {
-        "raised": "0 1px 6px rgba(48, 53, 64, 0.2)",
+        "floating": "0 2px 12px rgba(48, 53, 64, 0.2)",
       },
       "layers": Object {
         "high": 50,

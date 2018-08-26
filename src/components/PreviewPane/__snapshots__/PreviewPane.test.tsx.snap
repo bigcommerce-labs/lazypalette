@@ -2,7 +2,7 @@
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP updates the rotated viewportType correctly 1`] = `
 <iframe
-  class="sc-chPdSV jbOaAf"
+  class="sc-bwzfXH krqcfQ"
   height="100%"
   width="100%"
 />
@@ -10,7 +10,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP upd
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP updates the viewportType correctly 1`] = `
 <iframe
-  class="sc-chPdSV jbOaAf"
+  class="sc-bwzfXH krqcfQ"
   height="100%"
   width="100%"
 />
@@ -18,7 +18,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP upd
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE updates the rotated viewportType correctly 1`] = `
 <iframe
-  class="sc-chPdSV famdDi"
+  class="sc-bwzfXH imvRfn"
   height="375px"
   width="667px"
 />
@@ -26,7 +26,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE upda
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE updates the viewportType correctly 1`] = `
 <iframe
-  class="sc-chPdSV eicxKm"
+  class="sc-bwzfXH fziczk"
   height="667px"
   width="375px"
 />
@@ -34,7 +34,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE upda
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET updates the rotated viewportType correctly 1`] = `
 <iframe
-  class="sc-chPdSV iRIrCF"
+  class="sc-bwzfXH cfbdlP"
   height="768px"
   width="1024px"
 />
@@ -42,7 +42,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET upda
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET updates the viewportType correctly 1`] = `
 <iframe
-  class="sc-chPdSV eFjrHN"
+  class="sc-bwzfXH kbDMjO"
   height="1024px"
   width="768px"
 />

@@ -5,18 +5,17 @@ import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import 'srcdoc-polyfill';
-import styled from 'styled-components';
 
 import { setStoreData } from '../../actions/merchant';
 import { loadTheme } from '../../actions/theme';
-
+import { State } from '../../reducers/reducers';
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
 import Routes from '../Routes/Routes';
 import SideMenu from '../SideMenu/SideMenu';
 import UserSessionActivity from '../UserSessionActivity/UserSessionActivity';
 import UIWindowProvider from '../UIWindowProvider/UIWindowProvider';
 
-import { State } from '../../reducers/reducers';
+import { StyledApp, Viewport } from './styles';
 
 interface AppProps extends RouteComponentProps<{}> {
     config: {
@@ -27,16 +26,6 @@ interface AppProps extends RouteComponentProps<{}> {
     fetchInitialState(variationID: string): Dispatch<State>;
     setStoreData(storeHash: string): Dispatch<State>;
 }
-
-const StyledApp = styled.div`
-    background: ${({ theme: { colors } }) => colors.background};
-    align-content: flex-start;
-    display: flex;
-    flex-wrap: wrap;
-    height: 100%;
-    position: fixed;
-    width: 100%;
-`;
 
 export class App extends Component<AppProps, {}> {
     componentDidMount() {
@@ -54,8 +43,10 @@ export class App extends Component<AppProps, {}> {
                     <UIWindowProvider>
                         <StyledApp>
                             <HeaderMenu />
-                            <SideMenu />
-                            <Routes />
+                            <Viewport>
+                                <SideMenu />
+                                <Routes />
+                            </Viewport>
                         </StyledApp>
                     </UIWindowProvider>
                 </UserSessionActivity>

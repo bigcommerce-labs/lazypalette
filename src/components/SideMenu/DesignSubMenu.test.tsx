@@ -13,7 +13,6 @@ describe('DesignSubMenu', () => {
             <DesignSubMenu
                 sections={['fred', 'joe']}
                 currentPath={styles.path}
-                themeName="fred"
             />
         );
 
