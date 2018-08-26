@@ -15,7 +15,6 @@ import { StoreDesignSdk, StoreDesignSdkEvents } from '../../services/storeDesign
 import { WindowService } from '../../services/window';
 
 import { PreviewPaneContainer, PreviewPaneIframe } from './styles';
-import { IndicatorBoundary } from './IndicatorBoundary';
 
 interface Raven {
     isSetup(): boolean;
@@ -109,16 +108,14 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
 
         return (
             <PreviewPaneContainer>
-                <IndicatorBoundary {...this.props}>
-                    <PreviewPaneIframe
-                        innerRef={(x: HTMLIFrameElement) => (this.iframeRef = x)}
-                        isFetching={isFetching}
-                        isRotated={isRotated}
-                        onLoad={this.onLoad}
-                        src={pageUrl}
-                        viewportType={viewportType}
-                    />
-                </IndicatorBoundary>
+                <PreviewPaneIframe
+                    innerRef={(x: HTMLIFrameElement) => (this.iframeRef = x)}
+                    isFetching={isFetching}
+                    isRotated={isRotated}
+                    onLoad={this.onLoad}
+                    src={pageUrl}
+                    viewportType={viewportType}
+                />
             </PreviewPaneContainer>
         );
     }
