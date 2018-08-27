@@ -1,8 +1,8 @@
+import { entries } from 'lodash';
 import { Dispatch } from 'redux';
 
 import { ViewportType } from '../components/PreviewPane/PreviewPane';
 import { State } from '../reducers/reducers';
-import * as api from '../services/previewPane';
 
 import { Action } from './action';
 import { ThemeConfigChange } from './theme';
@@ -35,33 +35,33 @@ export function previewPaneLoaded(): PreviewPaneLoadedAction {
     };
 }
 
-export interface PageSourceRequest {
+export interface PageUrlRequest {
     page: string;
 }
-export interface PageSourceRequestAction extends Action  {
-    payload: PageSourceRequest;
+export interface PageUrlRequestAction extends Action  {
+    payload: PageUrlRequest;
     type: PreviewPaneActionTypes.PAGE_SOURCE_REQUEST;
 }
-export function pageSourceRequest(payload: PageSourceRequest): PageSourceRequestAction {
+export function pageUrlRequest(payload: PageUrlRequest): PageUrlRequestAction {
     return {
         payload,
         type: PreviewPaneActionTypes.PAGE_SOURCE_REQUEST,
     };
 }
 
-export interface PageSourceResponse {
+export interface PageUrlResponse {
     page: string;
-    pageSource: string;
+    pageUrl: string;
 }
-export interface PageSourceResponseAction extends Action  {
+export interface PageUrlResponseAction extends Action  {
     error: boolean;
-    payload: PageSourceResponse | Error;
+    payload: PageUrlResponse | Error;
     type: PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE;
 }
-export function pageSourceResponse(
-    payload: PageSourceResponse | Error,
+export function pageUrlResponse(
+    payload: PageUrlResponse | Error,
     error: boolean = false
-): PageSourceResponseAction {
+): PageUrlResponseAction {
     return {
         error,
         payload,
@@ -69,24 +69,29 @@ export function pageSourceResponse(
     };
 }
 
-export interface FetchPageSource {
+export interface FetchPageUrl {
     page: string;
 }
-export function fetchPageSource(
-    { page }: FetchPageSource
+export function fetchPageUrl(
+    { page }: FetchPageUrl
 ) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
-        dispatch(pageSourceRequest({ page }));
+        dispatch(pageUrlRequest({ page }));
 
         const { configurationId, lastCommitId, versionId } = getState().previewPane.themePreviewConfig;
-        const token = `${versionId}@${configurationId}`;
-        const queryParams = {
-            stencilEditor: lastCommitId ? `${token}@${lastCommitId}` : token,
-        };
+        let pageSrc: string = page;
 
-        return api.requestPageSource(page, queryParams)
-            .then((pageSource: string) => dispatch(pageSourceResponse({page, pageSource})))
-            .catch((error: Error) => dispatch(pageSourceResponse(error, true)));
+        if (versionId && configurationId) {
+            const token = `${versionId}@${configurationId}`;
+            const queryParams = {
+                stencilEditor: lastCommitId ? `${token}@${lastCommitId}` : token,
+            };
+            const queryString = entries(queryParams).map(keyValuePair => keyValuePair.join('=')).join('&');
+
+            pageSrc = page + (queryString ? `?${queryString}` : '');
+        }
+
+        return dispatch(pageUrlResponse({page, pageUrl: pageSrc }));
     };
 }
 

@@ -1,73 +1,107 @@
+import Cookies from 'js-cookie';
+import uuid from 'uuid';
+
 export enum StoreDesignSdkEvents {
-    IFRAME_LOAD = 'StoreDesignSdkEvents.IFRAME_LOAD',
+    STORE_DESIGN_SDK_LOAD = 'StoreDesignSdkEvents.STORE_DESIGN_SDK_LOAD',
+    STORE_DESIGN_UPDATE_COOKIES = 'StoreDesignSdkEvents.STORE_DESIGN_UPDATE_COOKIES',
+    STORE_DESIGN_REMOVE_COOKIES = 'StoreDesignSdkEvents.STORE_DESIGN_REMOVE_COOKIES',
 }
 
 export class StoreDesignSdk {
-    static getScript(doc: HTMLDocument) {
+    static getScripts(doc: HTMLDocument) {
+        const jsCookieScript: HTMLScriptElement = doc.createElement('script');
         const storeDesignSdkScript: HTMLScriptElement = doc.createElement('script');
-        const storeDesignSdkScriptTextNode: Text = doc.createTextNode(this.getScriptContents());
+        const jsCookieScriptId = uuid();
 
+        jsCookieScript.setAttribute('id', jsCookieScriptId);
+        jsCookieScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.js');
+        jsCookieScript.setAttribute('type', 'text/javascript');
         storeDesignSdkScript.setAttribute('type', 'text/javascript');
-        storeDesignSdkScript.appendChild(storeDesignSdkScriptTextNode);
+        storeDesignSdkScript.text = `(${init.toString()})('${jsCookieScriptId}', ${getCookieDomain});`;
 
-        return storeDesignSdkScript;
-    }
+        function init(jsCookieScriptId: string, getCookieDomain: (hostname: string) => string) { // tslint:disable-line
+            const STENCIL_COOKIE_NAME = 'stencil_preview';
+            const data = { type: 'StoreDesignSdkEvents.STORE_DESIGN_SDK_LOAD' };
+            const jsCookieScript = document.getElementById(jsCookieScriptId); // tslint:disable-line
 
-    private static getScriptContents() {
-        return `
-            (function() {
-                var STAPLER_PROXY_COOKIE_NAME = 'bc_upstream';
-                var STAPLER_PROXY_COOKIE_VALUE = 'nodejs';
-                var STENCIL_COOKIE_NAME = 'stencil_preview';
-                var windowOnload = window.onload;
+            window.addEventListener('message', (messageEvent: MessageEvent) => {
+                if (!messageEvent.data) {
+                    return;
+                }
 
-                window.addEventListener('load', function() {
-                    window.parent.postMessage('StoreDesignSdkEvents.IFRAME_LOAD', '*');
+                let messageData;
 
-                    if (windowOnload) {
-                        windowOnload.call(window);
+                try {
+                    messageData = JSON.parse(messageEvent.data);
+                } catch (error) {
+                    if (window.Raven && window.Raven.isSetup()) {
+                        window.Raven.captureException(error);
                     }
-                });
 
-                window.addEventListener('message', function(messageEvent) {
-                    var { configurationId, sessionId, versionId } = JSON.parse(messageEvent.data);
-                    var cookieValue = sessionId
-                        ? versionId + '@' + configurationId + '@' + sessionId
+                    return;
+                }
+
+                if (messageData.type === 'StoreDesignSdkEvents.STORE_DESIGN_UPDATE_COOKIES') {
+                    const { lastCommitId, versionId, configurationId } = messageData.payload;
+                    const cookieValue = lastCommitId
+                        ? versionId + '@' + configurationId + '@' + lastCommitId
                         : versionId + '@' + configurationId;
 
                     // Adding a dot because cookie set by bcapp also adds a dot
-                    // setCookie(STENCIL_COOKIE_NAME, cookieValue);
-                    // setCookie(STAPLER_PROXY_COOKIE_NAME, STAPLER_PROXY_COOKIE_VALUE);
-                });
+                    setCookie(STENCIL_COOKIE_NAME, cookieValue);
+                }
+            });
 
-                function setCookie(cookieName, cookieValue) {
-                    var cookieDomain = getCookieDomain(window.location.hostname);
+            if (jsCookieScript) {
+                jsCookieScript.onload = () => {
+                    window.parent.postMessage(JSON.stringify(data), '*');
+                };
+            }
 
-                    document.cookie = cookieName + '=' + cookieValue + ', domain=' + cookieDomain;
+            function setCookie(cookieName: string, cookieValue: string) {
+                const jsCookie = window['Cookies']; // tslint:disable-line
 
-                    if (cookieDomain.match(/^www\./)) {
-                        // Because bcapp sets the cookie at the raw domain, we need to set the cookie without "www"
-                        var cookieDomainWithoutWWW = cookieDomain.substr(3, cookieDomain.length);
-
-                        document.cookie = cookieName + '=' + cookieValue + ', domain=' + cookieDomainWithoutWWW;
-                    }
+                if (!jsCookie) {
+                    return;
                 }
 
-                function getCookieDomain(hostname) {
-                    if (!hostname) {
-                        return 'localhost';
-                    }
+                let domain = getCookieDomain(window.location.hostname);
 
-                    // Adding a dot because cookie set by bcapp also adds a dot
-                    if (hostname !== 'localhost') {
-                        if (hostname.substr(0, 4) !== 'www.') {
-                            return '.' + hostname;
-                        }
-                    }
+                jsCookie.set(cookieName, cookieValue, { domain });
 
-                    return hostname;
+                if (domain.match(/^www\./)) {
+                    // Because bcapp sets the cookie at the raw domain, we need to set the cookie without "www"
+                    domain = domain.substr(3, domain.length);
+                    jsCookie.set(cookieName, cookieValue, { domain });
                 }
-            })();
-        `;
+            }
+        }
+
+        return [jsCookieScript, storeDesignSdkScript];
     }
+
+    static removeCookie(cookieName: string) {
+        let domain = getCookieDomain(window.location.hostname);
+
+        Cookies.remove(cookieName, { domain });
+
+        if (domain.match(/^www\./)) {
+            // Because bcapp sets the cookie at the raw domain, we need to remove the cookie without "www"
+            domain = domain.substr(3, domain.length);
+            Cookies.remove(cookieName, { domain });
+        }
+    }
+}
+
+function getCookieDomain(hostname: string) {
+    if (!hostname) {
+        return 'localhost';
+    }
+
+    // Adding a dot because cookie set by bcapp also adds a dot
+    if (hostname !== 'localhost' && hostname.substr(0, 4) !== 'www.') {
+        return '.' + hostname;
+    }
+
+    return hostname;
 }

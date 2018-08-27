@@ -4,18 +4,25 @@ import { bindActionCreators } from 'redux';
 
 import { clearErrors } from '../../actions/error';
 import {
-    fetchPageSource,
+    fetchPageUrl,
     previewPaneLoaded,
     previewPaneLoading,
     updatePreviewPaneConfig } from '../../actions/previewPane';
 import { ThemePreviewConfig } from '../../reducers/previewPane';
 import { State } from '../../reducers/reducers';
 import { generateStylesheetUrl } from '../../services/previewPane';
-import { StoreDesignSdkEvents } from '../../services/storeDesignSdk';
+import { StoreDesignSdk, StoreDesignSdkEvents } from '../../services/storeDesignSdk';
 import { WindowService } from '../../services/window';
 
 import { PreviewPaneContainer, PreviewPaneIframe } from './styles';
 import { IndicatorBoundary } from './IndicatorBoundary';
+
+interface Raven {
+    isSetup(): boolean;
+    captureException(e: Error): void;
+}
+
+declare global { interface Window { Raven: Raven; } }
 
 export interface ViewportType {
     glyphName: string;
@@ -30,7 +37,7 @@ interface PreviewPaneProps {
     isFetching: boolean;
     isRotated: boolean;
     page: string;
-    pageSource: string;
+    pageUrl: string;
     themePreviewConfig: ThemePreviewConfig;
     viewportType: ViewportType;
     loadPage(page: string): (dispatch: Dispatch, getState: () => State) => void;
@@ -43,17 +50,25 @@ interface PreviewPaneProps {
 class PreviewPane extends PureComponent<PreviewPaneProps> {
     private iframeRef: HTMLIFrameElement;
 
-    handleMessage = (event: MessageEvent) => {
-        const { configurationId, lastCommitId, versionId } = this.props.themePreviewConfig;
+    handleMessage = (event: MessageEvent): void => {
+        if (!event.data) {
+            return;
+        }
 
-        if (event.data === StoreDesignSdkEvents.IFRAME_LOAD) {
-            const message = {
-                configurationId,
-                sessionId: lastCommitId,
-                versionId,
-            };
+        let message;
 
-            event.source!.postMessage(JSON.stringify(message), event.origin);
+        try {
+            message = JSON.parse(event.data);
+        } catch (e) {
+            if (window.Raven && window.Raven.isSetup()) {
+                window.Raven.captureException(e);
+            }
+
+            return;
+        }
+
+        if (message && message.type === StoreDesignSdkEvents.STORE_DESIGN_SDK_LOAD) {
+            this.updateCookies();
         }
     };
 
@@ -89,7 +104,7 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
         const {
             isFetching,
             isRotated,
-            pageSource,
+            pageUrl,
             viewportType } = this.props;
 
         return (
@@ -99,7 +114,8 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
                         innerRef={(x: HTMLIFrameElement) => (this.iframeRef = x)}
                         isFetching={isFetching}
                         isRotated={isRotated}
-                        srcDoc={pageSource}
+                        onLoad={this.onLoad}
+                        src={pageUrl}
                         viewportType={viewportType}
                     />
                 </IndicatorBoundary>
@@ -107,101 +123,131 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
         );
     }
 
-    private updateStyles() {
+    private onLoad = () => {
+        if (!this.iframeRef || !this.iframeRef.contentDocument) {
+            return;
+        }
+
+        const doc: HTMLDocument = this.iframeRef.contentDocument;
+        const storeDesignSdkScripts = StoreDesignSdk.getScripts(doc);
+
+        storeDesignSdkScripts.forEach(script => doc.body.appendChild(script));
+    };
+
+    private updateCookies() {
         const { configurationId, lastCommitId, versionId } = this.props.themePreviewConfig;
+        const data = {
+            payload: {
+                configurationId,
+                lastCommitId,
+                versionId,
+            },
+            type: StoreDesignSdkEvents.STORE_DESIGN_UPDATE_COOKIES,
+        };
 
-        if (this.iframeRef && this.iframeRef.contentDocument && configurationId !== '') {
-            const doc: HTMLDocument = this.iframeRef.contentDocument;
-            const linkNodes: NodeListOf<HTMLLinkElement> = doc.head.querySelectorAll('link[data-stencil-stylesheet]');
-            const links: HTMLLinkElement[] = Array.prototype.slice.call(linkNodes);
-
-            const styleUpdaters: Array<Promise<any>>
-                = links.map((currentLink: HTMLLinkElement) => {
-                    const url = currentLink.getAttribute('href');
-
-                    return new Promise((resolve, reject) => {
-                        let newLink: HTMLLinkElement;
-
-                        // if condition is added because generateStylesheetUrl
-                        // assumes url might be null and throws a error
-                        if (!url) {
-                            return resolve();
-                        }
-
-                        const stylesheetLoad = () => {
-                            newLink.removeAttribute('data-is-loading');
-                            // Destroy any existing handlers to save memory on subsequent stylesheet changes
-                            newLink.removeEventListener('error', stylesheetError);
-                            newLink.removeEventListener('load', stylesheetLoad);
-
-                            // Remove the old stylesheet to allow the new one to take over
-                            doc.head.removeChild(currentLink);
-
-                            self.document.body.focus();
-
-                            resolve();
-                        };
-
-                        const stylesheetError = () => {
-                            // Something went wrong with our new stylesheet, so destroy it and keep the old one
-                            newLink.removeEventListener('error', stylesheetError);
-                            newLink.removeEventListener('load', stylesheetLoad);
-
-                            doc.head.removeChild(newLink);
-
-                            reject();
-                        };
-
-                        if (currentLink.hasAttribute('data-is-loading')) {
-                            doc.head.removeChild(currentLink);
-
-                            resolve();
-                        } else {
-                            newLink = (currentLink.cloneNode(false) as HTMLLinkElement);
-
-                            newLink.setAttribute('href', generateStylesheetUrl(url, {
-                                configurationId, lastCommitId, versionId,
-                            }));
-                            newLink.setAttribute('data-is-loading', 'true');
-
-                            newLink.addEventListener('load', stylesheetLoad);
-                            newLink.addEventListener('error', stylesheetError);
-
-                            // Insert the new stylesheet before the old one to avoid any flash of un-styled content.
-                            // The load and error events only work for the initial load,
-                            // which is why we replace the link on each update.
-                            doc.head.insertBefore(newLink, currentLink);
-                        }
-                    });
-                });
-
-            Promise.all(styleUpdaters)
-                .then(() => {
-                    this.props.previewPaneLoaded();
-                })
-                .catch(() => {
-                    this.props.previewPaneLoaded();
-                });
-
+        if (this.iframeRef && this.iframeRef.contentWindow) {
+            this.iframeRef.contentWindow.postMessage(JSON.stringify(data), '*');
         }
     }
 
-    private updateFonts() {
-        if (this.props.fontUrl && this.iframeRef && this.iframeRef.contentDocument) {
-            const doc: HTMLDocument = this.iframeRef.contentDocument;
-            const link = doc.createElement('link');
+    private updateStyles() {
+        const { configurationId, lastCommitId, versionId } = this.props.themePreviewConfig;
 
-            link.setAttribute('rel', 'stylesheet');
-            link.setAttribute('href', this.props.fontUrl);
+        if (!this.iframeRef || !this.iframeRef.contentDocument || configurationId === '') {
+            return;
+        }
 
-            link.addEventListener('load', function linkLoadHandler() {
-                link.removeEventListener('load', linkLoadHandler);
+        const doc: HTMLDocument = this.iframeRef.contentDocument;
+        const linkNodes: NodeListOf<HTMLLinkElement> = doc.head.querySelectorAll('link[data-stencil-stylesheet]');
+        const links: HTMLLinkElement[] = Array.prototype.slice.call(linkNodes);
 
-                doc.body.focus();
+        const styleUpdaters: Array<Promise<any>>
+            = links.map((currentLink: HTMLLinkElement) => {
+                const url = currentLink.getAttribute('href');
+
+                return new Promise((resolve, reject) => {
+                    let newLink: HTMLLinkElement;
+
+                    // if condition is added because generateStylesheetUrl
+                    // assumes url might be null and throws a error
+                    if (!url) {
+                        return resolve();
+                    }
+
+                    const stylesheetLoad = () => {
+                        newLink.removeAttribute('data-is-loading');
+                        // Destroy any existing handlers to save memory on subsequent stylesheet changes
+                        newLink.removeEventListener('error', stylesheetError);
+                        newLink.removeEventListener('load', stylesheetLoad);
+
+                        // Remove the old stylesheet to allow the new one to take over
+                        doc.head.removeChild(currentLink);
+
+                        self.document.body.focus();
+
+                        resolve();
+                    };
+
+                    const stylesheetError = () => {
+                        // Something went wrong with our new stylesheet, so destroy it and keep the old one
+                        newLink.removeEventListener('error', stylesheetError);
+                        newLink.removeEventListener('load', stylesheetLoad);
+
+                        doc.head.removeChild(newLink);
+
+                        reject();
+                    };
+
+                    if (currentLink.hasAttribute('data-is-loading')) {
+                        doc.head.removeChild(currentLink);
+
+                        resolve();
+                    } else {
+                        newLink = (currentLink.cloneNode(false) as HTMLLinkElement);
+
+                        newLink.setAttribute('href', generateStylesheetUrl(url, {
+                            configurationId, lastCommitId, versionId,
+                        }));
+                        newLink.setAttribute('data-is-loading', 'true');
+
+                        newLink.addEventListener('load', stylesheetLoad);
+                        newLink.addEventListener('error', stylesheetError);
+
+                        // Insert the new stylesheet before the old one to avoid any flash of un-styled content.
+                        // The load and error events only work for the initial load,
+                        // which is why we replace the link on each update.
+                        doc.head.insertBefore(newLink, currentLink);
+                    }
+                });
             });
 
-            doc.head.appendChild(link);
+        Promise.all(styleUpdaters)
+            .then(() => {
+                this.props.previewPaneLoaded();
+            })
+            .catch(() => {
+                this.props.previewPaneLoaded();
+            });
+    }
+
+    private updateFonts() {
+        if (!this.props.fontUrl || !this.iframeRef || !this.iframeRef.contentDocument) {
+            return;
         }
+
+        const doc: HTMLDocument = this.iframeRef.contentDocument;
+        const link = doc.createElement('link');
+
+        link.setAttribute('rel', 'stylesheet');
+        link.setAttribute('href', this.props.fontUrl);
+
+        link.addEventListener('load', function linkLoadHandler() {
+            link.removeEventListener('load', linkLoadHandler);
+
+            doc.body.focus();
+        });
+
+        doc.head.appendChild(link);
     }
 }
 
@@ -215,7 +261,7 @@ const mapStateToProps = (state: State): Partial<PreviewPaneProps> => {
 
 const mapDispatchToProps = (dispatch: Dispatch): Partial<PreviewPaneProps> => bindActionCreators({
     clearErrors,
-    loadPage: (page: string) => fetchPageSource({ page }),
+    loadPage: (page: string) => fetchPageUrl({ page }),
     previewPaneLoaded,
     previewPaneLoading,
     updatePreviewPaneConfig,

@@ -10,7 +10,7 @@ describe('Preview Pane reducer', () => {
         isFetching: true,
         isRotated: false,
         page: '/',
-        pageSource: '',
+        pageUrl: '',
         themePreviewConfig: {
             configurationId: '',
             lastCommitId: '',
@@ -24,7 +24,7 @@ describe('Preview Pane reducer', () => {
 
             const errorPayload = new Error('dog');
             const error = true;
-            const action = previewPaneActions.pageSourceResponse(errorPayload, error);
+            const action = previewPaneActions.pageUrlResponse(errorPayload, error);
 
             expect(previewPane(initialState, action)).toEqual(initialState);
         });
@@ -37,7 +37,7 @@ describe('Preview Pane reducer', () => {
                 isFetching: true,
                 isRotated: false,
                 page: '/',
-                pageSource: 'hi',
+                pageUrl: 'hi',
                 themePreviewConfig: {
                     configurationId: '123',
                     lastCommitId: '234',
@@ -56,7 +56,7 @@ describe('Preview Pane reducer', () => {
     describe('when PAGE_SOURCE_REQUEST action is received', () => {
         it('should update the state', () => {
             const payload = { page: 'hello'};
-            const action = previewPaneActions.pageSourceRequest(payload);
+            const action = previewPaneActions.pageUrlRequest(payload);
             const expectedState = { ...initialState, ...payload, isFetching: true };
 
             expect(previewPane(initialState, action)).toEqual(expectedState);
@@ -65,8 +65,8 @@ describe('Preview Pane reducer', () => {
 
     describe('when PAGE_SOURCE_RESPONSE action is received', () => {
         it('should update the state', () => {
-            const payload = { page: 'hello', pageSource: 'bye'};
-            const action = previewPaneActions.pageSourceResponse(payload);
+            const payload = { page: 'hello', pageUrl: 'bye'};
+            const action = previewPaneActions.pageUrlResponse(payload);
             const expectedState = { ...initialState, ...payload, isFetching: false };
 
             expect(previewPane(initialState, action)).toEqual(expectedState);
