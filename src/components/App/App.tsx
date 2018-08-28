@@ -9,6 +9,8 @@ import 'srcdoc-polyfill';
 import { setStoreData, StoreDefaultData } from '../../actions/merchant';
 import { loadTheme } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
+
+import Banner from '../Banner/Banner';
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
 import Routes from '../Routes/Routes';
 import SideMenu from '../SideMenu/SideMenu';
@@ -34,16 +36,30 @@ export class App extends Component<AppProps, {}> {
         const queryParams = queryString.parse(this.props.location.search);
         const variationId = queryParams.variationId ? queryParams.variationId : '';
         const { storeHash, isDownForMaintenance, isPrelaunchStore } = this.props.config;
-        this.props.setStoreData({ storeHash, isDownForMaintenance, isPrelaunchStore });
+
+        this.props.setStoreData({
+            isDownForMaintenance,
+            isPrelaunchStore,
+            storeHash,
+        });
         this.props.fetchInitialState(variationId);
     }
 
     render() {
+        const { isDownForMaintenance, isPrelaunchStore } = this.props.config;
+        const addBanner = isDownForMaintenance || isPrelaunchStore;
+        const message = isDownForMaintenance
+            ? 'Your store is under maintenance'
+            : isPrelaunchStore
+                ? 'Your store has not been published'
+                : '';
+
         return (
             <PatternLabThemeProvider>
                 <UserSessionActivity oauthBaseUrl={this.props.config.oauthBaseUrl}>
                     <UIWindowProvider>
                         <StyledApp>
+                            {addBanner ? <Banner message={message}/> : ''}
                             <HeaderMenu />
                             <Viewport>
                                 <SideMenu />
