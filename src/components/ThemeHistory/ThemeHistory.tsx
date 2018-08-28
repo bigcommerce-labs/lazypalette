@@ -9,7 +9,7 @@ import { ThemeVariationHistory, ThemeVariationHistoryEntry } from '../../reducer
 import Draggable from '../Draggable/Draggable';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import { Messages } from '../Modal/constants';
-import ConfirmModal from '../Modal/ConfirmModal';
+import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 import { appRoutes } from '../Routes/Routes';
 
 import { EntryActive, EntryDate, EntryTitle, HistoryEntry, List } from './styles';

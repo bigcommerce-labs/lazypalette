@@ -18,6 +18,14 @@ export const Container = styled.div`
     z-index: ${({ theme }) => theme.layers.higher};
 `;
 
+Container.defaultProps = {
+    theme: {
+        layers: {
+            higher: 100,
+        },
+    },
+};
+
 export const Overlay = styled.div.attrs<OverlayProps>({})`
     position: fixed;
     top: 0;
@@ -29,6 +37,17 @@ export const Overlay = styled.div.attrs<OverlayProps>({})`
     background: ${({ theme }) => theme.colors.empty};
     z-index: ${({ theme }) => theme.layers.higher};
 `;
+
+Overlay.defaultProps = {
+    theme: {
+        colors: {
+            empty: '#FFFFFF',
+        },
+        layers: {
+            higher: 100,
+        },
+    },
+};
 
 export const Content = styled.div`
     margin: 0;
@@ -43,6 +62,19 @@ export const Header = styled.h3`
     color: ${({ theme }) => theme.colors.primaryText};
 `;
 
+Header.defaultProps = {
+    theme: {
+        colors: {
+            primaryText: '#303540',
+        },
+        typography: {
+            fontWeight: {
+                bold: 600,
+            },
+        },
+    },
+};
+
 export const ModalBox = styled.div`
     position: relative;
     background-color: ${({ theme }) => theme.colors.empty};
@@ -52,6 +84,21 @@ export const ModalBox = styled.div`
     overflow: auto;
     z-index: ${({ theme }) => theme.layers.highest};
 `;
+
+ModalBox.defaultProps = {
+    theme: {
+        colors: {
+            empty: '#FFFFFF',
+            guideText: '#ABB1BE',
+        },
+        elevation: {
+            floating: '0 2px 12px rgba(48, 53, 64, 0.2)',
+        },
+        layers: {
+            highest: 500,
+        },
+    },
+};
 
 export const NavItem = styled(Link)`
     position: absolute;
@@ -70,7 +117,16 @@ export const NavItem = styled(Link)`
     }
 `;
 
-export const ConfirmBody = styled.div`
+NavItem.defaultProps = {
+    theme: {
+        colors: {
+            background: '#F5F7FA',
+            primaryText: '#303540',
+        },
+    },
+};
+
+export const ModalBody = styled.div`
     padding-left: .5rem;
 `;
 
@@ -80,11 +136,11 @@ export const ConfirmButtons = styled.div`
     width: 7rem;
 `;
 
-export const Confirm = styled.div`
+export const ModalView = styled.div`
     max-width: 35rem;
 `;
 
-export const ConfirmFooter = styled.div`
+export const ModalFooter = styled.div`
     display: flex;
     justify-content: flex-end;
     padding: 1.5rem .5rem .5rem

@@ -9,7 +9,7 @@ import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 
 import Draggable from '../Draggable/Draggable';
 import { Messages } from '../Modal/constants';
-import ConfirmModal from '../Modal/ConfirmModal';
+import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 import { appRoutes } from '../Routes/Routes';
 
 import ThemeModule from './ThemeModule';

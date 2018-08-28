@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlertModal renders 1`] = `
+<Modal
+  isTransparent={false}
+  title="Alert!"
+>
+  <styled.div>
+    <styled.div>
+      You have been automatically logged out due to $REASONS
+    </styled.div>
+    <styled.div>
+      <ButtonInput
+        classType="primary"
+        onClick={[MockFunction]}
+        type="button"
+      >
+        Ok
+      </ButtonInput>
+    </styled.div>
+  </styled.div>
+</Modal>
+`;

@@ -1,29 +1,10 @@
 import { mount, shallow } from 'enzyme';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 
 import { Container, Header, ModalBox, NavItem } from './styles';
 import Modal from './Modal';
 
 describe('Modal', () => {
-    const theme = {
-        colors: {
-            background: '#f0f',
-            empty: '#FFFFFF',
-        },
-        elevation: {
-            raised: '0 1px 6px rgba(48, 53, 64, 0.2)',
-        },
-        layers: {
-            high: '50',
-        },
-        typography: {
-            fontWeight: {
-                bold: '600',
-            },
-        },
-    };
-
     it('renders', () => {
         const mockHandler = jest.fn();
 
@@ -84,16 +65,14 @@ describe('Modal', () => {
                 );
 
                 const modal = mount(
-                    <ThemeProvider theme={theme}>
-                        <Modal
-                            backLink=""
-                            isTransparent={false}
-                            title="Test Modal"
-                            onClose={mockHandler}
-                        >
-                            <TestChildren />
-                        </Modal>
-                    </ThemeProvider>
+                    <Modal
+                        backLink=""
+                        isTransparent={false}
+                        title="Test Modal"
+                        onClose={mockHandler}
+                    >
+                        <TestChildren />
+                    </Modal>
                 );
 
                 const modalBox = modal.find(ModalBox);
