@@ -15,6 +15,10 @@ export const appRoutes = {
         path: '/',
         route: '/',
     },
+    options: {
+        path: '/options',
+        route: 'options',
+    },
     section: {
         path: '/section/:id(\\d+)',
         route: 'section/',
@@ -36,12 +40,13 @@ interface RoutesProps extends RouteComponentProps<{}> {}
 
 export class Routes extends PureComponent<RoutesProps> {
     render() {
-        const { history, home, styles, section  } = appRoutes;
+        const { history, home, options, styles, section  } = appRoutes;
 
         return (
             <Switch>
                 <Route path={history.path} exact component={PreviewPane} />
                 <Route path={home.path} exact component={PreviewPane} />
+                <Route path={options.path} exact component={PreviewPane} />
                 <Route path={styles.path} exact component={PreviewPane} />
                 <Route path={section.path} exact component={PreviewPane} />
                 <Route component={NoRoute} />

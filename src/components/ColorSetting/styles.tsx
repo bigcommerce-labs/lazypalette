@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -11,7 +11,6 @@ interface SelectedColorProps {
     color: string;
 }
 export const SelectedColor = styled.div.attrs<SelectedColorProps>({}) `
-  align-self: center;
   background: ${(props: SelectedColorProps) => `${props.color}`};
   border: 1px solid ${({ theme }) => theme.colors.stroke};
   border-radius: 3px;
@@ -19,7 +18,6 @@ export const SelectedColor = styled.div.attrs<SelectedColorProps>({}) `
   cursor: pointer;
   flex-shrink: 0;
   height: 1.5rem;
-  margin: 1px;
   width: 1.5rem;
 `;
 
@@ -33,5 +31,4 @@ export const ColorText = styled.div`
 
 export const Label = styled.label`
   color: ${({ theme }) => theme.colors.primaryText};
-  white-space: nowrap;
 `;

@@ -2,18 +2,18 @@ import React, { PureComponent } from 'react';
 
 import { appRoutes } from '../Routes/Routes';
 
-import SubMenu from './SubMenu';
+import MenuItems from './MenuItems';
 
 interface MenuItem {
     divider?: boolean;
     label: string;
     path: string;
+    externalLink?: boolean;
 }
 
 interface DesignSubMenuProps {
     sections: string[];
     currentPath: string;
-    themeName: string;
 }
 
 const staticTopItems: MenuItem[] = [
@@ -29,6 +29,15 @@ const staticBottomItems: MenuItem[] = [
         label: 'History',
         path: appRoutes.history.route,
     },
+    {
+        label: 'More Options',
+        path: appRoutes.options.route,
+    },
+    {
+        externalLink: true,
+        label: 'Help',
+        path: 'https://support.bigcommerce.com/articles/Public/Stencil-Themes/#enabling',
+    },
 ];
 
 const getItems = (sections: string[]) => {
@@ -42,11 +51,10 @@ const getItems = (sections: string[]) => {
 
 class DesignSubMenu extends PureComponent<DesignSubMenuProps> {
     render() {
-        const { currentPath, themeName } = this.props;
+        const { currentPath } = this.props;
 
         return (
-            <SubMenu
-                title={themeName}
+            <MenuItems
                 items={[...staticTopItems, ...getItems(this.props.sections), ...staticBottomItems]}
                 currentPath={currentPath}
                 showArrows={true}

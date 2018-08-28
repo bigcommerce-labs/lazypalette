@@ -2,74 +2,13 @@ import { Theme } from 'pattern-lab';
 import { NavLink } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
-import { ExpandModal } from '../ExpandableMenu/styles';
-
 import { Collapsed } from './constants';
 
 export const activeClassName = 'nav-item-active';
 
-export const Container = styled.div`
-    position: relative;
-    margin: 0;
-    height: 100%;
-`;
-
-export const Title = styled.div`
-    color: ${({ theme }) => theme.colors.primaryText};
-    font-size: ${({ theme }) => theme.typography.fontSize.larger};
-    line-height: 2rem;
-    margin-bottom: 1rem;
-`;
-
-interface NavProps {
-    activeClassName: string;
-    disabled?: boolean;
-    divider?: boolean;
-}
-
-export const NavItem = styled(NavLink)
-    .attrs<NavProps>({
-    activeClassName,
-})`
-    ${({ disabled, divider, theme }) => `
-        color: ${theme.colors.primaryText};
-        display: flex;
-        height: 2.25rem;
-        justify-content: space-between;
-        opacity: ${disabled ? 0.5 : 1}
-        overflow: hidden;
-        pointer-events: ${disabled ? 'none' : 'auto'};
-        text-decoration: none;
-
-        &:visited {
-            color: ${theme.colors.primaryText};
-        }
-
-        &.${activeClassName} {
-            font-weight: ${theme.typography.fontWeight.bold};
-        }
-    `}
-`;
-
-interface ListItemProps {
-    divider?: boolean;
-}
-
-export const ListItem = styled.li.attrs<ListItemProps>({})`
-    ${({ divider, theme }) => {
-        if (divider) {
-            return `border-top: 1px solid ${theme.colors.stroke};
-                    margin-top: 0.5rem;
-                    padding-top: 1rem;`;
-        }
-
-        return ``;
-    }
-}`;
-
 export const fadeIn = keyframes`
     0% {
-        width: 11.5rem;
+        width: 13.5rem;
         opacity: 1;
         visibility: visible;
         padding-left: 1.5rem;
@@ -110,11 +49,15 @@ export const fadeOut = keyframes`
         opacity: 0.33;
     }
     100% {
-        width: 11.5rem;
+        width: 13.5rem;
         opacity: 1;
         visibility: visible;
     }
 `;
+
+interface CollapsedProps {
+    collapsed: string;
+}
 
 const getSideMenuStyles = ({collapsed}: CollapsedProps) => {
     if (collapsed === Collapsed.Yes) {
@@ -125,75 +68,154 @@ const getSideMenuStyles = ({collapsed}: CollapsedProps) => {
         `;
     } else if (collapsed === Collapsed.No) {
         return `
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-            width: 11.5rem;
+            width: 16.5rem;
             visibility: visible;
             animation: ${fadeOut} 250ms linear;
         `;
     }
 
     return `
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-        width: 11.5rem;
+        width: 16.5rem;
         visibility: visible;
     `;
 };
 
-interface CollapsedProps {
-    collapsed: string;
-}
-
-export const slideIn = keyframes`
-    from { left: 14.5rem; }
-    to { left: 1rem; }
-`;
-
-export const slideOut = keyframes`
-    from { left: 1rem; }
-    to { left: 14.5rem; }
-`;
-
-export const StyledSideMenu = styled.nav.attrs<CollapsedProps>({})`
+export const Container = styled.nav.attrs<CollapsedProps>({})`
+    display: flex;
+    flex-direction: column;
     position: relative;
-    padding-top: 1.5rem;
-    height: 100%;
+    justify-content: stretch;
+    margin: 0;
+    width: 16.5rem;
 
     ${props => getSideMenuStyles(props)};
+`;
 
-    ${ExpandModal} {
-        ${props => props.collapsed === Collapsed.Yes && `
-            left: 1rem;
-            visibility: visible;
-            animation: ${slideIn} 250ms linear !important;
-        `};
-        ${props => props.collapsed === Collapsed.No && `
-            left: 14.5rem;
-            visibility: visible;
-            animation: ${slideOut} 250ms linear !important;
-        `};
+export const Header = styled.div`
+    flex-grow: 0;
+    margin: 1.5rem 1.25rem 1.25rem 1.5rem;
+`;
+
+export const MenuContents = styled.div`
+    flex-grow: 1;
+    margin: 0;
+    overflow-y: auto;
+`;
+
+export const Footer = styled.div`
+    flex-grow: 0;
+    flex-shrink: 1;
+    margin: 1rem 1.25rem 1.25rem 1.5rem;
+`;
+
+export const Title = styled.div`
+    color: ${({ theme }) => theme.colors.primaryText};
+    font-size: ${({ theme }) => theme.typography.fontSize.larger};
+    height: 2rem;
+    line-height: 2rem;
+    margin: 0 0 0.5rem 0;
+`;
+
+interface NavProps {
+    activeClassName: string;
+    disabled?: boolean;
+    divider?: boolean;
+}
+
+export const NavItem = styled(NavLink)
+    .attrs<NavProps>({
+    activeClassName,
+})`
+    ${({ disabled, divider, theme }) => `
+        color: ${theme.colors.primaryText};
+        display: flex;
+        justify-content: space-between;
+        opacity: ${disabled ? 0.5 : 1}
+        overflow: hidden;
+        pointer-events: ${disabled ? 'none' : 'auto'};
+        text-decoration: none;
+
+        &:visited {
+            color: ${theme.colors.primaryText};
+        }
+
+        &.${activeClassName} {
+            font-weight: ${theme.typography.fontWeight.bold};
+        }
+    `}
+`;
+
+export const ExternalNavItem = styled.a`
+    ${({ theme }) => `
+        color: ${theme.colors.primaryText};
+        display: flex;
+        overflow: hidden;
+        padding-right: 0.5rem;
+        text-decoration: none;
+        width: max-content;
+
+        &:visited {
+            color: ${theme.colors.primaryText};
+        }
+
+        &.${activeClassName} {
+            color: ${theme.colors.primaryText};
+            font-weight: ${theme.typography.fontWeight.bold};
+        }
+    `}
+`;
+
+interface ListItemProps {
+    divider?: boolean;
+    isActive: boolean;
+}
+
+export const ListItem = styled.li.attrs<ListItemProps>({})`
+    border-left: 0.25rem solid;
+    border-left-color: ${({ isActive, theme }) => isActive ? theme.colors.primary : `transparent`}
+    padding-left: 1.25rem;
+
+    ${({ divider, theme }) => {
+        if (divider) {
+            return `
+                margin-top: 1rem;
+                padding-top: 1rem;
+                position: relative;
+
+                :before {
+                    border-top: 1px solid ${theme.colors.stroke};
+                    content: "";
+                    height: 1px;
+                    left: 1.25rem;
+                    position: absolute;
+                    top: 0;
+                    width: calc(100% - 2.75rem);
+                }`;
+        }
+
+        return ``;
     }
+}`;
+
+export const ItemLabel = styled.span`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 export const StyledMenuItems = styled.ul`
     font-size: ${({ theme }) => theme.typography.fontSize.small};
-    line-height: 1.5rem;
+    line-height: 2rem;
     list-style-type: none;
-    margin-top: 0;
-    padding-left: 0;
+    margin: 0;
+    overflow-y: auto;
+    padding: 0;
     vertical-align: top;
 `;
 
 export const StyledMenuItemIcon = styled.span`
     color: ${({ theme }) => theme.colors.guideText};
-    position: relative;
-    top: 0.25rem;
-`;
-
-export const DesignMenuButtons = styled.div`
-    display: flex;
-    justify-content: space-around;
+    margin: 0.125rem 1rem 0 0.25rem;
 `;
 
 interface CollapsedStyles extends CollapsedProps {
@@ -229,6 +251,7 @@ const getCollapseStyles = ({collapsed, theme}: CollapsedStyles) => {
         return `
             left: 3rem;
             background: ${theme.colors.primary};
+            border: 1px solid ${theme.colors.primary};
             box-shadow: ${theme.elevation.raised};
             animation: ${fadeBtnIn} 250ms linear;
 
@@ -249,6 +272,7 @@ const getCollapseStyles = ({collapsed, theme}: CollapsedStyles) => {
         return `
             right: 1rem;
             background: ${theme.colors.empty};
+            border: 1px solid ${theme.colors.stroke};
             animation: ${fadeBtnOut} 250ms linear;
         `;
     }
@@ -261,11 +285,10 @@ const getCollapseStyles = ({collapsed, theme}: CollapsedStyles) => {
 
 export const CollapseButton = styled.button.attrs<CollapsedProps>({})`
     position: absolute;
-    bottom: 5rem;
+    bottom: 1.25rem;
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    border: 1px solid ${({ theme }) => theme.colors.stroke};
     cursor: pointer;
     padding-bottom: .25rem;
     visibility: visible;
@@ -293,7 +316,7 @@ export const CollapseButton = styled.button.attrs<CollapsedProps>({})`
 `;
 
 interface ToolTipProps {
-    key: string;
+    collapsed: string;
     primaryTip: string;
     secondaryTip: string;
 }
@@ -305,7 +328,7 @@ export const delayIn = keyframes`
 `;
 
 export const ToolTip = styled.span.attrs<ToolTipProps>({})`
-    opacity 0;
+    opacity: 0;
     background: ${({ theme }) => theme.colors.primaryText};
     color: ${({ theme }) => theme.colors.empty};
     border-radius: 6px;
@@ -330,7 +353,7 @@ export const ToolTip = styled.span.attrs<ToolTipProps>({})`
         animation-delay: 500ms;
         animation-fill-mode: forwards;
 
-        ${props => props.key === Collapsed.Yes && `
+        ${props => props.collapsed === Collapsed.Yes && `
             :after {
                 content: "${props.secondaryTip}";
             }
@@ -348,7 +371,6 @@ export const StyledStatus = styled.div`
   display: inline-block;
   box-sizing: border-box;
   padding: 0 .5rem;
-  margin-bottom: 1.5rem;
   height: 1.25rem;
   line-height: calc(1.25rem - 2px);
 `;

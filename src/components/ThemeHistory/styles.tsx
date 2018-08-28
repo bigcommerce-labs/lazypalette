@@ -4,15 +4,13 @@ export const List = styled.ul`
     cursor: pointer;
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 1rem 0 1.5rem;
     height: 55vh;
-    min-width: 25rem;
-    overflow-y: auto;
-    width:
+    width: 20rem;
 `;
 
 export const HistoryEntry = styled.li`
-    margin: 1rem 1rem 2rem;
+    margin: 0 0 2rem 0;
 `;
 
 export const EntryActive = styled.div`
@@ -53,6 +51,8 @@ EntryActive.defaultProps = {
 
 export const EntryDate = styled.div`
     color: ${({theme}) => theme.colors.primaryText };
+    line-height: 1.5rem;
+    margin: 0 0 .25rem 0;
     position: relative;
     font-weight: ${({ theme }) => theme.typography.fontWeight.bold };
 `;
@@ -72,6 +72,7 @@ EntryDate.defaultProps = {
 
 export const EntryTitle = styled.div`
     color: ${({theme}) => theme.colors.secondaryText };
+    line-height: 1.5rem;
 `;
 
 EntryTitle.defaultProps = {

@@ -73,9 +73,8 @@ const openAnimation = keyframes`
 export const StyledWindow = styled.div.attrs<StyledWindowProps>({})`
     position: absolute;
     background-color: ${({ theme }) => theme.colors.empty};
-    border: 1px solid ${({ theme }) => theme.colors.guideText};
     border-radius: 6px;
-    box-shadow: ${({ theme }) => theme.elevation.raised};
+    box-shadow: ${({ theme }) => theme.elevation.floating};
     overflow: auto;
     animation: ${openAnimation} 50ms linear;
     pointer-events: auto;
@@ -99,7 +98,7 @@ StyledWindow.defaultProps = {
             guideText: '#AAAAAA',
         },
         elevation: {
-            raised: 1,
+            floating: '0 2px 12px rgba(48, 53, 64, 0.2)',
         },
         layers: {
             higher: 100,

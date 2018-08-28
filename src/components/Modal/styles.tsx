@@ -48,7 +48,7 @@ export const ModalBox = styled.div`
     background-color: ${({ theme }) => theme.colors.empty};
     padding: .5rem .75rem;
     border: 1px solid ${({ theme }) => theme.colors.guideText};
-    box-shadow: ${({ theme }) => theme.elevation.raised};
+    box-shadow: ${({ theme }) => theme.elevation.floating};
     overflow: auto;
     z-index: ${({ theme }) => theme.layers.highest};
 `;

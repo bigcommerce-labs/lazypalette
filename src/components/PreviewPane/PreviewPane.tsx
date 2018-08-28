@@ -14,6 +14,7 @@ import { generateStylesheetUrl } from '../../services/previewPane';
 import { StoreDesignSdk, StoreDesignSdkEvents } from '../../services/storeDesignSdk';
 import { WindowService } from '../../services/window';
 
+import { VIEWPORT_TYPES } from './constants';
 import { PreviewPaneContainer, PreviewPaneIframe } from './styles';
 
 interface Raven {
@@ -107,7 +108,7 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
             viewportType } = this.props;
 
         return (
-            <PreviewPaneContainer>
+            <PreviewPaneContainer showBorder={viewportType === VIEWPORT_TYPES.DESKTOP}>
                 <PreviewPaneIframe
                     innerRef={(x: HTMLIFrameElement) => (this.iframeRef = x)}
                     isFetching={isFetching}

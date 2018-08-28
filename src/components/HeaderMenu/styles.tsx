@@ -5,12 +5,13 @@ import styled from 'styled-components';
 import { ViewportType } from '../PreviewPane/PreviewPane';
 
 export const StyledHeaderMenu = styled.nav`
+    align-items: center;
     background: ${({ theme: { colors } }) => colors.empty};
-    padding: .75rem 0 .75rem 2rem;
-    width: 100%;
     border-bottom: 1px solid ${({ theme: { colors } }) => colors.stroke};
     display: flex;
-    align-items: center;
+    flex-basis: 4rem;
+    flex-shrink: 0;
+    padding: 0 1.5rem 0 1.5rem;
 `;
 
 export const BCLogoInline = styled.div`
