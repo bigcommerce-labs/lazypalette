@@ -94,3 +94,22 @@ export function trackResetModalClose() {
         text: '',
     });
 }
+
+export function trackSectionOpen(label: string) {
+    track('store-design_click', {
+        category: 'store-design_section',
+        element: 'a',
+        label: 'store-design_section_open',
+        text: label,
+    });
+}
+
+export function trackSectionClose(title: string) {
+    track('store-design_click', {
+        category: 'store-design_section',
+        element: 'a',
+        label: 'store-design_section_close',
+        text: 'x',
+        title,
+    });
+}

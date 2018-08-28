@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 
+import { trackSectionClose } from '../../services/analytics';
+
 import { Content, ExpandModal, Header, NavItem, Title } from './styles';
 
 interface ExpandableMenuProps extends Partial<{
@@ -23,7 +25,10 @@ class ExpandableMenu extends PureComponent<ExpandableMenuProps> {
                 <Header>
                     {title &&
                         <Title onMouseDown={startDrag}>{title}</Title>}
-                    <NavItem to={back}/>
+                    <NavItem
+                        to={back}
+                        onClick={() => title ? trackSectionClose(title) : ''}
+                    />
                 </Header>
                 <Content>{children}</Content>
             </ExpandModal>

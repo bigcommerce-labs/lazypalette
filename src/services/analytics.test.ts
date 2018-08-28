@@ -8,6 +8,8 @@ import {
     trackResetConfirmation,
     trackResetModalClose,
     trackSave,
+    trackSectionClose,
+    trackSectionOpen,
 } from './analytics';
 
 declare const global: any;
@@ -156,6 +158,47 @@ describe('analytics service', () => {
                     theme_variation_id: '3456',
                     theme_version: '2345',
                     theme_version_id: '6789',
+                });
+            });
+        });
+
+        describe('trackSectionOpen', () => {
+            it('calls analytics.track with proper arguments', () => {
+                const label = 'Styles';
+                trackSectionOpen(label);
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    category: 'store-design_section',
+                    element: 'a',
+                    label: 'store-design_section_open',
+                    text: label,
+                    theme_configuration_id: '1234',
+                    theme_id: '7890',
+                    theme_name: '4567',
+                    theme_variation: '5678',
+                    theme_variation_id: '3456',
+                    theme_version: '2345',
+                    theme_version_id: '6789',
+                });
+            });
+        });
+
+        describe('trackSectionClose', () => {
+            it('calls analytics.track with proper arguments', () => {
+                const title = 'Styles';
+                trackSectionClose(title);
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    category: 'store-design_section',
+                    element: 'a',
+                    label: 'store-design_section_close',
+                    text: 'x',
+                    theme_configuration_id: '1234',
+                    theme_id: '7890',
+                    theme_name: '4567',
+                    theme_variation: '5678',
+                    theme_variation_id: '3456',
+                    theme_version: '2345',
+                    theme_version_id: '6789',
+                    title,
                 });
             });
         });
