@@ -16,6 +16,8 @@ describe('theme actions', () => {
         const payload = {
             configurationId: '123',
             displayVersion: '2.1.0',
+            isCurrent: true,
+            isPurchased: true,
             themeId: '789',
             themeName: 'Cornerstone',
             variationId: '012',
@@ -183,6 +185,8 @@ describe('theme actions', () => {
                         configurationId: '012',
                         displayVersion: '2.1.1',
                         id: '111',
+                        isCurrent: true,
+                        isPurchased: true,
                         relatedVariations: variationsArray,
                         themeId: '234',
                         themeName: 'Cornerstone',
@@ -252,6 +256,8 @@ describe('theme actions', () => {
                     payload: {
                         configurationId: '012',
                         displayVersion: '2.1.1',
+                        isCurrent: true,
+                        isPurchased: true,
                         themeId: '234',
                         themeName: 'Cornerstone',
                         variationId: '111',

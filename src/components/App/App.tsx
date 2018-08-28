@@ -6,7 +6,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import 'srcdoc-polyfill';
 
-import { setStoreData } from '../../actions/merchant';
+import { setStoreData, StoreDefaultData } from '../../actions/merchant';
 import { loadTheme } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
@@ -20,19 +20,21 @@ import { StyledApp, Viewport } from './styles';
 interface AppProps extends RouteComponentProps<{}> {
     config: {
       assetPath: string;
+      isDownForMaintenance: boolean;
+      isPrelaunchStore: boolean;
       storeHash: string;
       oauthBaseUrl: string;
     };
     fetchInitialState(variationID: string): Dispatch<State>;
-    setStoreData(storeHash: string): Dispatch<State>;
+    setStoreData(storeData: StoreDefaultData): Dispatch<State>;
 }
 
 export class App extends Component<AppProps, {}> {
     componentDidMount() {
         const queryParams = queryString.parse(this.props.location.search);
         const variationId = queryParams.variationId ? queryParams.variationId : '';
-        const { storeHash } = this.props.config;
-        this.props.setStoreData(storeHash);
+        const { storeHash, isDownForMaintenance, isPrelaunchStore } = this.props.config;
+        this.props.setStoreData({ storeHash, isDownForMaintenance, isPrelaunchStore });
         this.props.fetchInitialState(variationId);
     }
 

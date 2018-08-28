@@ -15,6 +15,8 @@ export interface ThemeState {
     initialConfigurationId: string;
     initialSettings: SettingsType;
     isChanged: boolean;
+    isCurrent: boolean;
+    isPurchased: boolean;
     variationId: string;
     schema: ThemeSchema;
     themeName: string;
@@ -85,6 +87,8 @@ const initialState: ThemeState = {
     initialConfigurationId: '',
     initialSettings: {},
     isChanged: false,
+    isCurrent: false,
+    isPurchased: false,
     schema: [],
     settings: {},
     themeId: '',
@@ -117,6 +121,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
             const {
                 configurationId,
                 displayVersion,
+                isPurchased,
                 themeId,
                 themeName,
                 variationId,
@@ -130,6 +135,8 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 configurationId,
                 displayVersion,
                 initialConfigurationId: configurationId,
+                isCurrent: false,
+                isPurchased,
                 themeId,
                 themeName,
                 variationId,
