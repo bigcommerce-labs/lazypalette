@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { State } from '../../reducers/reducers';
-import { ThemeVariations } from '../../reducers/theme';
+import { ThemeVariations, ThemeVariationHistory } from '../../reducers/theme';
 import {
     trackResetCancel,
     trackResetClick,
@@ -19,7 +19,9 @@ import { Container } from './styles';
 
 interface PubShareBoxProps {
     isChanged: boolean;
+    configurationId: string;
     variations: ThemeVariations;
+    variationHistory: ThemeVariationHistory;
     onPublish(): void;
     onReset(): void;
     onSave(): void;
@@ -27,12 +29,14 @@ interface PubShareBoxProps {
 
 interface PubShareBoxState {
     canPublish: boolean;
+    canSave: boolean;
     isResetOpen: boolean;
 }
 
 export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxState> {
     readonly state: PubShareBoxState = {
         canPublish: false,
+        canSave: false,
         isResetOpen: false,
     };
 
@@ -64,9 +68,24 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
     };
 
     componentDidUpdate() {
-        const { isChanged, variations } = this.props;
+        const { variations, variationHistory, configurationId } = this.props;
         const currentVariation = variations.filter(variation => variation.isCurrent);
-        const canPublish = currentVariation.length ? isChanged : variations.length > 0;
+        let canPublish = false;
+        let canSave = true;
+        if (variationHistory) {
+            variationHistory.forEach(variation => {
+                if (variation.configurationId === configurationId) {
+                    canSave = false;
+                    if (variation.type === 'saved' || currentVariation.length <= 0) {
+                        canPublish = true;
+                    }
+                }
+            });
+        }
+
+        if (canSave !== this.state.canSave) {
+            this.setState({canSave});
+        }
 
         if (canPublish !== this.state.canPublish) {
             this.setState({canPublish});
@@ -75,7 +94,7 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
 
     render() {
         const { isChanged, onPublish } = this.props;
-        const { canPublish, isResetOpen } = this.state;
+        const { canPublish, isResetOpen, canSave } = this.state;
 
         return (
             <Container isChanged={isChanged}>
@@ -91,6 +110,7 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                 <ButtonInput
                     onClick={this.handleSave}
                     type="button"
+                    disabled={!canSave}
                 >
                     Save
                 </ButtonInput>
@@ -118,6 +138,7 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
 const mapStateToProps = ({ theme }: State) => ({
     configurationId: theme.configurationId,
     isChanged: theme.isChanged,
+    variationHistory: theme.variationHistory,
     variations: theme.variations,
 });
 

@@ -5,6 +5,7 @@ exports[`PubShareBox renders 1`] = `
   isChanged={false}
 >
   <ButtonInput
+    disabled={true}
     onClick={[Function]}
     type="button"
   >
