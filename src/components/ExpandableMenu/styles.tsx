@@ -14,12 +14,23 @@ const openAnimation = keyframes`
 `;
 
 interface ExpandModalProps {
+    minHeight?: string;
     position?: { x: number, y: number };
+    size?: { width: number, height: number };
 }
 
-export const ExpandModal = styled.div.attrs<ExpandModalProps>({})`
+export const ExpandModal = styled.div.attrs<ExpandModalProps>({
+    style: ({ minHeight, position, size }: ExpandModalProps) => ({
+        left: position ? `${position.x}px` : undefined,
+        maxHeight: size ? `${size.height}px` : '31rem',
+        minHeight: minHeight ? minHeight : '10.5rem',
+        top: position ? `${position.y}px` : undefined,
+    }),
+})`
     border-radius: 6px;
     position: absolute;
+    display: flex;
+    flex-direction: column;
     background: #FFF;
     padding: 0rem;
     box-shadow: ${({ theme }) => theme.elevation.floating};
@@ -27,11 +38,7 @@ export const ExpandModal = styled.div.attrs<ExpandModalProps>({})`
     overflow: auto;
     pointer-events: auto;
     visibility: visible;
-
-    ${({ position }) => position && `
-                left: ${position.x}px;
-                top: ${position.y}px;
-    `}}
+}}
 `;
 
 ExpandModal.defaultProps = {
@@ -76,6 +83,7 @@ export const Header = styled.div`
     cursor: pointer;
     cursor: move;
     display: flex;
+    flex-shrink: 0;
     justify-content: space-between;
     line-height: 3.5rem;
     margin: 0;
@@ -119,7 +127,33 @@ Title.defaultProps = {
 };
 
 export const Content = styled.div`
-    margin: 0.5rem 0 0.5rem 0;
+    flex-shrink: 1;
+    flex-grow: 1;
+    margin: 0.5rem 0 0 0;
     padding: 1.5rem 0 0 0;
     overflow: auto;
+`;
+
+export const ResizeHandle = styled.div`
+    cursor: pointer;
+    cursor: ns-resize;
+    flex-shrink: 0;
+
+    > div {
+        opacity: 0;
+        transition-duration: 150ms
+    }
+
+    &:hover {
+        > div {
+            opacity: 1;
+            transition-duration: 150ms
+        }
+    }
+`;
+
+export const ResizeIcon = styled.div`
+    height: 1.5rem;
+    margin: 0 auto;
+    width: 1rem;
 `;

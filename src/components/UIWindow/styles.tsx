@@ -70,7 +70,12 @@ const openAnimation = keyframes`
   }
 `;
 
-export const StyledWindow = styled.div.attrs<StyledWindowProps>({})`
+export const StyledWindow = styled.div.attrs<StyledWindowProps>({
+    style: ({ position }: StyledWindowProps) => ({
+        left: position ? `${position.x}px` : undefined,
+        top: position ? `${position.y}px` : undefined,
+    }),
+})`
     position: absolute;
     background-color: ${({ theme }) => theme.colors.empty};
     border-radius: 6px;
@@ -79,16 +84,6 @@ export const StyledWindow = styled.div.attrs<StyledWindowProps>({})`
     animation: ${openAnimation} 50ms linear;
     pointer-events: auto;
     z-index: ${({ theme }) => theme.layers.higher};
-    ${({ position }) => {
-        if (position) {
-            return `
-                left: ${position.x}px;
-                top: ${position.y}px;
-            `;
-        }
-
-        return ``;
-    }}
 `;
 
 StyledWindow.defaultProps = {

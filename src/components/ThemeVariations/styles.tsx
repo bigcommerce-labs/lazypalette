@@ -4,7 +4,6 @@ import styled, { StyledComponentClass } from 'styled-components';
 export const List = styled.ul`
     padding: 0rem 1.5rem 1.5rem 1.5rem;
     width: 18.75rem;
-    height: 27.5rem;
     list-style: none;
     margin: 0;
 `;

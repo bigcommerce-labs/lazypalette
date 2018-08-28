@@ -29,7 +29,7 @@ export class MoreOptions extends PureComponent<MoreOptionsProps> {
     }
 }
 
-const RoutedThemeHistory: SFC<MoreOptionsProps> = props => (
+const RoutedMoreOptions: SFC<MoreOptionsProps> = props => (
     <Route
         path={appRoutes.options.path}
         exact
@@ -37,4 +37,4 @@ const RoutedThemeHistory: SFC<MoreOptionsProps> = props => (
     />
 );
 
-export default withRouter(RoutedThemeHistory);
+export default withRouter(RoutedMoreOptions);

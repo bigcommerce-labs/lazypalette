@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 export const List = styled.ul`
     width: 20rem;
-    max-height: 55vh;
     list-style: none;
     padding: 0;
     margin: 0 1rem 0 1.5rem;
