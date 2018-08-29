@@ -31,6 +31,8 @@ import {
 } from './styles';
 
 interface SideMenuProps extends RouteComponentProps<{}> {
+    isCurrent: boolean;
+    isPurchased: boolean;
     themeDesignSections: string[];
     settings: {[key: string]: string | boolean | number};
     themeId: string;
@@ -66,11 +68,24 @@ const ExpandMenuRoutes = ({ route }: { route: string }) => {
 };
 
 export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
-    readonly state: SideMenuState = { collapsed: Collapsed.Initial };
+    readonly state: SideMenuState = {
+        collapsed: Collapsed.Initial,
+    };
 
     handleCollapse = () => this.setState(({collapsed}) => ({
         collapsed: `${Collapsed.Yes}`.includes(collapsed) ? Collapsed.No : Collapsed.Yes,
     }));
+
+    editorThemeStatus = () => {
+        const { isCurrent, isPurchased } = this.props;
+        if (!isPurchased) {
+            return 'THEME PREVIEW';
+        } else if (!isCurrent) {
+            return 'INACTIVE THEME';
+        } else {
+            return 'ACTIVE THEME';
+        }
+    };
 
     render() {
         const {
@@ -80,6 +95,7 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
         const { home } = appRoutes;
         const { collapsed } = this.state;
         const isLoaded = themeDesignSections.length > 0;
+        const status = this.editorThemeStatus();
 
         return (
             <>
@@ -95,7 +111,9 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                         <Title>
                             {themeName}
                         </Title>
-                        <StyledStatus>ACTIVE THEME</StyledStatus>
+                        <StyledStatus status={status}>
+                            {status}
+                        </StyledStatus>
                     </Header>
                     <MenuContents>
                         {isLoaded &&
@@ -137,8 +155,10 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
     }
 }
 
-const mapStateToProps = ({ theme }: State) => ({
+const mapStateToProps = ({ theme, merchant }: State) => ({
     configurationId: theme.configurationId,
+    isCurrent: merchant.isCurrent,
+    isPurchased: theme.isPurchased,
     settings: theme.settings,
     themeDesignSections: theme.schema.map(({ name }) => name),
     themeId: theme.themeId,

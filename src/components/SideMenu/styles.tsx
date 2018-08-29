@@ -361,11 +361,14 @@ export const ToolTip = styled.span.attrs<ToolTipProps>({})`
     }
 `;
 
-export const StyledStatus = styled.div`
+interface StyledStatusProps {
+    status: string;
+}
+
+export const StyledStatus = styled.div.attrs<StyledStatusProps>({})`
   background: ${({ theme }) => theme.colors.empty};
-  color: ${({ theme }) => theme.colors.success};
   font-size: ${({ theme }) => theme.typography.fontSize.smallest};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold}
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
   border: 1px solid;
   border-radius: 2px;
   display: inline-block;
@@ -373,4 +376,19 @@ export const StyledStatus = styled.div`
   padding: 0 .5rem;
   height: 1.25rem;
   line-height: calc(1.25rem - 2px);
+
+  ${({ status, theme }) => {
+        if (status === 'ACTIVE THEME') {
+            return `
+        color: ${theme.colors.success};
+        border: 1px solid ${theme.colors.success};
+      `;
+        } else {
+            return `
+        color: ${theme.colors.secondaryText};
+        border: 1px solid ${theme.colors.guideText};
+      `;
+        }
+    }}
+
 `;

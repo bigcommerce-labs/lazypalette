@@ -3,7 +3,7 @@ import React from 'react';
 import { StaticRouter } from 'react-router';
 
 import { Collapsed } from './constants';
-import { CollapseButton } from './styles';
+import { CollapseButton, StyledStatus } from './styles';
 import { SideMenu } from './SideMenu';
 
 describe('SideMenu', () => {
@@ -26,6 +26,8 @@ describe('SideMenu', () => {
         const sideMenu = shallow(
             <StaticRouter location="/" context={{}}>
                 <SideMenu
+                    isCurrent={true}
+                    isPurchased={true}
                     themeDesignSections={['cat', 'named', 'moe']}
                     settings={mockSettings}
                     themeId="1234567-1223-011123-111111"
@@ -45,6 +47,8 @@ describe('SideMenu', () => {
     describe('Collapse Menu Button', () => {
         const sideMenu = shallow(
             <SideMenu
+                isCurrent={true}
+                isPurchased={true}
                 themeDesignSections={['cat', 'named', 'joe']}
                 settings={mockSettings}
                 themeId="7777-9999-1111-0000"
@@ -82,6 +86,78 @@ describe('SideMenu', () => {
                 collapseBtn.simulate('click'); // collapse menu
                 collapseBtn.simulate('click'); // open menu
                 expect(sideMenu.state().collapsed).toEqual(Collapsed.No);
+            });
+        });
+    });
+
+    describe('Theme status label', () => {
+        describe('when isCurrent is false and isPurchased is true', () => {
+            it('status should be INACTIVE THEME', () => {
+                const sideMenu = shallow(
+                    <SideMenu
+                        isCurrent={false}
+                        isPurchased={true}
+                        themeDesignSections={['cat', 'named', 'joe']}
+                        settings={mockSettings}
+                        themeId="7777-9999-1111-0000"
+                        themeName="Catstone Box"
+                        configurationId="3333-2222-111111-00000"
+                        variationId="2222-11111-0000-44444"
+                        versionId="2221-211111-0111-41111"
+                        postThemeConfigData={mockpostThemeConfig}
+                        {...routeProps}
+                    />
+                );
+
+                const statusBar = sideMenu.find(StyledStatus);
+                expect(statusBar.props().status).toEqual('INACTIVE THEME');
+
+            });
+        });
+
+        describe('when isCurrent is true and isPurchased is true', () => {
+            it('status should be ACTIVE THEME', () => {
+                const sideMenu = shallow(
+                    <SideMenu
+                        isCurrent={true}
+                        isPurchased={true}
+                        themeDesignSections={['cat', 'named', 'joe']}
+                        settings={mockSettings}
+                        themeId="7777-9999-1111-0000"
+                        themeName="Catstone Box"
+                        configurationId="3333-2222-111111-00000"
+                        variationId="2222-11111-0000-44444"
+                        versionId="2221-211111-0111-41111"
+                        postThemeConfigData={mockpostThemeConfig}
+                        {...routeProps}
+                    />
+                );
+
+                const statusBar = sideMenu.find(StyledStatus);
+                expect(statusBar.props().status).toEqual('ACTIVE THEME');
+            });
+        });
+
+        describe('when isPurchased is false', () => {
+            it('status should be THEME PREVIEW', () => {
+                const sideMenu = shallow(
+                    <SideMenu
+                        isCurrent={true}
+                        isPurchased={false}
+                        themeDesignSections={['cat', 'named', 'joe']}
+                        settings={mockSettings}
+                        themeId="7777-9999-1111-0000"
+                        themeName="Catstone Box"
+                        configurationId="3333-2222-111111-00000"
+                        variationId="2222-11111-0000-44444"
+                        versionId="2221-211111-0111-41111"
+                        postThemeConfigData={mockpostThemeConfig}
+                        {...routeProps}
+                    />
+                );
+
+                const statusBar = sideMenu.find(StyledStatus);
+                expect(statusBar.props().status).toEqual('THEME PREVIEW');
             });
         });
     });
