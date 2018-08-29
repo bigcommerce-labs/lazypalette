@@ -4,12 +4,14 @@ import merchant, { MerchantStoreState } from './merchant';
 
 describe('Merchant reducer', () => {
     const initialState: MerchantStoreState = {
+        isCurrent: false,
         isDownForMaintenance: false,
         isPrelaunchStore: false,
         storeHash: '',
     };
 
     const payload = {
+        isCurrent: false,
         isDownForMaintenance: false,
         isPrelaunchStore: false,
         storeHash: '1234567890',

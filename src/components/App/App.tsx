@@ -37,8 +37,10 @@ export class App extends Component<AppProps, {}> {
         const queryParams = queryString.parse(this.props.location.search);
         const variationId = queryParams.variationId ? queryParams.variationId : '';
         const { storeHash, isDownForMaintenance, isPrelaunchStore } = this.props.config;
+        const isCurrent = variationId === '';
 
         this.props.setStoreData({
+            isCurrent,
             isDownForMaintenance,
             isPrelaunchStore,
             storeHash,
