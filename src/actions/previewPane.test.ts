@@ -6,12 +6,12 @@ import { State } from '../reducers/reducers';
 import * as previewPane from './previewPane';
 
 describe ('previewPane actions', () => {
-    describe('PAGE_SOURCE_REQUEST', () => {
+    describe('PAGE_URL_REQUEST', () => {
         describe('when we make a page source request', () => {
             it('responds with the expected action', () => {
                 const expectedAction = {
                     payload: {page: 'doge'},
-                    type: 'PAGE_SOURCE_REQUEST',
+                    type: 'PAGE_URL_REQUEST',
                 };
 
                 expect(previewPane.pageUrlRequest({page: 'doge'}
@@ -20,13 +20,13 @@ describe ('previewPane actions', () => {
         });
     });
 
-    describe('PAGE_SOURCE_RESPONSE', () => {
+    describe('PAGE_URL_RESPONSE', () => {
         describe('when we get a successful response', () => {
             it('responds with the expected action', () => {
                 const expectedAction = {
                     error: false,
                     payload: {page: 'doge', pageUrl: 'cat'},
-                    type: 'PAGE_SOURCE_RESPONSE',
+                    type: 'PAGE_URL_RESPONSE',
                 };
 
                 expect(previewPane.pageUrlResponse(
@@ -40,7 +40,7 @@ describe ('previewPane actions', () => {
                 const expectedAction = {
                     error: true,
                     payload: new Error('doge cat'),
-                    type: 'PAGE_SOURCE_RESPONSE',
+                    type: 'PAGE_URL_RESPONSE',
                 };
 
                 expect(previewPane.pageUrlResponse(
@@ -193,12 +193,12 @@ describe ('previewPane actions', () => {
                 const expectedActions = [
                     {
                         payload: {page: 'doge'},
-                        type: 'PAGE_SOURCE_REQUEST',
+                        type: 'PAGE_URL_REQUEST',
                     },
                     {
                         error: false,
                         payload: {page: 'doge', pageUrl: 'doge?stencilEditor=3@1@2'},
-                        type: 'PAGE_SOURCE_RESPONSE',
+                        type: 'PAGE_URL_RESPONSE',
                     },
                 ];
 

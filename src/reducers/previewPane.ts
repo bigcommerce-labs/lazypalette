@@ -43,10 +43,12 @@ const previewPane = (
     }
 
     switch (action.type) {
-        case PreviewPaneActionTypes.PAGE_SOURCE_REQUEST:
+        case PreviewPaneActionTypes.PAGE_URL_REQUEST:
             return { ...state, ...action.payload, isFetching: true };
-        case PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE:
+        case PreviewPaneActionTypes.PAGE_URL_RESPONSE:
             return { ...state, ...action.payload as PageUrlResponse, isFetching: false };
+        case PreviewPaneActionTypes.PAGE_UPDATE:
+            return { ...state, ...action.payload };
         case PreviewPaneActionTypes.THEME_FONT_CHANGE:
             return { ...state, ...{ fontUrl: parseFont(action.payload.value) } };
         case PreviewPaneActionTypes.THEME_PREVIEW_CONFIG_REQUEST:

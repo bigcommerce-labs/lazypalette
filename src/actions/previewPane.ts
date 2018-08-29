@@ -8,8 +8,9 @@ import { Action } from './action';
 import { ThemeConfigChange } from './theme';
 
 export enum PreviewPaneActionTypes {
-    PAGE_SOURCE_REQUEST = 'PAGE_SOURCE_REQUEST',
-    PAGE_SOURCE_RESPONSE = 'PAGE_SOURCE_RESPONSE',
+    PAGE_URL_REQUEST = 'PAGE_URL_REQUEST',
+    PAGE_URL_RESPONSE = 'PAGE_URL_RESPONSE',
+    PAGE_UPDATE = 'PAGE_UPDATE',
     PREVIEW_PANE_LOADED = 'PREVIEW_PANE_LOADED',
     PREVIEW_PANE_LOADING = 'PREVIEW_PANE_LOADING',
     THEME_FONT_CHANGE = 'THEME_FONT_CHANGE',
@@ -20,6 +21,7 @@ export enum PreviewPaneActionTypes {
 export interface PreviewPaneLoadingAction extends Action  {
     type: PreviewPaneActionTypes.PREVIEW_PANE_LOADING;
 }
+
 export function previewPaneLoading(): PreviewPaneLoadingAction {
     return {
         type: PreviewPaneActionTypes.PREVIEW_PANE_LOADING,
@@ -29,6 +31,7 @@ export function previewPaneLoading(): PreviewPaneLoadingAction {
 export interface PreviewPaneLoadedAction extends Action  {
     type: PreviewPaneActionTypes.PREVIEW_PANE_LOADED;
 }
+
 export function previewPaneLoaded(): PreviewPaneLoadedAction {
     return {
         type: PreviewPaneActionTypes.PREVIEW_PANE_LOADED,
@@ -38,14 +41,16 @@ export function previewPaneLoaded(): PreviewPaneLoadedAction {
 export interface PageUrlRequest {
     page: string;
 }
+
 export interface PageUrlRequestAction extends Action  {
     payload: PageUrlRequest;
-    type: PreviewPaneActionTypes.PAGE_SOURCE_REQUEST;
+    type: PreviewPaneActionTypes.PAGE_URL_REQUEST;
 }
+
 export function pageUrlRequest(payload: PageUrlRequest): PageUrlRequestAction {
     return {
         payload,
-        type: PreviewPaneActionTypes.PAGE_SOURCE_REQUEST,
+        type: PreviewPaneActionTypes.PAGE_URL_REQUEST,
     };
 }
 
@@ -53,11 +58,13 @@ export interface PageUrlResponse {
     page: string;
     pageUrl: string;
 }
+
 export interface PageUrlResponseAction extends Action  {
     error: boolean;
     payload: PageUrlResponse | Error;
-    type: PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE;
+    type: PreviewPaneActionTypes.PAGE_URL_RESPONSE;
 }
+
 export function pageUrlResponse(
     payload: PageUrlResponse | Error,
     error: boolean = false
@@ -65,13 +72,30 @@ export function pageUrlResponse(
     return {
         error,
         payload,
-        type: PreviewPaneActionTypes.PAGE_SOURCE_RESPONSE,
+        type: PreviewPaneActionTypes.PAGE_URL_RESPONSE,
+    };
+}
+
+export interface UpdatePagePayload {
+    page: string;
+}
+
+export interface UpdatePageAction extends Action {
+    payload: UpdatePagePayload;
+    type: PreviewPaneActionTypes.PAGE_UPDATE;
+}
+
+export function updatePage({ page }: UpdatePagePayload): UpdatePageAction {
+    return {
+        payload: { page },
+        type: PreviewPaneActionTypes.PAGE_UPDATE,
     };
 }
 
 export interface FetchPageUrl {
     page: string;
 }
+
 export function fetchPageUrl(
     { page }: FetchPageUrl
 ) {
@@ -79,7 +103,7 @@ export function fetchPageUrl(
         dispatch(pageUrlRequest({ page }));
 
         const { configurationId, lastCommitId, versionId } = getState().previewPane.themePreviewConfig;
-        let pageSrc: string = page;
+        let pageUrl: string = page;
 
         if (versionId && configurationId) {
             const token = `${versionId}@${configurationId}`;
@@ -88,10 +112,10 @@ export function fetchPageUrl(
             };
             const queryString = entries(queryParams).map(keyValuePair => keyValuePair.join('=')).join('&');
 
-            pageSrc = page + (queryString ? `?${queryString}` : '');
+            pageUrl = page + (queryString ? `?${queryString}` : '');
         }
 
-        return dispatch(pageUrlResponse({page, pageUrl: pageSrc }));
+        return dispatch(pageUrlResponse({ page, pageUrl }));
     };
 }
 
@@ -120,10 +144,12 @@ export interface RecieveThemePreviewConfig {
     lastCommitId: string;
     versionId: string;
 }
+
 export interface RecieveThemePreviewConfigAction extends Action {
     payload: RecieveThemePreviewConfig;
     type: PreviewPaneActionTypes.THEME_PREVIEW_CONFIG_REQUEST;
 }
+
 export function receiveThemePreviewConfig(payload: RecieveThemePreviewConfig): RecieveThemePreviewConfigAction {
     return {
         payload,
@@ -142,10 +168,12 @@ export interface ViewportChange {
     isRotated?: boolean;
     viewportType: ViewportType;
 }
+
 export interface ViewportChangeAction extends Action {
     payload: ViewportChange;
     type: PreviewPaneActionTypes.VIEWPORT_CHANGE;
 }
+
 export function viewportChange(payload: ViewportChange): ViewportChangeAction {
     return {
         payload,
