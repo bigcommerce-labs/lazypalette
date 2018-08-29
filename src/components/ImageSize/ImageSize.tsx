@@ -11,6 +11,7 @@ interface ImageSizeProps {
         value: string;
     }>;
     selected: string;
+    testId?: string;
     onChange?: ChangeEventHandler<HTMLSelectElement | HTMLInputElement>;
 }
 
@@ -29,7 +30,7 @@ class ImageSize extends Component<ImageSizeProps> {
     };
 
     render() {
-        const { label, options, selected } = this.props;
+        const { label, options, selected, testId } = this.props;
         const optionExists = options.some(({value}) => value === selected);
         const optionSelected = optionExists ? selected : 'custom';
 
@@ -40,6 +41,7 @@ class ImageSize extends Component<ImageSizeProps> {
                     options={options}
                     selected={optionSelected}
                     onChange={this.handleSelectChange}
+                    testId={testId}
                 />
                 {optionSelected === 'custom' &&
                     <CustomSize defaultValue={selected} onChange={this.handleCustomChange} />

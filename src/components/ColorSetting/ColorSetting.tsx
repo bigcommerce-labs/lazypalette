@@ -14,6 +14,7 @@ interface ColorSettingProps {
     inputId?: string;
     label?: string;
     name: string;
+    testId?: string;
     onChange?(configChange: ThemeConfigChange): void;
     openColorPicker(content: OpenColorPickerArgs): OpenUIWindowAction<ColorPickerContent>;
 }
@@ -22,6 +23,7 @@ interface ColorSettingState {
     color: string;
     inputId: string;
     previousColor?: string;
+    testId?: string;
 }
 
 const defaultColor = '#000000';
@@ -31,6 +33,7 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
         color: this.props.color || defaultColor,
         inputId: this.props.inputId || uuid(),
         previousColor: this.props.color || defaultColor,
+        testId: this.props.testId,
     };
 
     handleChange = (color: ColorResult) => {
@@ -75,6 +78,7 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
                     color={this.state.color}
                     ref={this.state.inputId}
                     onClick={this.handleClick}
+                    {...(this.state.testId ? {'data-test-id': this.state.testId} : {})}
                 />
             </Container>
         );

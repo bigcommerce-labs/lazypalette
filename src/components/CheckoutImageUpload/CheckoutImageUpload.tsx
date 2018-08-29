@@ -19,6 +19,7 @@ export interface CheckoutImageUploadProps {
     inputId?: string;
     label: string;
     name: string;
+    testId?: string;
     onChange(configChange: ThemeConfigChange): void;
 }
 
@@ -27,6 +28,7 @@ interface CheckoutImageUploadState {
     inputId: string;
     loading: boolean;
     pendingImageURL?: string;
+    testId?: string;
     value: string;
 }
 
@@ -34,6 +36,7 @@ class CheckoutImageUpload extends Component<CheckoutImageUploadProps, CheckoutIm
     readonly state: CheckoutImageUploadState = {
         inputId: this.props.inputId || uuid(),
         loading: false,
+        testId: this.props.testId,
         value: '',
     };
 
@@ -107,7 +110,13 @@ class CheckoutImageUpload extends Component<CheckoutImageUploadProps, CheckoutIm
 
     render() {
         const { imageURL: currentImageURL, label } = this.props;
-        const { error, inputId, loading, pendingImageURL } = this.state;
+        const {
+            error,
+            inputId,
+            loading,
+            pendingImageURL,
+            testId,
+        } = this.state;
 
         // If we have a pending image, we want to display that rather than the previous.
         const imageURLTemplate = pendingImageURL ? pendingImageURL : (currentImageURL || '');
@@ -128,6 +137,7 @@ class CheckoutImageUpload extends Component<CheckoutImageUploadProps, CheckoutIm
                         style={{display: 'none'}}
                         type={'file'}
                         value={this.state.value}
+                        {...(testId ? {'data-test-id': testId} : {})}
                     />
                 </CheckoutImageInputWrapper>
 
