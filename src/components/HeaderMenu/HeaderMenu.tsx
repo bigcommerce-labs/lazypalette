@@ -55,6 +55,7 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
                 <BCLogo />
                 {viewportKeys.map(view => (
                     <StyledIcon
+                        tooltip={VIEWPORT_TYPES[view].tooltip}
                         isRotated={VIEWPORT_TYPES[view] === VIEWPORT_TYPES.DESKTOP ? undefined : isRotated}
                         isSelected={viewportType === VIEWPORT_TYPES[view]}
                         key={view}
