@@ -13,7 +13,7 @@ import {
 
 import ButtonInput from '../ButtonInput/ButtonInput';
 import { Messages } from '../Modal/constants';
-import ConfirmModal from '../Modal/ConfirmModal';
+import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 
 import { Container } from './styles';
 

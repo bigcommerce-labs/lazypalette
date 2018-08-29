@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ThemeHistory when rendering when it has history items when an item is currently active renders correctly 1`] = `
-<React.Fragment>
+<Fragment>
   <Draggable
     position={
       Object {
@@ -93,11 +93,11 @@ exports[`ThemeHistory when rendering when it has history items when an item is c
       </styled.ul>
     </ExpandableMenu>
   </Draggable>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`ThemeHistory when rendering when it has history items when no items are currently active renders correctly 1`] = `
-<React.Fragment>
+<Fragment>
   <Draggable
     position={
       Object {
@@ -179,11 +179,11 @@ exports[`ThemeHistory when rendering when it has history items when no items are
       </styled.ul>
     </ExpandableMenu>
   </Draggable>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`ThemeHistory when rendering when it has no history items renders correctly 1`] = `
-<React.Fragment>
+<Fragment>
   <Draggable
     position={
       Object {
@@ -198,11 +198,11 @@ exports[`ThemeHistory when rendering when it has no history items renders correc
       <styled.ul />
     </ExpandableMenu>
   </Draggable>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`ThemeHistory when rendering when the modal is open renders correctly 1`] = `
-<React.Fragment>
+<Fragment>
   <Draggable
     position={
       Object {
@@ -300,5 +300,5 @@ exports[`ThemeHistory when rendering when the modal is open renders correctly 1`
     secondaryAction={[Function]}
     title="Theme Change Warning"
   />
-</React.Fragment>
+</Fragment>
 `;

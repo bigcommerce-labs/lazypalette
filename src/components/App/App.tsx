@@ -8,6 +8,7 @@ import 'srcdoc-polyfill';
 
 import { setStoreData, StoreDefaultData } from '../../actions/merchant';
 import { loadTheme } from '../../actions/theme';
+import BrowserContext from '../../context/BrowserContext';
 import { State } from '../../reducers/reducers';
 
 import Banner from '../Banner/Banner';
@@ -56,18 +57,20 @@ export class App extends Component<AppProps, {}> {
 
         return (
             <PatternLabThemeProvider>
-                <UserSessionActivity oauthBaseUrl={this.props.config.oauthBaseUrl}>
-                    <UIWindowProvider>
-                        <StyledApp>
-                            {addBanner ? <Banner message={message}/> : ''}
-                            <HeaderMenu />
-                            <Viewport>
-                                <SideMenu />
-                                <Routes />
-                            </Viewport>
-                        </StyledApp>
-                    </UIWindowProvider>
-                </UserSessionActivity>
+                <BrowserContext.Provider value={{ _window: window }}>
+                    <UserSessionActivity oauthBaseUrl={this.props.config.oauthBaseUrl}>
+                        <UIWindowProvider>
+                            <StyledApp>
+                                {addBanner ? <Banner message={message}/> : ''}
+                                <HeaderMenu />
+                                <Viewport>
+                                    <SideMenu />
+                                    <Routes />
+                                </Viewport>
+                            </StyledApp>
+                        </UIWindowProvider>
+                    </UserSessionActivity>
+                </BrowserContext.Provider>
             </PatternLabThemeProvider>
         );
     }

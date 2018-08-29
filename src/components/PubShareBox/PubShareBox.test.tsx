@@ -2,7 +2,7 @@ import { mount, shallow } from 'enzyme';
 import React from 'react';
 
 import ButtonInput from '../ButtonInput/ButtonInput';
-import ConfirmModal from '../Modal/ConfirmModal';
+import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 
 import { PubShareBox } from './PubShareBox';
 

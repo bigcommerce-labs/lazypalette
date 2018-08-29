@@ -7,3 +7,162 @@ exports[`UserSessionActivity renders consistently 1`] = `
   </p>
 </div>
 `;
+
+exports[`UserSessionActivity when the user is logged out renders an AlertModal 1`] = `
+<Component
+  heartbeatResponse={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+    }
+  }
+  isLoggedIn={false}
+  oauthBaseUrl="https://login.service.bcdev"
+>
+  <div>
+    <AlertModal
+      actionText="Ok"
+      body="For security reasons you have been automatically logged out. Please log in again to access Store Design."
+      primaryAction={[Function]}
+      title="You have been logged out."
+    >
+      <Modal
+        isTransparent={false}
+        title="You have been logged out."
+      >
+        <styled.div
+          onClick={[Function]}
+          theme={
+            Object {
+              "layers": Object {
+                "higher": 100,
+              },
+            }
+          }
+        >
+          <div
+            className="sc-kgoBCf gfegXm"
+            onClick={[Function]}
+          >
+            <styled.div
+              isTransparent={false}
+              theme={
+                Object {
+                  "colors": Object {
+                    "empty": "#FFFFFF",
+                  },
+                  "layers": Object {
+                    "higher": 100,
+                  },
+                }
+              }
+            >
+              <div
+                className="sc-kGXeez cyKaWV"
+              />
+            </styled.div>
+            <styled.div
+              onClick={[Function]}
+              theme={
+                Object {
+                  "colors": Object {
+                    "empty": "#FFFFFF",
+                    "guideText": "#ABB1BE",
+                  },
+                  "elevation": Object {
+                    "floating": "0 2px 12px rgba(48, 53, 64, 0.2)",
+                  },
+                  "layers": Object {
+                    "highest": 500,
+                  },
+                }
+              }
+            >
+              <div
+                className="sc-ckVGcZ iCRXaA"
+                onClick={[Function]}
+              >
+                <styled.h3
+                  theme={
+                    Object {
+                      "colors": Object {
+                        "primaryText": "#303540",
+                      },
+                      "typography": Object {
+                        "fontWeight": Object {
+                          "bold": 600,
+                        },
+                      },
+                    }
+                  }
+                >
+                  <h3
+                    className="sc-dxgOiQ daZDFl"
+                  >
+                    You have been logged out.
+                  </h3>
+                </styled.h3>
+                <styled.div>
+                  <div
+                    className="sc-kpOJdX jVoTBJ"
+                  >
+                    <styled.div>
+                      <div
+                        className="sc-kEYyzF dMlIQL"
+                      >
+                        <styled.div>
+                          <div
+                            className="sc-eNQAEJ cWfRbw"
+                          >
+                            For security reasons you have been automatically logged out. Please log in again to access Store Design.
+                          </div>
+                        </styled.div>
+                        <styled.div>
+                          <div
+                            className="sc-kkGfuU gNupfC"
+                          >
+                            <ButtonInput
+                              classType="primary"
+                              onClick={[Function]}
+                              type="button"
+                            >
+                              <styled.div>
+                                <div
+                                  className="sc-kAzzGY iXopUH"
+                                >
+                                  <styled.button
+                                    border={true}
+                                    classType="primary"
+                                    onClick={[Function]}
+                                    type="button"
+                                  >
+                                    <button
+                                      className="sc-chPdSV iDxCLc"
+                                      onClick={[Function]}
+                                      type="button"
+                                    >
+                                      Ok
+                                    </button>
+                                  </styled.button>
+                                </div>
+                              </styled.div>
+                            </ButtonInput>
+                          </div>
+                        </styled.div>
+                      </div>
+                    </styled.div>
+                  </div>
+                </styled.div>
+              </div>
+            </styled.div>
+          </div>
+        </styled.div>
+      </Modal>
+    </AlertModal>
+    <p>
+      meow meow
+    </p>
+  </div>
+</Component>
+`;

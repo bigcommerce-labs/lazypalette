@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 
-import ButtonInput from '../ButtonInput/ButtonInput';
+import ButtonInput from '../../ButtonInput/ButtonInput';
 
-import { Confirm, ConfirmBody, ConfirmButtons, ConfirmFooter } from './styles';
-import Modal from './Modal';
+import { ConfirmButtons, ModalBody, ModalFooter, ModalView } from '../styles';
+import Modal from '../Modal';
+
+import { Messages } from '../constants';
 
 interface ConfirmModalProps extends Partial<{
     body: string;
@@ -20,20 +22,20 @@ const CTAButtons = ({ primaryAction, secondaryAction }: ConfirmModalProps) => (
             classType="primary"
             type="button"
         >
-            Cancel
+            {Messages.Cancel}
         </ButtonInput>
         <ButtonInput
             onClick={secondaryAction}
             type="button"
         >
-            OK
+            {Messages.Ok}
         </ButtonInput>
     </ConfirmButtons>
 );
 
 class ConfirmModal extends PureComponent<ConfirmModalProps> {
     static defaultProps: ConfirmModalProps = {
-        title: 'Please Confirm:',
+        title: Messages.ConfirmTitle,
     };
 
     render() {
@@ -52,16 +54,16 @@ class ConfirmModal extends PureComponent<ConfirmModalProps> {
                 title={title}
                 isTransparent={false}
             >
-                <Confirm>
+                <ModalView>
                     {body &&
-                        <ConfirmBody>{body}</ConfirmBody>}
-                    <ConfirmFooter>
+                        <ModalBody>{body}</ModalBody>}
+                    <ModalFooter>
                         <CTAButtons
                             primaryAction={primaryAction}
                             secondaryAction={secondaryAction}
                         />
-                    </ConfirmFooter>
-                </Confirm>
+                    </ModalFooter>
+                </ModalView>
             </Modal>
         );
     }

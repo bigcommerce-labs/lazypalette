@@ -1,22 +1,14 @@
 import { mount, shallow } from 'enzyme';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
 
-import ButtonInput from '../ButtonInput/ButtonInput';
+import ButtonInput from '../../ButtonInput/ButtonInput';
 
-import { ConfirmBody } from './styles';
+import { Messages } from '../constants';
+import { ModalBody } from '../styles';
+
 import ConfirmModal from './ConfirmModal';
 
 describe('ConfirmModal', () => {
-    const theme = {
-        colors: {},
-        elevation: {},
-        layers: {},
-        typography: {
-            fontWeight: {},
-        },
-    };
-
     const mockHandler = jest.fn();
     const mockBody = 'This theme will self-destruct in T-minus';
     const mockTitle = 'Please Confirm:';
@@ -45,7 +37,7 @@ describe('ConfirmModal', () => {
                 />
             );
 
-            expect(modal.find(ConfirmBody).prop('children')).toEqual(mockBody);
+            expect(modal.find(ModalBody).prop('children')).toEqual(mockBody);
         });
 
         it('should not render ConfirmBody when body prop not set', () => {
@@ -58,7 +50,7 @@ describe('ConfirmModal', () => {
                 />
             );
 
-            expect(modal.find(ConfirmBody).exists()).toEqual(false);
+            expect(modal.find(ModalBody).exists()).toEqual(false);
         });
     });
 
@@ -68,17 +60,15 @@ describe('ConfirmModal', () => {
                 const mockPrimaryAction = jest.fn();
 
                 const modal = mount(
-                    <ThemeProvider theme={theme}>
-                        <ConfirmModal
-                            body={mockBody}
-                            title={mockTitle}
-                            primaryAction={mockPrimaryAction}
-                            secondaryAction={mockHandler}
-                        />
-                    </ThemeProvider>
+                    <ConfirmModal
+                        body={mockBody}
+                        title={mockTitle}
+                        primaryAction={mockPrimaryAction}
+                        secondaryAction={mockHandler}
+                    />
                 );
 
-                const cancelButton = modal.find(ButtonInput).find({ children: 'Cancel' }).last();
+                const cancelButton = modal.find(ButtonInput).find({ children: Messages.Cancel }).last();
                 cancelButton.simulate('click');
                 expect(mockPrimaryAction).toHaveBeenCalledTimes(1);
             });
@@ -91,17 +81,15 @@ describe('ConfirmModal', () => {
                 const mockSecondaryAction = jest.fn();
 
                 const modal = mount(
-                    <ThemeProvider theme={theme}>
-                        <ConfirmModal
-                            body={mockBody}
-                            title={mockTitle}
-                            primaryAction={mockHandler}
-                            secondaryAction={mockSecondaryAction}
-                        />
-                    </ThemeProvider>
+                    <ConfirmModal
+                        body={mockBody}
+                        title={mockTitle}
+                        primaryAction={mockHandler}
+                        secondaryAction={mockSecondaryAction}
+                    />
                 );
 
-                const okButton = modal.find(ButtonInput).find({ children: 'OK' }).last();
+                const okButton = modal.find(ButtonInput).find({ children: Messages.Ok }).last();
                 okButton.simulate('click');
                 expect(mockSecondaryAction).toHaveBeenCalledTimes(1);
             });
