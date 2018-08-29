@@ -27,11 +27,25 @@ export interface ThemeSettingsProps extends RouteComponentProps<{}> {
     ): (dispatch: Dispatch<State>, getState: () => State) => void;
 }
 
+function formatOptionValue(value: string | number | boolean) {
+    return typeof value === 'number'
+        ? `integer:${value}`
+        : value ? value.toString() : '';
+}
+
+function parseOptionValue(optionValue: string) {
+    return optionValue.startsWith('integer:')
+        ? parseInt(optionValue.split(':')[1], 10)
+        : optionValue;
+}
+
 function transformOptions(setting: ThemeSchemaEntrySetting) {
-    return setting.options ? setting.options.map(({label, value}) => ({
-        label,
-        value: value ? value.toString() : '',
-    })) : [];
+    return setting.options ? setting.options.map(({ label, value }) => {
+        return {
+            label,
+            value: formatOptionValue(value),
+        };
+    }) : [];
 }
 
 function getEditor(
@@ -85,9 +99,17 @@ function getEditor(
             />;
         case 'select':
             return <SelectBox
-                selected={preSetValue[`${setting.id}`] as string}
+                selected={formatOptionValue(preSetValue[`${setting.id}`])}
                 label={setting.label}
-                onChange={handleChange}
+                onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+                    return broadcastConfigChange({
+                        setting: {
+                            id: setting.id,
+                            type: 'select',
+                        },
+                        value: parseOptionValue(event.target.value),
+                    });
+                }}
                 options={transformOptions(setting)}
                 testId={testId}
             />;
