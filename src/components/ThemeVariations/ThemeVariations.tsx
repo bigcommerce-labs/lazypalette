@@ -8,10 +8,10 @@ import { State } from '../../reducers/reducers';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 
 import Draggable from '../Draggable/Draggable';
-import { Messages } from '../Modal/constants';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 import { appRoutes } from '../Routes/Routes';
 
+import { Messages } from './constants';
 import ThemeModule from './ThemeModule';
 
 interface ThemeVariationsProps extends RouteComponentProps<{}> {

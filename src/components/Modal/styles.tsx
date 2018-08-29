@@ -132,8 +132,11 @@ export const ModalBody = styled.div`
 
 export const ConfirmButtons = styled.div`
     display: inline-flex;
-    justify-content: space-between;
-    width: 7rem;
+    justify-content: flex-end;
+`;
+
+export const ConfirmButton = styled.div`
+  margin-left: 1rem;
 `;
 
 export const ModalView = styled.div`

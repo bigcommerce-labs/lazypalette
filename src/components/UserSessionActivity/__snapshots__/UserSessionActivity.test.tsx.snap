@@ -109,7 +109,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                   >
                     <styled.div>
                       <div
-                        className="sc-kEYyzF dMlIQL"
+                        className="sc-kkGfuU jXoVmY"
                       >
                         <styled.div>
                           <div
@@ -120,7 +120,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                         </styled.div>
                         <styled.div>
                           <div
-                            className="sc-kkGfuU gNupfC"
+                            className="sc-iAyFgw kMWJon"
                           >
                             <ButtonInput
                               classType="primary"
