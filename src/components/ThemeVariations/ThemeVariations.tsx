@@ -105,7 +105,7 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
 const mapStateToProps = (state: State) => ({
     isChanged: state.theme.isChanged,
     themeVariants: state.theme.variations.map(({ screenshot, variationName, id }): StateProps => ({
-        image: screenshot.smallThumb,
+        image: screenshot.largeThumb,
         isActive: state.theme.variationId === id,
         name: variationName,
         variationId: id,
