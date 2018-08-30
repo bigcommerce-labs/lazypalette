@@ -17,6 +17,7 @@ exports[`renders 1`] = `
     theme={
       Object {
         "colors": Object {
+          "background": "#F5F7FA",
           "primaryText": "#AAAAAA",
         },
         "typography": Object {
@@ -27,7 +28,20 @@ exports[`renders 1`] = `
       }
     }
   >
-    <styled.h2>
+    <styled.h2
+      theme={
+        Object {
+          "colors": Object {
+            "primaryText": "#AAAAAA",
+          },
+          "typography": Object {
+            "fontWeight": Object {
+              "normal": 400,
+            },
+          },
+        }
+      }
+    >
       foo
     </styled.h2>
     <Styled(Link)

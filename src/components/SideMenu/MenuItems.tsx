@@ -52,7 +52,11 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                     const isActive = this.isPathActive(path);
 
                     return (
-                        <ListItem divider={divider} isActive={isActive}>
+                        <ListItem
+                            divider={divider}
+                            isActive={isActive}
+                            key={path}
+                        >
                             {externalLink ?
                                 <ExternalNavItem
                                     href={path}

@@ -83,6 +83,20 @@ export const Header = styled.div`
     color: ${({ theme }) => theme.colors.primaryText};
 `;
 
+Header.defaultProps = {
+    theme: {
+        colors: {
+            background: '#F5F7FA',
+            primaryText: '#AAAAAA',
+        },
+        typography: {
+            fontWeight: {
+                normal: 400,
+            },
+        },
+    },
+};
+
 export const Title = styled.h2`
     flex-grow: 1;
     margin: 0;
@@ -91,7 +105,7 @@ export const Title = styled.h2`
     color: ${({ theme }) => theme.colors.primaryText};
 `;
 
-Header.defaultProps = {
+Title.defaultProps = {
     theme: {
         colors: {
             primaryText: '#AAAAAA',

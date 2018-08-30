@@ -1,7 +1,6 @@
 import { mount, shallow } from 'enzyme';
 import React from 'react';
 import { StaticRouter } from 'react-router';
-import { ThemeProvider } from 'styled-components';
 
 import { appRoutes } from '../Routes/Routes';
 
@@ -10,14 +9,6 @@ import { ThemeVariations } from './ThemeVariations';
 
 describe('ThemeVariations', () => {
     const { styles } = appRoutes;
-    const theme = {
-        colors: {},
-        elevation: {},
-        layers: {},
-        typography: {
-            fontWeight: {},
-        },
-    };
     const mockProp: any = jest.fn();
     const routeProps = {
         history: mockProp,
@@ -68,15 +59,13 @@ describe('ThemeVariations', () => {
 
                 const wrapper = mount(
                     <StaticRouter location={styles.path} context={{}}>
-                        <ThemeProvider theme={theme}>
-                            <ThemeVariations
-                                isChanged={false} // no theme changes
-                                position={{ x: 5, y: 10}}
-                                themeVariants={testItems}
-                                loadTheme={mockLoadTheme}
-                                {...routeProps}
-                            />
-                        </ThemeProvider>
+                        <ThemeVariations
+                            isChanged={false} // no theme changes
+                            position={{ x: 5, y: 10}}
+                            themeVariants={testItems}
+                            loadTheme={mockLoadTheme}
+                            {...routeProps}
+                        />
                     </StaticRouter>
                 );
 
@@ -99,15 +88,13 @@ describe('ThemeVariations', () => {
 
                 const wrapper = mount(
                     <StaticRouter location={styles.path} context={{}}>
-                        <ThemeProvider theme={theme}>
-                            <ThemeVariations
-                                isChanged={true} // theme has unsaved changes
-                                position={{ x: 5, y: 10}}
-                                themeVariants={testItems}
-                                loadTheme={mockHandler}
-                                {...routeProps}
-                            />
-                        </ThemeProvider>
+                        <ThemeVariations
+                            isChanged={true} // theme has unsaved changes
+                            position={{ x: 5, y: 10}}
+                            themeVariants={testItems}
+                            loadTheme={mockHandler}
+                            {...routeProps}
+                        />
                     </StaticRouter>
                 );
 

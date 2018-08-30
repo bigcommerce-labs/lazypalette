@@ -2,43 +2,96 @@ import { Theme } from 'pattern-lab';
 import styled, { StyledComponentClass } from 'styled-components';
 
 export const List = styled.ul`
-    width: 56.25rem;
-    height: 15.25rem;
+    padding: 0rem 1.5rem 1.5rem 1.5rem;
+    width: 18.75rem;
+    height: 27.5rem;
     list-style: none;
-    padding: 0;
     margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
 `;
-
-interface ItemProps {
-    isActive: boolean;
-    theme: Theme;
-}
-
-const selectedBackground = ({ theme, ...props }: ItemProps) => {
-    return props.isActive ? `background-color: ${theme.colors.selectedBackground}` : '';
-};
 
 export const Item: StyledComponentClass<any, any> = styled.li`
     cursor: pointer;
-    padding: 0.5rem;
-    ${(props: ItemProps) => selectedBackground(props)};
+    margin-bottom: 2rem;
 `;
 
 export const Title = styled.div`
     color: ${({ theme }) => theme.colors.secondaryText};
-    font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
+    font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+    font-size: ${({ theme }) => theme.typography.fontSize.small};
+    margin-bottom: 0.5rem;
 `;
 
+Title.defaultProps = {
+    theme: {
+        colors: {
+            secondaryText: '#72767F',
+        },
+        typography: {
+            fontSize: {
+                small: '16px',
+            },
+            fontWeight: {
+                bold: 600,
+            },
+        },
+    },
+};
+
 interface ThumbProps {
+    theme: Theme;
+    isActive: boolean;
     previewPath: string;
 }
 
-export const Thumb = styled.div`
-    width: 15.5rem;
-    height: 11rem;
-    margin-top: .5rem;
+export const Thumb: StyledComponentClass<any, any> = styled.div`
+    height: 10rem;
     background: url("${({ previewPath }: ThumbProps) => previewPath}") left top/cover no-repeat;
+    border: 1px solid ${({ isActive, theme }: ThumbProps) => isActive ? theme.colors.primary : theme.colors.empty };
 `;
+
+Thumb.defaultProps = {
+    isActive: false,
+    previewPath: '',
+    theme: {
+        colors: {
+            empty: '#FFFFFF',
+            primary: '#3F69FE',
+        },
+    },
+};
+
+export const EntryActive = styled.div`
+    background: ${({theme}) => theme.colors.success};
+    border-radius: 16px;
+    bottom: 0;
+    display: inline-block;
+    height: 1.25rem;
+    left: 0.5rem;
+    margin-top: -1rem;
+    position: relative;
+    top: 0.25rem;
+    width: 1.25rem;
+
+    :after {
+        content: '';
+        position: absolute;
+        width: .5rem;
+        height: .25rem;
+        background: transparent;
+        top: .3125rem;
+        left: .3125rem;
+        border: 2px solid ${({theme}) => theme.colors.empty};
+        border-top: none;
+        border-right: none;
+        transform: rotate(-45deg);
+    }
+`;
+
+EntryActive.defaultProps = {
+    theme: {
+        colors: {
+            empty: '#FFFFFF',
+            success: '#AAAAAA',
+        },
+    },
+};
