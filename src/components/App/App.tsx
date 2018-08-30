@@ -50,12 +50,6 @@ export class App extends Component<AppProps, {}> {
 
     render() {
         const { isDownForMaintenance, isPrelaunchStore } = this.props.config;
-        const addBanner = isDownForMaintenance || isPrelaunchStore;
-        const message = isDownForMaintenance
-            ? 'Your store is under maintenance'
-            : isPrelaunchStore
-                ? 'Your store has not been published'
-                : '';
 
         return (
             <PatternLabThemeProvider>
@@ -63,7 +57,10 @@ export class App extends Component<AppProps, {}> {
                     <UserSessionActivity oauthBaseUrl={this.props.config.oauthBaseUrl}>
                         <UIWindowProvider>
                             <StyledApp>
-                                {addBanner ? <Banner message={message}/> : ''}
+                                <Banner
+                                    isPrelaunchStore={isPrelaunchStore}
+                                    isDownForMaintenance={isDownForMaintenance}
+                                />
                                 <HeaderMenu />
                                 <Viewport>
                                     <SideMenu />

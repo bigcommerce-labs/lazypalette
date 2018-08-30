@@ -9,3 +9,19 @@ export const StyledBanner = styled.div`
     font-weight: 600;
     color: #303540;
 `;
+
+export const StyledShareableLink = styled.button`
+    background: ${({ theme }) => theme.colors.warning};
+    color: ${({ theme }) => theme.colors.primaryText};
+    font-size: ${({ theme }) => theme.typography.fontSize.small};
+    font-weight: ${({ theme }) => theme.typography.fontWeight.bold}
+    font-family: ${({ theme }) => theme.typography.fontFamily.headings};
+    margin: .5rem 0 .5rem 1.25rem;
+    outline: none;
+    border: 1px solid;
+    border-radius: 2px;
+    display: inline-block;
+    padding: .25rem .5rem;
+    line-height: 1.375rem;
+    cursor: pointer;
+`;
