@@ -146,8 +146,9 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
                 render={() => (
                     <Draggable position={position} >
                         <ExpandableMenu
+                            back={match.url}
                             title={themeSettings ? themeSettings.name : ''}
-                            back={match.url}>
+                        >
                             <List>
                                 {themeSettings.settings.map((setting, index) => {
                                     const { reference, reference_default } = setting;

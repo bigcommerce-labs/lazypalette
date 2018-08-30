@@ -80,7 +80,11 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
                 render={() => (
                     <>
                         <Draggable position={position}>
-                            <ExpandableMenu title="Styles" back={match.url}>
+                            <ExpandableMenu
+                                back={match.url}
+                                minHeight="20rem"
+                                title="Styles"
+                            >
                                 <ThemeModule
                                     variants={themeVariants}
                                     handleVariationChange={this.handleVariationChange}

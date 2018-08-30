@@ -10,7 +10,7 @@ interface UIWindowProps {
     topmost: boolean;
     windowRef?: any;
     onClose?(id: string): void;
-    startDrag?(): void;
+    startMove?(): void;
 }
 
 const LEFT_BUTTON = 0;
@@ -43,7 +43,7 @@ class UIWindow extends Component<UIWindowProps> {
     };
 
     render() {
-        const { children, position, startDrag, title, windowRef } = this.props;
+        const { children, position, startMove, title, windowRef } = this.props;
 
         return (
             <Overlay>
@@ -53,7 +53,7 @@ class UIWindow extends Component<UIWindowProps> {
                     innerRef={windowRef}
                 >
                     <Header
-                        onMouseDown={startDrag}
+                        onMouseDown={startMove}
                     >
                         {title &&
                         <Title>{title}</Title>}
