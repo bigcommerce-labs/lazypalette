@@ -2,10 +2,10 @@ import { mount, shallow } from 'enzyme';
 import React from 'react';
 
 import ButtonInput from '../ButtonInput/ButtonInput';
-import { Messages } from '../Modal/constants';
 
 import BrowserContext from '../../context/BrowserContext';
 
+import { Messages } from './constants';
 import { UserSessionActivity } from './UserSessionActivity';
 
 jest.mock('../../services/sessionHeartbeat');

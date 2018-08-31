@@ -6,7 +6,6 @@ import { ConfigUpdateAction } from '../../actions/constants';
 import { viewportChange, ViewportChange } from '../../actions/previewPane';
 import { postThemeConfigData, themeConfigReset, ThemeConfigResetAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
-import { trackPublish } from '../../services/analytics';
 
 import { VIEWPORT_TYPES } from '../PreviewPane/constants';
 import { ViewportType } from '../PreviewPane/PreviewPane';
@@ -27,16 +26,7 @@ interface HeaderMenuProps {
 }
 
 class HeaderMenu extends PureComponent<HeaderMenuProps> {
-    handlePublish = () => {
-        const { configurationId, themeName, variationName, displayVersion } = this.props;
-        const themeDetails = `${themeName} ${variationName} v${displayVersion}`;
-        const status =  confirm(`Do you want to apply “${themeDetails}” to your store?`);
-
-        if (status) {
-            trackPublish(configurationId);
-            this.props.postThemeConfigData(ConfigUpdateAction.PUBLISH);
-        }
-    };
+    handlePublish = () => this.props.postThemeConfigData(ConfigUpdateAction.PUBLISH);
 
     handleSave = () => this.props.postThemeConfigData(ConfigUpdateAction.SAVE);
 

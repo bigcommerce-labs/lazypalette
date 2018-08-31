@@ -183,7 +183,7 @@ describe('PubShareBox', () => {
         });
 
         describe('when the user clicks the publish button', () => {
-            it('should call the handler', () => {
+            it('should open the confirmModal', () => {
                 const mockHandlePublish = jest.fn();
 
                 const pubBox = shallow(
@@ -199,9 +199,11 @@ describe('PubShareBox', () => {
                 );
 
                 const publishButton = pubBox.find(ButtonInput).find({ children: 'Publish' });
-
                 publishButton.simulate('click');
-                expect(mockHandlePublish).toHaveBeenCalledTimes(1);
+                expect(pubBox.state().isPublishOpen).toEqual(true);
+
+                const confirmModel = pubBox.find(ConfirmModal);
+                expect(confirmModel.length).toEqual(1);
             });
 
             it('should disable publish button after click', () => {

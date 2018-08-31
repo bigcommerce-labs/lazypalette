@@ -8,10 +8,10 @@ import { State } from '../../reducers/reducers';
 import { ThemeVariationHistory, ThemeVariationHistoryEntry } from '../../reducers/theme';
 import Draggable from '../Draggable/Draggable';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
-import { Messages } from '../Modal/constants';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 import { appRoutes } from '../Routes/Routes';
 
+import { Messages } from './constants';
 import { EntryActive, EntryDate, EntryTitle, HistoryEntry, List } from './styles';
 
 interface ThemeHistoryProps extends RouteComponentProps<{}> {

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { State } from '../../reducers/reducers';
 import { ThemeVariations, ThemeVariationHistory } from '../../reducers/theme';
 import {
+    trackPublish,
     trackResetCancel,
     trackResetClick,
     trackResetConfirmation,
@@ -12,9 +13,9 @@ import {
 } from '../../services/analytics';
 
 import ButtonInput from '../ButtonInput/ButtonInput';
-import { Messages } from '../Modal/constants';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 
+import { Messages } from './constants';
 import { Container } from './styles';
 
 interface PubShareBoxProps {
@@ -31,23 +32,33 @@ interface PubShareBoxState {
     canPublish: boolean;
     canSave: boolean;
     isResetOpen: boolean;
+    isPublishOpen: boolean;
 }
 
 export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxState> {
     readonly state: PubShareBoxState = {
         canPublish: false,
         canSave: false,
+        isPublishOpen: false,
         isResetOpen: false,
     };
 
-    handleModalCancel = () => {
-        trackResetCancel();
-        this.setState({ isResetOpen: false });
+    handleModalCancel = (type: string) => {
+        if (type === 'reset') {
+            trackResetCancel();
+            this.setState({ isResetOpen: false });
+        } else {
+            this.setState({ isPublishOpen: false });
+        }
     };
 
-    handleModalOpen = () => {
-        trackResetClick();
-        this.setState({ isResetOpen: true });
+    handleModalOpen = (type: string) => {
+        if (type === 'reset') {
+            trackResetClick();
+            this.setState({ isResetOpen: true });
+        } else {
+            this.setState({ isPublishOpen: true });
+        }
     };
 
     overlayClose = () => {
@@ -64,6 +75,13 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
         trackResetConfirmation();
         this.setState({ isResetOpen: false }, () => {
             this.props.onReset();
+        });
+    };
+
+    handlePublish = () => {
+        trackPublish(this.props.configurationId);
+        this.setState({ isPublishOpen: false}, () => {
+            this.props.onPublish();
         });
     };
 
@@ -93,15 +111,15 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
     }
 
     render() {
-        const { isChanged, onPublish } = this.props;
-        const { canPublish, isResetOpen, canSave } = this.state;
+        const { isChanged } = this.props;
+        const { canPublish, isPublishOpen, isResetOpen, canSave } = this.state;
 
         return (
             <Container isChanged={isChanged}>
                 {isChanged &&
                     <ButtonInput
                         border={false}
-                        onClick={this.handleModalOpen}
+                        onClick={() => this.handleModalOpen('reset')}
                         type="button"
                         testId="undo-changes"
                     >
@@ -117,7 +135,7 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                     Save
                 </ButtonInput>
                 <ButtonInput
-                    onClick={onPublish}
+                    onClick={() => this.handleModalOpen('publish')}
                     classType="primary"
                     disabled={!canPublish}
                     testId="publish"
@@ -127,11 +145,22 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                 {isResetOpen &&
                     <ConfirmModal
                         body={Messages.Reset}
-                        primaryAction={this.handleModalCancel}
+                        primaryAction={() => this.handleModalCancel('reset')}
                         secondaryAction={this.handleReset}
                         overlayClose={this.overlayClose}
                         title="Reset Warning"
                     />
+                }
+
+                {isPublishOpen &&
+                  <ConfirmModal
+                      body={Messages.Publish}
+                      secondaryActionText="Publish"
+                      primaryAction={() => this.handleModalCancel('publish')}
+                      secondaryAction={this.handlePublish}
+                      overlayClose={this.overlayClose}
+                      title="Publish changes"
+                  />
                 }
             </Container>
         );
