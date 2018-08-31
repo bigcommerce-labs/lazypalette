@@ -17,12 +17,20 @@ import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 
 import { Messages } from './constants';
 import { Container } from './styles';
+import ActiveAction from './ActiveAction/ActiveAction';
+import InactiveAction from './InactiveAction/InactiveAction';
+import PreviewAction from './PreviewAction/PreviewAction';
 
 interface PubShareBoxProps {
     isChanged: boolean;
+    isCurrent: boolean;
+    isPrelaunchStore: boolean;
+    isPurchased: boolean;
     configurationId: string;
+    price: number;
     variations: ThemeVariations;
     variationHistory: ThemeVariationHistory;
+    variationId: string;
     onPublish(): void;
     onReset(): void;
     onSave(): void;
@@ -111,8 +119,20 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
     }
 
     render() {
-        const { isChanged } = this.props;
-        const { canPublish, isPublishOpen, isResetOpen, canSave } = this.state;
+        const {
+            isChanged,
+            isCurrent,
+            isPrelaunchStore,
+            isPurchased,
+            price,
+            variationId,
+        } = this.props;
+        const {
+            canPublish,
+            isPublishOpen,
+            isResetOpen,
+            canSave,
+        } = this.state;
 
         return (
             <Container isChanged={isChanged}>
@@ -126,22 +146,30 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                         Undo Changes
                     </ButtonInput>
                 }
-                <ButtonInput
-                    onClick={this.handleSave}
-                    type="button"
-                    testId="save"
-                    disabled={!canSave}
-                >
-                    Save
-                </ButtonInput>
-                <ButtonInput
-                    onClick={() => this.handleModalOpen('publish')}
-                    classType="primary"
-                    disabled={!canPublish}
-                    testId="publish"
-                >
-                    Publish
-                </ButtonInput>
+                {isPurchased &&
+                    (isCurrent ?
+                        <ActiveAction
+                            isPrelaunchStore={isPrelaunchStore}
+                            canPublish={canPublish}
+                            canSave={canSave}
+                            handleSave={this.handleSave}
+                            handlePublish={() => this.handleModalOpen('publish')}
+                        /> :
+                        <InactiveAction
+                            isPrelaunchStore={isPrelaunchStore}
+                            canPublish={canPublish}
+                            canSave={canSave}
+                            handleSave={this.handleSave}
+                            handlePublish={() => this.handleModalOpen('publish')}
+                        />
+                    )
+                }
+                {!isPurchased && price !== undefined &&
+                    <PreviewAction
+                        price={price}
+                        variationId={variationId}
+                    />
+                }
                 {isResetOpen &&
                     <ConfirmModal
                         body={Messages.Reset}
@@ -167,10 +195,15 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
     }
 }
 
-const mapStateToProps = ({ theme }: State) => ({
+const mapStateToProps = ({ theme, merchant }: State) => ({
     configurationId: theme.configurationId,
     isChanged: theme.isChanged,
+    isCurrent: merchant.isCurrent,
+    isPrelaunchStore: merchant.isPrelaunchStore,
+    isPurchased: theme.isPurchased,
+    price: theme.price,
     variationHistory: theme.variationHistory,
+    variationId: theme.variationId,
     variations: theme.variations,
 });
 

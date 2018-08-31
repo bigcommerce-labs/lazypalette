@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActiveAction should render 1`] = `
+<Fragment>
+  <ButtonInput
+    disabled={true}
+    onClick={[MockFunction]}
+    testId="save"
+    type="button"
+  >
+    Save
+  </ButtonInput>
+  <ButtonInput
+    classType="primary"
+    disabled={true}
+    onClick={[MockFunction]}
+    testId="publish"
+  >
+    Publish
+  </ButtonInput>
+</Fragment>
+`;

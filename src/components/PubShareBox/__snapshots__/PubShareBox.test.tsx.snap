@@ -4,21 +4,12 @@ exports[`PubShareBox renders 1`] = `
 <styled.div
   isChanged={false}
 >
-  <ButtonInput
-    disabled={true}
-    onClick={[Function]}
-    testId="save"
-    type="button"
-  >
-    Save
-  </ButtonInput>
-  <ButtonInput
-    classType="primary"
-    disabled={true}
-    onClick={[Function]}
-    testId="publish"
-  >
-    Publish
-  </ButtonInput>
+  <ActiveAction
+    canPublish={false}
+    canSave={false}
+    handlePublish={[Function]}
+    handleSave={[Function]}
+    isPrelaunchStore={false}
+  />
 </styled.div>
 `;
