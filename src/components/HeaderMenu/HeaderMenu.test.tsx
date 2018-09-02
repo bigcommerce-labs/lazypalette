@@ -5,7 +5,7 @@ import createMockStore from 'redux-mock-store';
 
 import { VIEWPORT_TYPES } from '../PreviewPane/constants';
 
-import { StyledIcon } from './styles';
+import { StyledPreviewItem } from './styles';
 import HeaderMenu from './HeaderMenu';
 
 describe('<HeaderMenu />', () => {
@@ -30,7 +30,7 @@ describe('<HeaderMenu />', () => {
         });
     });
 
-    describe('<StyledIcon />', () => {
+    describe('<StyledPreviewItem />', () => {
         describe('onClick()', () => {
             test('updates the viewportType', () => {
                 const store = createMockStore([])({
@@ -50,7 +50,7 @@ describe('<HeaderMenu />', () => {
                     themeName: 'Cornerstone',
                     variationName: 'Bold',
                 });
-                const styledIcons = shallow(<HeaderMenu/>, { context: { store } }).find(StyledIcon);
+                const styledIcons = shallow(<HeaderMenu/>, { context: { store } }).find(StyledPreviewItem);
                 const viewportTypes = [
                     VIEWPORT_TYPES.DESKTOP,
                     VIEWPORT_TYPES.TABLET,

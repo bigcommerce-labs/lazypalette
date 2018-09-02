@@ -43,6 +43,7 @@ const styles = {
 };
 
 class ColorPicker extends Component<ColorPickerProps> {
+    hexInputRef = React.createRef<any>();
 
     // from react-color/lib/helpers/color
     isValidHex = (hex: string) => {
@@ -66,6 +67,12 @@ class ColorPicker extends Component<ColorPickerProps> {
         }
     };
 
+    componentDidMount() {
+        if (this.hexInputRef.current && this.hexInputRef.current.input) {
+            this.hexInputRef.current.input.select();
+        }
+    }
+
     render() {
         return (
             <Container>
@@ -85,6 +92,7 @@ class ColorPicker extends Component<ColorPickerProps> {
                     <HexField>
                         <EditableInput
                             onChange={ this.handleFieldChange }
+                            ref={this.hexInputRef}
                             style={{ input: styles.input, label: styles.label }}
                             label="hex"
                             value={ this.props.hex!.replace('#', '') }

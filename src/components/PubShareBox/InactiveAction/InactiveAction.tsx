@@ -1,6 +1,7 @@
 import React, {SFC} from 'react';
 
 import ButtonInput from '../../ButtonInput/ButtonInput';
+import { ButtonWrapper } from '../styles';
 
 interface InactiveActionProps {
     canPublish: boolean;
@@ -16,22 +17,26 @@ const InactiveAction: SFC<InactiveActionProps> = props => {
 
     return (
         <>
-            <ButtonInput
-                onClick={props.handleSave}
-                type="button"
-                testId="save"
-                disabled={!props.canSave}
-            >
-                Save
-            </ButtonInput>
-            <ButtonInput
-                onClick={props.handlePublish}
-                classType="primary"
-                disabled={!props.canPublish}
-                testId={publishTestId}
-            >
-                {publishActionText}
-            </ButtonInput>
+            <ButtonWrapper>
+                <ButtonInput
+                    onClick={props.handleSave}
+                    type="button"
+                    testId="save"
+                    disabled={!props.canSave}
+                >
+                    Save
+                </ButtonInput>
+            </ButtonWrapper>
+            <ButtonWrapper>
+                <ButtonInput
+                    onClick={props.handlePublish}
+                    classType="primary"
+                    disabled={!props.canPublish}
+                    testId={publishTestId}
+                >
+                    {publishActionText}
+                </ButtonInput>
+            </ButtonWrapper>
         </>
     );
 };

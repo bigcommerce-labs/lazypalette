@@ -10,18 +10,17 @@ import { Messages } from '../constants';
 interface ConfirmModalProps extends Partial<{
     body: string;
     title: string;
-    secondaryActionText?: string;
+    primaryActionText?: string;
     primaryAction(): void;
     secondaryAction(): void;
     overlayClose(): void;
 }> {}
 
-const CTAButtons = ({ primaryAction, secondaryAction, secondaryActionText }: ConfirmModalProps) => (
+const CTAButtons = ({ primaryAction, primaryActionText, secondaryAction }: ConfirmModalProps) => (
     <ConfirmButtons>
         <ConfirmButton>
             <ButtonInput
-                onClick={primaryAction}
-                classType="primary"
+                onClick={secondaryAction}
                 type="button"
             >
                 {Messages.Cancel}
@@ -29,10 +28,11 @@ const CTAButtons = ({ primaryAction, secondaryAction, secondaryActionText }: Con
         </ConfirmButton>
         <ConfirmButton>
             <ButtonInput
-                onClick={secondaryAction}
+                classType="primary"
+                onClick={primaryAction}
                 type="button"
             >
-                {secondaryActionText}
+                {primaryActionText}
             </ButtonInput>
         </ConfirmButton>
     </ConfirmButtons>
@@ -48,7 +48,7 @@ class ConfirmModal extends PureComponent<ConfirmModalProps> {
             body,
             primaryAction,
             secondaryAction,
-            secondaryActionText = Messages.Ok,
+            primaryActionText = Messages.Ok,
             overlayClose,
             title,
         } = this.props;
@@ -66,8 +66,8 @@ class ConfirmModal extends PureComponent<ConfirmModalProps> {
                     <ModalFooter>
                         <CTAButtons
                             primaryAction={primaryAction}
+                            primaryActionText={primaryActionText}
                             secondaryAction={secondaryAction}
-                            secondaryActionText={secondaryActionText}
                         />
                     </ModalFooter>
                 </ModalView>

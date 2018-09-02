@@ -4,6 +4,7 @@ import BrowserContext, {Browser} from '../../../context/BrowserContext';
 import { purchaseEndPoint } from '../constants';
 
 import ButtonInput from '../../ButtonInput/ButtonInput';
+import { ButtonWrapper } from '../styles';
 
 interface PreviewActionProps {
     price: number;
@@ -20,15 +21,17 @@ const PreviewAction: SFC<PreviewActionProps> = props => {
         <>
             <BrowserContext.Consumer>
                 {({ _window }: Browser) =>
-                    <ButtonInput
-                        classType="primary"
-                        onClick={() => _window.location.href = purchaseEndPoint(variationId)}
-                        type="button"
-                        testId={actionTestId}
-                        disabled={false}
-                    >
-                        {actionText}
-                    </ButtonInput>
+                    <ButtonWrapper>
+                        <ButtonInput
+                            classType="primary"
+                            onClick={() => _window.location.href = purchaseEndPoint(variationId)}
+                            type="button"
+                            testId={actionTestId}
+                            disabled={false}
+                        >
+                            {actionText}
+                        </ButtonInput>
+                    </ButtonWrapper>
                 }
             </BrowserContext.Consumer>
         </>

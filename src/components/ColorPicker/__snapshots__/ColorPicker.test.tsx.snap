@@ -68,10 +68,10 @@ exports[`ColorPicker when a change occurs calls its onChangeComplete prop with t
 
 exports[`ColorPicker when rendered matches the snapshot 1`] = `
 <div
-  class="sc-kAzzGY bdveVg"
+  class="sc-chPdSV fvhEJf"
 >
   <div
-    class="sc-kgoBCf gdDyfq"
+    class="sc-kGXeez gLjJVQ"
   >
     <div
       style="position:absolute;top:0px;right:0px;bottom:0px;left:0px;background:hsl(0,100%, 50%)"
@@ -88,7 +88,7 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
           style="position:absolute;top:0%;left:0%;cursor:default"
         >
           <div
-            class="sc-jKJlTe hgRwcV"
+            class="sc-eNQAEJ jOXBGI"
             color="#FFFFFF"
           />
         </div>
@@ -96,7 +96,7 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
     </div>
   </div>
   <div
-    class="sc-chPdSV imFiDd"
+    class="sc-kgoBCf fSEsnl"
   >
     <div
       style="position:absolute;top:0px;right:0px;bottom:0px;left:0px"
@@ -109,7 +109,7 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
           style="position:absolute;left:0%"
         >
           <div
-            class="sc-ckVGcZ cCvgyE"
+            class="sc-jKJlTe glzyxF"
             color="#FFFFFF"
           />
         </div>
@@ -117,10 +117,10 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
     </div>
   </div>
   <div
-    class="sc-kGXeez cmShrx"
+    class="sc-kpOJdX jjywBY"
   >
     <div
-      class="sc-kpOJdX fvlsBA"
+      class="sc-dxgOiQ bzFfGn"
     >
       <div
         style="position:relative"
@@ -138,7 +138,7 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
       </div>
     </div>
     <div
-      class="sc-dxgOiQ hFfxsF"
+      class="sc-ckVGcZ kGLuoX"
     >
       <div
         style="position:relative"
@@ -156,7 +156,7 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
       </div>
     </div>
     <div
-      class="sc-dxgOiQ hFfxsF"
+      class="sc-ckVGcZ kGLuoX"
     >
       <div
         style="position:relative"
@@ -174,7 +174,7 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
       </div>
     </div>
     <div
-      class="sc-dxgOiQ hFfxsF"
+      class="sc-ckVGcZ kGLuoX"
     >
       <div
         style="position:relative"

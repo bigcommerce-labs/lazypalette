@@ -16,7 +16,7 @@ import ButtonInput from '../ButtonInput/ButtonInput';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 
 import { Messages } from './constants';
-import { Container } from './styles';
+import { ButtonWrapper, Container } from './styles';
 import ActiveAction from './ActiveAction/ActiveAction';
 import InactiveAction from './InactiveAction/InactiveAction';
 import PreviewAction from './PreviewAction/PreviewAction';
@@ -137,14 +137,16 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
         return (
             <Container isChanged={isChanged}>
                 {isChanged &&
-                    <ButtonInput
-                        border={false}
-                        onClick={() => this.handleModalOpen('reset')}
-                        type="button"
-                        testId="undo-changes"
-                    >
-                        Undo Changes
-                    </ButtonInput>
+                    <ButtonWrapper>
+                        <ButtonInput
+                            border={false}
+                            onClick={() => this.handleModalOpen('reset')}
+                            type="button"
+                            testId="undo-changes"
+                        >
+                            Undo Changes
+                        </ButtonInput>
+                    </ButtonWrapper>
                 }
                 {isPurchased &&
                     (isCurrent ?
@@ -173,8 +175,8 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                 {isResetOpen &&
                     <ConfirmModal
                         body={Messages.Reset}
-                        primaryAction={() => this.handleModalCancel('reset')}
-                        secondaryAction={this.handleReset}
+                        primaryAction={this.handleReset}
+                        secondaryAction={() => this.handleModalCancel('reset')}
                         overlayClose={this.overlayClose}
                         title="Reset Warning"
                     />
@@ -183,9 +185,9 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                 {isPublishOpen &&
                   <ConfirmModal
                       body={Messages.Publish}
-                      secondaryActionText="Publish"
-                      primaryAction={() => this.handleModalCancel('publish')}
-                      secondaryAction={this.handlePublish}
+                      primaryAction={this.handlePublish}
+                      primaryActionText="Publish"
+                      secondaryAction={() => this.handleModalCancel('publish')}
                       overlayClose={this.overlayClose}
                       title="Publish changes"
                   />

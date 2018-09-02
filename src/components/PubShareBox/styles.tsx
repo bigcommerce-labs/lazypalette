@@ -5,11 +5,11 @@ interface ContainerProps {
 }
 
 export const Container = styled.div.attrs<ContainerProps>({})`
-    margin-left: auto;
     display: flex;
+    flex-grow: 1;
     justify-content: flex-end;
-    width: 25rem;
-    > div {
-        margin-left: 1rem;
-    }
+`;
+
+export const ButtonWrapper = styled.div`
+    margin: 0 0 0 1rem;
 `;
