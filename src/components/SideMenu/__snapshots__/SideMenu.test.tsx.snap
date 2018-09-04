@@ -27,7 +27,13 @@ exports[`SideMenu Theme status label when active theme is not the current theme 
     collapsed="initial"
   >
     <styled.div>
-      <styled.div>
+      <styled.div
+        innerRef={
+          Object {
+            "current": null,
+          }
+        }
+      >
         Catstone Box
       </styled.div>
       <Tooltip
@@ -102,7 +108,13 @@ exports[`SideMenu Theme status label when activeTheme is the current theme and i
     collapsed="initial"
   >
     <styled.div>
-      <styled.div>
+      <styled.div
+        innerRef={
+          Object {
+            "current": null,
+          }
+        }
+      >
         Catstone Box
       </styled.div>
       <Tooltip
@@ -177,7 +189,13 @@ exports[`SideMenu Theme status label when isPurchased is false renders correctly
     collapsed="initial"
   >
     <styled.div>
-      <styled.div>
+      <styled.div
+        innerRef={
+          Object {
+            "current": null,
+          }
+        }
+      >
         Catstone Box
       </styled.div>
       <Tooltip

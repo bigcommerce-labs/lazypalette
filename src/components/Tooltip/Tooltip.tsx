@@ -4,7 +4,7 @@ import { StyledTooltip } from './styles';
 
 interface TooltipProps {
     hideDelay?: number;
-    message: JSX.Element | string;
+    message?: JSX.Element | string;
     showDelay?: number;
     mock?: {
         elementClientRect: {
@@ -23,7 +23,7 @@ interface TooltipProps {
 }
 
 interface TooltipState {
-    message: (JSX.Element | string) | Array<JSX.Element | string>;
+    message?: (JSX.Element | string) | Array<JSX.Element | string>;
     tooltipPosition: { belowElement: boolean, x: number, y: number };
     tooltipVisible: boolean;
 }
@@ -41,7 +41,7 @@ class Tooltip extends PureComponent<TooltipProps, TooltipState> {
     tooltipRef: any = React.createRef();
 
     componentDidUpdate() {
-        if (this.state.tooltipVisible) {
+        if (this.state.tooltipVisible && this.props.message) {
             const tooltipPosition = this.getTooltipPosition();
 
             if (tooltipPosition.x !== this.state.tooltipPosition.x ||
@@ -147,7 +147,7 @@ class Tooltip extends PureComponent<TooltipProps, TooltipState> {
 
         return (
             <>
-                {tooltipVisible &&
+                {tooltipVisible && message &&
                     <StyledTooltip
                         onMouseEnter={this.onMouseEnter}
                         onMouseLeave={this.onMouseLeave}

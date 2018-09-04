@@ -106,11 +106,15 @@ Header.defaultProps = {
 };
 
 export const Title = styled.h2`
-    flex-grow: 1;
-    margin: 0;
-    padding: 0 0 0 1.5rem;
-    font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
     color: ${({ theme }) => theme.colors.primaryText};
+    flex-grow: 1;
+    font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
+    margin: 0;
+    max-width: 18rem;
+    overflow: hidden;
+    padding: 0 0 0 1.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `;
 
 Title.defaultProps = {

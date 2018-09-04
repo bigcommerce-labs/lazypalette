@@ -1,5 +1,6 @@
 import { theme, Icon } from 'pattern-lab';
 import React, { Component } from 'react';
+import Dotdotdot from 'react-dotdotdot';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { trackSectionOpen } from '../../services/analytics';
@@ -81,7 +82,9 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                                     to={this.toggleLink(path)}
                                 >
                                     <ItemLabel>
-                                        {label}
+                                        <Dotdotdot clamp={2}>
+                                            {label}
+                                        </Dotdotdot>
                                     </ItemLabel>
                                     {this.props.showArrows &&
                                         <Icon

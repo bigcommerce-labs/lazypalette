@@ -138,6 +138,46 @@ exports[`Tooltip renders correctly when the tooltip is shown 1`] = `
 </Tooltip>
 `;
 
+exports[`Tooltip renders correctly when the tooltip is shown but the message is undefined 1`] = `
+<Tooltip
+  message="hello"
+  mock={
+    Object {
+      "elementClientRect": Object {
+        "bottom": 300,
+        "left": 200,
+        "right": 400,
+        "top": 200,
+        "width": 200,
+      },
+      "tooltipClientRect": Object {
+        "height": 100,
+        "width": 100,
+      },
+      "windowWidth": 1000,
+    }
+  }
+>
+  <styled.div
+    innerRef={
+      Object {
+        "current": <div
+          class="sc-bwzfXH uTxCW"
+        />,
+      }
+    }
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <div
+      className="sc-bwzfXH uTxCW"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    />
+  </styled.div>
+</Tooltip>
+`;
+
 exports[`Tooltip renders correctly when the tooltip is shown with a component as a message 1`] = `
 <Tooltip
   message={
