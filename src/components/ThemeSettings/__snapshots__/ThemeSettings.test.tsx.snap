@@ -1,106 +1,295 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ThemeSettings /> render() renders the component 1`] = `
-<Router
-  history={
-    Object {
-      "action": "POP",
-      "block": [Function],
-      "canGo": [Function],
-      "createHref": [Function],
-      "entries": Array [
-        Object {
-          "hash": "",
-          "key": "blah",
-          "pathname": "/",
-          "search": "",
-        },
+exports[`<ThemeSettings /> getEditor when type equals checkbox should return with the correct type 1`] = `
+<CheckboxInput
+  checked={false}
+  label="Hide links to web pages"
+  onChange={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "setting": Object {
+              "id": "hide_content",
+              "label": "Hide links on webpage",
+              "type": "checkbox",
+            },
+            "value": false,
+          },
+        ],
+        Array [
+          Object {
+            "setting": Object {
+              "id": "color-textHeading",
+              "label": "Headings text color",
+              "type": "color",
+            },
+            "value": "#FF123",
+          },
+        ],
       ],
-      "go": [Function],
-      "goBack": [Function],
-      "goForward": [Function],
-      "index": 0,
-      "length": 1,
-      "listen": [Function],
-      "location": Object {
-        "hash": "",
-        "key": "blah",
-        "pathname": "/",
-        "search": "",
-      },
-      "push": [Function],
-      "replace": [Function],
+    }
+  }
+  testId="checkbox.testing-checkbox"
+/>
+`;
+
+exports[`<ThemeSettings /> getEditor when type equals color should return with the correct type 1`] = `
+<Connect(ColorSetting)
+  color="#FFFFF"
+  label="Button text color"
+  name="testing-color-picker"
+  onChange={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "setting": Object {
+              "id": "hide_content",
+              "label": "Hide links on webpage",
+              "type": "checkbox",
+            },
+            "value": false,
+          },
+        ],
+        Array [
+          Object {
+            "setting": Object {
+              "id": "color-textHeading",
+              "label": "Headings text color",
+              "type": "color",
+            },
+            "value": "#FF123",
+          },
+        ],
+      ],
+    }
+  }
+  testId="color.testing-color-picker"
+/>
+`;
+
+exports[`<ThemeSettings /> getEditor when type equals font should return with the correct type 1`] = `
+<WithTheme(SelectBox)
+  label="Logo Font Family"
+  onChange={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "setting": Object {
+              "id": "hide_content",
+              "label": "Hide links on webpage",
+              "type": "checkbox",
+            },
+            "value": false,
+          },
+        ],
+        Array [
+          Object {
+            "setting": Object {
+              "id": "color-textHeading",
+              "label": "Headings text color",
+              "type": "color",
+            },
+            "value": "#FF123",
+          },
+        ],
+      ],
+    }
+  }
+  options={Array []}
+  selected={false}
+  testId="font.testing-font"
+/>
+`;
+
+exports[`<ThemeSettings /> getEditor when type equals heading should return correct type 1`] = `
+<styled.div>
+  HELLO
+</styled.div>
+`;
+
+exports[`<ThemeSettings /> getEditor when type equals imageDimension should return the correct type 1`] = `
+<ImageSize
+  label="Background image"
+  onChange={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "setting": Object {
+              "id": "hide_content",
+              "label": "Hide links on webpage",
+              "type": "checkbox",
+            },
+            "value": false,
+          },
+        ],
+        Array [
+          Object {
+            "setting": Object {
+              "id": "color-textHeading",
+              "label": "Headings text color",
+              "type": "color",
+            },
+            "value": "#FF123",
+          },
+        ],
+      ],
+    }
+  }
+  options={Array []}
+  selected="20x20"
+  testId="imageDimension.test-imageDimension"
+/>
+`;
+
+exports[`<ThemeSettings /> getEditor when type equals optimizedCheckout-image should return the correct type 1`] = `
+<CheckoutImageUpload
+  imageURL="hello_there"
+  label="Upload image"
+  name="test-imageUpload"
+  onChange={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "setting": Object {
+              "id": "hide_content",
+              "label": "Hide links on webpage",
+              "type": "checkbox",
+            },
+            "value": false,
+          },
+        ],
+        Array [
+          Object {
+            "setting": Object {
+              "id": "color-textHeading",
+              "label": "Headings text color",
+              "type": "color",
+            },
+            "value": "#FF123",
+          },
+        ],
+      ],
+    }
+  }
+  testId="optimizedCheckout-image.test-imageUpload"
+/>
+`;
+
+exports[`<ThemeSettings /> getEditor when type equals select should return correct type 1`] = `
+<WithTheme(SelectBox)
+  label="Logo type"
+  onChange={[Function]}
+  options={Array []}
+  selected="integer:1"
+  testId="select.test-select"
+/>
+`;
+
+exports[`<ThemeSettings /> getEditor when type equals text should return correct type 1`] = `
+<InputField
+  label=""
+  onChange={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "setting": Object {
+              "id": "hide_content",
+              "label": "Hide links on webpage",
+              "type": "checkbox",
+            },
+            "value": false,
+          },
+        ],
+        Array [
+          Object {
+            "setting": Object {
+              "id": "color-textHeading",
+              "label": "Headings text color",
+              "type": "color",
+            },
+            "value": "#FF123",
+          },
+        ],
+      ],
+    }
+  }
+  testId="text.test-text"
+  value="kermit_the_frog"
+/>
+`;
+
+exports[`<ThemeSettings /> render() renders the component 1`] = `
+<Draggable
+  position={
+    Object {
+      "x": 5,
+      "y": 10,
     }
   }
 >
-  <withRouter(ThemeSettings)
-    position={
-      Object {
-        "x": 5,
-        "y": 10,
-      }
-    }
-    settings={
-      Object {
-        "brandpage_products_per_page": 12,
-        "categorypage_products_per_page": 12,
-        "homepage_blog_posts_count": 3,
-        "homepage_featured_products_column_count": 4,
-        "homepage_featured_products_count": 8,
-        "homepage_new_products_column_count": 4,
-        "homepage_new_products_count": 12,
-        "homepage_show_carousel": true,
-        "homepage_top_products_column_count": 4,
-        "homepage_top_products_count": 8,
-        "productpage_related_products_count": 10,
-        "productpage_reviews_count": 9,
-        "productpage_similar_by_views_count": 10,
-        "productpage_videos_count": 8,
-        "searchpage_products_per_page": 12,
-        "show_product_quick_view": true,
-      }
-    }
-    settingsIndex={1}
-    themeSettings={
-      Object {
-        "name": "Typography & Icons",
-        "settings": Array [
-          Object {
-            "content": "Logo",
-            "type": "heading",
-          },
-          Object {
-            "id": "logo-font",
-            "label": "Font family",
-            "options": Array [
+  <ExpandableMenu
+    title="Typography & Icons"
+  >
+    <styled.ul>
+      <styled.li
+        key="0"
+      >
+        <styled.div>
+          Logo
+        </styled.div>
+      </styled.li>
+      <styled.li
+        key="1"
+      >
+        <WithTheme(SelectBox)
+          label="Font family"
+          onChange={[Function]}
+          options={
+            Array [
               Object {
-                "group": "Oswald",
                 "label": "Oswald",
                 "value": "Google_Oswald_400",
               },
               Object {
-                "group": "Oswald",
                 "label": "Oswald Light",
                 "value": "Google_Oswald_300",
               },
-            ],
-            "type": "font",
-          },
-          Object {
-            "content": "Headings",
-            "type": "heading",
-          },
-          Object {
-            "id": "color-textHeading",
-            "label": "Headings text color",
-            "type": "color",
-          },
-          Object {
-            "description": "Please specify a maximum image size for desktop display.",
-            "force_reload": true,
-            "id": "logo_size",
-            "label": "Logo size",
-            "options": Array [
+            ]
+          }
+          testId="font.logo-font"
+        />
+      </styled.li>
+      <styled.li
+        key="2"
+      >
+        <styled.div>
+          Headings
+        </styled.div>
+      </styled.li>
+      <styled.li
+        key="3"
+      >
+        <Connect(ColorSetting)
+          label="Headings text color"
+          name="color-textHeading"
+          onChange={[MockFunction]}
+          testId="color.color-textHeading"
+        />
+      </styled.li>
+      <styled.li
+        key="4"
+      >
+        <ImageSize
+          label="Logo size"
+          onChange={[Function]}
+          options={
+            Array [
               Object {
                 "label": "Original (as uploaded)",
                 "value": "original",
@@ -113,14 +302,19 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
                 "label": "Specify dimensions",
                 "value": "custom",
               },
-            ],
-            "type": "imageDimension",
-          },
-          Object {
-            "force_reload": true,
-            "id": "logo-position",
-            "label": "Logo position",
-            "options": Array [
+            ]
+          }
+          testId="imageDimension.logo_size"
+        />
+      </styled.li>
+      <styled.li
+        key="5"
+      >
+        <WithTheme(SelectBox)
+          label="Logo position"
+          onChange={[Function]}
+          options={
+            Array [
               Object {
                 "label": "Right",
                 "value": "right",
@@ -133,24 +327,31 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
                 "label": "Left",
                 "value": "left",
               },
-            ],
-            "type": "select",
-          },
-          Object {
-            "force_reload": true,
-            "id": "show_powered_by",
-            "label": "Show Powered By",
-            "type": "checkbox",
-          },
-          Object {
-            "id": "pdp-sale-price-label",
-            "label": "Product sale price label",
-            "type": "text",
-          },
-        ],
-      }
-    }
-    updateThemeConfigChange={[MockFunction]}
-  />
-</Router>
+            ]
+          }
+          selected=""
+          testId="select.logo-position"
+        />
+      </styled.li>
+      <styled.li
+        key="6"
+      >
+        <CheckboxInput
+          label="Show Powered By"
+          onChange={[Function]}
+          testId="checkbox.show_powered_by"
+        />
+      </styled.li>
+      <styled.li
+        key="7"
+      >
+        <InputField
+          label="Product sale price label"
+          onChange={[Function]}
+          testId="text.pdp-sale-price-label"
+        />
+      </styled.li>
+    </styled.ul>
+  </ExpandableMenu>
+</Draggable>
 `;
