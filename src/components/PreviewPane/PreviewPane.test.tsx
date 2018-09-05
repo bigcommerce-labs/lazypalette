@@ -8,11 +8,23 @@ import { VIEWPORT_TYPES } from '../PreviewPane/constants';
 import PreviewPane from './PreviewPane';
 
 describe('<PreviewPane />', () => {
+    const versionId = '26a5d5b0-72ff-0134-79ee-0242ac112a0f';
+    const configurationId = '26a5d5b0-72ff-0134-79ee-0242ac112a0f';
+    const lastCommitId = '';
+
     describe('render()', () => {
         it('renders the component', () => {
             const store = createMockStore([])({
                 error: {errors: []},
-                previewPane: {},
+                previewPane: {
+                    page: '/',
+                    pageUrl: `/?stencilEditor=${versionId}@${configurationId}`,
+                    themePreviewConfig: {
+                        configurationId,
+                        lastCommitId,
+                        versionId,
+                    },
+                },
                 theme: {
                     configurationId: '',
                 },
@@ -36,6 +48,13 @@ describe('<PreviewPane />', () => {
                     const store = createMockStore([])({
                         error: { errors: [] },
                         previewPane: {
+                            page: '/',
+                            pageUrl: `/?stencilEditor=${versionId}@${configurationId}`,
+                            themePreviewConfig: {
+                                configurationId,
+                                lastCommitId,
+                                versionId,
+                            },
                             viewportType,
                         },
                         theme: {
@@ -54,6 +73,13 @@ describe('<PreviewPane />', () => {
                         error: { errors: [] },
                         previewPane: {
                             isRotated: true,
+                            page: '/',
+                            pageUrl: `/?stencilEditor=${versionId}@${configurationId}`,
+                            themePreviewConfig: {
+                                configurationId,
+                                lastCommitId,
+                                versionId,
+                            },
                             viewportType,
                         },
                         theme: {

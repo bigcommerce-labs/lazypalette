@@ -80,11 +80,11 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
 
     componentDidMount(): void {
         WindowService.getInstance().addEventListener('message', this.handleMessage);
-        this.props.loadPage(this.props.page);
-        this.updateStyles();
+    }
 
-        if (this.props.fontUrl) {
-            this.updateFonts();
+    componentWillReceiveProps(nextProps: PreviewPaneProps): void {
+        if (this.props.themePreviewConfig.versionId !== nextProps.themePreviewConfig.versionId) {
+            this.props.loadPage(this.props.page);
         }
     }
 
@@ -111,18 +111,23 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
             isFetching,
             isRotated,
             pageUrl,
-            viewportType } = this.props;
+            themePreviewConfig,
+            viewportType,
+        } = this.props;
+        const iframeReady = pageUrl && themePreviewConfig.versionId;
 
         return (
             <PreviewPaneContainer showBorder={viewportType === VIEWPORT_TYPES.DESKTOP}>
-                <PreviewPaneIframe
-                    innerRef={(x: HTMLIFrameElement) => (this.iframeRef = x)}
-                    isFetching={isFetching}
-                    isRotated={isRotated}
-                    onLoad={this.onLoad}
-                    src={pageUrl}
-                    viewportType={viewportType}
-                />
+                {iframeReady &&
+                    <PreviewPaneIframe
+                        innerRef={(x: HTMLIFrameElement) => (this.iframeRef = x)}
+                        isFetching={isFetching}
+                        isRotated={isRotated}
+                        onLoad={this.onLoad}
+                        src={pageUrl}
+                        viewportType={viewportType}
+                    />
+                }
             </PreviewPaneContainer>
         );
     }

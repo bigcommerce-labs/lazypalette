@@ -46,6 +46,8 @@ describe('Routes', () => {
             const store = createMockStore([thunk])({
                 error: { errors: [] },
                 previewPane: {
+                    page: '/',
+                    pageUrl: '/?stencilEditor=789@012',
                     themePreviewConfig: {
                         configurationId: '012',
                         lastCommitId: '456',

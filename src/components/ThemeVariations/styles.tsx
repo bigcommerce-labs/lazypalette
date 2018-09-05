@@ -2,7 +2,7 @@ import { Theme } from 'pattern-lab';
 import styled, { StyledComponentClass } from 'styled-components';
 
 export const List = styled.ul`
-    padding: 0rem 1.5rem 1.5rem 1.5rem;
+    padding: 0rem 1.5rem 0rem 1.5rem;
     width: 18.75rem;
     list-style: none;
     margin: 0;
