@@ -1,5 +1,5 @@
 import { CheckboxInput, InputField, SelectBox } from 'pattern-lab';
-import React, { ChangeEvent, Component } from 'react';
+import React, { ChangeEvent, Component, SFC } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
@@ -48,7 +48,7 @@ function transformOptions(setting: ThemeSchemaEntrySetting) {
     }) : [];
 }
 
-function getEditor(
+export function getEditor(
     setting: ThemeSchemaEntrySetting,
     preSetValue: SettingsType,
     handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
@@ -130,51 +130,45 @@ function getEditor(
 export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
     handleChange = (setting: ThemeSchemaEntrySetting) =>
         ({target}: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+
             const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
 
             this.props.updateThemeConfigChange({ setting, value });
         };
 
     render() {
-        const { match, position, settings, settingsIndex, themeSettings } = this.props;
-        const { section } = appRoutes;
+        const { match, position, settings, themeSettings } = this.props;
 
         return (
-            <Route
-                path={`/${section.route}${settingsIndex}`}
-                exact
-                render={() => (
-                    <Draggable position={position} >
-                        <ExpandableMenu
-                            back={match.url}
-                            title={themeSettings ? themeSettings.name : ''}
-                        >
-                            <List>
-                                {themeSettings.settings.map((setting, index) => {
-                                    const { reference, reference_default } = setting;
-                                    if (reference && settings[reference] === reference_default) {
-                                        return null;
-                                    } else {
+            <Draggable position={position} >
+                <ExpandableMenu
+                    back={match.url}
+                    title={themeSettings ? themeSettings.name : ''}
+                >
+                    <List>
+                        {themeSettings.settings.map((setting, index) => {
+                            const { reference, reference_default } = setting;
+                            if (reference && settings[reference] === reference_default) {
+                                return null;
+                            } else {
 
-                                        return (
-                                            <Item key={index}>
-                                                {
-                                                    getEditor(
-                                                        setting,
-                                                        settings,
-                                                        this.handleChange(setting),
-                                                        this.props.updateThemeConfigChange
-                                                    )
-                                                }
-                                            </Item>
-                                        );
-                                    }
-                                })}
-                            </List>
-                        </ExpandableMenu>
-                    </Draggable>
-                )}
-            />
+                                return (
+                                    <Item key={index}>
+                                        {
+                                            getEditor(
+                                                setting,
+                                                settings,
+                                                this.handleChange(setting),
+                                                this.props.updateThemeConfigChange
+                                            )
+                                        }
+                                    </Item>
+                                );
+                            }
+                        })}
+                    </List>
+                </ExpandableMenu>
+            </Draggable>
         );
     }
 }
@@ -199,6 +193,14 @@ const mapDispatchToProps = {
     updateThemeConfigChange,
 };
 
+const RoutedThemeSettings: SFC<ThemeSettingsProps> = props => (
+    <Route
+        path={`/${appRoutes.section.route}${props.settingsIndex}`}
+        exact
+        render={() => <ThemeSettings {...props}/>}
+    />
+);
+
 export default withRouter(
     connect<StateFromProps, ActionFromProps, { settingsIndex: number }>(mapStateToProps,
-        mapDispatchToProps)(ThemeSettings));
+        mapDispatchToProps)(RoutedThemeSettings));
