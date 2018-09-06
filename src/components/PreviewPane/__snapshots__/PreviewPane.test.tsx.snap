@@ -4,6 +4,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP upd
 <iframe
   class="sc-bwzfXH krqcfQ"
   height="100%"
+  src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="100%"
 />
 `;
@@ -12,6 +13,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP upd
 <iframe
   class="sc-bwzfXH krqcfQ"
   height="100%"
+  src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="100%"
 />
 `;
@@ -20,6 +22,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE upda
 <iframe
   class="sc-bwzfXH imvRfn"
   height="375px"
+  src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="667px"
 />
 `;
@@ -28,6 +31,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE upda
 <iframe
   class="sc-bwzfXH fziczk"
   height="667px"
+  src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="375px"
 />
 `;
@@ -36,6 +40,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET upda
 <iframe
   class="sc-bwzfXH cfbdlP"
   height="768px"
+  src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="1024px"
 />
 `;
@@ -44,6 +49,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET upda
 <iframe
   class="sc-bwzfXH kbDMjO"
   height="1024px"
+  src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="768px"
 />
 `;
@@ -54,8 +60,17 @@ exports[`<PreviewPane /> render() renders the component 1`] = `
   configurationId=""
   errors={Array []}
   loadPage={[Function]}
+  page="/"
+  pageUrl="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   previewPaneLoaded={[Function]}
   previewPaneLoading={[Function]}
+  themePreviewConfig={
+    Object {
+      "configurationId": "26a5d5b0-72ff-0134-79ee-0242ac112a0f",
+      "lastCommitId": "",
+      "versionId": "26a5d5b0-72ff-0134-79ee-0242ac112a0f",
+    }
+  }
   updatePage={[Function]}
   updatePreviewPaneConfig={[Function]}
 />
