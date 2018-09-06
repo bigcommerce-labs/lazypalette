@@ -69,18 +69,18 @@ class ColorPicker extends Component<ColorPickerProps> {
     render() {
         return (
             <Container>
-                <HueContainer>
-                    <Hue
-                        {...this.props}
-                        pointer={HuePointer}
-                    />
-                </HueContainer>
                 <SaturationContainer>
                     <Saturation
                         {...this.props}
                         pointer={SaturationPointer}
                     />
                 </SaturationContainer>
+                <HueContainer>
+                    <Hue
+                        {...this.props}
+                        pointer={HuePointer}
+                    />
+                </HueContainer>
                 <EditableInputContainer>
                     <HexField>
                         <EditableInput

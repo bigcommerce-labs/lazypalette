@@ -71,27 +71,6 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
   class="sc-kAzzGY bdveVg"
 >
   <div
-    class="sc-chPdSV imFiDd"
-  >
-    <div
-      style="position:absolute;top:0px;right:0px;bottom:0px;left:0px"
-    >
-      <div
-        class="hue-horizontal"
-        style="padding:0 2px;position:relative;height:100%"
-      >
-        <div
-          style="position:absolute;left:0%"
-        >
-          <div
-            class="sc-ckVGcZ cCvgyE"
-            color="#FFFFFF"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
     class="sc-kgoBCf gdDyfq"
   >
     <div
@@ -110,6 +89,27 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
         >
           <div
             class="sc-jKJlTe hgRwcV"
+            color="#FFFFFF"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="sc-chPdSV imFiDd"
+  >
+    <div
+      style="position:absolute;top:0px;right:0px;bottom:0px;left:0px"
+    >
+      <div
+        class="hue-horizontal"
+        style="padding:0 2px;position:relative;height:100%"
+      >
+        <div
+          style="position:absolute;left:0%"
+        >
+          <div
+            class="sc-ckVGcZ cCvgyE"
             color="#FFFFFF"
           />
         </div>
