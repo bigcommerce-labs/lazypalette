@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { ViewportType } from '../PreviewPane/PreviewPane';
+import Tooltip from '../Tooltip/Tooltip';
 
 export const StyledHeaderMenu = styled.nav`
     align-items: center;
@@ -43,6 +44,7 @@ export const StyledHeaderSpan = styled.span`
 `;
 
 interface StyledIconProps {
+    tooltip: string;
     isRotated?: boolean;
     isSelected: boolean;
     viewportType: ViewportType;
@@ -51,13 +53,20 @@ interface StyledIconProps {
 
 export const StyledIcon = (props: StyledIconProps) => {
     return (
-        <StyledHeaderSpan isRotated={props.isRotated || false} isSelected={props.isSelected} onClick={props.onClick}>
-            <Icon
-                glyph={props.viewportType.glyphName}
-                primaryColor={props.isSelected ? theme.colors.primary : undefined}
-                size={'larger'}
-                data-test-id={props.viewportType.glyphName}
-            />
-        </StyledHeaderSpan>
+        <Tooltip
+            message={props.tooltip}
+        >
+            <StyledHeaderSpan
+                isRotated={props.isRotated || false}
+                isSelected={props.isSelected}
+                onClick={props.onClick}>
+                <Icon
+                    glyph={props.viewportType.glyphName}
+                    primaryColor={props.isSelected ? theme.colors.primary : undefined}
+                    size={'larger'}
+                    data-test-id={props.viewportType.glyphName}
+                />
+            </StyledHeaderSpan>
+        </Tooltip>
     );
 };

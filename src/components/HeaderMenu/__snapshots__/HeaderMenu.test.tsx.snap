@@ -7,9 +7,11 @@ exports[`<HeaderMenu /> render() renders the component 1`] = `
     isSelected={false}
     key="DESKTOP"
     onClick={[Function]}
+    tooltip="Desktop preview"
     viewportType={
       Object {
         "glyphName": "desktop",
+        "tooltip": "Desktop preview",
         "viewportHeight": "100%",
         "viewportWidth": "100%",
       }
@@ -19,9 +21,11 @@ exports[`<HeaderMenu /> render() renders the component 1`] = `
     isSelected={false}
     key="TABLET"
     onClick={[Function]}
+    tooltip="Tablet preview"
     viewportType={
       Object {
         "glyphName": "tablet",
+        "tooltip": "Tablet preview",
         "viewportHeight": "1024px",
         "viewportWidth": "768px",
       }
@@ -31,9 +35,11 @@ exports[`<HeaderMenu /> render() renders the component 1`] = `
     isSelected={false}
     key="MOBILE"
     onClick={[Function]}
+    tooltip="Mobile preview"
     viewportType={
       Object {
         "glyphName": "mobile",
+        "tooltip": "Mobile preview",
         "viewportHeight": "667px",
         "viewportWidth": "375px",
       }

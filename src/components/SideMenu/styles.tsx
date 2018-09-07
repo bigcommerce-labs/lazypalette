@@ -315,52 +315,6 @@ export const CollapseButton = styled.button.attrs<CollapsedProps>({})`
     ${props => getCollapseStyles(props)};
 `;
 
-interface ToolTipProps {
-    collapsed: string;
-    primaryTip: string;
-    secondaryTip: string;
-}
-
-export const delayIn = keyframes`
-    from { opacity: 0; }
-
-    to { opacity: 1; }
-`;
-
-export const ToolTip = styled.span.attrs<ToolTipProps>({})`
-    opacity: 0;
-    background: ${({ theme }) => theme.colors.primaryText};
-    color: ${({ theme }) => theme.colors.empty};
-    border-radius: 6px;
-    position: absolute;
-    top: -3.5rem;
-    left: 0;
-    width: 10rem;
-    z-index: ${({ theme }) => theme.layers.highest};
-    box-shadow: ${({ theme }) => theme.elevation.raised};
-
-    :after {
-        font-size: 1rem;
-        font-weight: ${({ theme }) => theme.typography.fontWeight.thin};
-        line-height: 3rem;
-    }
-
-    ${CollapseButton}:hover & {
-        :after {
-            content: "${props => props.primaryTip}";
-        }
-        animation: ${delayIn} 250ms linear;
-        animation-delay: 500ms;
-        animation-fill-mode: forwards;
-
-        ${props => props.collapsed === Collapsed.Yes && `
-            :after {
-                content: "${props.secondaryTip}";
-            }
-        `};
-    }
-`;
-
 interface StyledStatusProps {
     status: string;
 }
@@ -390,5 +344,4 @@ export const StyledStatus = styled.div.attrs<StyledStatusProps>({})`
       `;
         }
     }}
-
 `;

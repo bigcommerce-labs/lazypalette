@@ -1,0 +1,245 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tooltip renders correctly when the tooltip is not shown 1`] = `
+<Tooltip
+  message="hello"
+  mock={
+    Object {
+      "elementClientRect": Object {
+        "bottom": 300,
+        "left": 200,
+        "right": 400,
+        "top": 200,
+        "width": 200,
+      },
+      "tooltipClientRect": Object {
+        "height": 100,
+        "width": 100,
+      },
+      "windowWidth": 1000,
+    }
+  }
+>
+  <styled.div
+    innerRef={
+      Object {
+        "current": <div
+          class="sc-bwzfXH uTxCW"
+        />,
+      }
+    }
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <div
+      className="sc-bwzfXH uTxCW"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    />
+  </styled.div>
+</Tooltip>
+`;
+
+exports[`Tooltip renders correctly when the tooltip is shown 1`] = `
+<Tooltip
+  message="hello"
+  mock={
+    Object {
+      "elementClientRect": Object {
+        "bottom": 300,
+        "left": 200,
+        "right": 400,
+        "top": 200,
+        "width": 200,
+      },
+      "tooltipClientRect": Object {
+        "height": 100,
+        "width": 100,
+      },
+      "windowWidth": 1000,
+    }
+  }
+>
+  <styled.div
+    innerRef={
+      Object {
+        "current": <div
+          class="sc-bdVaJa hrVFsJ"
+          style="left: 250px; top: 100px; transform: translateY(-0.5rem);"
+        >
+          hello
+        </div>,
+      }
+    }
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    position={
+      Object {
+        "belowElement": false,
+        "x": 0,
+        "y": 0,
+      }
+    }
+    theme={
+      Object {
+        "colors": Object {
+          "empty": "#FFFFFF",
+          "primaryText": "#303540",
+        },
+        "elevation": Object {
+          "floating": "0 2px 12px rgba(48, 53, 64, 0.2)",
+        },
+        "layers": Object {
+          "high": 100,
+        },
+        "typography": Object {
+          "fontSize": Object {
+            "small": "16px",
+          },
+          "fontWeight": Object {
+            "thin": 400,
+          },
+        },
+      }
+    }
+  >
+    <div
+      className="sc-bdVaJa hrVFsJ"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={
+        Object {
+          "left": "0px",
+          "top": "0px",
+          "transform": "translateY(-0.5rem)",
+        }
+      }
+    >
+      hello
+    </div>
+  </styled.div>
+  <styled.div
+    innerRef={
+      Object {
+        "current": <div
+          class="sc-bwzfXH uTxCW"
+        />,
+      }
+    }
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <div
+      className="sc-bwzfXH uTxCW"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    />
+  </styled.div>
+</Tooltip>
+`;
+
+exports[`Tooltip renders correctly when the tooltip is shown with a component as a message 1`] = `
+<Tooltip
+  message={
+    <a>
+      Click me
+    </a>
+  }
+  mock={
+    Object {
+      "elementClientRect": Object {
+        "bottom": 300,
+        "left": 200,
+        "right": 400,
+        "top": 200,
+        "width": 200,
+      },
+      "tooltipClientRect": Object {
+        "height": 100,
+        "width": 100,
+      },
+      "windowWidth": 1000,
+    }
+  }
+>
+  <styled.div
+    innerRef={
+      Object {
+        "current": <div
+          class="sc-bdVaJa hrVFsJ"
+          style="left: 250px; top: 100px; transform: translateY(-0.5rem);"
+        >
+          <a>
+            Click me
+          </a>
+        </div>,
+      }
+    }
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    position={
+      Object {
+        "belowElement": false,
+        "x": 0,
+        "y": 0,
+      }
+    }
+    theme={
+      Object {
+        "colors": Object {
+          "empty": "#FFFFFF",
+          "primaryText": "#303540",
+        },
+        "elevation": Object {
+          "floating": "0 2px 12px rgba(48, 53, 64, 0.2)",
+        },
+        "layers": Object {
+          "high": 100,
+        },
+        "typography": Object {
+          "fontSize": Object {
+            "small": "16px",
+          },
+          "fontWeight": Object {
+            "thin": 400,
+          },
+        },
+      }
+    }
+  >
+    <div
+      className="sc-bdVaJa hrVFsJ"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={
+        Object {
+          "left": "0px",
+          "top": "0px",
+          "transform": "translateY(-0.5rem)",
+        }
+      }
+    >
+      <a>
+        Click me
+      </a>
+    </div>
+  </styled.div>
+  <styled.div
+    innerRef={
+      Object {
+        "current": <div
+          class="sc-bwzfXH uTxCW"
+        />,
+      }
+    }
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <div
+      className="sc-bwzfXH uTxCW"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    />
+  </styled.div>
+</Tooltip>
+`;

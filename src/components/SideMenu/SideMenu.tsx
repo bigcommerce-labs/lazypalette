@@ -12,6 +12,7 @@ import { appRoutes } from '../Routes/Routes';
 import ThemeHistory from '../ThemeHistory/ThemeHistory';
 import ThemeSettings from '../ThemeSettings/ThemeSettings';
 import ThemeVariations from '../ThemeVariations/ThemeVariations';
+import Tooltip from '../Tooltip/Tooltip';
 
 import { Collapsed, Tips } from './constants';
 import DesignSubMenu from './DesignSubMenu';
@@ -27,7 +28,6 @@ import {
     StyledMenuItemIcon,
     StyledStatus,
     Title,
-    ToolTip,
 } from './styles';
 
 interface SideMenuProps extends RouteComponentProps<{}> {
@@ -138,16 +138,16 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                                 <Icon glyph="externalLink" size="small" />
                             </StyledMenuItemIcon>
                         </ExternalNavItem>
-                        <CollapseButton
-                            collapsed={collapsed}
-                            onClick={this.handleCollapse}
+                        <Tooltip
+                            hideDelay={0}
+                            message={collapsed === Collapsed.Yes ? Tips.Secondary : Tips.Primary}
                         >
-                            <ToolTip
+                            <CollapseButton
                                 collapsed={collapsed}
-                                primaryTip={Tips.Primary}
-                                secondaryTip={Tips.Secondary}
-                            />
-                        </CollapseButton>
+                                onClick={this.handleCollapse}
+                            >
+                            </CollapseButton>
+                        </Tooltip>
                     </Footer>
                 </Container>
             </>
