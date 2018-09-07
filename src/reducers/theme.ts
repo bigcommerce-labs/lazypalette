@@ -17,6 +17,7 @@ export interface ThemeState {
     isChanged: boolean;
     isCurrent: boolean;
     isPurchased: boolean;
+    price?: number;
     variationId: string;
     schema: ThemeSchema;
     themeName: string;
@@ -89,6 +90,7 @@ const initialState: ThemeState = {
     isChanged: false,
     isCurrent: false,
     isPurchased: false,
+    price: undefined,
     schema: [],
     settings: {},
     themeId: '',
@@ -129,6 +131,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 variations,
                 versionId,
             } = action.payload as ThemeVariationResponse;
+            const price = isPurchased ? 0 : action.payload.price / 10;
 
             return {
                 ...state,
@@ -137,6 +140,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 initialConfigurationId: configurationId,
                 isCurrent: false,
                 isPurchased,
+                price,
                 themeId,
                 themeName,
                 variationId,

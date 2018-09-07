@@ -7,6 +7,9 @@ interface ContainerProps {
 export const Container = styled.div.attrs<ContainerProps>({})`
     margin-left: auto;
     display: flex;
-    justify-content: space-between;
-    width: ${({ isChanged }) => isChanged ? '15rem' : '8.25rem'};
+    justify-content: flex-end;
+    width: 25rem;
+    > div {
+        margin-left: 1rem;
+    }
 `;

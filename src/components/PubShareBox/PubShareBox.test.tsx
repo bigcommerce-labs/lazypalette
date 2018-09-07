@@ -1,12 +1,16 @@
 import { mount, shallow } from 'enzyme';
 import React from 'react';
 
-import ButtonInput from '../ButtonInput/ButtonInput';
+import {sel} from '../../utils/testUtil';
+
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 
 import { PubShareBox } from './PubShareBox';
 
 describe('PubShareBox', () => {
+
+    const undoChangesButton = sel('undo-changes');
+
     const mockVariations = [
         {
             configurationId: '123',
@@ -58,172 +62,79 @@ describe('PubShareBox', () => {
     ];
     const mockHandler = jest.fn();
 
+    const pubShareBoxElement = <PubShareBox
+        isChanged={false}
+        isCurrent={true}
+        isPrelaunchStore={false}
+        isPurchased={true}
+        price={0}
+        configurationId="123"
+        variationHistory={mockVariationHistory}
+        variationId="234"
+        variations={mockVariations}
+        onPublish={mockHandler}
+        onReset={mockHandler}
+        onSave={mockHandler}
+    />;
+
+    const pubBoxShallow = shallow(pubShareBoxElement);
+
     it('renders', () => {
-        const pubBox = shallow(
-            <PubShareBox
-                isChanged={false}
-                configurationId="123"
-                variationHistory={mockVariationHistory}
-                variations={mockVariations}
-                onPublish={mockHandler}
-                onReset={mockHandler}
-                onSave={mockHandler}
-            />
-        );
-
-        expect(pubBox).toMatchSnapshot();
+        expect(pubBoxShallow).toMatchSnapshot();
     });
 
-    describe('save button', () => {
-        describe('when the user clicks the save button', () => {
-            it('should call the handler', () => {
-                const mockHandleSave = jest.fn();
+    const pubBoxMount = mount(pubShareBoxElement);
 
-                const pubBox = shallow(
-                    <PubShareBox
-                        isChanged={true}
-                        configurationId="123"
-                        variationHistory={mockVariationHistory}
-                        variations={mockVariations}
-                        onPublish={mockHandler}
-                        onReset={mockHandler}
-                        onSave={mockHandleSave}
-                    />
-                );
+    describe('isPurchased', () => {
+        describe('when isPurchased is true', () => {
+            describe('when isCurrent is true', () => {
+                pubBoxMount.setProps({isPurchased: true});
+                pubBoxMount.setProps({isCurrent: true});
 
-                const saveButton = pubBox.find(ButtonInput).find({ children: 'Save' });
-
-                saveButton.simulate('click');
-                expect(mockHandleSave).toHaveBeenCalledTimes(1);
-            });
-
-            it('should disable save button after', () => {
-                const mockHandleSave = jest.fn();
-                const pubBox = shallow(
-                    <PubShareBox
-                        isChanged={true}
-                        configurationId="123"
-                        variationHistory={mockVariationHistory}
-                        variations={mockVariations}
-                        onPublish={mockHandler}
-                        onReset={mockHandler}
-                        onSave={mockHandleSave}
-                    />
-                );
-
-                const saveButton = pubBox.find(ButtonInput).find({ children: 'Save' });
-                saveButton.simulate('click');
-                expect(saveButton.props().disabled).toEqual(true);
-            });
-        });
-    });
-
-    describe('reset button', () => {
-        describe('when the user has made theme changes', () => {
-            const mockResetTheme = jest.fn();
-
-            const pubBox = shallow(
-                <PubShareBox
-                    isChanged={true}
-                    configurationId="123"
-                    variationHistory={mockVariationHistory}
-                    variations={mockVariations}
-                    onPublish={mockHandler}
-                    onReset={mockResetTheme}
-                    onSave={mockHandler}
-                />
-            );
-
-            const resetButton = pubBox.find(ButtonInput).find({ children: 'Undo Changes' });
-
-            it('should be displayed', () => {
-                expect(resetButton.length).toEqual(1);
-            });
-
-            describe('when the user clicks the reset button', () => {
-                it('should open the confirmModal', () => {
-                    resetButton.simulate('click');
-                    expect(pubBox.state().isResetOpen).toEqual(true);
-
-                    const confirmModel = pubBox.find(ConfirmModal);
-                    expect(confirmModel.length).toEqual(1);
+                it('should render ActiveAction', () => {
+                    expect(pubBoxMount.find('ActiveAction').length).toBe(1);
+                });
+                it('should not render InActiveAction', () => {
+                    expect(pubBoxMount.find('InActiveAction').length).toBe(0);
                 });
             });
         });
-    });
 
-    describe('publish button', () => {
-        describe('when the theme changes can be published', () => {
-            const mockHandlePublish = jest.fn();
-
-            const pubBox = mount(
-                <PubShareBox
-                    isChanged={false}
-                    configurationId="123"
-                    variationHistory={mockVariationHistory}
-                    variations={mockVariations}
-                    onPublish={mockHandlePublish}
-                    onReset={mockHandler}
-                    onSave={mockHandler}
-                />
-            );
-
-            it('should not be disabled', done => {
-                pubBox.setState({
-                    canSave: false,
-                    disabled: false,
-                    isResetOpen: false,
+        describe('when isPurchased is false', () => {
+            describe('when price is undefined', () => {
+                it('should not render PreviewAction', () => {
+                    pubBoxMount.setProps({isPurchased: false, price: undefined});
+                    expect(pubBoxMount.find('PreviewAction').length).toBe(0);
                 });
-                const child = pubBox.find(ButtonInput).get(1);
-                setTimeout(() => {
-                    expect(child.props.disabled).toEqual(false);
-                }, 0);
-                done();
+            });
+
+            describe('when price is >= 0', () => {
+                it('should render PreviewAction', () => {
+                    pubBoxMount.setProps({isPurchased: false, price: 100});
+                    expect(pubBoxMount.find('PreviewAction').length).toBe(1);
+                });
             });
         });
 
-        describe('when the user clicks the publish button', () => {
-            it('should open the confirmModal', () => {
-                const mockHandlePublish = jest.fn();
+        describe('isChange', () => {
+            describe('is true', () => {
+                it('should display "Undo changes" button', () => {
+                    pubBoxMount.setProps({isChanged: true});
+                    expect(pubBoxMount.find(undoChangesButton).hostNodes().length).toBe(1);
+                });
 
-                const pubBox = shallow(
-                    <PubShareBox
-                        isChanged={true}
-                        configurationId="123"
-                        variationHistory={mockVariationHistory}
-                        variations={mockVariations}
-                        onPublish={mockHandlePublish}
-                        onReset={mockHandler}
-                        onSave={mockHandler}
-                    />
-                );
-
-                const publishButton = pubBox.find(ButtonInput).find({ children: 'Publish' });
-                publishButton.simulate('click');
-                expect(pubBox.state().isPublishOpen).toEqual(true);
-
-                const confirmModel = pubBox.find(ConfirmModal);
-                expect(confirmModel.length).toEqual(1);
+                describe('when "Undo changes" button is clicked', () => {
+                    it('opens ConfirmModal', () => {
+                        pubBoxMount.find(undoChangesButton).hostNodes().simulate('click');
+                        expect(pubBoxMount.find(ConfirmModal).length).toBe(1);
+                    });
+                });
             });
-
-            it('should disable publish button after click', () => {
-                const mockHandlePublish = jest.fn();
-
-                const pubBox = shallow(
-                    <PubShareBox
-                        isChanged={true}
-                        configurationId="123"
-                        variationHistory={mockVariationHistory}
-                        variations={mockVariations}
-                        onPublish={mockHandlePublish}
-                        onReset={mockHandler}
-                        onSave={mockHandler}
-                    />
-                );
-
-                const publishButton = pubBox.find(ButtonInput).find({ children: 'Publish' });
-                publishButton.simulate('click');
-                expect(publishButton.props().disabled).toEqual(true);
+            describe('is false', () => {
+                it('should not display "Undo changes" button', () => {
+                    pubBoxMount.setProps({isChanged: false});
+                    expect(pubBoxMount.find(undoChangesButton).hostNodes().length).toBe(0);
+                });
             });
         });
     });

@@ -144,6 +144,7 @@ export interface ThemeVariationResponse {
     variations: ThemeVariations;
     versionId: string;
     isPurchased: boolean;
+    price: number;
     themeName: string;
     displayVersion: string;
     variationName: string;
@@ -336,11 +337,13 @@ export function fetchVariation(variationId: string, configurationId?: string) {
                 themeName,
                 variationName,
                 displayVersion,
+                price,
             }) => {
                 dispatch(themeVariationResponse({
                     configurationId: configurationId || activeConfigurationId,
                     displayVersion,
                     isPurchased,
+                    price: price || 0,
                     themeId,
                     themeName,
                     variationId,
