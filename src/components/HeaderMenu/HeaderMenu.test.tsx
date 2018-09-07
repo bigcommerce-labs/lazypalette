@@ -13,6 +13,11 @@ describe('<HeaderMenu />', () => {
         test('renders the component', () => {
             const store = createMockStore([])({
                 error: {},
+                notifications: {
+                    autoDismiss: true,
+                    message: '',
+                    type: '',
+                },
                 previewPane: {},
                 theme: {
                     configurationId: '012',
@@ -31,6 +36,11 @@ describe('<HeaderMenu />', () => {
                 const store = createMockStore([])({
                     displayVersion: '1.2.1',
                     error: {},
+                    notifications: {
+                        autoDismiss: true,
+                        message: '',
+                        type: '',
+                    },
                     postThemeConfigData: jest.fn(),
                     previewPane: {},
                     theme: {

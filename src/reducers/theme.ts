@@ -191,13 +191,11 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 isChanged: isNotEqual(state.settings, initialSettings),
             };
         case ThemeActionTypes.PREVIEW_THEME_CONFIG_RESPONSE:
-
             return {
                 ...state,
                 configurationId: action.payload.configurationId,
             };
         case ThemeActionTypes.SAVE_THEME_CONFIG_RESPONSE:
-
             return {
                 ...state,
                 configurationId: action.payload.configurationId,
