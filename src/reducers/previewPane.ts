@@ -8,6 +8,7 @@ export const initialState = {
     fontUrl: null,
     isFetching: true,
     isRotated: false,
+    needsForceReload: false,
     page: '/',
     pageUrl: '',
     themePreviewConfig: {
@@ -28,6 +29,7 @@ export interface PreviewPaneState {
     fontUrl: string | null;
     isFetching: boolean;
     isRotated: boolean;
+    needsForceReload: boolean;
     page: string;
     pageUrl: string;
     themePreviewConfig: ThemePreviewConfig;
@@ -68,6 +70,16 @@ const previewPane = (
             return {
                 ...state,
                 isFetching: false,
+            };
+        case PreviewPaneActionTypes.PREVIEW_PANE_PAGE_RELOADING:
+            return {
+                ...state,
+                needsForceReload: true,
+            };
+        case PreviewPaneActionTypes.PREVIEW_PANE_PAGE_RELOADED:
+            return {
+                ...state,
+                needsForceReload: false,
             };
         default:
             return state;

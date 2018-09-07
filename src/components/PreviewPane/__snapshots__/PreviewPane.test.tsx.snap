@@ -56,14 +56,13 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET upda
 
 exports[`<PreviewPane /> render() renders the component 1`] = `
 <PreviewPane
-  clearErrors={[Function]}
   configurationId=""
-  errors={Array []}
   loadPage={[Function]}
   page="/"
   pageUrl="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   previewPaneLoaded={[Function]}
   previewPaneLoading={[Function]}
+  previewPanePageReloaded={[Function]}
   themePreviewConfig={
     Object {
       "configurationId": "26a5d5b0-72ff-0134-79ee-0242ac112a0f",

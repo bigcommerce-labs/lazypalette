@@ -13,6 +13,8 @@ export enum PreviewPaneActionTypes {
     PAGE_UPDATE = 'PAGE_UPDATE',
     PREVIEW_PANE_LOADED = 'PREVIEW_PANE_LOADED',
     PREVIEW_PANE_LOADING = 'PREVIEW_PANE_LOADING',
+    PREVIEW_PANE_PAGE_RELOADING = 'PREVIEW_PANE_PAGE_RELOADING',
+    PREVIEW_PANE_PAGE_RELOADED = 'PREVIEW_PANE_PAGE_RELOADED',
     THEME_FONT_CHANGE = 'THEME_FONT_CHANGE',
     THEME_PREVIEW_CONFIG_REQUEST = 'THEME_PREVIEW_CONFIG_REQUEST',
     VIEWPORT_CHANGE = 'VIEWPORT_CHANGE',
@@ -35,6 +37,26 @@ export interface PreviewPaneLoadedAction extends Action  {
 export function previewPaneLoaded(): PreviewPaneLoadedAction {
     return {
         type: PreviewPaneActionTypes.PREVIEW_PANE_LOADED,
+    };
+}
+
+export interface PreviewPanePageReloadingAction extends Action  {
+    type: PreviewPaneActionTypes.PREVIEW_PANE_PAGE_RELOADING;
+}
+
+export function previewPanePageReloading(): PreviewPanePageReloadingAction {
+    return {
+        type: PreviewPaneActionTypes.PREVIEW_PANE_PAGE_RELOADING,
+    };
+}
+
+export interface PreviewPanePageReloadedAction extends Action  {
+    type: PreviewPaneActionTypes.PREVIEW_PANE_PAGE_RELOADED;
+}
+
+export function previewPanePageReloaded(): PreviewPanePageReloadedAction {
+    return {
+        type: PreviewPaneActionTypes.PREVIEW_PANE_PAGE_RELOADED,
     };
 }
 

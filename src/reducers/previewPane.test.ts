@@ -9,6 +9,7 @@ describe('Preview Pane reducer', () => {
         fontUrl: 'hello',
         isFetching: true,
         isRotated: false,
+        needsForceReload: false,
         page: '/',
         pageUrl: '',
         themePreviewConfig: {
