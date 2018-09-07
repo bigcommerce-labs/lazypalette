@@ -21,6 +21,7 @@ interface ColorSettingProps {
 
 interface ColorSettingState {
     color: string;
+    focus: boolean;
     inputId: string;
     previousColor?: string;
     testId?: string;
@@ -31,6 +32,7 @@ const defaultColor = '#000000';
 export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingState> {
     readonly state: ColorSettingState = {
         color: this.props.color || defaultColor,
+        focus: false,
         inputId: this.props.inputId || uuid(),
         previousColor: this.props.color || defaultColor,
         testId: this.props.testId,
@@ -46,6 +48,8 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
         }
     };
 
+    handleOnClose = () => this.setState({ focus: false });
+
     handleClick = () => {
         this.setState(prevState => ({ previousColor: prevState.color }));
 
@@ -53,9 +57,11 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
             (ReactDOM.findDOMNode(this.refs[this.state.inputId]) as Element).getBoundingClientRect();
 
         const position = { x: left + (width * 3), y: top };
+        this.setState({ focus: true });
         this.props.openColorPicker({
             color: this.state.color,
             onChange: this.handleChange,
+            onClose: this.handleOnClose,
             position,
         });
     };
@@ -75,6 +81,7 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
                 </Label>
                 <ColorText>{this.state.color.toUpperCase()}</ColorText>
                 <SelectedColor
+                    focus={this.state.focus}
                     color={this.state.color}
                     ref={this.state.inputId}
                     onClick={this.handleClick}

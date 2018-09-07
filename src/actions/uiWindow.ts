@@ -17,6 +17,7 @@ export interface UIWindowContent {
 export interface ColorPickerContent extends UIWindowContent {
     color: string;
     onChange?(value: ColorResult): void;
+    onClose?(): void;
 }
 
 export interface OpenUIWindowAction<Content> {
@@ -40,6 +41,7 @@ export interface OpenColorPickerArgs {
     id?: string;
     position: { x: number, y: number };
     onChange?(value: ColorResult): void;
+    onClose?(): void;
 }
 
 export function openColorPicker(content: OpenColorPickerArgs): OpenUIWindowAction<ColorPickerContent> {
@@ -48,6 +50,7 @@ export function openColorPicker(content: OpenColorPickerArgs): OpenUIWindowActio
             content: {
                 color: content.color,
                 onChange: content.onChange,
+                onClose: content.onClose,
                 position: content.position,
             },
             id: content.id || uuid(),
