@@ -2,7 +2,8 @@ import { Action } from '../actions/action';
 import { MerchantActionTypes } from '../actions/merchant';
 
 export const initialState = {
-    isCurrent: false,
+    activeThemeId: '',
+    activeVariationId: '',
     isDownForMaintenance: false,
     isPrelaunchStore: false,
     previewCode: '',
@@ -12,7 +13,8 @@ export const initialState = {
 };
 
 export interface MerchantStoreState {
-    isCurrent: boolean;
+    activeThemeId: string;
+    activeVariationId: string;
     isDownForMaintenance: boolean;
     isPrelaunchStore: boolean;
     previewCode: string;
@@ -32,6 +34,11 @@ const merchant = (
     switch (action.type) {
         case MerchantActionTypes.SET_STORE_DEFAULTS:
             return { ...state, ...action.payload };
+        case MerchantActionTypes.UPDATE_ACTIVE_THEME:
+            return { ...state,
+                activeThemeId: action.payload.activeThemeId,
+                activeVariationId: action.payload.activeVariationId,
+            };
         default:
             return state;
     }

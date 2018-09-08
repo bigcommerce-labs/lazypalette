@@ -59,27 +59,49 @@ describe('PubShareBox', () => {
             variationName: 'Bold',
             versionId: '777',
         },
+        {
+            configurationId: 'upgradeConfig',
+            displayVersion: '555',
+            downloadProcessed: false,
+            downloadable: true,
+            installable: true,
+            revisionId: '34242',
+            themeId: '444',
+            themeName: '444',
+            timestamp: '2018-09-27T16:40:58Z',
+            type: 'upgrade',
+            variationId: '888',
+            variationName: 'Bold',
+            versionId: '65436456',
+        },
     ];
     const mockHandler = jest.fn();
 
     const pubShareBoxElement = <PubShareBox
+        activeThemeId="activeTheme"
+        initialConfigurationId="111"
         isChanged={false}
-        isCurrent={true}
         isPrelaunchStore={false}
         isPurchased={true}
         price={0}
         configurationId="123"
+        themeId="inactiveTheme"
         variationHistory={mockVariationHistory}
         variationId="234"
         variations={mockVariations}
         onPublish={mockHandler}
         onReset={mockHandler}
         onSave={mockHandler}
+        onUpdate={mockHandler}
     />;
 
-    const pubBoxShallow = shallow(pubShareBoxElement);
-
     describe('when rendering', () => {
+        let pubBoxShallow: any;
+
+        beforeEach(() => {
+            pubBoxShallow = shallow(pubShareBoxElement);
+        });
+
         describe('when this is a purchased theme', () => {
             beforeEach(() => {
                 pubBoxShallow.setProps({ isPurchased: true });
@@ -87,7 +109,7 @@ describe('PubShareBox', () => {
 
             describe('when this is the active theme', () => {
                 beforeEach(() => {
-                    pubBoxShallow.setProps({ isCurrent: true });
+                    pubBoxShallow.setProps({ themeId: 'activeTheme'});
                 });
 
                 describe('when this is a prelaunch store', () => {
@@ -114,7 +136,7 @@ describe('PubShareBox', () => {
 
             describe('when this is not the active theme', () => {
                 beforeEach(() => {
-                    pubBoxShallow.setProps({ isCurrent: false });
+                    pubBoxShallow.setProps({ themeId: 'inactiveTheme' });
                 });
 
                 it('renders correctly', () => {
@@ -134,13 +156,19 @@ describe('PubShareBox', () => {
         });
     });
 
-    const pubBoxMount = mount(pubShareBoxElement);
-
     describe('isPurchased', () => {
+        let pubBoxMount: any;
+
+        beforeEach(() => {
+            pubBoxMount = mount(pubShareBoxElement);
+        });
+
         describe('when isPurchased is true', () => {
             describe('when isCurrent is true', () => {
-                pubBoxMount.setProps({isPurchased: true});
-                pubBoxMount.setProps({isCurrent: true});
+                beforeEach(() => {
+                    pubBoxMount.setProps({ isPurchased: true });
+                    pubBoxMount.setProps({ themeId: 'activeTheme' });
+                });
 
                 it('should render ActiveAction', () => {
                     expect(pubBoxMount.find('ActiveAction').length).toBe(1);
@@ -171,12 +199,13 @@ describe('PubShareBox', () => {
         describe('isChange', () => {
             describe('is true', () => {
                 it('should display "Undo changes" button', () => {
-                    pubBoxMount.setProps({isChanged: true});
+                    pubBoxMount.setProps({ isChanged: true });
                     expect(pubBoxMount.find(undoChangesButton).hostNodes().length).toBe(1);
                 });
 
                 describe('when "Undo changes" button is clicked', () => {
                     it('opens ConfirmModal', () => {
+                        pubBoxMount.setProps({ isChanged: true });
                         pubBoxMount.find(undoChangesButton).hostNodes().simulate('click');
                         expect(pubBoxMount.find(ConfirmModal).length).toBe(1);
                     });
@@ -187,6 +216,28 @@ describe('PubShareBox', () => {
                     const pubBoxMountUndoChangeFalse = mount(pubShareBoxElement);
                     pubBoxMountUndoChangeFalse.setProps({isChanged: false});
                     expect(pubBoxMountUndoChangeFalse.find(undoChangesButton).hostNodes().length).toBe(0);
+                });
+            });
+        });
+
+        describe('when initialConfigurationId', () => {
+            describe('is an upgrade configuration', () => {
+                it('should render UpdateAction', done => {
+                    pubBoxMount.setProps({ initialConfigurationId: 'upgradeConfig' });
+                    pubBoxMount.setState({}, () => {
+                        expect(pubBoxMount.find('UpdateAction').length).toBe(1);
+                        done();
+                    });
+                });
+            });
+
+            describe('is not an upgrade configuration', () => {
+                it('should not render UpdateAction', done => {
+                    pubBoxMount.setProps({ initialConfigurationId: '111' });
+                    pubBoxMount.setState({}, () => {
+                        expect(pubBoxMount.find('UpdateAction').length).toBe(0);
+                        done();
+                    });
                 });
             });
         });

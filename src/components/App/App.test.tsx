@@ -14,6 +14,7 @@ it('renders', () => {
         isDownForMaintenance: true,
         isPrelaunchStore: false,
         oauthBaseUrl: 'https://login.service.bcdev',
+        seedActiveTheme: { id: 'blah', themeId: 'blah2' },
         storeHash: 'abcdefg',
         timezoneName: 'UTC',
         timezoneOffset: -7,

@@ -8,7 +8,8 @@ describe ('merchant actions', () => {
             it('responds with the expected action', () => {
 
                 const payload: StoreDefaultData = {
-                    isCurrent: true,
+                    activeThemeId: '1234',
+                    activeVariationId: '2345',
                     isDownForMaintenance: false,
                     isPrelaunchStore: false,
                     previewCode: 'dodge',

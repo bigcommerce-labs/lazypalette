@@ -4,7 +4,8 @@ import merchant, { MerchantStoreState } from './merchant';
 
 describe('Merchant reducer', () => {
     const initialState: MerchantStoreState = {
-        isCurrent: false,
+        activeThemeId: '',
+        activeVariationId: '',
         isDownForMaintenance: false,
         isPrelaunchStore: false,
         previewCode: '',
@@ -14,9 +15,11 @@ describe('Merchant reducer', () => {
     };
 
     const payload = {
-        isCurrent: false,
+        activeThemeId: 'theme1',
+        activeVariationId: 'variation1',
         isDownForMaintenance: false,
         isPrelaunchStore: false,
+        isUpdate: false,
         previewCode: 'k4k4t9q44d',
         storeHash: '1234567890',
         timezoneName: 'America/New_York',
@@ -37,6 +40,16 @@ describe('Merchant reducer', () => {
         it('should update the state', () => {
             const action = merchantActions.setStoreDefault(payload);
             const expectedState = { ...initialState, ...payload };
+
+            expect(merchant(initialState, action)).toEqual(expectedState);
+        });
+    });
+
+    describe('when UPDATE_ACTIVE_THEME action is received', () => {
+        it('should update the state', () => {
+            const updatePayload = { activeThemeId: 'newTheme', activeVariationId: 'newVariation' };
+            const action = merchantActions.updateActiveTheme(updatePayload);
+            const expectedState = { ...initialState, ...updatePayload };
 
             expect(merchant(initialState, action)).toEqual(expectedState);
         });

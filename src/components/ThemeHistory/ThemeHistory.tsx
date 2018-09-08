@@ -101,8 +101,12 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
         const typeLabels = this.props.isPrelaunchStore ? PreLaunchTypeLabels : PostLaunchTypeLabels;
         const typeString = typeLabels[entry.type] || entry.type;
 
-        return entry.type === 'default' ? typeString : `${typeString} ${dateString}`;
+        return this.showDate(entry.type) ? `${typeString} ${dateString}` : typeString;
     }
+
+    showDate = (type: string) => {
+        return type === 'installed' || type === 'saved';
+    };
 
     render() {
         const { match, position, variationHistory} = this.props;

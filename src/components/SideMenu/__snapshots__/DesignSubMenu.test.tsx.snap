@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DesignSubMenu renders 1`] = `
+exports[`DesignSubMenu when rendering when isPreview is false renders correctly 1`] = `
 <withRouter(MenuItems)
   currentPath="/styles"
   items={
@@ -27,6 +27,35 @@ exports[`DesignSubMenu renders 1`] = `
         "path": "options",
       },
       Object {
+        "externalLink": true,
+        "label": "Help",
+        "path": "https://support.bigcommerce.com/articles/Public/Stencil-Themes/#enabling",
+      },
+    ]
+  }
+  showArrows={true}
+/>
+`;
+
+exports[`DesignSubMenu when rendering when isPreview is true renders correctly 1`] = `
+<withRouter(MenuItems)
+  currentPath="/styles"
+  items={
+    Array [
+      Object {
+        "label": "Styles",
+        "path": "styles",
+      },
+      Object {
+        "label": "fred",
+        "path": "section/0",
+      },
+      Object {
+        "label": "joe",
+        "path": "section/1",
+      },
+      Object {
+        "divider": true,
         "externalLink": true,
         "label": "Help",
         "path": "https://support.bigcommerce.com/articles/Public/Stencil-Themes/#enabling",

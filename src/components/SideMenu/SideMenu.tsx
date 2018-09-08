@@ -31,7 +31,7 @@ import {
 } from './styles';
 
 interface SideMenuProps extends RouteComponentProps<{}> {
-    isCurrent: boolean;
+    activeThemeId: string;
     isPurchased: boolean;
     themeDesignSections: string[];
     settings: {[key: string]: string | boolean | number};
@@ -77,10 +77,10 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
     }));
 
     editorThemeStatus = () => {
-        const { isCurrent, isPurchased } = this.props;
+        const { activeThemeId, isPurchased, themeId } = this.props;
         if (!isPurchased) {
             return ThemeStatus.preview;
-        } else if (!isCurrent) {
+        } else if (activeThemeId !== themeId) {
             return ThemeStatus.inactive;
         } else {
             return ThemeStatus.active;
@@ -89,6 +89,7 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
 
     render() {
         const {
+            isPurchased,
             themeDesignSections,
             themeName,
         } = this.props;
@@ -124,6 +125,7 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                                 render={({ match }) => (
                                     <DesignSubMenu
                                         currentPath={match.path}
+                                        isPreview={!isPurchased}
                                         sections={themeDesignSections}
                                     />
                                 )}
@@ -159,8 +161,8 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
 }
 
 const mapStateToProps = ({ theme, merchant }: State) => ({
+    activeThemeId: merchant.activeThemeId,
     configurationId: theme.configurationId,
-    isCurrent: merchant.isCurrent,
     isPurchased: theme.isPurchased,
     settings: theme.settings,
     themeDesignSections: theme.schema.map(({ name }) => name),

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SideMenu Theme status label when isCurrent is false and isPurchased is true renders correctly 1`] = `
+exports[`SideMenu Theme status label when active theme is not the current theme and isPurchased is true renders correctly 1`] = `
 <Fragment>
   <ExpandMenuRoutes
     route="styles"
@@ -75,7 +75,7 @@ exports[`SideMenu Theme status label when isCurrent is false and isPurchased is 
 </Fragment>
 `;
 
-exports[`SideMenu Theme status label when isCurrent is true and isPurchased is true renders correctly 1`] = `
+exports[`SideMenu Theme status label when activeTheme is the current theme and isPurchased is true renders correctly 1`] = `
 <Fragment>
   <ExpandMenuRoutes
     route="styles"
@@ -247,9 +247,9 @@ exports[`SideMenu renders 1`] = `
   }
 >
   <SideMenu
+    activeThemeId="1234567-1223-011123-111111"
     configurationId="4444-55555-77777-00000"
     history={[MockFunction]}
-    isCurrent={true}
     isPurchased={true}
     location={[MockFunction]}
     match={[MockFunction]}
