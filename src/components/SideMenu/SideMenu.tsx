@@ -25,7 +25,7 @@ import {
     Header,
     ItemLabel,
     MenuContents,
-    StyledMenuItemIcon,
+    StyledExternalLink,
     StyledStatus,
     Title,
 } from './styles';
@@ -134,9 +134,9 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                             <ItemLabel>
                                 View store
                             </ItemLabel>
-                            <StyledMenuItemIcon>
+                            <StyledExternalLink>
                                 <Icon glyph="externalLink" size="small" />
-                            </StyledMenuItemIcon>
+                            </StyledExternalLink>
                         </ExternalNavItem>
                         <Tooltip
                             hideDelay={0}

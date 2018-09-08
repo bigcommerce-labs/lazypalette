@@ -42,7 +42,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
           }
         >
           <div
-            className="sc-kgoBCf gfegXm"
+            className="sc-htpNat dxMYRR"
             onClick={[Function]}
           >
             <styled.div
@@ -59,7 +59,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
               }
             >
               <div
-                className="sc-kGXeez cyKaWV"
+                className="sc-bxivhb bqbVlT"
               />
             </styled.div>
             <styled.div
@@ -80,7 +80,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
               }
             >
               <div
-                className="sc-ckVGcZ iCRXaA"
+                className="sc-bZQynM ddzKZC"
                 onClick={[Function]}
               >
                 <styled.h3
@@ -98,29 +98,29 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                   }
                 >
                   <h3
-                    className="sc-dxgOiQ daZDFl"
+                    className="sc-EHOje fNYkwh"
                   >
                     You have been logged out.
                   </h3>
                 </styled.h3>
                 <styled.div>
                   <div
-                    className="sc-kpOJdX jVoTBJ"
+                    className="sc-ifAKCX iYhUep"
                   >
                     <styled.div>
                       <div
-                        className="sc-kkGfuU jXoVmY"
+                        className="sc-gZMcBi capIZi"
                       >
                         <styled.div>
                           <div
-                            className="sc-eNQAEJ cWfRbw"
+                            className="sc-htoDjs gNgmUM"
                           >
                             For security reasons you have been automatically logged out. Please log in again to access Store Design.
                           </div>
                         </styled.div>
                         <styled.div>
                           <div
-                            className="sc-iAyFgw kMWJon"
+                            className="sc-gqjmRU RQofY"
                           >
                             <ButtonInput
                               classType="primary"
@@ -129,16 +129,30 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                             >
                               <styled.div>
                                 <div
-                                  className="sc-kAzzGY iXopUH"
+                                  className="sc-bdVaJa cubKnN"
                                 >
                                   <styled.button
                                     border={true}
                                     classType="primary"
                                     onClick={[Function]}
+                                    theme={
+                                      Object {
+                                        "colors": Object {
+                                          "background": "#F5F7FA",
+                                          "brandPrimary": "#273A8A",
+                                          "primary": "#3F69FE",
+                                        },
+                                        "typography": Object {
+                                          "fontFamily": Object {
+                                            "sans": "\\"Source Sans Pro\\", \\"Helvetica Neue\\", Arial, sans-serif",
+                                          },
+                                        },
+                                      }
+                                    }
                                     type="button"
                                   >
                                     <button
-                                      className="sc-chPdSV iDxCLc"
+                                      className="sc-bwzfXH jmJTgP"
                                       onClick={[Function]}
                                       type="button"
                                     >

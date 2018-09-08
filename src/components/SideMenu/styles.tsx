@@ -127,9 +127,11 @@ export const NavItem = styled(NavLink)
     activeClassName,
 })`
     ${({ disabled, divider, theme }) => `
+        align-items: center;
         color: ${theme.colors.primaryText};
         display: flex;
         justify-content: space-between;
+        margin: 0 1rem 0 0;
         opacity: ${disabled ? 0.5 : 1}
         overflow: hidden;
         pointer-events: ${disabled ? 'none' : 'auto'};
@@ -147,6 +149,7 @@ export const NavItem = styled(NavLink)
 
 export const ExternalNavItem = styled.a`
     ${({ theme }) => `
+        align-items: center;
         color: ${theme.colors.primaryText};
         display: flex;
         overflow: hidden;
@@ -178,8 +181,7 @@ export const ListItem = styled.li.attrs<ListItemProps>({})`
     ${({ divider, theme }) => {
         if (divider) {
             return `
-                margin-top: 1rem;
-                padding-top: 1rem;
+                margin-top: 2rem;
                 position: relative;
 
                 :before {
@@ -188,8 +190,8 @@ export const ListItem = styled.li.attrs<ListItemProps>({})`
                     height: 1px;
                     left: 1.25rem;
                     position: absolute;
-                    top: 0;
-                    width: calc(100% - 2.75rem);
+                    top: -1rem;
+                    width: calc(100% - 2.5rem);
                 }`;
         }
 
@@ -213,9 +215,11 @@ export const StyledMenuItems = styled.ul`
     vertical-align: top;
 `;
 
-export const StyledMenuItemIcon = styled.span`
+export const StyledExternalLink = styled.div`
     color: ${({ theme }) => theme.colors.guideText};
-    margin: 0.125rem 1rem 0 0.25rem;
+    display: inline-block;
+    line-height: 1rem;
+    margin: 0.25rem 0 0 0.25rem;
 `;
 
 interface CollapsedStyles extends CollapsedProps {

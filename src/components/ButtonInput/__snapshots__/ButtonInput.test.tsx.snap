@@ -7,6 +7,20 @@ exports[`<ButtonInput /> renders 1`] = `
     classType="primary"
     disabled={false}
     onClick={[Function]}
+    theme={
+      Object {
+        "colors": Object {
+          "background": "#F5F7FA",
+          "brandPrimary": "#273A8A",
+          "primary": "#3F69FE",
+        },
+        "typography": Object {
+          "fontFamily": Object {
+            "sans": "\\"Source Sans Pro\\", \\"Helvetica Neue\\", Arial, sans-serif",
+          },
+        },
+      }
+    }
     type="button"
   >
     Click Meow!

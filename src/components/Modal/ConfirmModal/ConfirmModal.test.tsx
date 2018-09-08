@@ -57,27 +57,6 @@ describe('ConfirmModal', () => {
     describe('cancel button', () => {
         describe('when the user clicks the cancel button', () => {
             it('should call the handler', () => {
-                const mockPrimaryAction = jest.fn();
-
-                const modal = mount(
-                    <ConfirmModal
-                        body={mockBody}
-                        title={mockTitle}
-                        primaryAction={mockPrimaryAction}
-                        secondaryAction={mockHandler}
-                    />
-                );
-
-                const cancelButton = modal.find(ButtonInput).find({ children: Messages.Cancel }).last();
-                cancelButton.simulate('click');
-                expect(mockPrimaryAction).toHaveBeenCalledTimes(1);
-            });
-        });
-    });
-
-    describe('ok button', () => {
-        describe('when the user clicks the ok button', () => {
-            it('should call the handler', () => {
                 const mockSecondaryAction = jest.fn();
 
                 const modal = mount(
@@ -89,9 +68,30 @@ describe('ConfirmModal', () => {
                     />
                 );
 
+                const cancelButton = modal.find(ButtonInput).find({ children: Messages.Cancel }).last();
+                cancelButton.simulate('click');
+                expect(mockSecondaryAction).toHaveBeenCalledTimes(1);
+            });
+        });
+    });
+
+    describe('ok button', () => {
+        describe('when the user clicks the ok button', () => {
+            it('should call the handler', () => {
+                const mockPrimaryAction = jest.fn();
+
+                const modal = mount(
+                    <ConfirmModal
+                        body={mockBody}
+                        title={mockTitle}
+                        primaryAction={mockPrimaryAction}
+                        secondaryAction={mockHandler}
+                    />
+                );
+
                 const okButton = modal.find(ButtonInput).find({ children: Messages.Ok }).last();
                 okButton.simulate('click');
-                expect(mockSecondaryAction).toHaveBeenCalledTimes(1);
+                expect(mockPrimaryAction).toHaveBeenCalledTimes(1);
             });
         });
     });

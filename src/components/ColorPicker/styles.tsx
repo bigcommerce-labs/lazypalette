@@ -32,7 +32,7 @@ export const EditableInputContainer = styled.div`
 
 export const HexField = styled.div`
     flex: 2;
-    margin-right: 0.5rem
+    margin-right: 0.25rem
 `;
 
 export const RGBField = styled.div`

@@ -10,8 +10,8 @@ import {
     ItemLabel,
     ListItem,
     NavItem,
+    StyledExternalLink,
     StyledMenuItems,
-    StyledMenuItemIcon
 } from './styles';
 
 interface MenuItem {
@@ -65,9 +65,9 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                                     <ItemLabel>
                                         {label}
                                     </ItemLabel>
-                                    <StyledMenuItemIcon>
+                                    <StyledExternalLink>
                                         <Icon glyph="externalLink" size="small" />
-                                    </StyledMenuItemIcon>
+                                    </StyledExternalLink>
                                 </ExternalNavItem>
 
                                 : <NavItem
@@ -83,15 +83,13 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                                         {label}
                                     </ItemLabel>
                                     {this.props.showArrows &&
-                                        <StyledMenuItemIcon>
-                                            <Icon
-                                                primaryColor={isActive
-                                                    ? theme.colors.primaryText
-                                                    : theme.colors.guideText}
-                                                glyph="chevronRight"
-                                                size="large"
-                                            />
-                                        </StyledMenuItemIcon>
+                                        <Icon
+                                            primaryColor={isActive
+                                                ? theme.colors.primaryText
+                                                : theme.colors.guideText}
+                                            glyph="chevronRight"
+                                            size="small"
+                                        />
                                     }
                                 </NavItem>}
                         </ListItem>

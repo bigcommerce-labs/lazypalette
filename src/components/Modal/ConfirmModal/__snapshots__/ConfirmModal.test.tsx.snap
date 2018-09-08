@@ -13,8 +13,8 @@ exports[`ConfirmModal renders 1`] = `
     <styled.div>
       <CTAButtons
         primaryAction={[MockFunction]}
+        primaryActionText="Ok"
         secondaryAction={[MockFunction]}
-        secondaryActionText="Ok"
       />
     </styled.div>
   </styled.div>
