@@ -1,11 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PubShareBox renders 1`] = `
+exports[`PubShareBox when rendering when the theme has not been purchased renders correctly 1`] = `
+<styled.div
+  isChanged={false}
+>
+  <PreviewAction
+    price={100}
+    variationId="234"
+  />
+</styled.div>
+`;
+
+exports[`PubShareBox when rendering when this is a purchased theme when this is not the active theme renders correctly 1`] = `
+<styled.div
+  isChanged={false}
+>
+  <InactiveAction
+    canPublish={true}
+    canSave={false}
+    handlePublish={[Function]}
+    handleSave={[Function]}
+    isPrelaunchStore={false}
+  />
+</styled.div>
+`;
+
+exports[`PubShareBox when rendering when this is a purchased theme when this is the active theme when this is a prelaunch store renders correctly 1`] = `
 <styled.div
   isChanged={false}
 >
   <ActiveAction
-    canPublish={false}
+    canPublish={true}
+    canSave={false}
+    handlePublish={[Function]}
+    handleSave={[Function]}
+    isPrelaunchStore={true}
+  />
+</styled.div>
+`;
+
+exports[`PubShareBox when rendering when this is a purchased theme when this is the active theme when this is not a prelaunch store renders correctly 1`] = `
+<styled.div
+  isChanged={false}
+>
+  <ActiveAction
+    canPublish={true}
     canSave={false}
     handlePublish={[Function]}
     handleSave={[Function]}
