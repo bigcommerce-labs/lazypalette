@@ -11,12 +11,13 @@ import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 import { appRoutes } from '../Routes/Routes';
 
-import { Messages } from './constants';
+import { Messages, PostLaunchTypeLabels, PreLaunchTypeLabels } from './constants';
 import { EntryActive, EntryDate, EntryTitle, HistoryEntry, List } from './styles';
 
 interface ThemeHistoryProps extends RouteComponentProps<{}> {
     configurationId: string;
     isChanged: boolean;
+    isPrelaunchStore: boolean;
     position: { x: number, y: number };
     variationHistory: ThemeVariationHistory;
     loadTheme(configurationId: string, variationId: string): Dispatch<State>;
@@ -29,12 +30,6 @@ interface ThemeHistoryState {
     };
     isConfirmOpen: boolean;
 }
-
-const typeStringMap = {
-    default: 'Created',
-    installed: 'Published',
-    saved: 'Saved',
-};
 
 export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryState> {
     readonly state: ThemeHistoryState = {
@@ -85,9 +80,10 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
             year: 'numeric',
         });
 
-        const typeString = typeStringMap[entry.type] || entry.type;
+        const typeLabels = this.props.isPrelaunchStore ? PreLaunchTypeLabels : PostLaunchTypeLabels;
+        const typeString = typeLabels[entry.type] || entry.type;
 
-        return `${typeString} ${dateString}`;
+        return entry.type === 'default' ? typeString : `${typeString} ${dateString}`;
     }
 
     render() {
@@ -141,6 +137,7 @@ const RoutedThemeHistory: SFC<ThemeHistoryProps> = props => (
 const mapStateToProps = (state: State) => ({
     configurationId: state.theme.initialConfigurationId,
     isChanged: state.theme.isChanged,
+    isPrelaunchStore: state.merchant.isPrelaunchStore,
     variationHistory: state.theme.variationHistory,
 });
 
