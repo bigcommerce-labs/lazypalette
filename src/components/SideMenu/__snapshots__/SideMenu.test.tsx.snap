@@ -1,5 +1,227 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SideMenu Theme status label when isCurrent is false and isPurchased is true renders correctly 1`] = `
+<Fragment>
+  <ExpandMenuRoutes
+    route="styles"
+  />
+  <ExpandMenuRoutes
+    route="history"
+  />
+  <ExpandMenuRoutes
+    route="options"
+  />
+  <ExpandMenuRoutes
+    key="0"
+    route="section/0"
+  />
+  <ExpandMenuRoutes
+    key="1"
+    route="section/1"
+  />
+  <ExpandMenuRoutes
+    key="2"
+    route="section/2"
+  />
+  <styled.nav
+    collapsed="initial"
+  >
+    <styled.div>
+      <styled.div>
+        Catstone Box
+      </styled.div>
+      <Tooltip
+        message="This theme is not currently applied to your store."
+      >
+        <styled.div
+          status="INACTIVE THEME"
+        >
+          INACTIVE THEME
+        </styled.div>
+      </Tooltip>
+    </styled.div>
+    <styled.div>
+      <Route
+        path="/"
+        render={[Function]}
+      />
+    </styled.div>
+    <styled.div>
+      <styled.a
+        href=""
+      >
+        <styled.span>
+          View store
+        </styled.span>
+        <styled.div>
+          <Icon
+            glyph="externalLink"
+            size="small"
+          />
+        </styled.div>
+      </styled.a>
+      <Tooltip
+        hideDelay={0}
+        message="Collapse menu"
+      >
+        <styled.button
+          collapsed="initial"
+          onClick={[Function]}
+        />
+      </Tooltip>
+    </styled.div>
+  </styled.nav>
+</Fragment>
+`;
+
+exports[`SideMenu Theme status label when isCurrent is true and isPurchased is true renders correctly 1`] = `
+<Fragment>
+  <ExpandMenuRoutes
+    route="styles"
+  />
+  <ExpandMenuRoutes
+    route="history"
+  />
+  <ExpandMenuRoutes
+    route="options"
+  />
+  <ExpandMenuRoutes
+    key="0"
+    route="section/0"
+  />
+  <ExpandMenuRoutes
+    key="1"
+    route="section/1"
+  />
+  <ExpandMenuRoutes
+    key="2"
+    route="section/2"
+  />
+  <styled.nav
+    collapsed="initial"
+  >
+    <styled.div>
+      <styled.div>
+        Catstone Box
+      </styled.div>
+      <Tooltip
+        message="This theme is currently applied to your store."
+      >
+        <styled.div
+          status="ACTIVE THEME"
+        >
+          ACTIVE THEME
+        </styled.div>
+      </Tooltip>
+    </styled.div>
+    <styled.div>
+      <Route
+        path="/"
+        render={[Function]}
+      />
+    </styled.div>
+    <styled.div>
+      <styled.a
+        href=""
+      >
+        <styled.span>
+          View store
+        </styled.span>
+        <styled.div>
+          <Icon
+            glyph="externalLink"
+            size="small"
+          />
+        </styled.div>
+      </styled.a>
+      <Tooltip
+        hideDelay={0}
+        message="Collapse menu"
+      >
+        <styled.button
+          collapsed="initial"
+          onClick={[Function]}
+        />
+      </Tooltip>
+    </styled.div>
+  </styled.nav>
+</Fragment>
+`;
+
+exports[`SideMenu Theme status label when isPurchased is false renders correctly 1`] = `
+<Fragment>
+  <ExpandMenuRoutes
+    route="styles"
+  />
+  <ExpandMenuRoutes
+    route="history"
+  />
+  <ExpandMenuRoutes
+    route="options"
+  />
+  <ExpandMenuRoutes
+    key="0"
+    route="section/0"
+  />
+  <ExpandMenuRoutes
+    key="1"
+    route="section/1"
+  />
+  <ExpandMenuRoutes
+    key="2"
+    route="section/2"
+  />
+  <styled.nav
+    collapsed="initial"
+  >
+    <styled.div>
+      <styled.div>
+        Catstone Box
+      </styled.div>
+      <Tooltip
+        message="To use this theme, you must buy it before you can save or publish to your store."
+      >
+        <styled.div
+          status="THEME PREVIEW"
+        >
+          THEME PREVIEW
+        </styled.div>
+      </Tooltip>
+    </styled.div>
+    <styled.div>
+      <Route
+        path="/"
+        render={[Function]}
+      />
+    </styled.div>
+    <styled.div>
+      <styled.a
+        href=""
+      >
+        <styled.span>
+          View store
+        </styled.span>
+        <styled.div>
+          <Icon
+            glyph="externalLink"
+            size="small"
+          />
+        </styled.div>
+      </styled.a>
+      <Tooltip
+        hideDelay={0}
+        message="Collapse menu"
+      >
+        <styled.button
+          collapsed="initial"
+          onClick={[Function]}
+        />
+      </Tooltip>
+    </styled.div>
+  </styled.nav>
+</Fragment>
+`;
+
 exports[`SideMenu renders 1`] = `
 <Router
   history={

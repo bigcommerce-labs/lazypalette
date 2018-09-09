@@ -3,7 +3,7 @@ import React from 'react';
 import { StaticRouter } from 'react-router';
 
 import { Collapsed } from './constants';
-import { CollapseButton, StyledStatus } from './styles';
+import { CollapseButton } from './styles';
 import { SideMenu } from './SideMenu';
 
 describe('SideMenu', () => {
@@ -92,7 +92,7 @@ describe('SideMenu', () => {
 
     describe('Theme status label', () => {
         describe('when isCurrent is false and isPurchased is true', () => {
-            it('status should be INACTIVE THEME', () => {
+            it('renders correctly', () => {
                 const sideMenu = shallow(
                     <SideMenu
                         isCurrent={false}
@@ -109,14 +109,12 @@ describe('SideMenu', () => {
                     />
                 );
 
-                const statusBar = sideMenu.find(StyledStatus);
-                expect(statusBar.props().status).toEqual('INACTIVE THEME');
-
+                expect(sideMenu).toMatchSnapshot();
             });
         });
 
         describe('when isCurrent is true and isPurchased is true', () => {
-            it('status should be ACTIVE THEME', () => {
+            it('renders correctly', () => {
                 const sideMenu = shallow(
                     <SideMenu
                         isCurrent={true}
@@ -133,13 +131,12 @@ describe('SideMenu', () => {
                     />
                 );
 
-                const statusBar = sideMenu.find(StyledStatus);
-                expect(statusBar.props().status).toEqual('ACTIVE THEME');
+                expect(sideMenu).toMatchSnapshot();
             });
         });
 
         describe('when isPurchased is false', () => {
-            it('status should be THEME PREVIEW', () => {
+            it('renders correctly', () => {
                 const sideMenu = shallow(
                     <SideMenu
                         isCurrent={true}
@@ -156,8 +153,7 @@ describe('SideMenu', () => {
                     />
                 );
 
-                const statusBar = sideMenu.find(StyledStatus);
-                expect(statusBar.props().status).toEqual('THEME PREVIEW');
+                expect(sideMenu).toMatchSnapshot();
             });
         });
     });
