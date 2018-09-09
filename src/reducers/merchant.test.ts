@@ -8,6 +8,8 @@ describe('Merchant reducer', () => {
         isDownForMaintenance: false,
         isPrelaunchStore: false,
         storeHash: '',
+        timezoneName: '',
+        timezoneOffset: 0,
     };
 
     const payload = {
@@ -15,6 +17,8 @@ describe('Merchant reducer', () => {
         isDownForMaintenance: false,
         isPrelaunchStore: false,
         storeHash: '1234567890',
+        timezoneName: 'America/New_York',
+        timezoneOffset: -6,
     };
 
     describe('when an error is received', () => {

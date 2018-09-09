@@ -12,13 +12,15 @@ import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 import { appRoutes } from '../Routes/Routes';
 
 import { Messages, PostLaunchTypeLabels, PreLaunchTypeLabels } from './constants';
-import { EntryActive, EntryDate, EntryTitle, HistoryEntry, List } from './styles';
+import { EntryActive, EntryDescription, EntryVersion, HistoryEntry, List } from './styles';
 
 interface ThemeHistoryProps extends RouteComponentProps<{}> {
     configurationId: string;
     isChanged: boolean;
     isPrelaunchStore: boolean;
     position: { x: number, y: number };
+    timezoneName: string;
+    timezoneOffset: number;
     variationHistory: ThemeVariationHistory;
     loadTheme(configurationId: string, variationId: string): Dispatch<State>;
 }
@@ -70,15 +72,31 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
         }
     };
 
-    getEntryDateString(entry: ThemeVariationHistoryEntry) {
-        const dateString = new Date(entry.timestamp).toLocaleDateString('en', {
+    getEntryDescription(entry: ThemeVariationHistoryEntry) {
+        const date = new Date(entry.timestamp);
+        const localeOptions = {
             day: 'numeric',
             hour: 'numeric',
             minute: 'numeric',
             month: 'long',
-            timeZone: 'UTC',
             year: 'numeric',
-        });
+        };
+
+        let dateString;
+
+        try {
+            dateString = date.toLocaleDateString('en', { ...localeOptions, ...{
+                timeZone: this.props.timezoneName,
+                timeZoneName: 'short',
+            }});
+        } catch (e) {
+            if (!(e instanceof RangeError)) {
+                throw e;
+            }
+
+            date.setHours(date.getHours() + this.props.timezoneOffset);
+            dateString = date.toLocaleDateString('en', { ...localeOptions, ...{ timeZone: 'UTC' } });
+        }
 
         const typeLabels = this.props.isPrelaunchStore ? PreLaunchTypeLabels : PostLaunchTypeLabels;
         const typeString = typeLabels[entry.type] || entry.type;
@@ -100,14 +118,14 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
                                     onClick={() =>
                                         this.handleEntrySelect(entry.variationId, entry.configurationId)}
                                     key={entry.configurationId}>
-                                    <EntryDate>
-                                        {this.getEntryDateString(entry)}
+                                    <EntryDescription>
+                                        {this.getEntryDescription(entry)}
                                         {entry.configurationId === this.props.configurationId &&
                                             <EntryActive/>}
-                                    </EntryDate>
-                                    <EntryTitle>
+                                    </EntryDescription>
+                                    <EntryVersion>
                                         Version {entry.displayVersion}
-                                    </EntryTitle>
+                                    </EntryVersion>
                                 </HistoryEntry>
                             ))}
                         </List>
@@ -138,6 +156,8 @@ const mapStateToProps = (state: State) => ({
     configurationId: state.theme.initialConfigurationId,
     isChanged: state.theme.isChanged,
     isPrelaunchStore: state.merchant.isPrelaunchStore,
+    timezoneName: state.merchant.timezoneName,
+    timezoneOffset: state.merchant.timezoneOffset,
     variationHistory: state.theme.variationHistory,
 });
 
