@@ -35,7 +35,6 @@ export const ExpandModal = styled.div.attrs<ExpandModalProps>({
     padding: 0rem;
     box-shadow: ${({ theme }) => theme.elevation.floating};
     animation: ${openAnimation} 100ms ease-out;
-    overflow: auto;
     pointer-events: auto;
     visibility: visible;
 }}
@@ -131,7 +130,8 @@ export const Content = styled.div`
     flex-grow: 1;
     margin: 0.5rem 0 0 0;
     padding: 1.5rem 0 0 0;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 `;
 
 export const ResizeHandle = styled.div`

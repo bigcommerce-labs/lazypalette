@@ -279,6 +279,12 @@ const getCollapseStyles = ({collapsed, theme}: CollapsedStyles) => {
             border: 1px solid ${theme.colors.stroke};
             animation: ${fadeBtnOut} 250ms linear;
         `;
+    } else {
+        return `
+            right: 1rem;
+            background: ${theme.colors.empty};
+            border: 1px solid ${theme.colors.stroke};
+        `;
     }
 
     return `
