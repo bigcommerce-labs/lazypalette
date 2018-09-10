@@ -122,10 +122,7 @@ export function getEditor(
                 onChange={(event: ChangeEvent<HTMLSelectElement>) => {
                     trackSelectChange(setting.id, event.target.value);
                     broadcastConfigChange({
-                        setting: {
-                            id: setting.id,
-                            type: 'select',
-                        },
+                        setting,
                         value: parseOptionValue(event.target.value),
                     });
                 }}
@@ -150,7 +147,6 @@ export function getEditor(
 export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
     handleChange = (setting: ThemeSchemaEntrySetting) =>
         ({target}: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-
             const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
             checkTrackingType(setting, target);
             this.props.updateThemeConfigChange({ setting, value });

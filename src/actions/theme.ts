@@ -12,7 +12,7 @@ import * as api from '../services/themeApi';
 import { Action } from './action';
 import { ConfigUpdateAction, ToastMessages, ToastType } from './constants';
 import { createNotification } from './notifications';
-import { fetchPageUrl, updateFonts } from './previewPane';
+import { previewPanePageReloading, updateFonts } from './previewPane';
 
 export enum ThemeActionTypes {
     CURRENT_THEME_RESPONSE = 'CURRENT_THEME_RESPONSE',
@@ -379,7 +379,7 @@ export function updateThemeConfigChange(configChange: ThemeConfigChange) {
         return dispatch(postThemeConfigData(ConfigUpdateAction.PREVIEW))
             .then(() => {
                 if (configChange.setting.force_reload) {
-                    dispatch(fetchPageUrl({ page: getState().previewPane.page }));
+                    dispatch(previewPanePageReloading());
                 }
             });
     };

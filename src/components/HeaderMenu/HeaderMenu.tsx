@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import { ConfigUpdateAction } from '../../actions/constants';
 import { closeNotification, CloseNotificationAction, NotificationsProps } from '../../actions/notifications';
-import { viewportChange, ViewportChange } from '../../actions/previewPane';
+import { previewPanePageReloading, viewportChange, ViewportChange } from '../../actions/previewPane';
 import { postThemeConfigData, themeConfigReset, ThemeConfigResetAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 
@@ -25,6 +25,7 @@ interface HeaderMenuProps {
     viewportType: ViewportType;
     closeNotification(): CloseNotificationAction;
     postThemeConfigData(configDataOption: ConfigUpdateAction): void;
+    previewPanePageReloading(): void;
     themeConfigReset(): ThemeConfigResetAction;
     toggleViewport(payload: ViewportChange): void;
 }
@@ -34,7 +35,14 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
 
     handleSave = () => this.props.postThemeConfigData(ConfigUpdateAction.SAVE);
 
-    handleReset = () => this.props.themeConfigReset();
+    handleReset = () => {
+        this.props.themeConfigReset();
+
+        // The user may have made structural changes to the page, these require a force reload of the preview pane.
+        // TODO: We should only need to call this when the user has made structural changes, for now we will call it
+        // regardless of the type of config change, we can give better undo performance by making this smarter.
+        this.props.previewPanePageReloading();
+    };
 
     handleIconClick = (view: string) => () => {
         const { isRotated, toggleViewport, viewportType } = this.props;
@@ -102,6 +110,7 @@ const mapStateToProps = ({ theme, notifications, previewPane }: State): Partial<
 const mapDispatchToProps = (dispatch: Dispatch): Partial<HeaderMenuProps> => bindActionCreators({
     closeNotification,
     postThemeConfigData,
+    previewPanePageReloading,
     themeConfigReset,
     toggleViewport: viewportChange,
 }, dispatch);
