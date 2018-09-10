@@ -45,6 +45,8 @@ const previewPane = (
     }
 
     switch (action.type) {
+        case PreviewPaneActionTypes.PREVIEW_PANE_DEFAULTS:
+            return { ...state, ...action.payload};
         case PreviewPaneActionTypes.PAGE_URL_REQUEST:
             return { ...state, ...action.payload, isFetching: true };
         case PreviewPaneActionTypes.PAGE_URL_RESPONSE:

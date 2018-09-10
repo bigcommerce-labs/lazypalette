@@ -6,6 +6,21 @@ import { State } from '../reducers/reducers';
 import * as previewPane from './previewPane';
 
 describe ('previewPane actions', () => {
+
+    describe('PREVIEW_PANE_DEFAULTS', () => {
+        describe('when we set it with a page value', () => {
+            it('responds with the expected action', () => {
+                const expectedAction = {
+                    payload: {page: 'doge'},
+                    type: 'PREVIEW_PANE_DEFAULTS',
+                };
+
+                expect(previewPane.setPreviewPaneDefault({page: 'doge'}
+                )).toEqual(expectedAction);
+            });
+        });
+    });
+
     describe('PAGE_URL_REQUEST', () => {
         describe('when we make a page source request', () => {
             it('responds with the expected action', () => {

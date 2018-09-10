@@ -8,6 +8,7 @@ import { Action } from './action';
 import { ThemeConfigChange } from './theme';
 
 export enum PreviewPaneActionTypes {
+    PREVIEW_PANE_DEFAULTS = 'PREVIEW_PANE_DEFAULTS',
     PAGE_URL_REQUEST = 'PAGE_URL_REQUEST',
     PAGE_URL_RESPONSE = 'PAGE_URL_RESPONSE',
     PAGE_UPDATE = 'PAGE_UPDATE',
@@ -201,4 +202,26 @@ export function viewportChange(payload: ViewportChange): ViewportChangeAction {
         payload,
         type: PreviewPaneActionTypes.VIEWPORT_CHANGE,
     };
+}
+
+export interface SetPreviewPaneDefaultAction extends Action {
+    payload: PreviewPaneDefaultData;
+    type: PreviewPaneActionTypes.PREVIEW_PANE_DEFAULTS;
+}
+
+export interface PreviewPaneDefaultData {
+    page: string;
+}
+
+export function setPreviewPaneDefault(
+    payload: PreviewPaneDefaultData
+): SetPreviewPaneDefaultAction {
+    return {
+        payload,
+        type: PreviewPaneActionTypes.PREVIEW_PANE_DEFAULTS,
+    };
+}
+
+export function setPreviewPaneData(previewPaneData: PreviewPaneDefaultData): Dispatch<State> {
+    return (dispatch: Dispatch<State>) => dispatch(setPreviewPaneDefault(previewPaneData));
 }

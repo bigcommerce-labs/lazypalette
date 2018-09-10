@@ -54,6 +54,16 @@ describe('Preview Pane reducer', () => {
         });
     });
 
+    describe('when PREVIEW_PANE_DEFAULTS action is received', () => {
+        it('should update the state', () => {
+            const payload = { page: 'hello'};
+            const action = previewPaneActions.setPreviewPaneDefault(payload);
+            const expectedState = { ...initialState, ...payload };
+
+            expect(previewPane(initialState, action)).toEqual(expectedState);
+        });
+    });
+
     describe('when PAGE_URL_REQUEST action is received', () => {
         it('should update the state', () => {
             const payload = { page: 'hello'};
