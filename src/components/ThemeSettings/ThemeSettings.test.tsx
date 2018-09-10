@@ -327,7 +327,7 @@ describe('<ThemeSettings />', () => {
                     type: 'color',
                 };
 
-                const colorPicker = getEditor(setting, preSetValue, mockProp, mockProp);
+                const colorPicker = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
                 expect(colorPicker).toMatchSnapshot();
             });
         });
@@ -340,7 +340,7 @@ describe('<ThemeSettings />', () => {
                     type: 'checkbox',
                 };
 
-                const checkBox = getEditor(setting, preSetValue, mockProp, mockProp);
+                const checkBox = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
                 expect(checkBox).toMatchSnapshot();
             });
         });
@@ -353,7 +353,7 @@ describe('<ThemeSettings />', () => {
                     type: 'font',
                 };
 
-                const font = getEditor(setting, preSetValue, mockProp, mockProp);
+                const font = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
                 expect(font).toMatchSnapshot();
             });
         });
@@ -366,7 +366,7 @@ describe('<ThemeSettings />', () => {
                     type: 'imageDimension',
                 };
 
-                const imageDimension = getEditor(setting, preSetValue, mockProp, mockProp);
+                const imageDimension = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
                 expect(imageDimension).toMatchSnapshot();
             });
         });
@@ -379,7 +379,7 @@ describe('<ThemeSettings />', () => {
                     type: 'optimizedCheckout-image',
                 };
 
-                const checkoutImageUpload = getEditor(setting, preSetValue, mockProp, mockProp);
+                const checkoutImageUpload = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
                 expect(checkoutImageUpload).toMatchSnapshot();
             });
         });
@@ -392,7 +392,7 @@ describe('<ThemeSettings />', () => {
                     type: 'select',
                 };
 
-                const selectBox = getEditor(setting, preSetValue, mockProp, mockProp);
+                const selectBox = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
                 expect(selectBox).toMatchSnapshot();
             });
         });
@@ -405,7 +405,7 @@ describe('<ThemeSettings />', () => {
                     type: 'text',
                 };
 
-                const text = getEditor(setting, preSetValue, mockProp, mockProp);
+                const text = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
                 expect(text).toMatchSnapshot();
             });
         });
@@ -416,7 +416,7 @@ describe('<ThemeSettings />', () => {
                     content: 'HELLO',
                     type: 'heading',
                 };
-                const heading = getEditor(setting, preSetValue, mockProp, mockProp);
+                const heading = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
                 expect(heading).toMatchSnapshot();
             });
         });
@@ -427,7 +427,7 @@ describe('<ThemeSettings />', () => {
                     content: 'whatever',
                     type: 'not_a_real_type',
                 };
-                const notRealType = getEditor(setting, preSetValue, mockProp, mockProp);
+                const notRealType = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
                 expect(notRealType).toEqual(null);
             });
         });

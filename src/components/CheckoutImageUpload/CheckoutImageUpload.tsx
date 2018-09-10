@@ -2,6 +2,7 @@ import React, { ChangeEvent, Component } from 'react';
 import uuid from 'uuid';
 
 import { ThemeConfigChange } from '../../actions/theme';
+import { trackImageUpload } from '../../services/analytics';
 import { uploadImage } from '../../services/optimizedCheckout';
 import { LoadingIndicator } from '../LoadingIndicator/LoadingIndicator';
 
@@ -66,8 +67,8 @@ class CheckoutImageUpload extends Component<CheckoutImageUploadProps, CheckoutIm
 
         // Select the image from the file list, this is designed for a single image
         const image: File = event.target.files[0];
-
         // Set the internal input state.
+
         this.setState({
             error: undefined,
             loading: true,
@@ -80,8 +81,10 @@ class CheckoutImageUpload extends Component<CheckoutImageUploadProps, CheckoutIm
                         loading: false,
                         pendingImageURL,
                         value: '',
-                    }, () =>
-                        this.broadcastImageChange(pendingImageURL)
+                    }, () => {
+                        trackImageUpload(this.props.name, image.name);
+                        this.broadcastImageChange(pendingImageURL);
+                    }
                     );
                 })
                 .catch((error: Error) => {
@@ -98,8 +101,10 @@ class CheckoutImageUpload extends Component<CheckoutImageUploadProps, CheckoutIm
     handleRemoveImage = () => {
         // TODO: we should confirm this using a modal, using window.confirm is not easily testable with jsdom.
         // See: https://github.com/jsdom/jsdom/issues/1843
-        this.clearInput(() =>
-            this.broadcastImageChange(''));
+        this.clearInput(() => {
+            trackImageUpload(this.props.name, '');
+            this.broadcastImageChange('');
+        });
     };
 
     componentDidUpdate({ imageURL: prevImageURL }: CheckoutImageUploadProps) {
