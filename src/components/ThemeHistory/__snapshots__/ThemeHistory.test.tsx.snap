@@ -90,6 +90,168 @@ exports[`ThemeHistory when rendering when it has history items when an item is c
             Version 2.0
           </styled.div>
         </styled.li>
+        <styled.li
+          key="congig789"
+          onClick={[Function]}
+        >
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "primaryText": "#FFFFFF",
+                },
+                "typography": Object {
+                  "fontWeight": Object {
+                    "bold": 600,
+                  },
+                },
+              }
+            }
+          >
+            Default Settings
+          </styled.div>
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "secondaryText": "#FFFFFF",
+                },
+              }
+            }
+          >
+            Version 
+            Version 0.0
+          </styled.div>
+        </styled.li>
+      </styled.ul>
+    </ExpandableMenu>
+  </Draggable>
+</Fragment>
+`;
+
+exports[`ThemeHistory when rendering when it has history items when in prelaunch mode renders correctly 1`] = `
+<Fragment>
+  <Draggable
+    position={
+      Object {
+        "x": 5,
+        "y": 10,
+      }
+    }
+  >
+    <ExpandableMenu
+      title="History"
+    >
+      <styled.ul>
+        <styled.li
+          key="config123"
+          onClick={[Function]}
+        >
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "primaryText": "#FFFFFF",
+                },
+                "typography": Object {
+                  "fontWeight": Object {
+                    "bold": 600,
+                  },
+                },
+              }
+            }
+          >
+            Saved August 17, 2018, 6:13 PM
+            <styled.div
+              theme={
+                Object {
+                  "colors": Object {
+                    "empty": "#FFFFFF",
+                    "success": "#AAAAAA",
+                  },
+                }
+              }
+            />
+          </styled.div>
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "secondaryText": "#FFFFFF",
+                },
+              }
+            }
+          >
+            Version 
+            Version 1.0
+          </styled.div>
+        </styled.li>
+        <styled.li
+          key="config456"
+          onClick={[Function]}
+        >
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "primaryText": "#FFFFFF",
+                },
+                "typography": Object {
+                  "fontWeight": Object {
+                    "bold": 600,
+                  },
+                },
+              }
+            }
+          >
+            Saved August 13, 2015, 12:13 PM
+          </styled.div>
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "secondaryText": "#FFFFFF",
+                },
+              }
+            }
+          >
+            Version 
+            Version 2.0
+          </styled.div>
+        </styled.li>
+        <styled.li
+          key="congig789"
+          onClick={[Function]}
+        >
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "primaryText": "#FFFFFF",
+                },
+                "typography": Object {
+                  "fontWeight": Object {
+                    "bold": 600,
+                  },
+                },
+              }
+            }
+          >
+            Default Settings
+          </styled.div>
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "secondaryText": "#FFFFFF",
+                },
+              }
+            }
+          >
+            Version 
+            Version 0.0
+          </styled.div>
+        </styled.li>
       </styled.ul>
     </ExpandableMenu>
   </Draggable>
@@ -174,6 +336,39 @@ exports[`ThemeHistory when rendering when it has history items when no items are
           >
             Version 
             Version 2.0
+          </styled.div>
+        </styled.li>
+        <styled.li
+          key="congig789"
+          onClick={[Function]}
+        >
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "primaryText": "#FFFFFF",
+                },
+                "typography": Object {
+                  "fontWeight": Object {
+                    "bold": 600,
+                  },
+                },
+              }
+            }
+          >
+            Default Settings
+          </styled.div>
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "secondaryText": "#FFFFFF",
+                },
+              }
+            }
+          >
+            Version 
+            Version 0.0
           </styled.div>
         </styled.li>
       </styled.ul>
@@ -289,6 +484,39 @@ exports[`ThemeHistory when rendering when the modal is open renders correctly 1`
           >
             Version 
             Version 2.0
+          </styled.div>
+        </styled.li>
+        <styled.li
+          key="congig789"
+          onClick={[Function]}
+        >
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "primaryText": "#FFFFFF",
+                },
+                "typography": Object {
+                  "fontWeight": Object {
+                    "bold": 600,
+                  },
+                },
+              }
+            }
+          >
+            Default Settings
+          </styled.div>
+          <styled.div
+            theme={
+              Object {
+                "colors": Object {
+                  "secondaryText": "#FFFFFF",
+                },
+              }
+            }
+          >
+            Version 
+            Version 0.0
           </styled.div>
         </styled.li>
       </styled.ul>

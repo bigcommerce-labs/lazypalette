@@ -26,6 +26,17 @@ describe('ThemeHistory', () => {
         variationId: 'variation456',
         variationName: 'Variation Woof',
         versionId: 'version456',
+    },
+    {
+        configurationId: 'congig789',
+        displayVersion: 'Version 0.0',
+        themeId: 'hiss1',
+        themeName: 'Snake Theme',
+        timestamp: '2015-08-10T12:13:42Z',
+        type: 'default',
+        variationId: 'variation789',
+        variationName: 'Variation Hiss',
+        versionId: 'version789',
     }];
 
     const mockProp: any = jest.fn();
@@ -50,6 +61,23 @@ describe('ThemeHistory', () => {
                         <ThemeHistory
                             configurationId={history[0].configurationId}
                             isChanged={false}
+                            isPrelaunchStore={false}
+                            position={{ x: 5, y: 10 }}
+                            loadTheme={mockLoadTheme}
+                            variationHistory={history}
+                            {...routeProps}/>);
+
+                    expect(themeHistory).toMatchSnapshot();
+                });
+            });
+
+            describe('when in prelaunch mode', () => {
+                it('renders correctly', () => {
+                    const themeHistory = shallow(
+                        <ThemeHistory
+                            configurationId={history[0].configurationId}
+                            isChanged={false}
+                            isPrelaunchStore={true}
                             position={{ x: 5, y: 10 }}
                             loadTheme={mockLoadTheme}
                             variationHistory={history}
@@ -65,6 +93,7 @@ describe('ThemeHistory', () => {
                         <ThemeHistory
                             configurationId={'blaaaah'}
                             isChanged={false}
+                            isPrelaunchStore={false}
                             position={{ x: 5, y: 10 }}
                             loadTheme={mockLoadTheme}
                             variationHistory={history}
@@ -81,6 +110,7 @@ describe('ThemeHistory', () => {
                     <ThemeHistory
                         configurationId={history[0].configurationId}
                         isChanged={false}
+                        isPrelaunchStore={false}
                         position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
                         variationHistory={[]}
@@ -96,6 +126,7 @@ describe('ThemeHistory', () => {
                     <ThemeHistory
                         configurationId={history[0].configurationId}
                         isChanged={true}
+                        isPrelaunchStore={false}
                         position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
                         variationHistory={history}
@@ -120,6 +151,7 @@ describe('ThemeHistory', () => {
                     <ThemeHistory
                         configurationId={'blaaaah'}
                         isChanged={false}
+                        isPrelaunchStore={false}
                         position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
                         variationHistory={history}
@@ -137,6 +169,7 @@ describe('ThemeHistory', () => {
                     <ThemeHistory
                         configurationId={'blaaaah'}
                         isChanged={true}
+                        isPrelaunchStore={false}
                         position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
                         variationHistory={history}
@@ -164,6 +197,7 @@ describe('ThemeHistory', () => {
                 <ThemeHistory
                     configurationId={'blaaaah'}
                     isChanged={true}
+                    isPrelaunchStore={false}
                     position={{ x: 5, y: 10 }}
                     loadTheme={mockLoadTheme}
                     variationHistory={history}
