@@ -13,7 +13,8 @@ import { ViewportType } from '../PreviewPane/PreviewPane';
 import PubShareBox from '../PubShareBox/PubShareBox';
 import Toast from '../Toast/Toast';
 
-import { BCLogo, StyledHeaderMenu, StyledPreviewItem } from './styles';
+import { StyledHeaderMenu, StyledPreviewItem } from './styles';
+import HeaderMenuLogo from './HeaderMenuLogo';
 
 interface HeaderMenuProps {
     configurationId: string;
@@ -67,7 +68,7 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
 
         return (
             <StyledHeaderMenu>
-                <BCLogo />
+                <HeaderMenuLogo />
                 {viewportKeys.map(view => (
                     <StyledPreviewItem
                         isRotated={VIEWPORT_TYPES[view] === VIEWPORT_TYPES.DESKTOP ? undefined : isRotated}

@@ -17,13 +17,21 @@ export const StyledHeaderMenu = styled.nav`
 `;
 
 export const BCLogoInline = styled.div`
+    cursor: pointer;
     display: inline-block;
 `;
 
-export const BCLogo = () => (
-    <BCLogoInline>
-        <BCPrimaryLogo />
-    </BCLogoInline>
+interface BCLogoProps {
+    tooltip: string;
+    onClick(): void;
+}
+
+export const BCLogo = (props: BCLogoProps) => (
+    <Tooltip message={props.tooltip} >
+        <BCLogoInline onClick={props.onClick}>
+            <BCPrimaryLogo />
+        </BCLogoInline>
+    </Tooltip>
 );
 
 interface StyledHeaderSpanProps {

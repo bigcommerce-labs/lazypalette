@@ -67,15 +67,7 @@ describe('UserSessionActivity', () => {
 
         describe('when the user clicks the Ok button', () => {
             it('redirects the user to the login page using the deep-link url', () => {
-                const mockHref = jest.fn();
-                const mockWindow = {
-                    location: {},
-                };
-
-                Object.defineProperty(mockWindow.location, 'href', {
-                    set: mockHref,
-                });
-
+                const mockWindow = { location: { assign: jest.fn() } };
                 const component = mount(
                     <BrowserContext.Provider value={{ _window: mockWindow }}>
                         <UserSessionActivity
@@ -87,10 +79,9 @@ describe('UserSessionActivity', () => {
                         </UserSessionActivity>
                     </BrowserContext.Provider>
                 );
-
                 const okButton = component.find(ButtonInput).find({ children: Messages.Ok }).last();
                 okButton.simulate('click');
-                expect(mockHref).toBeCalledWith(`${oauthBaseUrl}/deep-links/store-design`);
+                expect(mockWindow.location.assign).toBeCalledWith(`${oauthBaseUrl}/deep-links/store-design`);
             });
         });
     });

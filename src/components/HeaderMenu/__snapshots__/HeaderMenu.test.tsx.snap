@@ -2,7 +2,7 @@
 
 exports[`<HeaderMenu /> render() renders the component 1`] = `
 <styled.nav>
-  <Component />
+  <HeaderMenuLogo />
   <Component
     isSelected={false}
     key="DESKTOP"
