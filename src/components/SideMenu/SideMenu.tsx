@@ -14,7 +14,7 @@ import ThemeSettings from '../ThemeSettings/ThemeSettings';
 import ThemeVariations from '../ThemeVariations/ThemeVariations';
 import Tooltip from '../Tooltip/Tooltip';
 
-import { Collapsed, Tips } from './constants';
+import { Collapsed, ThemeStatus, Tips } from './constants';
 import DesignSubMenu from './DesignSubMenu';
 
 import {
@@ -79,11 +79,11 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
     editorThemeStatus = () => {
         const { isCurrent, isPurchased } = this.props;
         if (!isPurchased) {
-            return 'THEME PREVIEW';
+            return ThemeStatus.preview;
         } else if (!isCurrent) {
-            return 'INACTIVE THEME';
+            return ThemeStatus.inactive;
         } else {
-            return 'ACTIVE THEME';
+            return ThemeStatus.active;
         }
     };
 
@@ -111,9 +111,11 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                         <Title>
                             {themeName}
                         </Title>
-                        <StyledStatus status={status}>
-                            {status}
-                        </StyledStatus>
+                        <Tooltip message={status.tooltip}>
+                            <StyledStatus status={status.label}>
+                                {status.label}
+                            </StyledStatus>
+                        </Tooltip>
                     </Header>
                     <MenuContents>
                         {isLoaded &&
