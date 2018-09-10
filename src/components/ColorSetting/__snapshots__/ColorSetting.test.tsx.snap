@@ -8,6 +8,7 @@ exports[`renders 1`] = `
   </styled.div>
   <styled.div
     color="#000000"
+    focus={false}
     onClick={[Function]}
   />
 </styled.div>
@@ -21,6 +22,7 @@ exports[`renders an initial color if provided 1`] = `
   </styled.div>
   <styled.div
     color="#fff"
+    focus={false}
     onClick={[Function]}
   />
 </styled.div>

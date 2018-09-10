@@ -19,8 +19,11 @@ interface UIWindowProviderProps {
 }
 
 export class UIWindowProvider extends Component<UIWindowProviderProps, {}> {
-    close = (id: string) => {
+    close = (id: string, uiWindowData: UIWindowData) => {
+        const content = uiWindowData.content as ColorPickerContent;
         this.props.closeUIWindow(id);
+
+        return content.onClose ? content.onClose() : null;
     };
 
     getUIWindowContents = (uiWindowData: UIWindowData) => {
@@ -57,7 +60,7 @@ export class UIWindowProvider extends Component<UIWindowProviderProps, {}> {
                         >
                             <UIWindow
                                 id={uiWindowData.id}
-                                onClose={this.close}
+                                onClose={() => this.close(uiWindowData.id, uiWindowData)}
                                 topmost={topmost}
                             >
                                 {this.getUIWindowContents(uiWindowData)}

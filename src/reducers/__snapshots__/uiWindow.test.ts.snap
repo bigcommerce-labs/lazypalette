@@ -71,6 +71,7 @@ Object {
       "content": Object {
         "color": "#FFFFFF",
         "onChange": undefined,
+        "onClose": undefined,
         "position": Object {
           "x": 10,
           "y": 10,
