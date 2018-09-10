@@ -15,7 +15,7 @@ import {
 import ButtonInput from '../ButtonInput/ButtonInput';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 
-import { Messages } from './constants';
+import { Modes, PublishModalText, ResetModalText } from './constants';
 import { ButtonWrapper, Container } from './styles';
 import ActiveAction from './ActiveAction/ActiveAction';
 import InactiveAction from './InactiveAction/InactiveAction';
@@ -93,6 +93,59 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
         });
     };
 
+    getActions = (mode: Modes) => {
+        const { isPrelaunchStore, price, variationId } = this.props;
+        const { canPublish, canSave } = this.state;
+
+        switch (mode) {
+            case Modes.ACTIVE:
+                return (
+                    <ActiveAction
+                        isPrelaunchStore={isPrelaunchStore}
+                        canPublish={canPublish}
+                        canSave={canSave}
+                        handleSave={this.handleSave}
+                        handlePublish={isPrelaunchStore ? this.handlePublish : () => this.handleModalOpen('publish')}
+                    />
+                );
+            case Modes.INACTIVE:
+                return (
+                    <InactiveAction
+                        isPrelaunchStore={isPrelaunchStore}
+                        canPublish={canPublish}
+                        canSave={canSave}
+                        handleSave={this.handleSave}
+                        handlePublish={() => this.handleModalOpen('publish')}
+                    />
+                );
+            case Modes.PREVIEW:
+                return (
+                    <PreviewAction
+                        price={price}
+                        variationId={variationId}
+                    />
+                );
+            default:
+                return null;
+        }
+    };
+
+    getMode() {
+        const { isCurrent, isPurchased, price } = this.props;
+
+        if (isPurchased) {
+            if (isCurrent) {
+                return Modes.ACTIVE;
+            } else {
+                return Modes.INACTIVE;
+            }
+        } else if (price !== undefined) {
+            return Modes.PREVIEW;
+        }
+
+        return Modes.UNKNOWN;
+    }
+
     componentDidUpdate() {
         const { variations, variationHistory, configurationId } = this.props;
         const currentVariation = variations.filter(variation => variation.isCurrent);
@@ -121,18 +174,15 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
     render() {
         const {
             isChanged,
-            isCurrent,
-            isPrelaunchStore,
-            isPurchased,
-            price,
-            variationId,
         } = this.props;
         const {
-            canPublish,
             isPublishOpen,
             isResetOpen,
-            canSave,
         } = this.state;
+
+        const mode = this.getMode();
+
+        const publishModalText = PublishModalText[mode];
 
         return (
             <Container isChanged={isChanged}>
@@ -148,48 +198,26 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                         </ButtonInput>
                     </ButtonWrapper>
                 }
-                {isPurchased &&
-                    (isCurrent ?
-                        <ActiveAction
-                            isPrelaunchStore={isPrelaunchStore}
-                            canPublish={canPublish}
-                            canSave={canSave}
-                            handleSave={this.handleSave}
-                            handlePublish={() => this.handleModalOpen('publish')}
-                        /> :
-                        <InactiveAction
-                            isPrelaunchStore={isPrelaunchStore}
-                            canPublish={canPublish}
-                            canSave={canSave}
-                            handleSave={this.handleSave}
-                            handlePublish={() => this.handleModalOpen('publish')}
-                        />
-                    )
-                }
-                {!isPurchased && price !== undefined &&
-                    <PreviewAction
-                        price={price}
-                        variationId={variationId}
-                    />
-                }
+                {this.getActions(mode)}
                 {isResetOpen &&
                     <ConfirmModal
-                        body={Messages.Reset}
+                        body={ResetModalText.body}
                         primaryAction={this.handleReset}
+                        primaryActionText={ResetModalText.action}
                         secondaryAction={() => this.handleModalCancel('reset')}
                         overlayClose={this.overlayClose}
-                        title="Reset Warning"
+                        title={ResetModalText.title}
                     />
                 }
 
                 {isPublishOpen &&
                   <ConfirmModal
-                      body={Messages.Publish}
+                      body={publishModalText.body}
                       primaryAction={this.handlePublish}
-                      primaryActionText="Publish"
+                      primaryActionText={publishModalText.action}
                       secondaryAction={() => this.handleModalCancel('publish')}
                       overlayClose={this.overlayClose}
-                      title="Publish changes"
+                      title={publishModalText.title}
                   />
                 }
             </Container>

@@ -79,8 +79,59 @@ describe('PubShareBox', () => {
 
     const pubBoxShallow = shallow(pubShareBoxElement);
 
-    it('renders', () => {
-        expect(pubBoxShallow).toMatchSnapshot();
+    describe('when rendering', () => {
+        describe('when this is a purchased theme', () => {
+            beforeEach(() => {
+                pubBoxShallow.setProps({ isPurchased: true });
+            });
+
+            describe('when this is the active theme', () => {
+                beforeEach(() => {
+                    pubBoxShallow.setProps({ isCurrent: true });
+                });
+
+                describe('when this is a prelaunch store', () => {
+                    beforeEach(() => {
+                        pubBoxShallow.setProps({ isPrelaunchStore: true });
+                    });
+
+                    it('renders correctly', () => {
+                        expect(pubBoxShallow).toMatchSnapshot();
+                    });
+                });
+
+                describe('when this is not a prelaunch store', () => {
+                    beforeEach(() => {
+                        pubBoxShallow.setProps({ isPrelaunchStore: false });
+                    });
+
+                    it('renders correctly', () => {
+                        expect(pubBoxShallow).toMatchSnapshot();
+                    });
+                });
+
+            });
+
+            describe('when this is not the active theme', () => {
+                beforeEach(() => {
+                    pubBoxShallow.setProps({ isCurrent: false });
+                });
+
+                it('renders correctly', () => {
+                    expect(pubBoxShallow).toMatchSnapshot();
+                });
+            });
+        });
+
+        describe('when the theme has not been purchased', () => {
+            beforeEach(() => {
+                pubBoxShallow.setProps({ isPurchased: false, price: 100 });
+            });
+
+            it('renders correctly', () => {
+                expect(pubBoxShallow).toMatchSnapshot();
+            });
+        });
     });
 
     const pubBoxMount = mount(pubShareBoxElement);
@@ -94,6 +145,7 @@ describe('PubShareBox', () => {
                 it('should render ActiveAction', () => {
                     expect(pubBoxMount.find('ActiveAction').length).toBe(1);
                 });
+
                 it('should not render InActiveAction', () => {
                     expect(pubBoxMount.find('InActiveAction').length).toBe(0);
                 });
