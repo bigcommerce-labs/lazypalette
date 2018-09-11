@@ -6,6 +6,8 @@ export const initialState = {
     isDownForMaintenance: false,
     isPrelaunchStore: false,
     storeHash: '',
+    timezoneName: '',
+    timezoneOffset: 0,
 };
 
 export interface MerchantStoreState {
@@ -13,6 +15,8 @@ export interface MerchantStoreState {
     isDownForMaintenance: boolean;
     isPrelaunchStore: boolean;
     storeHash: string;
+    timezoneName: string;
+    timezoneOffset: number;
 }
 
 const merchant = (

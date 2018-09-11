@@ -14,6 +14,8 @@ it('renders', () => {
         isPrelaunchStore: false,
         oauthBaseUrl: 'https://login.service.bcdev',
         storeHash: 'abcdefg',
+        timezoneName: 'UTC',
+        timezoneOffset: -7,
     };
 
     const app = shallow(

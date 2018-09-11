@@ -48,7 +48,7 @@ EntryActive.defaultProps = {
     },
 };
 
-export const EntryDate = styled.div`
+export const EntryDescription = styled.div`
     color: ${({theme}) => theme.colors.primaryText };
     line-height: 1.5rem;
     margin: 0 0 .25rem 0;
@@ -56,7 +56,7 @@ export const EntryDate = styled.div`
     font-weight: ${({ theme }) => theme.typography.fontWeight.bold };
 `;
 
-EntryDate.defaultProps = {
+EntryDescription.defaultProps = {
     theme: {
         colors: {
             primaryText: '#FFFFFF',
@@ -69,12 +69,12 @@ EntryDate.defaultProps = {
     },
 };
 
-export const EntryTitle = styled.div`
+export const EntryVersion = styled.div`
     color: ${({theme}) => theme.colors.secondaryText };
     line-height: 1.5rem;
 `;
 
-EntryTitle.defaultProps = {
+EntryVersion.defaultProps = {
     theme: {
         colors: {
             secondaryText: '#FFFFFF',

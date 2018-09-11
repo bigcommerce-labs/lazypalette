@@ -22,11 +22,13 @@ import { StyledApp, Viewport } from './styles';
 
 interface AppProps extends RouteComponentProps<{}> {
     config: {
-      assetPath: string;
-      isDownForMaintenance: boolean;
-      isPrelaunchStore: boolean;
-      storeHash: string;
-      oauthBaseUrl: string;
+          assetPath: string;
+          isDownForMaintenance: boolean;
+          isPrelaunchStore: boolean;
+          oauthBaseUrl: string;
+          storeHash: string;
+          timezoneName: string;
+          timezoneOffset: number;
     };
     fetchInitialState(variationID: string): Dispatch<State>;
     setStoreData(storeData: StoreDefaultData): Dispatch<State>;
@@ -36,14 +38,15 @@ export class App extends Component<AppProps, {}> {
     componentDidMount() {
         const queryParams = queryString.parse(this.props.location.search);
         const variationId = queryParams.variationId ? queryParams.variationId : '';
-        const { storeHash, isDownForMaintenance, isPrelaunchStore } = this.props.config;
+        const { storeHash, isDownForMaintenance, isPrelaunchStore, timezoneName, timezoneOffset } = this.props.config;
         const isCurrent = variationId === '';
-
         this.props.setStoreData({
             isCurrent,
             isDownForMaintenance,
             isPrelaunchStore,
             storeHash,
+            timezoneName,
+            timezoneOffset,
         });
         this.props.fetchInitialState(variationId);
     }
