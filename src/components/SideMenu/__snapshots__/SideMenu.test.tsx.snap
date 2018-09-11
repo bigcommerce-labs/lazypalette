@@ -51,7 +51,7 @@ exports[`SideMenu Theme status label when isCurrent is false and isPurchased is 
         href=""
       >
         <styled.span>
-          View store
+          View live store
         </styled.span>
         <styled.div>
           <Icon
@@ -125,7 +125,7 @@ exports[`SideMenu Theme status label when isCurrent is true and isPurchased is t
         href=""
       >
         <styled.span>
-          View store
+          View live store
         </styled.span>
         <styled.div>
           <Icon
@@ -199,7 +199,7 @@ exports[`SideMenu Theme status label when isPurchased is false renders correctly
         href=""
       >
         <styled.span>
-          View store
+          View live store
         </styled.span>
         <styled.div>
           <Icon

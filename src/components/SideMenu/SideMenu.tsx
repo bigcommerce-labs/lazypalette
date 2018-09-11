@@ -134,7 +134,7 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                             href=""
                         >
                             <ItemLabel>
-                                View store
+                                View live store
                             </ItemLabel>
                             <StyledExternalLink>
                                 <Icon glyph="externalLink" size="small" />
