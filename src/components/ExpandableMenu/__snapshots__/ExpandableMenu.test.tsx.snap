@@ -46,6 +46,7 @@ exports[`renders 1`] = `
     </styled.h2>
     <Styled(Link)
       onClick={[Function]}
+      replace={true}
       theme={
         Object {
           "colors": Object {

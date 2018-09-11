@@ -71,13 +71,14 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                                 </ExternalNavItem>
 
                                 : <NavItem
-                                    to={this.toggleLink(path)}
-                                    exact
-                                    key={path}
-                                    isActive={(match, location) => this.isPathActive(path)}
                                     activeClassName={activeClassName}
                                     disabled={disabled}
+                                    exact
+                                    isActive={(match, location) => this.isPathActive(path)}
+                                    key={path}
                                     onClick={() => this.handleClick(label)}
+                                    replace
+                                    to={this.toggleLink(path)}
                                 >
                                     <ItemLabel>
                                         {label}

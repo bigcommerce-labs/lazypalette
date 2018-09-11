@@ -39,9 +39,11 @@ class Modal extends PureComponent<ModalProps> {
                 <Overlay isTransparent={isTransparent} />
                 <ModalBox onClick={this.handleModalClick}>
                     {title &&
-                        <Header>{title}</Header>}
+                        <Header>{title}</Header>
+                    }
                     {backLink &&
-                        <NavItem to={backLink}/>}
+                        <NavItem to={backLink} replace />
+                    }
                     <Content>{children}</Content>
                 </ModalBox>
             </Container>

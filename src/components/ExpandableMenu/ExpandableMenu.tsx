@@ -32,8 +32,9 @@ class ExpandableMenu extends PureComponent<ExpandableMenuProps> {
                     {title &&
                         <Title onMouseDown={startMove}>{title}</Title>}
                     <NavItem
-                        to={back}
                         onClick={() => title ? trackSectionClose(title) : ''}
+                        replace
+                        to={back}
                     />
                 </Header>
                 <Content>{children}</Content>
