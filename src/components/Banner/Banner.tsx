@@ -1,6 +1,9 @@
+import { theme, Icon } from 'pattern-lab';
 import React from 'react';
 
-import { StyledBanner, StyledShareablePreviewCode } from './styles';
+import Tooltip from '../Tooltip/Tooltip';
+
+import { StyledBanner, StyledIcon, StyledMessage, StyledShareablePreviewCode } from './styles';
 
 interface BannerProps {
     isDownForMaintenance: boolean;
@@ -22,8 +25,26 @@ const Banner = (props: BannerProps) => {
     } else {
         return (
             <StyledBanner>
-                {message}
-                {!props.isDownForMaintenance &&
+                {message} {(!isDownForMaintenance && isPrelaunchStore) &&
+                    <Tooltip
+                        message={
+                            <StyledMessage>
+                                You must launch your store from the Getting<br/>
+                                Started page in order to make it public.<br/>
+                                <a href="/manage/getting-started">Go to Getting Started</a>
+                            </StyledMessage>
+                        }
+                    >
+                        <StyledIcon>
+                            <Icon
+                                glyph={'help'}
+                                primaryColor={theme.colors.primaryText}
+                                size={'large'}
+                            />
+                        </StyledIcon>
+                    </Tooltip>
+                }
+                {!isDownForMaintenance &&
                     <StyledShareablePreviewCode>
                         Share your site with preview code: {previewCode}
                     </StyledShareablePreviewCode>
