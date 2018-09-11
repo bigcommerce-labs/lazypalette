@@ -138,18 +138,6 @@ export const ResizeHandle = styled.div`
     cursor: pointer;
     cursor: ns-resize;
     flex-shrink: 0;
-
-    > div {
-        opacity: 0;
-        transition-duration: 150ms
-    }
-
-    &:hover {
-        > div {
-            opacity: 1;
-            transition-duration: 150ms
-        }
-    }
 `;
 
 export const ResizeIcon = styled.div`
