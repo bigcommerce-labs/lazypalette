@@ -11,6 +11,8 @@ export enum PreviewPaneActionTypes {
     PAGE_URL_REQUEST = 'PAGE_URL_REQUEST',
     PAGE_URL_RESPONSE = 'PAGE_URL_RESPONSE',
     PAGE_UPDATE = 'PAGE_UPDATE',
+    PREVIEW_PANE_RACE_CONDITION_DETECTED = 'PREVIEW_PANE_RACE_CONDITION_DETECTED',
+    PREVIEW_PANE_RACE_CONDITION_RESOLVED = 'PREVIEW_PANE_RACE_CONDITION_RESOLVED',
     PREVIEW_PANE_LOADED = 'PREVIEW_PANE_LOADED',
     PREVIEW_PANE_LOADING = 'PREVIEW_PANE_LOADING',
     PREVIEW_PANE_PAGE_RELOADING = 'PREVIEW_PANE_PAGE_RELOADING',
@@ -18,6 +20,26 @@ export enum PreviewPaneActionTypes {
     THEME_FONT_CHANGE = 'THEME_FONT_CHANGE',
     THEME_PREVIEW_CONFIG_REQUEST = 'THEME_PREVIEW_CONFIG_REQUEST',
     VIEWPORT_CHANGE = 'VIEWPORT_CHANGE',
+}
+
+export interface PreviewPaneRaceConditionDetectedAction extends Action  {
+    type: PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_DETECTED;
+}
+
+export function previewPaneRaceConditionDetected(): PreviewPaneRaceConditionDetectedAction {
+    return {
+        type: PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_DETECTED,
+    };
+}
+
+export interface PreviewPaneRaceConditionResolvedAction extends Action  {
+    type: PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_RESOLVED;
+}
+
+export function previewPaneRaceConditionResolved(): PreviewPaneRaceConditionResolvedAction {
+    return {
+        type: PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_RESOLVED,
+    };
 }
 
 export interface PreviewPaneLoadingAction extends Action  {
@@ -145,17 +167,16 @@ export function updatePreviewPaneConfig(): (dispatch: Dispatch<State>, getState:
     return (dispatch: Dispatch<State>, getState: () => State): void => {
         const {
             configurationId,
-            variations,
+            lastCommitId,
+            variationId,
             versionId,
         } = getState().theme;
-
-        const isCurrentIndex = variations.map(variation => variation.isCurrent).indexOf(true);
-        const lastCommitId = isCurrentIndex >= 0 ? variations[isCurrentIndex].lastCommitId : '';
 
         dispatch(previewPaneLoading());
         dispatch(receiveThemePreviewConfig({
             configurationId,
             lastCommitId,
+            variationId,
             versionId,
         }));
     };
@@ -164,6 +185,7 @@ export function updatePreviewPaneConfig(): (dispatch: Dispatch<State>, getState:
 export interface RecieveThemePreviewConfig {
     configurationId: string;
     lastCommitId: string;
+    variationId: string;
     versionId: string;
 }
 

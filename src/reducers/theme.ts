@@ -17,6 +17,7 @@ export interface ThemeState {
     isChanged: boolean;
     isCurrent: boolean;
     isPurchased: boolean;
+    lastCommitId: string;
     price?: number;
     variationId: string;
     schema: ThemeSchema;
@@ -58,7 +59,6 @@ export interface ThemeVariationsEntry {
     defaultConfigurationId: string;
     id: string;
     isCurrent: boolean;
-    lastCommitId: string;
     screenshot: {
         largePreview: string;
         largeThumb: string;
@@ -90,6 +90,7 @@ const initialState: ThemeState = {
     isChanged: false,
     isCurrent: false,
     isPurchased: false,
+    lastCommitId: '',
     price: undefined,
     schema: [],
     settings: {},
@@ -124,6 +125,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 configurationId,
                 displayVersion,
                 isPurchased,
+                lastCommitId,
                 themeId,
                 themeName,
                 variationId,
@@ -140,6 +142,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 initialConfigurationId: configurationId,
                 isCurrent: false,
                 isPurchased,
+                lastCommitId,
                 price,
                 themeId,
                 themeName,
