@@ -3,6 +3,7 @@ import React, {
     ChangeEventHandler,
     FocusEvent,
     FocusEventHandler,
+    KeyboardEvent,
     MouseEvent,
     PureComponent,
 } from 'react';
@@ -14,6 +15,7 @@ import { Button, Container, Input, InputBox, Label, Small } from './styles';
 interface NumberInputProps extends Partial <{
     disabled: boolean;
     inputId: string;
+    isInteger: boolean;
     label: string;
     max: number;
     min: number;
@@ -44,13 +46,19 @@ class NumberInput extends PureComponent<NumberInputProps, NumberInputState> {
     }
 
     handleBlur = (event: FocusEvent<HTMLInputElement>) => {
+        const { onBlur, value: propsValue } = this.props;
+        const { status, value: stateValue } = this.state;
         const newStatus = this.isInvalid() ? Status.Invalid : Status.Undefined;
-        if (this.state.status !== newStatus) {
+        if (status !== newStatus) {
             this.setState({ status: newStatus });
         }
 
-        if (this.props.onBlur) {
-            this.props.onBlur(event);
+        if (!stateValue && propsValue) {
+            this.setState({ value: propsValue });
+        }
+
+        if (onBlur) {
+            onBlur(event);
         }
     };
 
@@ -77,10 +85,22 @@ class NumberInput extends PureComponent<NumberInputProps, NumberInputState> {
     };
 
     handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        this.setState({ status: Status.Undefined, value: event.target.value });
+        const { isInteger, onChange } = this.props;
+        const { value } = event.target;
+        const newValue = isInteger ? `${parseInt(value, 10) || this.state.value}` : value;
+        const newEvent = {...event, target: {...event.target, value: newValue}};
 
-        if (this.props.onChange) {
-            this.props.onChange(event);
+        this.setState({ status: Status.Undefined, value: newValue });
+
+        if (onChange) {
+            onChange(newEvent);
+        }
+    };
+
+    handleKeyDown = ({keyCode}: KeyboardEvent<HTMLInputElement>) => {
+        // handle delete
+        if (keyCode === 8 || keyCode === 127) {
+            this.setState({ value: '' });
         }
     };
 
@@ -118,6 +138,7 @@ class NumberInput extends PureComponent<NumberInputProps, NumberInputState> {
                         max={max}
                         min={min}
                         onBlur={this.handleBlur}
+                        onKeyDown={this.handleKeyDown}
                         onChange={this.handleChange}
                         required={required}
                         status={status}

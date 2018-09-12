@@ -83,7 +83,44 @@ describe('NumberInput', () => {
             expect(mockHandler).toBeCalledWith(event);
         });
 
-        it('should cause an invaild status if the input is cleared', () => {
+        it('should change value to 1 if input is empty', () => {
+            const mockOnBlur = jest.fn();
+            const event = {
+                target: { value: '' },
+            };
+            const numberInput = shallow(
+                <NumberInput
+                    inputId={numId}
+                    onBlur={mockOnBlur}
+                    required={true}
+                    value={'1'}
+                />
+            );
+            numberInput.find(`[id="${numId}"]`).simulate('change', event);
+            numberInput.find(`[id="${numId}"]`).simulate('blur', event);
+            expect(numberInput.state('value')).toBe('1');
+        });
+
+        it('should update state if number is an integer', () => {
+            const mockOnBlur = jest.fn();
+            const event = {
+                target: { value: '500' },
+            };
+            const numberInput = shallow(
+                <NumberInput
+                    inputId={numId}
+                    onBlur={mockOnBlur}
+                    required={true}
+                    value={'1'}
+                />
+            );
+            numberInput.find(`[id="${numId}"]`).simulate('change', event);
+            numberInput.find(`[id="${numId}"]`).simulate('blur', event);
+            expect(numberInput.state('value')).toBe('500');
+
+        });
+
+        it('should cause an invalid status if the input is cleared', () => {
             const mockOnBlur = jest.fn();
             const event = {
                 target: { value: '' },

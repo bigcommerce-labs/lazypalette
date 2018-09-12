@@ -9,8 +9,9 @@ export const Container = styled.div`
 `;
 
 export const Label = styled.label`
-    padding: .25rem 0;
+    padding: 0 0 .5rem;
     color:  ${({ theme }) => theme.colors.primaryText};
+    line-height: 1rem;
 `;
 
 interface BorderRadiusProps {
