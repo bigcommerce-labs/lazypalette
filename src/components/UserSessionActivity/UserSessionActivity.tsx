@@ -28,9 +28,7 @@ export const UserSessionActivity: SFC<UserSessionActivityProps> = ({
     heartbeatResponse,
     isLoggedIn,
 }) => {
-    const close = (_window: any) => {
-        _window.location.href = `${oauthBaseUrl}/deep-links/store-design`;
-    };
+    const close = (_window: Window) => _window.location.assign(`${oauthBaseUrl}/deep-links/store-design`);
 
     return (
         <div onClick={throttledHeartbeat(oauthBaseUrl, heartbeatResponse)}>

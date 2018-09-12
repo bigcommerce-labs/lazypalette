@@ -10,15 +10,7 @@ describe('InactiveAction', () => {
 
     const buyButton = sel('buy');
     const addThemeButton = sel('add-theme');
-
-    const mockHref = jest.fn();
-    const mockWindow = {
-        location: {},
-    };
-
-    Object.defineProperty(mockWindow.location, 'href', {
-        set: mockHref,
-    });
+    const mockWindow = { location: { assign: jest.fn() } };
 
     const PreviewActionElement = <PreviewAction
         price={100}
@@ -76,10 +68,12 @@ describe('InactiveAction', () => {
                 />
             </BrowserContext.Provider>
         );
-        it('should redirect to /manage/marketplace/themes/234?action=purchase', () => {
+        const redirectUrl = '/manage/marketplace/themes/234?action=purchase';
+
+        it(`should redirect to ${redirectUrl}`, () => {
             previewActionMount.setProps({price: 100});
             previewActionMount.find(buyButton).hostNodes().simulate('click');
-            expect(mockHref).toBeCalled();
+            expect(mockWindow.location.assign).toBeCalledWith(redirectUrl);
         });
     });
 });

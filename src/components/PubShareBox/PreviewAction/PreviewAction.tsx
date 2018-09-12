@@ -24,7 +24,7 @@ const PreviewAction: SFC<PreviewActionProps> = props => {
                     <ButtonWrapper>
                         <ButtonInput
                             classType="primary"
-                            onClick={() => _window.location.href = purchaseEndPoint(variationId)}
+                            onClick={() => _window.location.assign(purchaseEndPoint(variationId))}
                             type="button"
                             testId={actionTestId}
                             disabled={false}
