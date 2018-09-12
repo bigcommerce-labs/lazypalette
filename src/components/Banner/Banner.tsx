@@ -1,19 +1,20 @@
 import React from 'react';
 
-import { StyledBanner, StyledShareableLink } from './styles';
+import { StyledBanner, StyledShareablePreviewCode } from './styles';
 
 interface BannerProps {
     isDownForMaintenance: boolean;
     isPrelaunchStore: boolean;
+    previewCode: string;
 }
 
 const Banner = (props: BannerProps) => {
-    const { isDownForMaintenance, isPrelaunchStore } = props;
+    const { isDownForMaintenance, isPrelaunchStore, previewCode } = props;
     const addBanner = isDownForMaintenance || isPrelaunchStore;
     const message = isDownForMaintenance
-        ? 'Store is down for maintenance'
+        ? 'Store is down for maintenance.'
         : isPrelaunchStore
-            ? 'Store has not launched and is not publicly visible'
+            ? 'Store has not launched and is not publicly visible.'
             : '';
 
     if (!addBanner) {
@@ -23,9 +24,9 @@ const Banner = (props: BannerProps) => {
             <StyledBanner>
                 {message}
                 {!props.isDownForMaintenance &&
-                    <StyledShareableLink>
-                        Copy private store link
-                    </StyledShareableLink>
+                    <StyledShareablePreviewCode>
+                        Share your site with preview code: {previewCode}
+                    </StyledShareablePreviewCode>
                 }
             </StyledBanner>
         );

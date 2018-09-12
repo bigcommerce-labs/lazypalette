@@ -5,6 +5,7 @@ export const initialState = {
     isCurrent: false,
     isDownForMaintenance: false,
     isPrelaunchStore: false,
+    previewCode: '',
     storeHash: '',
     timezoneName: '',
     timezoneOffset: 0,
@@ -14,6 +15,7 @@ export interface MerchantStoreState {
     isCurrent: boolean;
     isDownForMaintenance: boolean;
     isPrelaunchStore: boolean;
+    previewCode: string;
     storeHash: string;
     timezoneName: string;
     timezoneOffset: number;
