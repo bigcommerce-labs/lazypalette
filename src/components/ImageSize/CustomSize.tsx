@@ -29,7 +29,7 @@ class CustomSize extends PureComponent<CustomSizeProps, CustomSizeState> {
     }
 
     handleChange = (event: ChangeEvent<HTMLInputElement>, axis: string) => {
-        const { height, width } = this.state;
+        const [width, height] = this.props.defaultValue.split('x');
         const { value } = event.target;
         this.setState({ [axis]: value });
 
@@ -43,7 +43,7 @@ class CustomSize extends PureComponent<CustomSizeProps, CustomSizeState> {
 
     render() {
         const { defaultValue } = this.props;
-        const dimensions = defaultValue ? defaultValue.split('x') : ['0', '0'];
+        const dimensions = defaultValue ? defaultValue.split('x') : ['1', '1'];
 
         return (
             <SizeModal>
