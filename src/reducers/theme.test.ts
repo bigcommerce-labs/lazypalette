@@ -336,7 +336,7 @@ describe('themeConfigChange', () => {
 
 describe('themeConfigReset', () => {
     it('should reset changes to original value', () => {
-        const action = themeActions.themeConfigReset();
+        const action = themeActions.themeConfigResetResponse();
 
         const changedState: ThemeState = {
             ...initialState,

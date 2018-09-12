@@ -5,7 +5,12 @@ export const enum ConfigUpdateAction {
 }
 
 export const enum ToastMessages {
-    SaveTheme = 'Changes have been saved.',
+    ErrorPreview = 'There was an error previewing your changes.',
+    ErrorPublish = 'There was an error publishing your changes.',
+    ErrorSave = 'There was an error saving your changes.',
+    Publish = 'Changes have been published.',
+    Save = 'Changes have been saved.',
+    Undo = 'Changes have been undone.',
 }
 
 export const enum ToastType {

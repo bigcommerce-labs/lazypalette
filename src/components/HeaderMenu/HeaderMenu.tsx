@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { ConfigUpdateAction } from '../../actions/constants';
 import { closeNotification, CloseNotificationAction, NotificationsProps } from '../../actions/notifications';
 import { previewPanePageReloading, viewportChange, ViewportChange } from '../../actions/previewPane';
-import { postThemeConfigData, themeConfigReset, ThemeConfigResetAction } from '../../actions/theme';
+import { postThemeConfigData, themeConfigReset } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 
 import { VIEWPORT_TYPES } from '../PreviewPane/constants';
@@ -26,7 +26,7 @@ interface HeaderMenuProps {
     closeNotification(): CloseNotificationAction;
     postThemeConfigData(configDataOption: ConfigUpdateAction): void;
     previewPanePageReloading(): void;
-    themeConfigReset(): ThemeConfigResetAction;
+    themeConfigReset(): void;
     toggleViewport(payload: ViewportChange): void;
 }
 
