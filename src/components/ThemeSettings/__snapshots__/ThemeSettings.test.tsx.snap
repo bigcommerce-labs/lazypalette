@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<ThemeSettings /> getEditor when label has HTML entities (encoded characters) should decode the label 1`] = `
+<WithTheme(SelectBox)
+  label="<Here> & \\"There's\\" © ®"
+  onChange={[Function]}
+  options={Array []}
+  selected=""
+  testId="select.test-labels"
+/>
+`;
+
 exports[`<ThemeSettings /> getEditor when type equals checkbox should return with the correct type 1`] = `
 <CheckboxInput
   checked={false}
