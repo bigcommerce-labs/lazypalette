@@ -131,7 +131,8 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                     </MenuContents>
                     <Footer>
                         <ExternalNavItem
-                            href=""
+                            href="/"
+                            target="_blank"
                         >
                             <ItemLabel>
                                 View live store
