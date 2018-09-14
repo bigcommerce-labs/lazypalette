@@ -3,6 +3,7 @@ import React, { ChangeEvent, Component, SFC } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
+import unescape from 'unescape';
 
 import { updateThemeConfigChange, SettingsType, ThemeConfigChange } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
@@ -75,11 +76,12 @@ export function getEditor(
     ) => (dispatch: Dispatch<State>, getState: () => State) => void
 ) {
     const testId = `${setting.type}.${setting.id}`;
+    const prettyLabel = unescape(setting.label, 'all');
     switch (setting.type) {
         case 'color':
             return <ColorPicker
                 color={preSetValue[`${setting.id}`] as string}
-                label={setting.label}
+                label={prettyLabel}
                 name={setting.id!}
                 onChange={broadcastConfigChange}
                 testId={testId}
@@ -87,14 +89,14 @@ export function getEditor(
         case 'checkbox':
             return <CheckboxInput
                 checked={preSetValue[`${setting.id}`] as boolean}
-                label={setting.label}
+                label={prettyLabel}
                 onChange={handleChange}
                 testId={testId}
             />;
         case 'font':
             return <SelectBox
                 selected={preSetValue[`${setting.id}`] as string}
-                label={setting.label}
+                label={prettyLabel}
                 onChange={handleChange}
                 options={transformOptions(setting)}
                 testId={testId}
@@ -102,14 +104,14 @@ export function getEditor(
         case 'imageDimension':
             return <ImageSize
                 selected={preSetValue[`${setting.id}`] as string}
-                label={setting.label || ''}
+                label={prettyLabel || ''}
                 onChange={handleChange}
                 options={transformOptions(setting)}
                 testId={testId}
             />;
         case 'optimizedCheckout-image':
             return <CheckoutImageUpload
-                label={setting.label || ''}
+                label={prettyLabel || ''}
                 name={setting.id!}
                 onChange={broadcastConfigChange}
                 imageURL={preSetValue[`${setting.id}`] as string}
@@ -118,7 +120,7 @@ export function getEditor(
         case 'select':
             return <SelectBox
                 selected={formatOptionValue(preSetValue[`${setting.id}`])}
-                label={setting.label}
+                label={prettyLabel}
                 onChange={(event: ChangeEvent<HTMLSelectElement>) => {
                     trackSelectChange(setting.id, event.target.value);
                     broadcastConfigChange({
@@ -132,7 +134,7 @@ export function getEditor(
         case 'text':
             return <InputField
                 value={preSetValue[`${setting.id}`] as string}
-                label={setting.label}
+                label={prettyLabel}
                 onChange={handleChange}
                 testId={testId}
                 onBlur={handleOnBlur}

@@ -431,5 +431,17 @@ describe('<ThemeSettings />', () => {
                 expect(notRealType).toEqual(null);
             });
         });
+
+        describe('when label has HTML entities (encoded characters)', () => {
+            it('should decode the label', () => {
+                const setting = {
+                    id: 'test-labels',
+                    label: '&lt;Here&gt; &amp; &quot;There&apos;s&quot; &copy; &reg;',
+                    type: 'select',
+                };
+                const decodeLabel = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
+                expect(decodeLabel).toMatchSnapshot();
+            });
+        });
     });
 });
