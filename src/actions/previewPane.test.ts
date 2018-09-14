@@ -97,6 +97,7 @@ describe ('previewPane actions', () => {
                     payload: {
                         configurationId: 'doge',
                         lastCommitId: 'cat',
+                        variationId: 'whoa',
                         versionId: 'birdo',
                     },
                     type: 'THEME_PREVIEW_CONFIG_REQUEST',
@@ -105,6 +106,7 @@ describe ('previewPane actions', () => {
                 expect(previewPane.receiveThemePreviewConfig({
                     configurationId: 'doge',
                     lastCommitId: 'cat',
+                    variationId: 'whoa',
                     versionId: 'birdo',
                 })).toEqual(expectedAction);
             });
@@ -148,10 +150,12 @@ describe ('previewPane actions', () => {
                     previewPane: {},
                     theme: {
                         configurationId: 'doge',
+                        lastCommitId: 'cat',
+                        variationId: 'whoa',
                         variations: [
-                            {isCurrent: false, lastCommitId: '0'},
-                            {isCurrent: true, lastCommitId: 'cat'},
-                            {isCurrent: false, lastCommitId: '2'},
+                            {id: '0', isCurrent: false},
+                            {id: 'whoa', isCurrent: true},
+                            {id: '2', isCurrent: false},
                         ],
                         versionId: 'birdo',
                     },
@@ -162,6 +166,7 @@ describe ('previewPane actions', () => {
                         payload: {
                             configurationId: 'doge',
                             lastCommitId: 'cat',
+                            variationId: 'whoa',
                             versionId: 'birdo',
                         },
                         type: 'THEME_PREVIEW_CONFIG_REQUEST',
@@ -185,6 +190,7 @@ describe ('previewPane actions', () => {
                         themePreviewConfig: {
                             configurationId: '1',
                             lastCommitId: '2',
+                            variationId: 'whoa',
                             versionId: '3',
                         },
                     },

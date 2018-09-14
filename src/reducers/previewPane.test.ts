@@ -12,9 +12,11 @@ describe('Preview Pane reducer', () => {
         needsForceReload: false,
         page: '/',
         pageUrl: '',
+        raceConditionDetected: false,
         themePreviewConfig: {
             configurationId: '',
             lastCommitId: '',
+            variationId: '',
             versionId: '',
         },
         viewportType: VIEWPORT_TYPES.DESKTOP,
@@ -114,6 +116,7 @@ describe('Preview Pane reducer', () => {
             const payload = {
                 configurationId: '1234',
                 lastCommitId: '2345',
+                variationId: '012',
                 versionId: '4321',
             };
             const action = previewPaneActions.receiveThemePreviewConfig(payload);

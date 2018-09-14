@@ -96,6 +96,7 @@ export interface CurrentThemeResponse {
     isCurrent: boolean;
     isPurchased: boolean;
     variationId: string;
+    lastCommitId: string;
     themeId: string;
     variations: ThemeVariations;
     versionId: string;
@@ -144,6 +145,7 @@ export interface ThemeVariationResponse {
     variations: ThemeVariations;
     versionId: string;
     isPurchased: boolean;
+    lastCommitId: string;
     price: number;
     themeName: string;
     displayVersion: string;
@@ -265,6 +267,7 @@ export function fetchCurrentTheme() {
                 themeId,
                 id: variationId,
                 isCurrent,
+                lastCommitId,
                 themeName,
                 variationName,
                 displayVersion,
@@ -275,6 +278,7 @@ export function fetchCurrentTheme() {
                     displayVersion,
                     isCurrent,
                     isPurchased,
+                    lastCommitId,
                     themeId,
                     themeName,
                     variationId,
@@ -333,6 +337,7 @@ export function fetchVariation(variationId: string, configurationId?: string) {
                 versionId,
                 relatedVariations: variations,
                 isPurchased,
+                lastCommitId,
                 themeId,
                 themeName,
                 variationName,
@@ -343,6 +348,7 @@ export function fetchVariation(variationId: string, configurationId?: string) {
                     configurationId: configurationId || activeConfigurationId,
                     displayVersion,
                     isPurchased,
+                    lastCommitId,
                     price: price || 0,
                     themeId,
                     themeName,

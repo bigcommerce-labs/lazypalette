@@ -11,9 +11,11 @@ export const initialState = {
     needsForceReload: false,
     page: '/',
     pageUrl: '',
+    raceConditionDetected: false,
     themePreviewConfig: {
         configurationId: '',
         lastCommitId: '',
+        variationId: '',
         versionId: '',
     },
     viewportType: VIEWPORT_TYPES.DESKTOP,
@@ -22,6 +24,7 @@ export const initialState = {
 export interface ThemePreviewConfig {
     configurationId: string;
     lastCommitId: string;
+    variationId: string;
     versionId: string;
 }
 
@@ -32,6 +35,7 @@ export interface PreviewPaneState {
     needsForceReload: boolean;
     page: string;
     pageUrl: string;
+    raceConditionDetected: boolean;
     themePreviewConfig: ThemePreviewConfig;
     viewportType: ViewportType;
 }
@@ -61,6 +65,16 @@ const previewPane = (
             };
         case PreviewPaneActionTypes.VIEWPORT_CHANGE:
             return { ...state, ...action.payload };
+        case PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_DETECTED:
+            return {
+                ...state,
+                raceConditionDetected: true,
+            };
+        case PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_RESOLVED:
+            return {
+                ...state,
+                raceConditionDetected: false,
+            };
         case PreviewPaneActionTypes.PREVIEW_PANE_LOADING:
             return {
                 ...state,

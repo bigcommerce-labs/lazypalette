@@ -44,6 +44,7 @@ class CheckoutImageUpload extends Component<CheckoutImageUploadProps, CheckoutIm
     broadcastImageChange = (imageURL: string) => {
         this.props.onChange({
             setting: {
+                force_reload: true,
                 id: this.props.name ,
                 type: 'optimizedCheckout-image',
             },

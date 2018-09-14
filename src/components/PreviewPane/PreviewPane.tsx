@@ -1,4 +1,3 @@
-import Channel, { MessagingChannel } from 'jschannel';
 import React, { PureComponent } from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -8,6 +7,8 @@ import {
     previewPaneLoaded,
     previewPaneLoading,
     previewPanePageReloaded,
+    previewPaneRaceConditionDetected,
+    previewPaneRaceConditionResolved,
     updatePage,
     updatePreviewPaneConfig,
     UpdatePageAction,
@@ -15,6 +16,7 @@ import {
 } from '../../actions/previewPane';
 import { ThemePreviewConfig } from '../../reducers/previewPane';
 import { State } from '../../reducers/reducers';
+import ChannelService from '../../services/previewPane/channelService/channelService';
 
 import { VIEWPORT_TYPES } from './constants';
 import { PreviewPaneContainer, PreviewPaneIframe } from './styles';
@@ -33,72 +35,82 @@ interface PreviewPaneProps {
     needsForceReload: boolean;
     page: string;
     pageUrl: string;
+    raceConditionDetected: boolean;
     themePreviewConfig: ThemePreviewConfig;
     viewportType: ViewportType;
     loadPage(page: string): (dispatch: Dispatch, getState: () => State) => void;
     previewPaneLoaded(): void;
     previewPaneLoading(): void;
     previewPanePageReloaded(): void;
+    previewPaneRaceConditionDetected(): void;
+    previewPaneRaceConditionResolved(): void;
     updatePage(payload: UpdatePagePayload): UpdatePageAction;
     updatePreviewPaneConfig(): void;
 }
 
 class PreviewPane extends PureComponent<PreviewPaneProps> {
     private iframeRef: HTMLIFrameElement;
-    private jsChannel: MessagingChannel;
+    private channelService: ChannelService;
 
     componentWillReceiveProps(nextProps: PreviewPaneProps): void {
-        // When we receive a new versionId, we need to make sure we force reload the page. Each theme version can have
-        // different files, so we need to make sure we hit the storefront service for the full page render
-        if (this.props.themePreviewConfig.versionId !== nextProps.themePreviewConfig.versionId) {
+        const { page, raceConditionDetected, themePreviewConfig } = this.props;
+
+        // Race condition detected. This happens when the user interacts with store design while the sdk is not ready.
+        if (!raceConditionDetected && nextProps.raceConditionDetected) {
+            // Force reload the page
+            this.props.loadPage(page);
+
+            // Signal that the race condition has been resolved
+            this.props.previewPaneRaceConditionResolved();
+
+            return;
+        }
+
+        const currentVariation = themePreviewConfig.variationId;
+        const nextVariation = nextProps.themePreviewConfig.variationId;
+
+        // When the variationId changes, we will assume there are structural changes in the configuration which will
+        // require use to do a full reload of the preview pane when the user changes variation.
+        if (currentVariation !== nextVariation) {
             this.props.loadPage(this.props.page);
         }
     }
 
-    componentDidUpdate(prevProps: PreviewPaneProps): void {
-        const props = this.props;
+    componentDidUpdate(prevProps: PreviewPaneProps) {
+        const { configurationId, fontUrl, needsForceReload, themePreviewConfig } = this.props;
 
-        if (props.configurationId !== prevProps.configurationId) {
-            props.updatePreviewPaneConfig();
+        // TODO -- we should eliminate the themePreviewConfig and instead flatten the structure in the previewPane
+        // state. Right now, when the configurationId changes, we will need to make an update on the themePreviewConfig
+        // which is slow and makes it more difficult to understand.
+        if (configurationId !== prevProps.configurationId) {
+            this.props.updatePreviewPaneConfig();
         }
 
-        // When this component first renders, the theme preview config is empty. In order to prevent a flash of styling
-        // and to protect from needless re-rendering of stylesheets, we will only re-render if the previous config was
-        // not empty and the current config is present.
-        if (prevProps.themePreviewConfig.configurationId !== '' &&
-            props.themePreviewConfig !== prevProps.themePreviewConfig) {
-
-            this.jsChannel.call({
-                // TODO handle error callbacks
-                method: 'reload-stylesheets',
-                params: JSON.stringify({
-                    configurationId: props.themePreviewConfig.configurationId,
-                }),
-                success: (v: any) => props.previewPaneLoaded(),
-            });
+        // Structural updates can occur when the user makes changes which would modify the DOM of the page. An example
+        // would be when the user changes the number of featured products on the homepage.
+        if (needsForceReload) {
+            this.broadcastForceReload();
         }
 
-        if (props.needsForceReload) {
-            this.jsChannel.call({
-                // TODO handle error callbacks
-                method: 'reload-page',
-                params: JSON.stringify({}),
-                success: (v: any) => {
-                    this.props.previewPanePageReloaded();
-                    props.previewPaneLoaded();
-                },
-            });
+        const previousVariation = prevProps.themePreviewConfig.variationId;
+        const currentVariation = themePreviewConfig.variationId;
+
+        // If the variation changes, this should be considered a structural update. We can skip broadcasting events
+        // since we are going to need to forcibly reload the preview pane.
+        if (previousVariation !== currentVariation) {
+            return;
         }
 
-        if (props.fontUrl !== prevProps.fontUrl) {
-            this.jsChannel.call({
-                // TODO handle error callbacks
-                method: 'add-font',
-                params: JSON.stringify({
-                    fontUrl: props.fontUrl,
-                }),
-                success: (v: any) => props.previewPaneLoaded(),
-            });
+        const previousConfiguration = prevProps.themePreviewConfig.configurationId;
+        const currentConfiguration = themePreviewConfig.configurationId;
+
+        // We have a new configuration to display into the preview pane.
+        if (previousConfiguration && previousConfiguration !== currentConfiguration) {
+            this.broadcastReloadStylesheets(themePreviewConfig.configurationId);
+
+            if (fontUrl && fontUrl !== prevProps.fontUrl) {
+                this.broadcastFontChange(fontUrl);
+            }
         }
     }
 
@@ -108,7 +120,7 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
         // TODO show loading indicator until preview pane is ready
         return (
             <PreviewPaneContainer showBorder={viewportType === VIEWPORT_TYPES.DESKTOP}>
-                {this.iframeReady() &&
+                {pageUrl &&
                     <PreviewPaneIframe
                         innerRef={(x: HTMLIFrameElement) => (this.iframeRef = x)}
                         isFetching={isFetching}
@@ -122,56 +134,57 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
         );
     }
 
-    private iframeReady = () => {
-        const {
-            pageUrl,
-            themePreviewConfig,
-        } = this.props;
+    private broadcastFontChange = (fontUrl: string) => {
+        this.channelService.safeBroadcast({
+            error: (error: any) => { return; }, // TODO
+            method: 'add-font',
+            params: { fontUrl },
+            success: (data: any) => this.props.previewPaneLoaded(),
+        }, this.props.previewPaneRaceConditionDetected);
+    };
 
-        return pageUrl && themePreviewConfig.versionId;
+    private broadcastForceReload = () => {
+        this.channelService.safeBroadcast({
+            error: (error: any) => { return; }, // TODO
+            method: 'reload-page',
+            params: {},
+            success: (data: any) => {
+                this.props.previewPanePageReloaded();
+                this.props.previewPaneLoaded();
+            },
+        }, this.props.previewPaneRaceConditionDetected);
+    };
+
+    private broadcastReloadStylesheets = (configurationId: string) => {
+        this.channelService.safeBroadcast({
+            error: (error: any) => { return; }, // TODO
+            method: 'reload-stylesheets',
+            params: { configurationId },
+            success: (data: any) => this.props.previewPaneLoaded(),
+        }, this.props.previewPaneRaceConditionDetected);
     };
 
     private onLoad = () => {
-        if (!this.iframeRef || !this.iframeRef.contentDocument || !this.iframeRef.contentWindow) {
+        const iframeWindow = this.iframeRef.contentWindow;
+        if (!iframeWindow) {
             return;
         }
 
-        // Make sure the preview sdk channel is ready
-        this.setupChannel(this.iframeRef);
-
-        const href = this.iframeRef.contentWindow.location.href;
-        const page = href.split(/https?:\/\/[^\/]+/)[1];
-
+        // Keep the Redux Store in sync with the users page navigation.
+        const page = iframeWindow.location.pathname;
         if (page !== this.props.page) {
             this.props.updatePage({ page });
         }
-    };
 
-    private setupChannel = (iframe: HTMLIFrameElement) => {
-        // The channel should only be set up once.
-        if (this.jsChannel) {
-            return;
-        }
-
-        // Stand up the channel for bi-directional communication with the preview pane.
-        // See: https://github.com/bigcommerce-labs/stencil-preview-sdk
-        this.jsChannel = Channel.build({
-            // debugOutput: true,
-            // onReady: () => console.log('channel ready'),
-            origin: '*',
-            publish: true,
-            reconnect: true,
-            scope: 'stencilEditor',
-            window: iframe.contentWindow,
-        });
-
-        // Bind this channel to specific event types. Events which are bound are fired from the Stencil Preview Sdk.
-        this.jsChannel.bind('sdk-ready', (v: any) => {
-            // TODO
-        });
-
-        this.jsChannel.bind('sdk-not-ready', (v: any) => {
-            // TODO
+        // Ensure we have a channelService set up when the iframe loads. Since we need to have the iframe reference
+        // available to stand up the channel, we need to make sure this is done once the iframe loads.
+        // TODO: Look into other places for this to live. We only need to instantiate the ChannelService once, since
+        // onLoad is called each time the user navigates, we need to make sure the ChannelService client is a singleton
+        // instance. We can definitely improve this.
+        this.channelService = new ChannelService({
+            sdkNotReady: this.props.previewPaneLoading,
+            sdkReady: this.props.previewPaneLoaded,
+            window: iframeWindow,
         });
     };
 }
@@ -188,6 +201,8 @@ const mapDispatchToProps = (dispatch: Dispatch): Partial<PreviewPaneProps> => bi
     previewPaneLoaded,
     previewPaneLoading,
     previewPanePageReloaded,
+    previewPaneRaceConditionDetected,
+    previewPaneRaceConditionResolved,
     updatePage,
     updatePreviewPaneConfig,
 }, dispatch);

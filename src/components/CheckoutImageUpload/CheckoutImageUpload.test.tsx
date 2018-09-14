@@ -130,6 +130,7 @@ describe('CheckoutImageUpload', () => {
 
                 expect(mockHandler).toBeCalledWith({
                     setting: {
+                        force_reload: true,
                         id: 'optimizedCheckout-logo',
                         type: 'optimizedCheckout-image',
                     },
@@ -288,6 +289,7 @@ describe('CheckoutImageUpload', () => {
                     process.nextTick(() => {
                         expect(mockHandler).toBeCalledWith({
                             setting: {
+                                force_reload: true,
                                 id: 'optimizedCheckout-logo',
                                 type: 'optimizedCheckout-image',
                             },
