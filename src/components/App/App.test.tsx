@@ -10,6 +10,7 @@ it('renders', () => {
     const mockFetch = jest.fn();
     const config = {
         assetPath: 'https://example.com/build/',
+        guestPassword: 'k4k4t9q44d',
         isDownForMaintenance: true,
         isPrelaunchStore: false,
         oauthBaseUrl: 'https://login.service.bcdev',

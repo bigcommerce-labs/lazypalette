@@ -13,6 +13,7 @@ export interface SetStoreDataAction {
 }
 
 export interface StoreDefaultData {
+    previewCode: string;
     isCurrent: boolean;
     isDownForMaintenance: boolean;
     isPrelaunchStore: boolean;

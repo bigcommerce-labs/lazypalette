@@ -23,6 +23,7 @@ import { StyledApp, Viewport } from './styles';
 interface AppProps extends RouteComponentProps<{}> {
     config: {
           assetPath: string;
+          guestPassword: string;
           isDownForMaintenance: boolean;
           isPrelaunchStore: boolean;
           oauthBaseUrl: string;
@@ -38,12 +39,22 @@ export class App extends Component<AppProps, {}> {
     componentDidMount() {
         const queryParams = queryString.parse(this.props.location.search);
         const variationId = queryParams.variationId ? queryParams.variationId : '';
-        const { storeHash, isDownForMaintenance, isPrelaunchStore, timezoneName, timezoneOffset } = this.props.config;
+        const {
+            storeHash,
+            guestPassword,
+            isDownForMaintenance,
+            isPrelaunchStore,
+            timezoneName,
+            timezoneOffset,
+        } = this.props.config;
+
         const isCurrent = variationId === '';
+
         this.props.setStoreData({
             isCurrent,
             isDownForMaintenance,
             isPrelaunchStore,
+            previewCode: guestPassword,
             storeHash,
             timezoneName,
             timezoneOffset,
@@ -52,7 +63,11 @@ export class App extends Component<AppProps, {}> {
     }
 
     render() {
-        const { isDownForMaintenance, isPrelaunchStore } = this.props.config;
+        const {
+            guestPassword,
+            isDownForMaintenance,
+            isPrelaunchStore,
+        } = this.props.config;
 
         return (
             <PatternLabThemeProvider>
@@ -61,6 +76,7 @@ export class App extends Component<AppProps, {}> {
                         <UIWindowProvider>
                             <StyledApp>
                                 <Banner
+                                    previewCode={guestPassword}
                                     isPrelaunchStore={isPrelaunchStore}
                                     isDownForMaintenance={isDownForMaintenance}
                                 />
