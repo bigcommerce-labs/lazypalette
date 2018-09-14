@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`notifications actions CLOSE_NOTIFICATION should macth the correct action 1`] = `
+Object {
+  "type": "CLOSE_NOTIFICATION",
+}
+`;
+
+exports[`notifications actions OPEN_NOTIFICATION should macth the correct action 1`] = `
+Object {
+  "payload": Object {
+    "autoDismiss": true,
+    "message": "Changes have been published.",
+    "type": "Success",
+  },
+  "type": "OPEN_NOTIFICATION",
+}
+`;

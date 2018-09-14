@@ -13,7 +13,7 @@ describe('Toast', () => {
         const toast = shallow(
             <Toast
                 autoDismiss
-                children={ToastMessages.SaveTheme}
+                children={ToastMessages.Save}
                 onClose={mockOnClose}
                 type={ToastType.Success}
             />
@@ -26,7 +26,7 @@ describe('Toast', () => {
         const toast = shallow(
             <Toast
                 autoDismiss
-                children={ToastMessages.SaveTheme}
+                children={ToastMessages.Save}
                 onClose={mockOnClose}
                 type={ToastType.Success}
             />

@@ -183,7 +183,7 @@ export function themeConfigChange(payload: ThemeConfigChange): ThemeConfigChange
     };
 }
 
-export function themeConfigReset(): ThemeConfigResetAction {
+export function themeConfigResetResponse(): ThemeConfigResetAction {
     return {
         type: ThemeActionTypes.THEME_CONFIG_RESET,
     };
@@ -387,6 +387,7 @@ export function updateThemeConfigChange(configChange: ThemeConfigChange) {
 
 export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
+        const { isPrelaunchStore } = getState().merchant;
         const {
             configurationId,
             settings,
@@ -412,6 +413,11 @@ export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
 
                 if (configData.publish) {
                     dispatch(loadTheme());
+                    dispatch(createNotification(
+                        true,
+                        isPrelaunchStore ? ToastMessages.Save : ToastMessages.Publish,
+                        ToastType.Success
+                    ));
                 } else if (configData.preview) {
                     dispatch(themeConfigPreviewResponse({
                         configurationId: newConfigurationId,
@@ -423,10 +429,21 @@ export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
                         settings: newSettings,
                     }));
                     dispatch(fetchVariationHistory(variationId));
-                    dispatch(createNotification(true, ToastMessages.SaveTheme, ToastType.Success));
+                    dispatch(createNotification(true, ToastMessages.Save, ToastType.Success));
                 }
             })
-            .catch(error => dispatch(themeConfigPostResponse(error, true)));
+            .catch(error => {
+                let errorMsg = ToastMessages.ErrorSave;
+
+                if (configData.publish) {
+                    errorMsg = ToastMessages.ErrorPublish;
+                } else if (configData.preview) {
+                    errorMsg = ToastMessages.ErrorPreview;
+                }
+
+                dispatch(createNotification(false, errorMsg, ToastType.Invalid));
+                dispatch(themeConfigPostResponse(error, true));
+            });
     };
 }
 
@@ -435,4 +452,11 @@ export function fetchThemeData(configurationId: string, variationId: string, ver
         dispatch(fetchVariationHistory(variationId)),
         dispatch(fetchThemeVersion(versionId)),
         dispatch(fetchThemeConfig(configurationId))]);
+}
+
+export function themeConfigReset(): Dispatch<State> {
+    return (dispatch: Dispatch<State>) => {
+        dispatch(themeConfigResetResponse());
+        dispatch(createNotification(true, ToastMessages.Undo, ToastType.Success));
+    };
 }
