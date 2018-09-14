@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const List = styled.ul`
+    cursor: pointer;
     width: 20rem;
     list-style: none;
     padding: 0;

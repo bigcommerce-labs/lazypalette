@@ -1,28 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<MoreOptions /> render() renders the component 1`] = `
-<Draggable
-  position={
-    Object {
-      "x": 10,
-      "y": 10,
+<Fragment>
+  <Draggable
+    position={
+      Object {
+        "x": 10,
+        "y": 10,
+      }
     }
-  }
->
-  <ExpandableMenu
-    title="More Options"
   >
-    <styled.ul>
-      <styled.li>
-        Go to old Theme Editor
-      </styled.li>
-      <styled.li>
-        Edit Theme Files
-      </styled.li>
-      <styled.li>
-        Restore original theme styles
-      </styled.li>
-    </styled.ul>
-  </ExpandableMenu>
-</Draggable>
+    <ExpandableMenu
+      title="More Options"
+    >
+      <styled.ul>
+        <styled.li
+          data-test-id="go-to-te"
+        >
+          Go to old Theme Editor
+        </styled.li>
+        <styled.li
+          data-test-id="edit-theme-files"
+        >
+          Edit Theme Files
+        </styled.li>
+        <styled.li
+          data-test-id="restore-original"
+          onClick={[Function]}
+        >
+          Restore original theme styles
+        </styled.li>
+      </styled.ul>
+    </ExpandableMenu>
+  </Draggable>
+</Fragment>
 `;
