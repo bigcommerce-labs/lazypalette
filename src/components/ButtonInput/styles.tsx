@@ -42,7 +42,6 @@ export const Button = styled.button.attrs<ButtonProps>({})`
             :disabled {
                 background-color: ${isPrimary ? theme.colors.primary : '#FFF'};
                 opacity: 0.5;
-                cursor: not-allowed;
             }
         `;
     }}
