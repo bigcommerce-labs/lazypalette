@@ -13,7 +13,7 @@ import { Action } from './action';
 import { ConfigUpdateAction, ToastMessages, ToastType } from './constants';
 import { updateActiveTheme } from './merchant';
 import { createNotification } from './notifications';
-import { previewPanePageReloading, updateFonts } from './previewPane';
+import { updateFonts } from './previewPane';
 
 export enum ThemeActionTypes {
     CURRENT_THEME_RESPONSE = 'CURRENT_THEME_RESPONSE',
@@ -120,6 +120,7 @@ export interface ThemeConfigChange {
 
 export interface ThemeConfigPostResponse {
     configurationId: string;
+    forceReload: boolean | undefined;
     settings: {};
 }
 
@@ -347,12 +348,7 @@ export function updateThemeConfigChange(configChange: ThemeConfigChange) {
             dispatch(updateFonts(configChange));
         }
 
-        return dispatch(postThemeConfigData(ConfigUpdateAction.PREVIEW))
-            .then(() => {
-                if (configChange.setting.force_reload) {
-                    dispatch(previewPanePageReloading());
-                }
-            });
+        return dispatch(postThemeConfigData(ConfigUpdateAction.PREVIEW, !!configChange.setting.force_reload));
     };
 }
 
@@ -383,6 +379,7 @@ export function postApplyUpdate() {
 
                 dispatch(themeConfigSaveResponse({
                     configurationId: newConfigurationId,
+                    forceReload: true,
                     settings: newSettings,
                 }));
                 dispatch(fetchVariationHistory(variationId));
@@ -392,7 +389,7 @@ export function postApplyUpdate() {
     };
 }
 
-export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
+export function postThemeConfigData(configUpdateOption: ConfigUpdateAction, forceReload: boolean) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
         const { isPrelaunchStore } = getState().merchant;
         const {
@@ -432,11 +429,13 @@ export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
                 } else if (configData.preview) {
                     dispatch(themeConfigPreviewResponse({
                         configurationId: newConfigurationId,
+                        forceReload,
                         settings: newSettings,
                     }));
                 } else {
                     dispatch(themeConfigSaveResponse({
                         configurationId: newConfigurationId,
+                        forceReload,
                         settings: newSettings,
                     }));
                     dispatch(fetchVariationHistory(variationId));

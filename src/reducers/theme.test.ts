@@ -214,6 +214,7 @@ describe('when processing themeVariationHistoryResponse', () => {
 describe('themeConfigPreviewResponse', () => {
     const payload: ThemeConfigPostResponse = {
         configurationId: '012',
+        forceReload: false,
         settings: {},
     };
 
@@ -231,6 +232,7 @@ describe('themeConfigPreviewResponse', () => {
 describe('themeConfigSaveResponse', () => {
     const payload: ThemeConfigPostResponse = {
         configurationId: '012',
+        forceReload: false,
         settings: {},
     };
 
@@ -250,6 +252,7 @@ describe('themeConfigSaveResponse', () => {
     describe('when settings differ', () => {
         const payloadNew: ThemeConfigPostResponse = {
             configurationId: '012',
+            forceReload: false,
             settings: {'primary-font': 'meow'},
         };
         it('isChanged changes to true', () => {

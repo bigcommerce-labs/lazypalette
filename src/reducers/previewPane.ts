@@ -1,42 +1,29 @@
 import { Action } from '../actions/action';
-import { PageUrlResponse, PreviewPaneActionTypes } from '../actions/previewPane';
+import { PreviewPaneActionTypes } from '../actions/previewPane';
+import { ThemeActionTypes } from '../actions/theme';
+
 import { VIEWPORT_TYPES } from '../components/PreviewPane/constants';
 import { ViewportType } from '../components/PreviewPane/PreviewPane';
 import { parseFont } from '../services/previewPane';
 
 export const initialState = {
     fontUrl: null,
+    iframeUrl: '',
     isFetching: true,
     isRotated: false,
     needsForceReload: false,
     page: '/',
-    pageUrl: '',
     raceConditionDetected: false,
-    themePreviewConfig: {
-        configurationId: '',
-        lastCommitId: '',
-        variationId: '',
-        versionId: '',
-    },
     viewportType: VIEWPORT_TYPES.DESKTOP,
 };
 
-export interface ThemePreviewConfig {
-    configurationId: string;
-    lastCommitId: string;
-    variationId: string;
-    versionId: string;
-}
-
 export interface PreviewPaneState {
     fontUrl: string | null;
+    iframeUrl: string;
     isFetching: boolean;
     isRotated: boolean;
     needsForceReload: boolean;
     page: string;
-    pageUrl: string;
-    raceConditionDetected: boolean;
-    themePreviewConfig: ThemePreviewConfig;
     viewportType: ViewportType;
 }
 
@@ -54,7 +41,12 @@ const previewPane = (
         case PreviewPaneActionTypes.PAGE_URL_REQUEST:
             return { ...state, ...action.payload, isFetching: true };
         case PreviewPaneActionTypes.PAGE_URL_RESPONSE:
-            return { ...state, ...action.payload as PageUrlResponse, isFetching: false };
+            return {
+                ...state,
+                iframeUrl: action.payload.pageUrl,
+                isFetching: false,
+                page: action.payload.page,
+            };
         case PreviewPaneActionTypes.PAGE_UPDATE:
             return { ...state, ...action.payload };
         case PreviewPaneActionTypes.THEME_FONT_CHANGE:
@@ -62,21 +54,10 @@ const previewPane = (
         case PreviewPaneActionTypes.THEME_PREVIEW_CONFIG_REQUEST:
             return {
                 ...state,
-                ...{ themePreviewConfig: { ...state.themePreviewConfig, ...action.payload } },
                 isFetching: true,
             };
         case PreviewPaneActionTypes.VIEWPORT_CHANGE:
             return { ...state, ...action.payload };
-        case PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_DETECTED:
-            return {
-                ...state,
-                raceConditionDetected: true,
-            };
-        case PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_RESOLVED:
-            return {
-                ...state,
-                raceConditionDetected: false,
-            };
         case PreviewPaneActionTypes.PREVIEW_PANE_LOADING:
             return {
                 ...state,
@@ -96,6 +77,16 @@ const previewPane = (
             return {
                 ...state,
                 needsForceReload: false,
+            };
+        case ThemeActionTypes.SAVE_THEME_CONFIG_RESPONSE:
+            return {
+                ...state,
+                needsForceReload: action.payload.forceReload,
+            };
+        case ThemeActionTypes.PREVIEW_THEME_CONFIG_RESPONSE:
+            return {
+                ...state,
+                needsForceReload: action.payload.forceReload,
             };
         default:
             return state;

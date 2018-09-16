@@ -1,20 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-    fetchPageUrl,
+    buildIframeUrl,
     previewPaneLoaded,
     previewPaneLoading,
     previewPanePageReloaded,
-    previewPaneRaceConditionDetected,
-    previewPaneRaceConditionResolved,
     updatePage,
-    updatePreviewPaneConfig,
     UpdatePageAction,
     UpdatePagePayload
 } from '../../actions/previewPane';
-import { ThemePreviewConfig } from '../../reducers/previewPane';
 import { State } from '../../reducers/reducers';
 import ChannelService from '../../services/previewPane/channelService/channelService';
 
@@ -27,106 +23,84 @@ export interface ViewportType {
     viewportWidth: string;
 }
 
-interface PreviewPaneProps {
+interface SetCookiesParams {
+    variationId: string;
+    versionId: string;
+    lastCommitId: string;
     configurationId: string;
+}
+
+interface PreviewPaneProps {
+    versionId: string;
+    variationId: string;
+    configurationId: string;
+    lastCommitId: string;
     fontUrl: string | null;
     isFetching: boolean;
     isRotated: boolean;
     needsForceReload: boolean;
     page: string;
-    pageUrl: string;
-    raceConditionDetected: boolean;
-    themePreviewConfig: ThemePreviewConfig;
+    iframeUrl: string;
     viewportType: ViewportType;
-    loadPage(page: string): (dispatch: Dispatch, getState: () => State) => void;
+    buildIframeUrl(page: string): void;
     previewPaneLoaded(): void;
     previewPaneLoading(): void;
     previewPanePageReloaded(): void;
-    previewPaneRaceConditionDetected(): void;
-    previewPaneRaceConditionResolved(): void;
     updatePage(payload: UpdatePagePayload): UpdatePageAction;
-    updatePreviewPaneConfig(): void;
 }
 
-class PreviewPane extends PureComponent<PreviewPaneProps> {
-    private iframeRef: HTMLIFrameElement;
+class PreviewPane extends Component<PreviewPaneProps> {
     private channelService: ChannelService;
-
-    componentWillReceiveProps(nextProps: PreviewPaneProps): void {
-        const { page, raceConditionDetected, themePreviewConfig } = this.props;
-
-        // Race condition detected. This happens when the user interacts with store design while the sdk is not ready.
-        if (!raceConditionDetected && nextProps.raceConditionDetected) {
-            // Force reload the page
-            this.props.loadPage(page);
-
-            // Signal that the race condition has been resolved
-            this.props.previewPaneRaceConditionResolved();
-
-            return;
-        }
-
-        const currentVariation = themePreviewConfig.variationId;
-        const nextVariation = nextProps.themePreviewConfig.variationId;
-
-        // When the variationId changes, we will assume there are structural changes in the configuration which will
-        // require use to do a full reload of the preview pane when the user changes variation.
-        if (currentVariation !== nextVariation) {
-            this.props.loadPage(this.props.page);
-        }
-    }
+    private iframeRef: HTMLIFrameElement;
 
     componentDidUpdate(prevProps: PreviewPaneProps) {
-        const { configurationId, fontUrl, needsForceReload, themePreviewConfig } = this.props;
+        const { configurationId, fontUrl, lastCommitId, needsForceReload, variationId, versionId } = this.props;
 
-        // TODO -- we should eliminate the themePreviewConfig and instead flatten the structure in the previewPane
-        // state. Right now, when the configurationId changes, we will need to make an update on the themePreviewConfig
-        // which is slow and makes it more difficult to understand.
-        if (configurationId !== prevProps.configurationId) {
-            this.props.updatePreviewPaneConfig();
-        }
+        /**
+         * Structural updates can occur when the user makes a settings change which would modify the DOM of the page.
+         * If the variation changes, this should be considered a structural update.
+         * Example: User changes the number of featured products on the homepage.
+         */
+        if (needsForceReload || prevProps.variationId !== variationId) {
+            this.broadcastForceReload({
+                configurationId,
+                lastCommitId,
+                variationId,
+                versionId,
+            });
 
-        // Structural updates can occur when the user makes changes which would modify the DOM of the page. An example
-        // would be when the user changes the number of featured products on the homepage.
-        if (needsForceReload) {
-            this.broadcastForceReload();
-        }
-
-        const previousVariation = prevProps.themePreviewConfig.variationId;
-        const currentVariation = themePreviewConfig.variationId;
-
-        // If the variation changes, this should be considered a structural update. We can skip broadcasting events
-        // since we are going to need to forcibly reload the preview pane.
-        if (previousVariation !== currentVariation) {
             return;
         }
 
-        const previousConfiguration = prevProps.themePreviewConfig.configurationId;
-        const currentConfiguration = themePreviewConfig.configurationId;
-
-        // We have a new configuration to display into the preview pane.
-        if (previousConfiguration && previousConfiguration !== currentConfiguration) {
-            this.broadcastReloadStylesheets(themePreviewConfig.configurationId);
+        /**
+         * Optimized / Progressive updates
+         * For CSS & Font changes, we can do better than reloading the entire page. For CSS, we can inject a new style
+         * tag for the browser to pick up new styling. We can use a similar strategy for fonts, just with font links.
+         */
+        const previousConfigurationId = prevProps.configurationId;
+        if (previousConfigurationId && previousConfigurationId !== configurationId) {
+            this.broadcastReloadStylesheets(configurationId);
 
             if (fontUrl && fontUrl !== prevProps.fontUrl) {
                 this.broadcastFontChange(fontUrl);
             }
+
+            return;
         }
     }
 
     render(): JSX.Element {
-        const { isFetching, isRotated, pageUrl, viewportType } = this.props;
+        const { isFetching, isRotated, iframeUrl, viewportType } = this.props;
 
-        // TODO show loading indicator until preview pane is ready
         return (
             <PreviewPaneContainer showBorder={viewportType === VIEWPORT_TYPES.DESKTOP}>
-                {pageUrl &&
+                {iframeUrl &&
                     <PreviewPaneIframe
                         innerRef={(x: HTMLIFrameElement) => (this.iframeRef = x)}
                         isFetching={isFetching}
                         isRotated={isRotated}
                         onLoad={this.onLoad}
-                        src={pageUrl}
+                        src={iframeUrl}
                         viewportType={viewportType}
                     />
                 }
@@ -135,39 +109,80 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
     }
 
     private broadcastFontChange = (fontUrl: string) => {
+        this.props.previewPaneLoading();
+
+        if (!this.channelService) {
+            this.raceConditionHandler();
+
+            return;
+        }
+
         this.channelService.safeBroadcast({
             error: (error: any) => { return; }, // TODO
             method: 'add-font',
             params: { fontUrl },
             success: (data: any) => this.props.previewPaneLoaded(),
-        }, this.props.previewPaneRaceConditionDetected);
-    };
-
-    private broadcastForceReload = () => {
-        this.channelService.safeBroadcast({
-            error: (error: any) => { return; }, // TODO
-            method: 'reload-page',
-            params: {},
-            success: (data: any) => {
-                this.props.previewPanePageReloaded();
-                this.props.previewPaneLoaded();
-            },
-        }, this.props.previewPaneRaceConditionDetected);
+        }, this.raceConditionHandler);
     };
 
     private broadcastReloadStylesheets = (configurationId: string) => {
+        this.props.previewPaneLoading();
+
+        if (!this.channelService) {
+            this.raceConditionHandler();
+
+            return;
+        }
+
         this.channelService.safeBroadcast({
             error: (error: any) => { return; }, // TODO
             method: 'reload-stylesheets',
             params: { configurationId },
             success: (data: any) => this.props.previewPaneLoaded(),
-        }, this.props.previewPaneRaceConditionDetected);
+        }, this.raceConditionHandler);
+    };
+
+    private broadcastForceReload = ({ variationId, versionId, configurationId, lastCommitId }: SetCookiesParams) => {
+        if (!this.channelService) {
+            this.raceConditionHandler();
+
+            return;
+        }
+
+        this.channelService.safeBroadcast({
+            error: (error: any) => { return; }, // TODO
+            method: 'set-cookie',
+            params: {
+                configurationId,
+                reloadPage: true,
+                // sessionId === lastCommitId
+                // See: https://github.com/bigcommerce-labs/stencil-preview-sdk/blob/master/src/app/iframe-sdk.js#L99
+                sessionId: lastCommitId,
+                variationId,
+                versionId,
+            },
+            success: (data: any) => {
+                this.props.previewPanePageReloaded();
+            },
+        }, this.raceConditionHandler);
+    };
+
+    private raceConditionHandler = () => {
+        this.props.buildIframeUrl(this.props.page);
+        this.props.previewPanePageReloaded();
     };
 
     private onLoad = () => {
+        // TODO: We know the iframe has loaded but we dont know if the page which was loaded supports store design. If
+        // there is a link to an external page or we load an error page, we will see the onLoad handler is called, but
+        // the stencilPreviewSdk will not be available.
+
+        // Dismiss the overlay when the content of the preview pane loads
+        this.props.previewPaneLoaded();
+
         const iframeWindow = this.iframeRef.contentWindow;
         if (!iframeWindow) {
-            return;
+            throw new Error('iframe contentWindow unavailable');
         }
 
         // Keep the Redux Store in sync with the users page navigation.
@@ -181,9 +196,10 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
         // TODO: Look into other places for this to live. We only need to instantiate the ChannelService once, since
         // onLoad is called each time the user navigates, we need to make sure the ChannelService client is a singleton
         // instance. We can definitely improve this.
+        // TODO: Handle SdkReady / SdkNotReady signals
         this.channelService = new ChannelService({
-            sdkNotReady: this.props.previewPaneLoading,
-            sdkReady: this.props.previewPaneLoaded,
+            sdkNotReady: () => { return; },
+            sdkReady: () => { return; },
             window: iframeWindow,
         });
     };
@@ -192,19 +208,21 @@ class PreviewPane extends PureComponent<PreviewPaneProps> {
 const mapStateToProps = (state: State): Partial<PreviewPaneProps> => {
     return {
         ...state.previewPane,
-        ...{ configurationId: state.theme.configurationId},
+        ...{
+            configurationId: state.theme.configurationId,
+            lastCommitId: state.theme.lastCommitId,
+            variationId: state.theme.variationId,
+            versionId: state.theme.versionId,
+        },
     };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): Partial<PreviewPaneProps> => bindActionCreators({
-    loadPage: (page: string) => fetchPageUrl({ page }),
+    buildIframeUrl,
     previewPaneLoaded,
     previewPaneLoading,
     previewPanePageReloaded,
-    previewPaneRaceConditionDetected,
-    previewPaneRaceConditionResolved,
     updatePage,
-    updatePreviewPaneConfig,
 }, dispatch);
 
 export default connect<Partial<PreviewPaneProps>, Partial<PreviewPaneProps>, {}, State>(

@@ -78,6 +78,7 @@
     "redux-mock-store": "^1.5.3",
     "srcdoc-polyfill": "git+https://github.com/jugglinmike/srcdoc-polyfill.git",
     "typescript": "^2.9.2",
-    "typescript-eslint-parser": "^16.0.0"
+    "typescript-eslint-parser": "^16.0.0",
+    "window": "^4.2.5"
   }
 }

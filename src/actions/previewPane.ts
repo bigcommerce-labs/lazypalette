@@ -12,8 +12,6 @@ export enum PreviewPaneActionTypes {
     PAGE_URL_REQUEST = 'PAGE_URL_REQUEST',
     PAGE_URL_RESPONSE = 'PAGE_URL_RESPONSE',
     PAGE_UPDATE = 'PAGE_UPDATE',
-    PREVIEW_PANE_RACE_CONDITION_DETECTED = 'PREVIEW_PANE_RACE_CONDITION_DETECTED',
-    PREVIEW_PANE_RACE_CONDITION_RESOLVED = 'PREVIEW_PANE_RACE_CONDITION_RESOLVED',
     PREVIEW_PANE_LOADED = 'PREVIEW_PANE_LOADED',
     PREVIEW_PANE_LOADING = 'PREVIEW_PANE_LOADING',
     PREVIEW_PANE_PAGE_RELOADING = 'PREVIEW_PANE_PAGE_RELOADING',
@@ -21,26 +19,6 @@ export enum PreviewPaneActionTypes {
     THEME_FONT_CHANGE = 'THEME_FONT_CHANGE',
     THEME_PREVIEW_CONFIG_REQUEST = 'THEME_PREVIEW_CONFIG_REQUEST',
     VIEWPORT_CHANGE = 'VIEWPORT_CHANGE',
-}
-
-export interface PreviewPaneRaceConditionDetectedAction extends Action  {
-    type: PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_DETECTED;
-}
-
-export function previewPaneRaceConditionDetected(): PreviewPaneRaceConditionDetectedAction {
-    return {
-        type: PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_DETECTED,
-    };
-}
-
-export interface PreviewPaneRaceConditionResolvedAction extends Action  {
-    type: PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_RESOLVED;
-}
-
-export function previewPaneRaceConditionResolved(): PreviewPaneRaceConditionResolvedAction {
-    return {
-        type: PreviewPaneActionTypes.PREVIEW_PANE_RACE_CONDITION_RESOLVED,
-    };
 }
 
 export interface PreviewPaneLoadingAction extends Action  {
@@ -137,28 +115,15 @@ export function updatePage({ page }: UpdatePagePayload): UpdatePageAction {
     };
 }
 
-export interface FetchPageUrl {
-    page: string;
-}
-
-export function fetchPageUrl(
-    { page }: FetchPageUrl
-) {
+export function buildIframeUrl(page: string) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
-        dispatch(pageUrlRequest({ page }));
-
-        const { configurationId, lastCommitId, versionId } = getState().previewPane.themePreviewConfig;
-        let pageUrl: string = page;
-
-        if (versionId && configurationId) {
-            const token = `${versionId}@${configurationId}`;
-            const queryParams = {
-                stencilEditor: lastCommitId ? `${token}@${lastCommitId}` : token,
-            };
-            const queryString = entries(queryParams).map(keyValuePair => keyValuePair.join('=')).join('&');
-
-            pageUrl = page + (queryString ? `?${queryString}` : '');
-        }
+        const { configurationId, lastCommitId, versionId } = getState().theme;
+        const token = `${versionId}@${configurationId}`;
+        const queryParams = {
+            stencilEditor: lastCommitId ? `${token}@${lastCommitId}` : token,
+        };
+        const queryString = entries(queryParams).map(keyValuePair => keyValuePair.join('=')).join('&');
+        const pageUrl = page + (queryString ? `?${queryString}` : '');
 
         return dispatch(pageUrlResponse({ page, pageUrl }));
     };

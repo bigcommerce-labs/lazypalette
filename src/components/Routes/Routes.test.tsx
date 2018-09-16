@@ -46,13 +46,11 @@ describe('Routes', () => {
             const store = createMockStore([thunk])({
                 error: { errors: [] },
                 previewPane: {
+                    configurationId: '012',
+                    iframeUrl: '/?stencilEditor=789@012',
+                    lastCommitId: '456',
                     page: '/',
-                    pageUrl: '/?stencilEditor=789@012',
-                    themePreviewConfig: {
-                        configurationId: '012',
-                        lastCommitId: '456',
-                        versionId: '789',
-                    },
+                    versionId: '789',
                     viewportType: {
                         viewportHeight: '100%',
                         viewportWidth: '90%',
