@@ -7,12 +7,14 @@ import { uploadImage } from '../../services/optimizedCheckout';
 import { LoadingIndicator } from '../LoadingIndicator/LoadingIndicator';
 
 import {
+    CheckoutImage,
     CheckoutImageInputWrapper,
     CheckoutImagePreviewWrapper,
     CheckoutImageRemoveLink,
     CheckoutImageUploadError,
     CheckoutImageUploadWrapper,
-    UploadButtonLabel
+    SmallText,
+    UploadButtonLabel,
 } from './styles';
 
 export interface CheckoutImageUploadProps {
@@ -135,7 +137,7 @@ class CheckoutImageUpload extends Component<CheckoutImageUploadProps, CheckoutIm
                         Upload image
                     </UploadButtonLabel>
 
-                    <small>{label}</small>
+                    <SmallText>{label}</SmallText>
 
                     <input
                         id={inputId}
@@ -158,12 +160,12 @@ class CheckoutImageUpload extends Component<CheckoutImageUploadProps, CheckoutIm
                         ? <LoadingIndicator />
                         : (imageURL &&
                             <div>
+                                <CheckoutImage src={imageURL} />
                                 <div>
                                     <CheckoutImageRemoveLink onClick={this.handleRemoveImage}>
-                                        Clear image
+                                        Remove image
                                     </CheckoutImageRemoveLink>
                                 </div>
-                                <img src={imageURL} />
                             </div>
                         )
                     }

@@ -7,6 +7,12 @@ exports[`CheckoutImageUpload handleChangeImage when the user upload files displa
       "colors": Object {
         "errors": "#c0ffee",
         "primary": "#BADA55",
+        "secondaryText": "#FFFFFF",
+      },
+      "typography": Object {
+        "fontSize": Object {
+          "smaller": "14px",
+        },
       },
     }
   }
@@ -20,25 +26,29 @@ exports[`CheckoutImageUpload handleChangeImage when the user upload files displa
   >
     <styled.div>
       <div
-        className="sc-bwzfXH dAsRSE"
+        className="sc-htpNat dvhMcy"
       >
         <styled.div>
           <div
-            className="sc-htpNat gMzcF"
+            className="sc-bxivhb jYmzWA"
           >
             <styled.label
               htmlFor="CheckoutImageUpload"
             >
               <label
-                className="sc-bdVaJa bgvXfT"
+                className="sc-bdVaJa gNYMKB"
                 htmlFor="CheckoutImageUpload"
               >
                 Upload image
               </label>
             </styled.label>
-            <small>
-              1000x400px recommended
-            </small>
+            <styled.span>
+              <span
+                className="sc-gzVnrw ilxeHL"
+              >
+                1000x400px recommended
+              </span>
+            </styled.span>
             <input
               id="CheckoutImageUpload"
               onChange={[Function]}
@@ -54,7 +64,7 @@ exports[`CheckoutImageUpload handleChangeImage when the user upload files displa
         </styled.div>
         <styled.div>
           <div
-            className="sc-bxivhb bUZGRr"
+            className="sc-ifAKCX bmKgXx"
           >
             <Component>
               <div>
@@ -76,6 +86,12 @@ exports[`CheckoutImageUpload handleChangeImage when the user upload files when w
       "colors": Object {
         "errors": "#c0ffee",
         "primary": "#BADA55",
+        "secondaryText": "#FFFFFF",
+      },
+      "typography": Object {
+        "fontSize": Object {
+          "smaller": "14px",
+        },
       },
     }
   }
@@ -89,25 +105,29 @@ exports[`CheckoutImageUpload handleChangeImage when the user upload files when w
   >
     <styled.div>
       <div
-        className="sc-bwzfXH dAsRSE"
+        className="sc-htpNat dvhMcy"
       >
         <styled.div>
           <div
-            className="sc-htpNat gMzcF"
+            className="sc-bxivhb jYmzWA"
           >
             <styled.label
               htmlFor="CheckoutImageUpload"
             >
               <label
-                className="sc-bdVaJa bgvXfT"
+                className="sc-bdVaJa gNYMKB"
                 htmlFor="CheckoutImageUpload"
               >
                 Upload image
               </label>
             </styled.label>
-            <small>
-              1000x400px recommended
-            </small>
+            <styled.span>
+              <span
+                className="sc-gzVnrw ilxeHL"
+              >
+                1000x400px recommended
+              </span>
+            </styled.span>
             <input
               id="CheckoutImageUpload"
               onChange={[Function]}
@@ -123,14 +143,14 @@ exports[`CheckoutImageUpload handleChangeImage when the user upload files when w
         </styled.div>
         <styled.p>
           <p
-            className="sc-ifAKCX iAGchg"
+            className="sc-EHOje bBGYrN"
           >
             There was an error uploading your image, please try again.
           </p>
         </styled.p>
         <styled.div>
           <div
-            className="sc-bxivhb bUZGRr"
+            className="sc-ifAKCX bmKgXx"
           />
         </styled.div>
       </div>
@@ -146,6 +166,12 @@ exports[`CheckoutImageUpload handleRemoveImage when the user clicks the remove b
       "colors": Object {
         "errors": "#c0ffee",
         "primary": "#BADA55",
+        "secondaryText": "#FFFFFF",
+      },
+      "typography": Object {
+        "fontSize": Object {
+          "smaller": "14px",
+        },
       },
     }
   }
@@ -174,25 +200,29 @@ exports[`CheckoutImageUpload handleRemoveImage when the user clicks the remove b
   >
     <styled.div>
       <div
-        className="sc-bwzfXH dAsRSE"
+        className="sc-htpNat dvhMcy"
       >
         <styled.div>
           <div
-            className="sc-htpNat gMzcF"
+            className="sc-bxivhb jYmzWA"
           >
             <styled.label
               htmlFor="CheckoutImageUpload"
             >
               <label
-                className="sc-bdVaJa bgvXfT"
+                className="sc-bdVaJa gNYMKB"
                 htmlFor="CheckoutImageUpload"
               >
                 Upload image
               </label>
             </styled.label>
-            <small>
-              1000x400px recommended
-            </small>
+            <styled.span>
+              <span
+                className="sc-gzVnrw ilxeHL"
+              >
+                1000x400px recommended
+              </span>
+            </styled.span>
             <input
               id="CheckoutImageUpload"
               onChange={[Function]}
@@ -208,7 +238,7 @@ exports[`CheckoutImageUpload handleRemoveImage when the user clicks the remove b
         </styled.div>
         <styled.div>
           <div
-            className="sc-bxivhb bUZGRr"
+            className="sc-ifAKCX bmKgXx"
           />
         </styled.div>
       </div>
@@ -224,6 +254,12 @@ exports[`CheckoutImageUpload handleRemoveImage when we have a previously set ima
       "colors": Object {
         "errors": "#c0ffee",
         "primary": "#BADA55",
+        "secondaryText": "#FFFFFF",
+      },
+      "typography": Object {
+        "fontSize": Object {
+          "smaller": "14px",
+        },
       },
     }
   }
@@ -237,25 +273,29 @@ exports[`CheckoutImageUpload handleRemoveImage when we have a previously set ima
   >
     <styled.div>
       <div
-        className="sc-bwzfXH dAsRSE"
+        className="sc-htpNat dvhMcy"
       >
         <styled.div>
           <div
-            className="sc-htpNat gMzcF"
+            className="sc-bxivhb jYmzWA"
           >
             <styled.label
               htmlFor="CheckoutImageUpload"
             >
               <label
-                className="sc-bdVaJa bgvXfT"
+                className="sc-bdVaJa gNYMKB"
                 htmlFor="CheckoutImageUpload"
               >
                 Upload image
               </label>
             </styled.label>
-            <small>
-              1000x400px recommended
-            </small>
+            <styled.span>
+              <span
+                className="sc-gzVnrw ilxeHL"
+              >
+                1000x400px recommended
+              </span>
+            </styled.span>
             <input
               id="CheckoutImageUpload"
               onChange={[Function]}
@@ -271,24 +311,29 @@ exports[`CheckoutImageUpload handleRemoveImage when we have a previously set ima
         </styled.div>
         <styled.div>
           <div
-            className="sc-bxivhb bUZGRr"
+            className="sc-ifAKCX bmKgXx"
           >
             <div>
+              <styled.img
+                src="https://placekitten.com/200/300"
+              >
+                <img
+                  className="sc-bwzfXH hbwdff"
+                  src="https://placekitten.com/200/300"
+                />
+              </styled.img>
               <div>
                 <styled.a
                   onClick={[Function]}
                 >
                   <a
-                    className="sc-EHOje bBGYrN"
+                    className="sc-bZQynM jeCCcx"
                     onClick={[Function]}
                   >
-                    Clear image
+                    Remove image
                   </a>
                 </styled.a>
               </div>
-              <img
-                src="https://placekitten.com/200/300"
-              />
             </div>
           </div>
         </styled.div>
@@ -306,9 +351,9 @@ exports[`CheckoutImageUpload renders 1`] = `
     >
       Upload image
     </styled.label>
-    <small>
+    <styled.span>
       1000x400px recommended
-    </small>
+    </styled.span>
     <input
       id="CheckoutImageUpload"
       onChange={[Function]}
