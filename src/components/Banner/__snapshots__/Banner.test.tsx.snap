@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Banner when rendering renders correctly in live mode 1`] = `""`;
+
+exports[`Banner when rendering renders correctly in maintenance mode 1`] = `
+<styled.div>
+  Store is down for maintenance.
+   
+</styled.div>
+`;
+
+exports[`Banner when rendering renders correctly in prelaunch mode 1`] = `
+<styled.div>
+  Store has not launched and is not publicly visible.
+   
+  <Tooltip
+    message={
+      <styled.p>
+        You must launch your store from the Getting
+        <br />
+        Started page in order to make it public.
+        <br />
+        <a
+          href="/manage/getting-started"
+        >
+          Go to Getting Started
+        </a>
+      </styled.p>
+    }
+  >
+    <styled.span>
+      <Icon
+        glyph="help"
+        primaryColor="#303540"
+        size="large"
+      />
+    </styled.span>
+  </Tooltip>
+  <styled.button
+    onClick={[Function]}
+  >
+    Copy private store link
+  </styled.button>
+</styled.div>
+`;
