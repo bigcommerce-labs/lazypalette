@@ -13,6 +13,7 @@ exports[`AlertModal renders 1`] = `
       <ButtonInput
         classType="primary"
         onClick={[MockFunction]}
+        testId="ok"
         type="button"
       >
         Ok

@@ -41,6 +41,7 @@ class AlertModal extends PureComponent<AlertModalProps> {
                             onClick={primaryAction}
                             classType="primary"
                             type="button"
+                            testId={(actionText || Messages.Ok).replace(/\s+/g, '-').toLowerCase()}
                         >
                             {actionText}
                         </ButtonInput>

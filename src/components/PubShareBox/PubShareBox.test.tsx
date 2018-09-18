@@ -184,8 +184,9 @@ describe('PubShareBox', () => {
             });
             describe('is false', () => {
                 it('should not display "Undo changes" button', () => {
-                    pubBoxMount.setProps({isChanged: false});
-                    expect(pubBoxMount.find(undoChangesButton).hostNodes().length).toBe(0);
+                    const pubBoxMountUndoChangeFalse = mount(pubShareBoxElement);
+                    pubBoxMountUndoChangeFalse.setProps({isChanged: false});
+                    expect(pubBoxMountUndoChangeFalse.find(undoChangesButton).hostNodes().length).toBe(0);
                 });
             });
         });

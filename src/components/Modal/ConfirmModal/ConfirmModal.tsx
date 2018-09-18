@@ -16,12 +16,13 @@ interface ConfirmModalProps extends Partial<{
     overlayClose(): void;
 }> {}
 
-const CTAButtons = ({ primaryAction, primaryActionText, secondaryAction }: ConfirmModalProps) => (
+const CTAButtons = ({ primaryAction, primaryActionText = Messages.Ok, secondaryAction }: ConfirmModalProps) => (
     <ConfirmButtons>
         <ConfirmButton>
             <ButtonInput
                 onClick={secondaryAction}
                 type="button"
+                testId="cancel"
             >
                 {Messages.Cancel}
             </ButtonInput>
@@ -31,6 +32,7 @@ const CTAButtons = ({ primaryAction, primaryActionText, secondaryAction }: Confi
                 classType="primary"
                 onClick={primaryAction}
                 type="button"
+                testId={primaryActionText.replace(/\s+/g, '-').toLowerCase()}
             >
                 {primaryActionText}
             </ButtonInput>
