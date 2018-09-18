@@ -12,6 +12,7 @@ export const delayOut = keyframes`
 `;
 
 const delayOutDuration = 250;
+const animationDelay = `${ToastTimeout.Duration - delayOutDuration}ms`;
 
 export const Container = styled.div.attrs<ContainerProps>({})`
     position: fixed;
@@ -22,7 +23,7 @@ export const Container = styled.div.attrs<ContainerProps>({})`
     opacity: 1;
     justify-content: center;
     animation: ${delayOut} ${delayOutDuration}ms linear;
-    animation-delay: calc(${ToastTimeout.Duration}ms - ${delayOutDuration}ms);
+    animation-delay: ${animationDelay};
     animation-fill-mode: forwards;
 
     ${({ autoDismiss }) => autoDismiss === false && `
