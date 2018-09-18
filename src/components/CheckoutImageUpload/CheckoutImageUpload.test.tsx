@@ -18,6 +18,12 @@ describe('CheckoutImageUpload', () => {
         colors: {
             errors: '#c0ffee',
             primary: '#BADA55',
+            secondaryText: '#FFFFFF',
+        },
+        typography: {
+            fontSize: {
+                smaller: '14px',
+            },
         },
     };
 
