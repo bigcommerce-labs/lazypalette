@@ -64,7 +64,8 @@ exports[`renders 1`] = `
   <styled.div>
     <styled.div>
       <Icon
-        glyph="ellipsis"
+        glyph="resizeable"
+        primaryColor="#CFD6E5"
         size="large"
       />
     </styled.div>
