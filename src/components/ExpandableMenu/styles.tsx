@@ -37,6 +37,7 @@ export const ExpandModal = styled.div.attrs<ExpandModalProps>({
     animation: ${openAnimation} 100ms ease-out;
     pointer-events: auto;
     visibility: visible;
+    -ms-overflow-y: auto;
 }}
 `;
 
