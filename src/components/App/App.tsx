@@ -27,38 +27,39 @@ import { StyledApp, Viewport } from './styles';
 
 interface AppProps extends RouteComponentProps<{}> {
     config: {
-          assetPath: string;
-          guestPassword: string;
-          isDownForMaintenance: boolean;
-          isPrelaunchStore: boolean;
-          oauthBaseUrl: string;
-          storeHash: string;
-          timezoneName: string;
-          timezoneOffset: number;
+        assetPath: string;
+        guestPassword: string;
+        isDownForMaintenance: boolean;
+        isPrelaunchStore: boolean;
+        oauthBaseUrl: string;
+        seedActiveTheme: { themeId: string, id: string },
+        storeHash: string;
+        timezoneName: string;
+        timezoneOffset: number;
     };
-    fetchInitialState(variationID: string): Dispatch<State>;
     setPreviewPaneData(previewPaneData: PreviewPaneDefaultData): Dispatch<State>;
+    fetchInitialState(variationID: string, configurationId?: string, upgrade?: boolean): Dispatch<State>;
     setStoreData(storeData: StoreDefaultData): Dispatch<State>;
 }
 
 export class App extends Component<AppProps, {}> {
     componentDidMount() {
         const queryParams = queryString.parse(this.props.location.search);
-        const variationId = queryParams.variationId ? queryParams.variationId : '';
         const page = queryParams.redirectIframeUrl ? `/${queryParams.redirectIframeUrl}` : '/';
+        const isUpdate = queryParams.appMode === 'preview';
         const {
-            storeHash,
             guestPassword,
             isDownForMaintenance,
             isPrelaunchStore,
+            seedActiveTheme,
+            storeHash,
             timezoneName,
             timezoneOffset,
         } = this.props.config;
 
-        const isCurrent = variationId === '';
-
         this.props.setStoreData({
-            isCurrent,
+            activeThemeId: seedActiveTheme.themeId,
+            activeVariationId: seedActiveTheme.id,
             isDownForMaintenance,
             isPrelaunchStore,
             previewCode: guestPassword,
@@ -66,8 +67,12 @@ export class App extends Component<AppProps, {}> {
             timezoneName,
             timezoneOffset,
         });
+
         this.props.setPreviewPaneData({page});
-        this.props.fetchInitialState(variationId);
+
+        const variationId = queryParams.variationId ? queryParams.variationId : seedActiveTheme.id;
+
+        this.props.fetchInitialState(variationId, undefined, isUpdate);
     }
 
     render() {

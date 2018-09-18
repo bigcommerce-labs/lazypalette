@@ -59,6 +59,15 @@ export function trackSave() {
     });
 }
 
+export function trackUpdate() {
+    track('store-design_click', {
+        category: 'store-design-update',
+        element: 'button',
+        label: 'store-design_header-update',
+        text: 'Apply Update',
+    });
+}
+
 export function trackResetClick() {
     track('store-design_click', {
         category: 'store-design_reset',

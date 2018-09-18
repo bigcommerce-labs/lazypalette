@@ -4,6 +4,7 @@ import { State } from '../reducers/reducers';
 
 export enum MerchantActionTypes {
     SET_STORE_DEFAULTS = 'SET_STORE_DEFAULTS',
+    UPDATE_ACTIVE_THEME = 'UPDATE_ACTIVE_THEME',
 }
 
 export interface SetStoreDataAction {
@@ -14,12 +15,23 @@ export interface SetStoreDataAction {
 
 export interface StoreDefaultData {
     previewCode: string;
-    isCurrent: boolean;
+    activeThemeId: string;
+    activeVariationId: string;
     isDownForMaintenance: boolean;
     isPrelaunchStore: boolean;
     storeHash: string;
     timezoneName: string;
     timezoneOffset: number;
+}
+
+export interface UpdateActiveThemeAction {
+    payload: UpdateActiveThemeData;
+    type: MerchantActionTypes.UPDATE_ACTIVE_THEME;
+}
+
+export interface UpdateActiveThemeData {
+    activeThemeId: string;
+    activeVariationId: string;
 }
 
 export function setStoreDefault(
@@ -35,4 +47,11 @@ export function setStoreDefault(
 
 export function setStoreData(storeData: StoreDefaultData): Dispatch<State> {
     return (dispatch: Dispatch<State>) => dispatch(setStoreDefault(storeData));
+}
+
+export function updateActiveTheme(payload: UpdateActiveThemeData): UpdateActiveThemeAction {
+    return {
+        payload,
+        type: MerchantActionTypes.UPDATE_ACTIVE_THEME,
+    };
 }

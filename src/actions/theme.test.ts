@@ -5,7 +5,6 @@ import thunk from 'redux-thunk';
 
 import { themeAPI } from '../services/themeApi';
 
-import { Action } from './action';
 import * as themeActions from './theme';
 
 describe('theme actions', () => {
@@ -182,13 +181,14 @@ describe('theme actions', () => {
 
         beforeEach(() => {
             axiosMock.reset();
-            axiosMock.onGet(themeAPI.currentThemeAPI)
+
+            axiosMock.onGet(themeAPI.variationAPI(variationId))
                 .reply(status, {
                     data: {
                         configurationId: '012',
+                        currentVersionVariationId: '222',
                         displayVersion: '2.1.1',
-                        id: '111',
-                        isCurrent: true,
+                        id: '222',
                         isPurchased: true,
                         relatedVariations: variationsArray,
                         themeId: '234',
@@ -197,10 +197,11 @@ describe('theme actions', () => {
                         versionId: '234',
                     }});
 
-            axiosMock.onGet(themeAPI.variationAPI(storeHash, variationId))
+            axiosMock.onGet(themeAPI.variationUpgradeAPI(variationId))
                 .reply(status, {
                     data: {
                         configurationId: '012',
+                        currentVersionVariationId: '222',
                         displayVersion: '2.1.1',
                         id: '222',
                         isPurchased: true,
@@ -226,76 +227,6 @@ describe('theme actions', () => {
             axiosMock.onGet(themeAPI.variationHistoryAPI(storeHash, variationId))
                 .reply(200, {
                     data: variationHistory,
-                });
-        });
-
-        it('should call fetchCurrentTheme when called without variationId', () => {
-
-            const store = createMockStore([thunk])({
-                error: {},
-                merchant: {
-                    storeHash,
-                },
-                previewPane: {},
-                theme: {
-                    configurationId: '',
-                    variations: [],
-                },
-            });
-
-            const getState = jest.fn()
-                .mockReturnValue({
-                    theme: {
-                        configurationId,
-                        variationId,
-                        versionId,
-                    },
-
-                });
-
-            const expectedActions = [
-                {
-                    error: false,
-                    payload: {
-                        configurationId: '012',
-                        displayVersion: '2.1.1',
-                        isCurrent: true,
-                        isPurchased: true,
-                        themeId: '234',
-                        themeName: 'Cornerstone',
-                        variationId: '111',
-                        variationName: 'Warm',
-                        variations: variationsArray,
-                        versionId: '234',
-                    },
-                    type: themeActions.ThemeActionTypes.CURRENT_THEME_RESPONSE,
-                },
-                {
-                    error: false,
-                    payload: {
-                        editorSchema: {},
-                    },
-                    type: themeActions.ThemeActionTypes.THEME_VERSION_RESPONSE,
-                },
-                {
-                    error: false,
-                    payload: {
-                        settings: {},
-                    },
-                    type: themeActions.ThemeActionTypes.THEME_CONFIG_RESPONSE,
-                },
-                {
-                    error: false,
-                    payload: {
-                        variationHistory,
-                    },
-                    type: themeActions.ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
-                },
-            ];
-
-            return themeActions.loadTheme('')(store.dispatch, getState)
-                .then(() => {
-                    expect(store.getActions()).toEqual(expect.arrayContaining(expectedActions));
                 });
         });
 
@@ -368,6 +299,75 @@ describe('theme actions', () => {
                 });
         });
 
+        it('should make appropriate calls when called with upgrade = true', () => {
+            const store = createMockStore([thunk])({
+                error: {},
+                merchant: {
+                    storeHash,
+                },
+                previewPane: {},
+                theme: {
+                    configurationId: '',
+                    variations: [],
+                },
+            });
+
+            const getState = jest.fn()
+                .mockReturnValue({
+                    theme: {
+                        configurationId,
+                        variationId,
+                        versionId,
+                    },
+
+                });
+
+            const expectedActions = [
+                {
+                    error: false,
+                    payload: {
+                        configurationId: '012',
+                        displayVersion: '2.1.1',
+                        isPurchased: true,
+                        price: 0,
+                        themeId: '234',
+                        themeName: 'Cornerstone',
+                        variationId: '222',
+                        variationName: 'Warm',
+                        variations: variationsArray,
+                        versionId: '234',
+                    },
+                    type: themeActions.ThemeActionTypes.THEME_VARIATION_RESPONSE,
+                },
+                {
+                    error: false,
+                    payload: {
+                        editorSchema: {},
+                    },
+                    type: themeActions.ThemeActionTypes.THEME_VERSION_RESPONSE,
+                },
+                {
+                    error: false,
+                    payload: {
+                        settings: {},
+                    },
+                    type: themeActions.ThemeActionTypes.THEME_CONFIG_RESPONSE,
+                },
+                {
+                    error: false,
+                    payload: {
+                        variationHistory,
+                    },
+                    type: themeActions.ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
+                },
+            ];
+
+            return themeActions.loadTheme('222', undefined, true)(store.dispatch, getState)
+                .then(() => {
+                    expect(store.getActions()).toEqual(expect.arrayContaining(expectedActions));
+                });
+        });
+
     });
 
     describe('loadTheme Action - Failure', () => {
@@ -400,10 +400,8 @@ describe('theme actions', () => {
 
         beforeEach(() => {
             axiosMock.reset();
-            axiosMock.onGet(themeAPI.currentThemeAPI)
-                .reply(status);
 
-            axiosMock.onGet(themeAPI.variationAPI(storeHash, variationId))
+            axiosMock.onGet(themeAPI.variationAPI(variationId))
                 .reply(status);
 
             axiosMock.onGet(themeAPI.configurationAPI(configurationId))
@@ -414,37 +412,6 @@ describe('theme actions', () => {
 
             axiosMock.onGet(themeAPI.variationHistoryAPI(storeHash, variationId))
                 .reply(status);
-        });
-
-        it('should call fetchCurrentTheme with error status', () => {
-
-            const expectedActions: Action[] = [
-                {
-                    error: true,
-                    payload: new Error('Request failed with status code 404'),
-                    type: themeActions.ThemeActionTypes.THEME_VERSION_RESPONSE,
-                },
-                {
-                    error: true,
-                    payload: new Error('Request failed with status code 404'),
-                    type: themeActions.ThemeActionTypes.THEME_CONFIG_RESPONSE,
-                },
-                {
-                    error: true,
-                    payload: new Error('Request failed with status code 404'),
-                    type: themeActions.ThemeActionTypes.CURRENT_THEME_RESPONSE,
-                },
-                {
-                    error: true,
-                    payload: new Error('Request failed with status code 404'),
-                    type: themeActions.ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
-                },
-            ];
-
-            return themeActions.loadTheme('')(store.dispatch, getState)
-                .then(() => {
-                    expect(store.getActions()).toEqual(expect.arrayContaining(expectedActions));
-                });
         });
 
         it('should call fetchVariation with error status', () => {

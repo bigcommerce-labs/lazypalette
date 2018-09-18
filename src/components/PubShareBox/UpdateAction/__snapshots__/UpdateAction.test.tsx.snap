@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpdateAction renders 1`] = `
+<styled.div>
+  <ButtonInput
+    classType="primary"
+    onClick={[MockFunction]}
+    testId="apply-update"
+  >
+    Apply Update
+  </ButtonInput>
+</styled.div>
+`;

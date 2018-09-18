@@ -11,6 +11,7 @@ import * as api from '../services/themeApi';
 
 import { Action } from './action';
 import { ConfigUpdateAction, ToastMessages, ToastType } from './constants';
+import { updateActiveTheme } from './merchant';
 import { createNotification } from './notifications';
 import { previewPanePageReloading, updateFonts } from './previewPane';
 
@@ -93,7 +94,6 @@ export interface ThemeVariationHistoryResponseAction extends Action  {
 
 export interface CurrentThemeResponse {
     configurationId: string;
-    isCurrent: boolean;
     isPurchased: boolean;
     variationId: string;
     lastCommitId: string;
@@ -257,40 +257,6 @@ export function themeVariationHistoryResponse(
     };
 }
 
-export function fetchCurrentTheme() {
-    return (dispatch: Dispatch<State>) => {
-        return api.fetchCurrentTheme()
-            .then(({
-                configurationId,
-                versionId,
-                relatedVariations: variations,
-                themeId,
-                id: variationId,
-                isCurrent,
-                lastCommitId,
-                themeName,
-                variationName,
-                displayVersion,
-                isPurchased,
-            }) => {
-                dispatch(currentThemeResponse({
-                    configurationId,
-                    displayVersion,
-                    isCurrent,
-                    isPurchased,
-                    lastCommitId,
-                    themeId,
-                    themeName,
-                    variationId,
-                    variationName,
-                    variations,
-                    versionId,
-                }));
-            })
-            .catch(error => dispatch(currentThemeResponse(error, true)));
-    };
-}
-
 export function fetchThemeConfig(configurationId: string) {
     return (dispatch: Dispatch<State>) => {
         return api.fetchThemeConfig(configurationId)
@@ -309,55 +275,54 @@ export function fetchThemeVersion(versionId: string) {
     };
 }
 
-export function loadTheme(variationId?: string, configurationId?: string) {
+export function loadTheme(variationId: string, configurationId?: string, upgrade?: boolean) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
-        if (variationId) {
-            return dispatch(fetchVariation(variationId, configurationId))
-                .then(() => dispatch(fetchThemeData(
-                    getState().theme.configurationId,
-                    getState().theme.variationId,
-                    getState().theme.versionId)));
-        } else {
-            return dispatch(fetchCurrentTheme())
-                .then(() => dispatch(fetchThemeData(
-                    getState().theme.configurationId,
-                    getState().theme.variationId,
-                    getState().theme.versionId)));
-        }
+        return dispatch(fetchVariation(variationId, configurationId, upgrade))
+            .then(() => dispatch(fetchThemeData(
+                getState().theme.configurationId,
+                getState().theme.variationId,
+                getState().theme.versionId)));
+
     };
 }
 
-export function fetchVariation(variationId: string, configurationId?: string) {
+export function fetchVariation(variationId: string, configurationId?: string, upgrade?: boolean) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
-        const { storeHash } = getState().merchant;
+        let variationPromise;
 
-        return api.fetchVariation(storeHash, variationId)
-            .then(({
-                configurationId: activeConfigurationId,
-                versionId,
-                relatedVariations: variations,
+        if (upgrade) {
+            variationPromise = api.fetchVariationUpgrade(variationId);
+        } else {
+            variationPromise = api.fetchVariation(variationId);
+        }
+
+        return variationPromise.then(({
+            configurationId: activeConfigurationId,
+            displayVersion,
+            id: fetchedVariationId,
+            isPurchased,
+            lastCommitId,
+            price,
+            relatedVariations: variations,
+            themeId,
+            themeName,
+            variationName,
+            versionId,
+        }) => {
+            return dispatch(themeVariationResponse({
+                configurationId: configurationId || activeConfigurationId,
+                displayVersion,
                 isPurchased,
                 lastCommitId,
+                price: price || 0,
                 themeId,
                 themeName,
+                variationId: fetchedVariationId,
                 variationName,
-                displayVersion,
-                price,
-            }) => {
-                dispatch(themeVariationResponse({
-                    configurationId: configurationId || activeConfigurationId,
-                    displayVersion,
-                    isPurchased,
-                    lastCommitId,
-                    price: price || 0,
-                    themeId,
-                    themeName,
-                    variationId,
-                    variationName,
-                    variations,
-                    versionId,
-                }));
-            })
+                variations,
+                versionId,
+            }));
+        })
             .catch(error => dispatch(themeVariationResponse(error, true)));
     };
 }
@@ -391,6 +356,42 @@ export function updateThemeConfigChange(configChange: ThemeConfigChange) {
     };
 }
 
+export function postApplyUpdate() {
+    return (dispatch: Dispatch<State>, getState: () => State) => {
+        const {
+            configurationId,
+            settings,
+            themeId,
+            variationId,
+            versionId,
+        } = getState().theme;
+
+        const configData: ThemeConfigPostData = {
+            configurationId,
+            preview: false,
+            publish: false,
+            reset: false,
+            settings,
+            themeId,
+            variationId,
+            versionId,
+        };
+
+        return api.postThemeUpgrade(configData)
+            .then(({configurationId: newConfigurationId}) => {
+                const { settings: newSettings } = configData;
+
+                dispatch(themeConfigSaveResponse({
+                    configurationId: newConfigurationId,
+                    settings: newSettings,
+                }));
+                dispatch(fetchVariationHistory(variationId));
+                dispatch(createNotification(true, ToastMessages.Update, ToastType.Success));
+            })
+            .catch(error => dispatch(themeConfigPostResponse(error, true)));
+    };
+}
+
 export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
         const { isPrelaunchStore } = getState().merchant;
@@ -418,7 +419,11 @@ export function postThemeConfigData(configUpdateOption: ConfigUpdateAction) {
                 const { settings: newSettings } = configData;
 
                 if (configData.publish) {
-                    dispatch(loadTheme());
+                    dispatch(loadTheme(variationId));
+                    dispatch(updateActiveTheme({
+                        activeThemeId: themeId,
+                        activeVariationId: variationId,
+                    }));
                     dispatch(createNotification(
                         true,
                         isPrelaunchStore ? ToastMessages.Save : ToastMessages.Publish,

@@ -26,7 +26,7 @@ describe('SideMenu', () => {
         const sideMenu = shallow(
             <StaticRouter location="/" context={{}}>
                 <SideMenu
-                    isCurrent={true}
+                    activeThemeId="1234567-1223-011123-111111"
                     isPurchased={true}
                     themeDesignSections={['cat', 'named', 'moe']}
                     settings={mockSettings}
@@ -47,7 +47,7 @@ describe('SideMenu', () => {
     describe('Collapse Menu Button', () => {
         const sideMenu = shallow(
             <SideMenu
-                isCurrent={true}
+                activeThemeId="7777-9999-1111-0000"
                 isPurchased={true}
                 themeDesignSections={['cat', 'named', 'joe']}
                 settings={mockSettings}
@@ -91,11 +91,11 @@ describe('SideMenu', () => {
     });
 
     describe('Theme status label', () => {
-        describe('when isCurrent is false and isPurchased is true', () => {
+        describe('when active theme is not the current theme and isPurchased is true', () => {
             it('renders correctly', () => {
                 const sideMenu = shallow(
                     <SideMenu
-                        isCurrent={false}
+                        activeThemeId="blahblahblah"
                         isPurchased={true}
                         themeDesignSections={['cat', 'named', 'joe']}
                         settings={mockSettings}
@@ -113,11 +113,11 @@ describe('SideMenu', () => {
             });
         });
 
-        describe('when isCurrent is true and isPurchased is true', () => {
+        describe('when activeTheme is the current theme and isPurchased is true', () => {
             it('renders correctly', () => {
                 const sideMenu = shallow(
                     <SideMenu
-                        isCurrent={true}
+                        activeThemeId="7777-9999-1111-0000"
                         isPurchased={true}
                         themeDesignSections={['cat', 'named', 'joe']}
                         settings={mockSettings}
@@ -139,7 +139,7 @@ describe('SideMenu', () => {
             it('renders correctly', () => {
                 const sideMenu = shallow(
                     <SideMenu
-                        isCurrent={true}
+                        activeThemeId="7777-9999-1111-0000"
                         isPurchased={false}
                         themeDesignSections={['cat', 'named', 'joe']}
                         settings={mockSettings}

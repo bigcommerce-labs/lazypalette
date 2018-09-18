@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { ConfigUpdateAction } from '../../actions/constants';
 import { closeNotification, CloseNotificationAction, NotificationsProps } from '../../actions/notifications';
 import { previewPanePageReloading, viewportChange, ViewportChange } from '../../actions/previewPane';
-import { postThemeConfigData, themeConfigReset } from '../../actions/theme';
+import { postApplyUpdate, postThemeConfigData, themeConfigReset } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 
 import { VIEWPORT_TYPES } from '../PreviewPane/constants';
@@ -25,6 +25,7 @@ interface HeaderMenuProps {
     variationName: string;
     viewportType: ViewportType;
     closeNotification(): CloseNotificationAction;
+    postApplyUpdate(): void;
     postThemeConfigData(configDataOption: ConfigUpdateAction): void;
     previewPanePageReloading(): void;
     themeConfigReset(): void;
@@ -44,6 +45,8 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
         // regardless of the type of config change, we can give better undo performance by making this smarter.
         this.props.previewPanePageReloading();
     };
+
+    handleUpdate = () => this.props.postApplyUpdate();
 
     handleIconClick = (view: string) => () => {
         const { isRotated, toggleViewport, viewportType } = this.props;
@@ -83,6 +86,7 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
                     onPublish={this.handlePublish}
                     onSave={this.handleSave}
                     onReset={this.handleReset}
+                    onUpdate={this.handleUpdate}
                 />
                 {message &&
                     <Toast
@@ -110,6 +114,7 @@ const mapStateToProps = ({ theme, notifications, previewPane }: State): Partial<
 
 const mapDispatchToProps = (dispatch: Dispatch): Partial<HeaderMenuProps> => bindActionCreators({
     closeNotification,
+    postApplyUpdate,
     postThemeConfigData,
     previewPanePageReloading,
     themeConfigReset,

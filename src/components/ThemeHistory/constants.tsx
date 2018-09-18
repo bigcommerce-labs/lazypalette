@@ -6,10 +6,12 @@ export const PostLaunchTypeLabels = {
     default: 'Default Settings',
     installed: 'Published',
     saved: 'Saved',
+    upgrade: 'Update',
 };
 
 export const PreLaunchTypeLabels = {
     default: 'Default Settings',
     installed: 'Saved',
     saved: 'Saved',
+    upgrade: 'Update',
 };

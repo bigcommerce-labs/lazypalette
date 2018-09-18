@@ -4,7 +4,6 @@ import MockAdapter from 'axios-mock-adapter';
 import { themeAPI } from '../services/themeApi';
 
 import {
-    fetchCurrentTheme,
     fetchThemeConfig,
     fetchThemeVersion,
     fetchVariation,
@@ -17,47 +16,6 @@ describe('themeApi service', () => {
 
     beforeEach(() => {
         axiosMock.reset();
-    });
-
-    describe('fetchCurrentTheme', () => {
-        describe('when we get a successful response', () => {
-            const status = 200;
-            const response = {
-                data: {
-                    mockResults: true,
-                },
-            };
-
-            it('returns the proper data', done => {
-                axiosMock.onGet(themeAPI.currentThemeAPI)
-                    .reply(status, response);
-
-                fetchCurrentTheme().then(result => {
-                    expect(result).toEqual({ mockResults: true });
-                    done();
-                });
-            });
-        });
-
-        describe('when we get an error', () => {
-            const status = 404;
-            const response = {
-                data: {
-                    mockResults: true,
-                },
-            };
-
-            it('returns the proper error', done => {
-                axiosMock.onGet(themeAPI.currentThemeAPI)
-                    .reply(status, response);
-
-                fetchCurrentTheme().catch(error => {
-                    expect(error.response.status).toEqual(404);
-                    expect(error.response.data).toEqual(response);
-                    done();
-                });
-            });
-        });
     });
 
     describe('fetchThemeConfig', () => {
@@ -148,7 +106,6 @@ describe('themeApi service', () => {
     });
 
     describe('fetchVariation', () => {
-        const storeHash = 'abcde';
         const variationId = '12345';
 
         describe('when we get a successful response', () => {
@@ -160,10 +117,10 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper data', done => {
-                axiosMock.onGet(themeAPI.variationAPI(storeHash, variationId))
+                axiosMock.onGet(themeAPI.variationAPI(variationId))
                     .reply(status, response);
 
-                fetchVariation(storeHash, variationId).then(result => {
+                fetchVariation(variationId).then(result => {
                     expect(result).toEqual({ mockResults: true });
                     done();
                 });
@@ -179,10 +136,10 @@ describe('themeApi service', () => {
             };
 
             it('returns the proper error', done => {
-                axiosMock.onGet(themeAPI.variationAPI(storeHash, variationId))
+                axiosMock.onGet(themeAPI.variationAPI(variationId))
                     .reply(status, response);
 
-                fetchVariation(storeHash, variationId).catch(error => {
+                fetchVariation(variationId).catch(error => {
                     expect(error.response.status).toEqual(404);
                     expect(error.response.data).toEqual(response);
                     done();

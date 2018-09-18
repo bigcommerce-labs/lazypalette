@@ -2,6 +2,7 @@ export const enum ConfigUpdateAction {
     PREVIEW = 'PREVIEW',
     SAVE = 'SAVE',
     PUBLISH =  'PUBLISH',
+    UPDATE = 'UPDATE',
 }
 
 export const enum ToastMessages {
@@ -11,6 +12,7 @@ export const enum ToastMessages {
     Publish = 'Changes have been published.',
     Save = 'Changes have been saved.',
     Undo = 'Changes have been undone.',
+    Update = 'Theme has been updated',
 }
 
 export const enum ToastType {

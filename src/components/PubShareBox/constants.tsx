@@ -3,6 +3,7 @@ export enum Modes {
     INACTIVE = 'INACTIVE',
     PREVIEW = 'PREVIEW',
     UNKNOWN = 'UNKNOWN',
+    UPDATE = 'UPDATE',
 }
 
 export const PublishModalText = {
@@ -15,6 +16,11 @@ export const PublishModalText = {
         action: 'Use As Active Theme',
         body: 'You are about to make this the active theme in your store.',
         title: 'Use As Active Theme',
+    },
+    [Modes.UPDATE]: {
+        action: 'Apply Update',
+        body: 'You are about to apply an update to this theme.',
+        title: 'Apply Update',
     },
 };
 
