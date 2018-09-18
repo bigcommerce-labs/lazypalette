@@ -48,7 +48,8 @@ exports[`SideMenu Theme status label when isCurrent is false and isPurchased is 
     </styled.div>
     <styled.div>
       <styled.a
-        href=""
+        href="/"
+        target="_blank"
       >
         <styled.span>
           View live store
@@ -122,7 +123,8 @@ exports[`SideMenu Theme status label when isCurrent is true and isPurchased is t
     </styled.div>
     <styled.div>
       <styled.a
-        href=""
+        href="/"
+        target="_blank"
       >
         <styled.span>
           View live store
@@ -196,7 +198,8 @@ exports[`SideMenu Theme status label when isPurchased is false renders correctly
     </styled.div>
     <styled.div>
       <styled.a
-        href=""
+        href="/"
+        target="_blank"
       >
         <styled.span>
           View live store
