@@ -10,6 +10,24 @@ export const StyledBanner = styled.div`
     color: #303540;
 `;
 
+export const StyledIcon = styled.span`
+    span {
+        margin-bottom: -5px;
+    }
+`;
+
+export const StyledMessage = styled.p`
+    text-align: left;
+
+    a {
+        color: ${({ theme }) => theme.colors.primary};
+        display: block;
+        font-weight: bold;
+        margin-top: 5px;
+        text-decoration: none;
+    }
+`;
+
 export const StyledShareableLink = styled.button`
     background: ${({ theme }) => theme.colors.warning};
     color: ${({ theme }) => theme.colors.primaryText};
