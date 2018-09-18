@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders 1`] = `
+exports[`ColorSetting should render 1`] = `
 <styled.div>
   <styled.label />
   <styled.div>
@@ -14,14 +14,28 @@ exports[`renders 1`] = `
 </styled.div>
 `;
 
-exports[`renders an initial color if provided 1`] = `
+exports[`ColorSetting when an initial color does not start with a # should add a hash (#) before the hex code 1`] = `
 <styled.div>
   <styled.label />
   <styled.div>
-    #FFF
+    #FFFFFF
   </styled.div>
   <styled.div
-    color="#fff"
+    color="#FFFFFF"
+    focus={false}
+    onClick={[Function]}
+  />
+</styled.div>
+`;
+
+exports[`ColorSetting when an initial color is provided should render and match ColorText box 1`] = `
+<styled.div>
+  <styled.label />
+  <styled.div>
+    #FFFFFF
+  </styled.div>
+  <styled.div
+    color="#FFFFFF"
     focus={false}
     onClick={[Function]}
   />

@@ -66,11 +66,25 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
         });
     };
 
+    componentDidMount() {
+        const { color } = this.props;
+
+        // Prepend '#' to hex if missing
+        if (color && !color.match(/^#+/)) {
+            this.setState({ color: '#' + color });
+        }
+    }
+
     componentDidUpdate(prevProps: ColorSettingProps) {
         const { color } = this.props;
 
         if (color && color !== prevProps.color) {
-            this.setState({ color });
+            // Prepend '#' to hex if missing
+            if (!color.match(/^#+/)) {
+                return this.setState({ color: `#${color}` });
+            }
+
+            return this.setState({ color });
         }
     }
 
