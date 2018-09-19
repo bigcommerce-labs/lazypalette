@@ -72,21 +72,18 @@ class PreviewPane extends Component<PreviewPaneProps> {
             return;
         }
 
-        /**
-         * Optimized / Progressive updates
-         * For CSS & Font changes, we can do better than reloading the entire page. For CSS, we can inject a new style
-         * tag for the browser to pick up new styling. We can use a similar strategy for fonts, just with font links.
-         */
+        // Attempt to progressively update the stylesheets on the page.
         const previousConfigurationId = prevProps.configurationId;
         if (previousConfigurationId && previousConfigurationId !== configurationId) {
             this.broadcastReloadStylesheets(configurationId);
-
-            if (fontUrl && fontUrl !== prevProps.fontUrl) {
-                this.broadcastFontChange(fontUrl);
-            }
-
-            return;
         }
+
+        // Update the fonts on the page.
+        if (fontUrl && fontUrl !== prevProps.fontUrl) {
+            this.broadcastFontChange(fontUrl);
+        }
+
+        return;
     }
 
     render(): JSX.Element {
