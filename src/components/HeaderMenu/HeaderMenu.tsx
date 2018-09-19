@@ -26,16 +26,16 @@ interface HeaderMenuProps {
     viewportType: ViewportType;
     closeNotification(): CloseNotificationAction;
     postApplyUpdate(): void;
-    postThemeConfigData(configDataOption: ConfigUpdateAction): void;
+    postThemeConfigData(configDataOption: ConfigUpdateAction, forceReload: boolean): void;
     previewPanePageReloading(): void;
     themeConfigReset(): void;
     toggleViewport(payload: ViewportChange): void;
 }
 
 class HeaderMenu extends PureComponent<HeaderMenuProps> {
-    handlePublish = () => this.props.postThemeConfigData(ConfigUpdateAction.PUBLISH);
+    handlePublish = () => this.props.postThemeConfigData(ConfigUpdateAction.PUBLISH, false);
 
-    handleSave = () => this.props.postThemeConfigData(ConfigUpdateAction.SAVE);
+    handleSave = () => this.props.postThemeConfigData(ConfigUpdateAction.SAVE, false);
 
     handleReset = () => {
         this.props.themeConfigReset();

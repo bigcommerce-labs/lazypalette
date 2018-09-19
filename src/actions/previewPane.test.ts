@@ -197,25 +197,19 @@ describe ('previewPane actions', () => {
         });
     });
 
-    describe('fetchPageUrl', () => {
+    describe('buildIframeUrl', () => {
         describe('when requesting a page src', () => {
             it('creates with the expected actions', () => {
                 const store = createMockStore([thunk])({
-                    previewPane: {
-                        themePreviewConfig: {
-                            configurationId: '1',
-                            lastCommitId: '2',
-                            variationId: 'whoa',
-                            versionId: '3',
-                        },
+                    theme: {
+                        configurationId: '1',
+                        lastCommitId: '2',
+                        variationId: 'whoa',
+                        versionId: '3',
                     },
                 });
                 const page = 'doge';
                 const expectedActions = [
-                    {
-                        payload: {page: 'doge'},
-                        type: 'PAGE_URL_REQUEST',
-                    },
                     {
                         error: false,
                         payload: {page: 'doge', pageUrl: 'doge?stencilEditor=3@1@2'},
@@ -223,7 +217,7 @@ describe ('previewPane actions', () => {
                     },
                 ];
 
-                previewPane.fetchPageUrl({page})(store.dispatch, store.getState as () => State);
+                previewPane.buildIframeUrl(page)(store.dispatch, store.getState as () => State);
                 expect(store.getActions()).toEqual(expect.arrayContaining(expectedActions));
             });
         });

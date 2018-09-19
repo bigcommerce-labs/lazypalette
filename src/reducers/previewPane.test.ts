@@ -7,18 +7,11 @@ import previewPane, { PreviewPaneState } from './previewPane';
 describe('Preview Pane reducer', () => {
     const initialState: PreviewPaneState = {
         fontUrl: 'hello',
+        iframeUrl: 'hi',
         isFetching: true,
         isRotated: false,
         needsForceReload: false,
         page: '/',
-        pageUrl: '',
-        raceConditionDetected: false,
-        themePreviewConfig: {
-            configurationId: '',
-            lastCommitId: '',
-            variationId: '',
-            versionId: '',
-        },
         viewportType: VIEWPORT_TYPES.DESKTOP,
     };
 
@@ -36,16 +29,16 @@ describe('Preview Pane reducer', () => {
     describe('when action is not in PreviewPaneActionTypes', () => {
         it('should not modify the state', () => {
             const payload = {
+                configurationId: '123',
                 fontUrl: 'hello',
+                iframeUrl: 'bye',
                 isFetching: true,
                 isRotated: false,
+                lastCommitId: '234',
                 page: '/',
-                pageUrl: 'hi',
-                themePreviewConfig: {
-                    configurationId: '123',
-                    lastCommitId: '234',
-                    versionId: '345',
-                },
+                themeId: '000',
+                variationId: '999',
+                versionId: '345',
             };
 
             const error = false;
@@ -80,7 +73,14 @@ describe('Preview Pane reducer', () => {
         it('should update the state', () => {
             const payload = { page: 'hello', pageUrl: 'bye'};
             const action = previewPaneActions.pageUrlResponse(payload);
-            const expectedState = { ...initialState, ...payload, isFetching: false };
+            const expectedState = {
+                ...initialState,
+                ...{
+                    iframeUrl: payload.pageUrl,
+                    page: 'hello',
+                },
+                isFetching: false,
+            };
 
             expect(previewPane(initialState, action)).toEqual(expectedState);
         });
@@ -133,7 +133,6 @@ describe('Preview Pane reducer', () => {
             const expectedState = {
                 ...initialState,
                 isFetching: true,
-                themePreviewConfig: { ...initialState.themePreviewConfig, ...payload },
             };
 
             expect(previewPane(initialState, action)).toEqual(expectedState);
