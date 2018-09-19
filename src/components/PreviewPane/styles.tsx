@@ -11,7 +11,8 @@ export const PreviewPaneContainer = styled.div.attrs<PreviewPaneContainerProps>(
     display: flex;
     flex: auto;
     justify-content: center;
-    overflow: hidden;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
     width: 0;
 
     ${({ showBorder, theme }) => {
@@ -102,7 +103,9 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
             max-height: calc(100% - ${paddingTop});
             min-width: ${isRotated ? viewportType.viewportHeight : viewportType.viewportWidth};
             opacity: ${isFetching ? 0.5 : 1};
-            padding: ${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft}
+            padding: ${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft};
+            overflow: scroll;
+            -webkit-overflow-scrolling: touch;
         `;
     }}
 `;

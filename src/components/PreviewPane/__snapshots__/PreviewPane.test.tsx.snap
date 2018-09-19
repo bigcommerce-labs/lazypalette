@@ -2,7 +2,7 @@
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP updates the rotated viewportType correctly 1`] = `
 <iframe
-  class="sc-bwzfXH krqcfQ"
+  class="sc-bwzfXH cSLhuz"
   height="100%"
   src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="100%"
@@ -11,7 +11,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP upd
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP updates the viewportType correctly 1`] = `
 <iframe
-  class="sc-bwzfXH krqcfQ"
+  class="sc-bwzfXH cSLhuz"
   height="100%"
   src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="100%"
@@ -20,7 +20,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP upd
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE updates the rotated viewportType correctly 1`] = `
 <iframe
-  class="sc-bwzfXH imvRfn"
+  class="sc-bwzfXH hHRAcI"
   height="375px"
   src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="667px"
@@ -29,7 +29,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE upda
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE updates the viewportType correctly 1`] = `
 <iframe
-  class="sc-bwzfXH fziczk"
+  class="sc-bwzfXH czGMPi"
   height="667px"
   src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="375px"
@@ -38,7 +38,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE upda
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET updates the rotated viewportType correctly 1`] = `
 <iframe
-  class="sc-bwzfXH cfbdlP"
+  class="sc-bwzfXH gbHkPK"
   height="768px"
   src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="1024px"
@@ -47,7 +47,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET upda
 
 exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET updates the viewportType correctly 1`] = `
 <iframe
-  class="sc-bwzfXH kbDMjO"
+  class="sc-bwzfXH eYRZWq"
   height="1024px"
   src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
   width="768px"
