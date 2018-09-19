@@ -1,4 +1,4 @@
-import { Icon } from 'pattern-lab';
+import { theme, Icon } from 'pattern-lab';
 import React, { PureComponent } from 'react';
 
 import { trackSectionClose } from '../../services/analytics';
@@ -20,6 +20,7 @@ interface ExpandableMenuProps extends Partial<{
 class ExpandableMenu extends PureComponent<ExpandableMenuProps> {
     render() {
         const { back = '/', children, minHeight, position, size, startMove, startResize, title, windowRef} = this.props;
+        const { stroke } = theme.colors;
 
         return (
             <ExpandModal
@@ -40,7 +41,11 @@ class ExpandableMenu extends PureComponent<ExpandableMenuProps> {
                 <Content>{children}</Content>
                 <ResizeHandle onMouseDown={startResize}>
                     <ResizeIcon>
-                        <Icon glyph="ellipsis" size="large" />
+                        <Icon
+                            glyph="resizeable"
+                            primaryColor={stroke}
+                            size="large"
+                        />
                     </ResizeIcon>
                 </ResizeHandle>
             </ExpandModal>
