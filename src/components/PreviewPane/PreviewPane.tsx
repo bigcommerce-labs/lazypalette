@@ -8,7 +8,6 @@ import {
     previewPaneLoading,
     previewPanePageReloaded,
     updatePage,
-    UpdatePageAction,
     UpdatePagePayload
 } from '../../actions/previewPane';
 import { State } from '../../reducers/reducers';
@@ -46,11 +45,11 @@ interface PreviewPaneProps {
     previewPaneLoaded(): void;
     previewPaneLoading(): void;
     previewPanePageReloaded(): void;
-    updatePage(payload: UpdatePagePayload): UpdatePageAction;
+    updatePage(payload: UpdatePagePayload): void;
 }
 
-class PreviewPane extends Component<PreviewPaneProps> {
-    private channelService: ChannelService;
+export class PreviewPane extends Component<PreviewPaneProps> {
+    channelService: ChannelService;
     private iframeRef: HTMLIFrameElement;
 
     componentDidUpdate(prevProps: PreviewPaneProps) {
