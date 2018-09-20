@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
-import 'srcdoc-polyfill';
-
 import { setStoreData, StoreDefaultData } from '../../actions/merchant';
 import {
     setPreviewPaneData,
