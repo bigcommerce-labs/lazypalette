@@ -24,3 +24,10 @@ export const Heading = styled.div`
     line-height: 1.5rem;
     margin: 2.5rem 0 0.5rem 0;
 `;
+
+export const Paragraph = styled.p`
+    color: ${theme.colors.secondaryText};
+    font-size: ${theme.typography.fontSize.smaller};
+    line-height: 1.25rem;
+    margin: 0 0 0.5rem 0;
+`;

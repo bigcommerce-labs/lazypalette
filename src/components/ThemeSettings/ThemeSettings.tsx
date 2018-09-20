@@ -22,7 +22,7 @@ import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ImageSize from '../ImageSize/ImageSize';
 import { appRoutes } from '../Routes/Routes';
 
-import { Heading, Item, List } from './styles';
+import { Heading, Item, List, Paragraph } from './styles';
 
 export interface ThemeSettingsProps extends RouteComponentProps<{}> {
     position: { x: number, y: number };
@@ -141,6 +141,8 @@ export function getEditor(
             />;
         case 'heading':
             return <Heading>{setting.content}</Heading>;
+        case 'paragraph':
+            return <Paragraph>{setting.content}</Paragraph>;
         default:
             return null;
     }

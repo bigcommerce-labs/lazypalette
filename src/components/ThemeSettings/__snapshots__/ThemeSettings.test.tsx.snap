@@ -311,6 +311,15 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
       <styled.li
         key="3"
       >
+        <styled.p>
+          Paragraphs are vitally important. I would certainly never do something horribly
+                            embarrassing like forget about their existence entirely and neglect to implement support
+                            for them.
+        </styled.p>
+      </styled.li>
+      <styled.li
+        key="4"
+      >
         <Connect(ColorSetting)
           label="Headings text color"
           name="color-textHeading"
@@ -319,7 +328,7 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
         />
       </styled.li>
       <styled.li
-        key="4"
+        key="5"
       >
         <ImageSize
           label="Logo size"
@@ -344,7 +353,7 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
         />
       </styled.li>
       <styled.li
-        key="5"
+        key="6"
       >
         <WithTheme(SelectBox)
           label="Logo position"
@@ -370,7 +379,7 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
         />
       </styled.li>
       <styled.li
-        key="6"
+        key="7"
       >
         <CheckboxInput
           label="Show Powered By"
@@ -379,7 +388,7 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
         />
       </styled.li>
       <styled.li
-        key="7"
+        key="8"
       >
         <InputField
           label="Product sale price label"
