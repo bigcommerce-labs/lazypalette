@@ -73,6 +73,12 @@ describe('<ThemeSettings />', () => {
                         type: 'heading',
                     },
                     {
+                        content: `Paragraphs are vitally important. I would certainly never do something horribly
+                            embarrassing like forget about their existence entirely and neglect to implement support
+                            for them.`,
+                        type: 'paragraph',
+                    },
+                    {
                         id: 'color-textHeading',
                         label: 'Headings text color',
                         type: 'color',
