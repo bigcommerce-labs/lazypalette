@@ -1,6 +1,137 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP updates the rotated viewportType correctly 1`] = `
+exports[`PreviewPane render renders the component 1`] = `
+<Connect(PreviewPane)>
+  <PreviewPane
+    buildIframeUrl={[Function]}
+    configurationId="26a5d5b0-72ff-0134-79ee-0242ac112a0f"
+    fontUrl={null}
+    iframeUrl="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
+    isFetching={false}
+    isRotated={false}
+    lastCommitId=""
+    needsForceReload={false}
+    page="/"
+    previewPaneLoaded={[Function]}
+    previewPaneLoading={[Function]}
+    previewPanePageReloaded={[Function]}
+    updatePage={[Function]}
+    variationId="3fde4290-8d3c-0136-f365-0242ac11000d"
+    versionId="26a5d5b0-72ff-0134-79ee-0242ac112a0f"
+    viewportType={
+      Object {
+        "glyphName": "desktop",
+        "tooltip": "Desktop preview",
+        "viewportHeight": "100%",
+        "viewportWidth": "100%",
+      }
+    }
+  >
+    <styled.div
+      showBorder={true}
+      theme={
+        Object {
+          "colors": Object {
+            "empty": "#FFFFFF",
+          },
+          "elevation": Object {
+            "raised": 100,
+          },
+        }
+      }
+    >
+      <div
+        className="sc-bdVaJa jkhOIU"
+      >
+        <styled.iframe
+          innerRef={[Function]}
+          isFetching={false}
+          isRotated={false}
+          onLoad={[Function]}
+          src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
+          theme={
+            Object {
+              "colors": Object {
+                "empty": "#FFFFFF",
+                "stroke": "#CFD6E5",
+              },
+              "elevation": Object {
+                "raised": "0 1px 6px rgba(48, 53, 64, 0.2)",
+              },
+            }
+          }
+          viewportType={
+            Object {
+              "glyphName": "desktop",
+              "tooltip": "Desktop preview",
+              "viewportHeight": "100%",
+              "viewportWidth": "100%",
+            }
+          }
+        >
+          <iframe
+            className="sc-bwzfXH cSLhuz"
+            height="100%"
+            onLoad={[Function]}
+            src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
+            width="100%"
+          />
+        </styled.iframe>
+      </div>
+    </styled.div>
+  </PreviewPane>
+</Connect(PreviewPane)>
+`;
+
+exports[`PreviewPane render when the iframeUrl is not ready does not render the inner iframe 1`] = `
+<Connect(PreviewPane)>
+  <PreviewPane
+    buildIframeUrl={[Function]}
+    configurationId="26a5d5b0-72ff-0134-79ee-0242ac112a0f"
+    fontUrl={null}
+    iframeUrl=""
+    isFetching={false}
+    isRotated={false}
+    lastCommitId=""
+    needsForceReload={false}
+    page="/"
+    previewPaneLoaded={[Function]}
+    previewPaneLoading={[Function]}
+    previewPanePageReloaded={[Function]}
+    updatePage={[Function]}
+    variationId="3fde4290-8d3c-0136-f365-0242ac11000d"
+    versionId="26a5d5b0-72ff-0134-79ee-0242ac112a0f"
+    viewportType={
+      Object {
+        "glyphName": "desktop",
+        "tooltip": "Desktop preview",
+        "viewportHeight": "100%",
+        "viewportWidth": "100%",
+      }
+    }
+  >
+    <styled.div
+      showBorder={true}
+      theme={
+        Object {
+          "colors": Object {
+            "empty": "#FFFFFF",
+          },
+          "elevation": Object {
+            "raised": 100,
+          },
+        }
+      }
+    >
+      <div
+        className="sc-bdVaJa jkhOIU"
+      />
+    </styled.div>
+  </PreviewPane>
+</Connect(PreviewPane)>
+`;
+
+exports[`PreviewPane viewport switching when the viewport type is set to DESKTOP updates the viewportType correctly 1`] = `
 <iframe
   class="sc-bwzfXH cSLhuz"
   height="100%"
@@ -9,7 +140,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP upd
 />
 `;
 
-exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP updates the viewportType correctly 1`] = `
+exports[`PreviewPane viewport switching when the viewport type is set to DESKTOP when rotated updates the rotated viewportType correctly 1`] = `
 <iframe
   class="sc-bwzfXH cSLhuz"
   height="100%"
@@ -18,16 +149,7 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to DESKTOP upd
 />
 `;
 
-exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE updates the rotated viewportType correctly 1`] = `
-<iframe
-  class="sc-bwzfXH hHRAcI"
-  height="375px"
-  src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
-  width="667px"
-/>
-`;
-
-exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE updates the viewportType correctly 1`] = `
+exports[`PreviewPane viewport switching when the viewport type is set to MOBILE updates the viewportType correctly 1`] = `
 <iframe
   class="sc-bwzfXH czGMPi"
   height="667px"
@@ -36,16 +158,16 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to MOBILE upda
 />
 `;
 
-exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET updates the rotated viewportType correctly 1`] = `
+exports[`PreviewPane viewport switching when the viewport type is set to MOBILE when rotated updates the rotated viewportType correctly 1`] = `
 <iframe
-  class="sc-bwzfXH gbHkPK"
-  height="768px"
+  class="sc-bwzfXH hHRAcI"
+  height="375px"
   src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
-  width="1024px"
+  width="667px"
 />
 `;
 
-exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET updates the viewportType correctly 1`] = `
+exports[`PreviewPane viewport switching when the viewport type is set to TABLET updates the viewportType correctly 1`] = `
 <iframe
   class="sc-bwzfXH eYRZWq"
   height="1024px"
@@ -54,15 +176,11 @@ exports[`<PreviewPane /> <iframe /> when the viewport type is set to TABLET upda
 />
 `;
 
-exports[`<PreviewPane /> render() renders the component 1`] = `
-<PreviewPane
-  buildIframeUrl={[Function]}
-  configurationId=""
-  iframeUrl="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
-  page="/"
-  previewPaneLoaded={[Function]}
-  previewPaneLoading={[Function]}
-  previewPanePageReloaded={[Function]}
-  updatePage={[Function]}
+exports[`PreviewPane viewport switching when the viewport type is set to TABLET when rotated updates the rotated viewportType correctly 1`] = `
+<iframe
+  class="sc-bwzfXH gbHkPK"
+  height="768px"
+  src="/?stencilEditor=26a5d5b0-72ff-0134-79ee-0242ac112a0f@26a5d5b0-72ff-0134-79ee-0242ac112a0f"
+  width="1024px"
 />
 `;
