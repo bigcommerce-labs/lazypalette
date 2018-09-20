@@ -1,6 +1,6 @@
 import * as previewPaneActions from '../actions/previewPane';
 import { VIEWPORT_TYPES } from '../components/PreviewPane/constants';
-import { parseFont } from '../services/previewPane';
+import { parseFont } from '../utils/fontUtil';
 
 import previewPane, { PreviewPaneState } from './previewPane';
 

@@ -4,7 +4,7 @@ import { ThemeActionTypes } from '../actions/theme';
 
 import { VIEWPORT_TYPES } from '../components/PreviewPane/constants';
 import { ViewportType } from '../components/PreviewPane/PreviewPane';
-import { parseFont } from '../services/previewPane';
+import { parseFont } from '../utils/fontUtil';
 
 export const initialState = {
     fontUrl: null,
