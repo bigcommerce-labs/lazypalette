@@ -15,6 +15,7 @@ const delayOutDuration = 250;
 const animationDelay = `${ToastTimeout.Duration - delayOutDuration}ms`;
 
 export const Container = styled.div.attrs<ContainerProps>({})`
+    pointer-events: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -59,6 +60,7 @@ export const ToastBox = styled.div.attrs<ToastBoxProps>({})`
 `;
 
 export const CloseIcon = styled.div`
+    pointer-events: auto;
     text-decoration: none;
     cursor: pointer;
     margin-left: 1.5rem;
