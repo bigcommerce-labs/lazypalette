@@ -11,6 +11,7 @@ export interface ThemeState {
     initialConfigurationId: string;
     initialSettings: SettingsType;
     isChanged: boolean;
+    isPrivate: boolean;
     isPurchased: boolean;
     lastCommitId: string;
     price?: number;
@@ -83,6 +84,7 @@ const initialState: ThemeState = {
     initialConfigurationId: '',
     initialSettings: {},
     isChanged: false,
+    isPrivate: false,
     isPurchased: false,
     lastCommitId: '',
     price: undefined,
@@ -114,6 +116,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 configurationId,
                 displayVersion,
                 editorSchema,
+                isPrivate,
                 isPurchased,
                 lastCommitId,
                 settings,
@@ -134,6 +137,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 initialConfigurationId: configurationId,
                 initialSettings: settings,
                 isChanged: false,
+                isPrivate,
                 isPurchased,
                 lastCommitId,
                 price,

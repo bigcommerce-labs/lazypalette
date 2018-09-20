@@ -98,6 +98,7 @@ export interface LoadThemeResponse {
     configurationId: string;
     displayVersion: string;
     editorSchema: ThemeSchema;
+    isPrivate: boolean;
     isPurchased: boolean;
     lastCommitId: string;
     price: number;
@@ -192,6 +193,7 @@ export function loadTheme(variationId: string, configurationId?: string, upgrade
             displayVersion,
             editorSchema,
             id: fetchedVariationId,
+            isPrivate,
             isPurchased,
             lastCommitId,
             price,
@@ -207,6 +209,7 @@ export function loadTheme(variationId: string, configurationId?: string, upgrade
                 configurationId: configurationId || activeConfigurationId,
                 displayVersion,
                 editorSchema,
+                isPrivate,
                 isPurchased,
                 lastCommitId,
                 price: price || 0,

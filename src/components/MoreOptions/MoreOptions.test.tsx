@@ -1,9 +1,13 @@
+import Axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import {ThemeVariationsEntry} from '../../reducers/theme';
-import {sel} from '../../utils/testUtil';
+import { ThemeVariationsEntry } from '../../reducers/theme';
+import { themeAPI } from '../../services/themeApi';
+import { sel } from '../../utils/testUtil';
 
+import { CurrentModal } from './constants';
 import { MoreOptions } from './MoreOptions';
 
 const mockProp: any = jest.fn();
@@ -30,18 +34,35 @@ const variationEntry: ThemeVariationsEntry = {
 };
 
 const restoreOriginalLink = sel('restore-original');
+const editThemeFilesLink = sel('edit-theme-files');
+
+declare const global: any;
 
 describe('<MoreOptions />', () => {
-    const moreOptions = shallow(
-        <MoreOptions
-            position={{ x: 10, y: 10 }}
-            variationId="234"
-            currentVariationEntry={variationEntry}
-            isChanged={false}
-            loadTheme={loadTheme}
-            {...routeProps}
-        />
-    );
+    const axiosMock = new MockAdapter(Axios);
+
+    let moreOptions: any;
+
+    beforeEach(() => {
+        axiosMock.reset();
+
+        moreOptions = shallow(
+            <MoreOptions
+                activeThemeId="8900"
+                configurationId="123"
+                position={{ x: 10, y: 10 }}
+                variationId="234"
+                versionId="456"
+                currentVariationEntry={variationEntry}
+                isChanged={false}
+                isPrivate={true}
+                loadTheme={loadTheme}
+                themeId="8900"
+                {...routeProps}
+            />
+        );
+    });
+
     describe('render()', () => {
         it('renders the component', () => {
             expect(moreOptions).toMatchSnapshot();
@@ -53,7 +74,7 @@ describe('<MoreOptions />', () => {
             it('isResetOpen state should be true', () => {
                 moreOptions.setProps({isChanged: true});
                 moreOptions.find(restoreOriginalLink).simulate('click');
-                expect(moreOptions.state().isResetOpen).toBe(true);
+                expect(moreOptions.state().currentModal).toBe(CurrentModal.RESET);
             });
         });
 
@@ -62,6 +83,94 @@ describe('<MoreOptions />', () => {
                 moreOptions.setProps({isChanged: false});
                 moreOptions.find(restoreOriginalLink).simulate('click');
                 expect(loadTheme).toHaveBeenCalled();
+            });
+        });
+    });
+
+    describe('when you click "Edit Theme Files"', () => {
+        describe('when viewing a non-private theme', () => {
+            it('renders correctly', () => {
+                moreOptions.setProps({ isPrivate: false });
+                moreOptions.find(editThemeFilesLink).simulate('click');
+                expect(moreOptions.state().currentModal).toBe(CurrentModal.COPY_THEME);
+                expect(moreOptions).toMatchSnapshot();
+            });
+        });
+
+        describe('when the design policy has not been acknowledged', () => {
+            beforeEach(() => {
+                axiosMock.onGet(themeAPI.designPolicyAckAPI)
+                    .reply(200, {
+                        data: {
+                            designPolicyAck: false,
+                        }});
+
+                axiosMock.onPost(themeAPI.designPolicyAckAPI).reply(204);
+            });
+
+            describe('when viewing the active theme', () => {
+                it('renders correctly', done => {
+                    moreOptions.find(editThemeFilesLink).simulate('click');
+                    setTimeout(() => {
+                        expect(moreOptions).toMatchSnapshot();
+                        expect(moreOptions.state().currentModal).toBe(CurrentModal.EDIT_THEME_FILES);
+                        done();
+                    });
+                });
+            });
+
+            describe('when viewing an inactive theme', () => {
+                it('renders correctly', done => {
+                    moreOptions.setProps({ activeThemeId: 'blah' });
+                    moreOptions.find(editThemeFilesLink).simulate('click');
+                    setTimeout(() => {
+                        expect(moreOptions).toMatchSnapshot();
+                        expect(moreOptions.state().currentModal).toBe(CurrentModal.EDIT_THEME_FILES);
+                        done();
+                    });
+                });
+            });
+        });
+
+        describe('when the design policy has been acknowledged', () => {
+            let mockLocation: any;
+
+            beforeEach(() => {
+                axiosMock.onGet(themeAPI.designPolicyAckAPI)
+                    .reply(200, {
+                        data: {
+                            designPolicyAck: true,
+                        }});
+
+                axiosMock.onPost(themeAPI.designPolicyAckAPI).reply(204, { data: undefined });
+
+                mockLocation = jest.fn();
+                global.location.assign = mockLocation;
+            });
+
+            describe('when viewing the active theme', () => {
+                it('renders correctly', done => {
+                    moreOptions.find(editThemeFilesLink).simulate('click');
+                    setTimeout(() => {
+                        expect(moreOptions).toMatchSnapshot();
+                        expect(moreOptions.state().currentModal).toBe(CurrentModal.NONE);
+                        expect(mockLocation).toHaveBeenCalledWith('/manage/file-editor/456/234/123');
+                        done();
+                    });
+                });
+            });
+
+            describe('when viewing an inactive theme', () => {
+                it('renders correctly', done => {
+                    moreOptions.setProps({ activeThemeId: 'blah' });
+                    moreOptions.find(editThemeFilesLink).simulate('click');
+                    setTimeout(() => {
+                        expect(moreOptions).toMatchSnapshot();
+                        expect(moreOptions.state().currentModal).toBe(CurrentModal.NONE);
+                        expect(mockLocation).toHaveBeenCalledWith('/manage/file-editor/456/234/123');
+                        done();
+                    });
+                });
             });
         });
     });

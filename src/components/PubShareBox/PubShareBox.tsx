@@ -234,24 +234,26 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                 {this.getActions(mode)}
                 {isResetOpen &&
                     <ConfirmModal
-                        body={ResetModalText.body}
                         primaryAction={this.handleReset}
                         primaryActionText={ResetModalText.action}
                         secondaryAction={() => this.handleModalCancel('reset')}
                         overlayClose={this.overlayClose}
                         title={ResetModalText.title}
-                    />
+                    >
+                        {ResetModalText.body}
+                    </ConfirmModal>
                 }
 
                 {isPublishOpen &&
                   <ConfirmModal
-                      body={publishModalText.body}
                       primaryAction={mode === Modes.UPDATE ? this.handleUpdate : this.handlePublish}
                       primaryActionText={publishModalText.action}
                       secondaryAction={() => this.handleModalCancel('publish')}
                       overlayClose={this.overlayClose}
                       title={publishModalText.title}
-                  />
+                  >
+                      {publishModalText.body}
+                  </ConfirmModal>
                 }
             </Container>
         );
