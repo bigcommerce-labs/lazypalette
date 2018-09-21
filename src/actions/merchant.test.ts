@@ -14,8 +14,6 @@ describe ('merchant actions', () => {
                     isPrelaunchStore: false,
                     previewCode: 'dodge',
                     storeHash: 'meow',
-                    timezoneName: 'PST',
-                    timezoneOffset: 7,
                 };
 
                 const expectedAction = {

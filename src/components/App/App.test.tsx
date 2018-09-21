@@ -17,8 +17,6 @@ it('renders', () => {
         seedActiveTheme: { id: 'blah', themeId: 'blah2' },
         shopPath: 'http://catland.bigcommerce.com',
         storeHash: 'abcdefg',
-        timezoneName: 'UTC',
-        timezoneOffset: -7,
     };
 
     const app = shallow(

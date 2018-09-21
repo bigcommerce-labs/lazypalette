@@ -64,8 +64,7 @@ describe('ThemeHistory', () => {
                             isPrelaunchStore={false}
                             position={{ x: 5, y: 10 }}
                             loadTheme={mockLoadTheme}
-                            timezoneOffset={-7}
-                            timezoneName={'America/New_York'}
+                            timeZone="UTC"
                             variationHistory={history}
                             {...routeProps}/>);
 
@@ -82,8 +81,7 @@ describe('ThemeHistory', () => {
                             isPrelaunchStore={true}
                             position={{ x: 5, y: 10 }}
                             loadTheme={mockLoadTheme}
-                            timezoneOffset={-7}
-                            timezoneName={'America/New_York'}
+                            timeZone="UTC"
                             variationHistory={history}
                             {...routeProps}/>);
 
@@ -100,26 +98,7 @@ describe('ThemeHistory', () => {
                             isPrelaunchStore={false}
                             position={{ x: 5, y: 10 }}
                             loadTheme={mockLoadTheme}
-                            timezoneOffset={-7}
-                            timezoneName={'America/New_York'}
-                            variationHistory={history}
-                            {...routeProps}/>);
-
-                    expect(themeHistory).toMatchSnapshot();
-                });
-            });
-
-            describe('when the timezoneName is not supported by the browser', () => {
-                it('renders correctly', () => {
-                    const themeHistory = shallow(
-                        <ThemeHistory
-                            configurationId={'blaaaah'}
-                            isChanged={false}
-                            isPrelaunchStore={false}
-                            position={{ x: 5, y: 10 }}
-                            loadTheme={mockLoadTheme}
-                            timezoneOffset={+2}
-                            timezoneName={'Africa/Wakanda'}
+                            timeZone="UTC"
                             variationHistory={history}
                             {...routeProps}/>);
 
@@ -137,8 +116,7 @@ describe('ThemeHistory', () => {
                         isPrelaunchStore={false}
                         position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
-                        timezoneOffset={-7}
-                        timezoneName={'America/New_York'}
+                        timeZone="UTC"
                         variationHistory={[]}
                         {...routeProps}/>);
 
@@ -155,8 +133,7 @@ describe('ThemeHistory', () => {
                         isPrelaunchStore={false}
                         position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
-                        timezoneOffset={-7}
-                        timezoneName={'America/New_York'}
+                        timeZone="UTC"
                         variationHistory={history}
                         {...routeProps}/>);
 
@@ -182,8 +159,6 @@ describe('ThemeHistory', () => {
                         isPrelaunchStore={false}
                         position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
-                        timezoneOffset={-7}
-                        timezoneName={'America/New_York'}
                         variationHistory={history}
                         {...routeProps}/>);
 
@@ -202,8 +177,6 @@ describe('ThemeHistory', () => {
                         isPrelaunchStore={false}
                         position={{ x: 5, y: 10 }}
                         loadTheme={mockLoadTheme}
-                        timezoneOffset={-7}
-                        timezoneName={'America/New_York'}
                         variationHistory={history}
                         {...routeProps}/>);
 
@@ -232,8 +205,6 @@ describe('ThemeHistory', () => {
                     isPrelaunchStore={false}
                     position={{ x: 5, y: 10 }}
                     loadTheme={mockLoadTheme}
-                    timezoneOffset={-7}
-                    timezoneName={'America/New_York'}
                     variationHistory={history}
                     {...routeProps}/>);
 

@@ -34,8 +34,6 @@ interface AppProps extends RouteComponentProps<{}> {
         seedActiveTheme: { themeId: string, id: string },
         shopPath: string;
         storeHash: string;
-        timezoneName: string;
-        timezoneOffset: number;
     };
     createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
     fetchInitialState(variationID: string, configurationId?: string, upgrade?: boolean): Dispatch<State>;
@@ -54,8 +52,6 @@ export class App extends Component<AppProps, {}> {
             isPrelaunchStore,
             seedActiveTheme,
             storeHash,
-            timezoneName,
-            timezoneOffset,
         } = this.props.config;
 
         this.props.setStoreData({
@@ -65,8 +61,6 @@ export class App extends Component<AppProps, {}> {
             isPrelaunchStore,
             previewCode: guestPassword,
             storeHash,
-            timezoneName,
-            timezoneOffset,
         });
 
         this.props.setPreviewPaneData({page});

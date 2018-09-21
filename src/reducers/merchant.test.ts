@@ -10,8 +10,6 @@ describe('Merchant reducer', () => {
         isPrelaunchStore: false,
         previewCode: '',
         storeHash: '',
-        timezoneName: '',
-        timezoneOffset: 0,
     };
 
     const payload = {
@@ -22,8 +20,6 @@ describe('Merchant reducer', () => {
         isUpdate: false,
         previewCode: 'k4k4t9q44d',
         storeHash: '1234567890',
-        timezoneName: 'America/New_York',
-        timezoneOffset: -6,
     };
 
     describe('when an error is received', () => {
