@@ -62,6 +62,11 @@ describe('Tooltip', () => {
             tooltip.setState({ tooltipVisible: true });
             expect(tooltip).toMatchSnapshot();
         });
+
+        it('when the tooltip is shown but the message is undefined', () => {
+            tooltip.setState({ message: undefined, tooltipVisible: true });
+            expect(tooltip).toMatchSnapshot();
+        });
     });
 
     describe('positions itself correctly', () => {

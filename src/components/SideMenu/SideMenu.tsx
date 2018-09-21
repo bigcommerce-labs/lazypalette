@@ -1,5 +1,7 @@
 import { Icon } from 'pattern-lab';
 import React, { PureComponent } from 'react';
+import Dotdotdot from 'react-dotdotdot';
+
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
@@ -23,11 +25,13 @@ import {
     ExternalNavItem,
     Footer,
     Header,
+    HiddenTitle,
     ItemLabel,
     MenuContents,
     StyledExternalLink,
     StyledStatus,
     Title,
+    TitleTooltip
 } from './styles';
 
 interface SideMenuProps extends RouteComponentProps<{}> {
@@ -45,6 +49,9 @@ interface SideMenuProps extends RouteComponentProps<{}> {
 
 interface SideMenuState {
     collapsed: string;
+    longTitle: boolean;
+    showTooltip: boolean;
+    titleRendered: boolean;
 }
 
 const ExpandMenuRoutes = ({ route }: { route: string }) => {
@@ -70,7 +77,12 @@ const ExpandMenuRoutes = ({ route }: { route: string }) => {
 export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
     readonly state: SideMenuState = {
         collapsed: Collapsed.Initial,
+        longTitle: false,
+        showTooltip: false,
+        titleRendered: false,
     };
+
+    titleRef = React.createRef<any>();
 
     handleCollapse = () => this.setState(({collapsed}) => ({
         collapsed: `${Collapsed.Yes}`.includes(collapsed) ? Collapsed.No : Collapsed.Yes,
@@ -87,6 +99,22 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
         }
     };
 
+    checkTitleLength = () => {
+        const longHeight = 16 * 2 * 3; // 16 px rem size * 2 rem line height * 3 lines
+        if (this.titleRef.current && this.props.themeName) {
+            const { height } = this.titleRef.current.getBoundingClientRect();
+            this.setState({ longTitle: (height > longHeight), titleRendered: true });
+        }
+    };
+
+    componentDidMount() {
+        this.checkTitleLength();
+    }
+
+    componentDidUpdate() {
+        this.checkTitleLength();
+    }
+
     render() {
         const {
             isPurchased,
@@ -94,7 +122,7 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
             themeName,
         } = this.props;
         const { home } = appRoutes;
-        const { collapsed } = this.state;
+        const { collapsed, longTitle, titleRendered } = this.state;
         const isLoaded = themeDesignSections.length > 0;
         const status = this.editorThemeStatus();
 
@@ -109,9 +137,21 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
 
                 <Container collapsed={collapsed}>
                     <Header>
-                        <Title>
-                            {themeName}
-                        </Title>
+                        { titleRendered
+                            ? <Tooltip message={longTitle ? <TitleTooltip>{themeName}</TitleTooltip> : undefined}>
+                                <Title
+                                    longTitle={longTitle}
+                                >
+                                    <Dotdotdot clamp={longTitle ? 4 : 3}>
+                                        {themeName}
+                                    </Dotdotdot>
+                                </Title>
+                            </Tooltip>
+                            : <HiddenTitle innerRef={this.titleRef}>
+                                {themeName}
+                            </HiddenTitle>
+                        }
+
                         <Tooltip message={status.tooltip}>
                             <StyledStatus status={status.label}>
                                 {status.label}

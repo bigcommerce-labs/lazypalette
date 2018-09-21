@@ -108,12 +108,30 @@ export const Footer = styled.div`
     margin: 1rem 1.25rem 1.25rem 1.5rem;
 `;
 
-export const Title = styled.div`
-    color: ${({ theme }) => theme.colors.primaryText};
+export const HiddenTitle = styled.div`
+    color: transparent;
     font-size: ${({ theme }) => theme.typography.fontSize.larger};
-    height: 2rem;
     line-height: 2rem;
     margin: 0 0 0.5rem 0;
+    min-height: 2rem;
+`;
+
+interface TitleProps {
+    longTitle: boolean;
+}
+
+export const Title = styled.div.attrs<TitleProps>({
+    style: ({ longTitle, theme }: { longTitle: boolean, theme: Theme }) => ({
+        fontSize: longTitle ? theme.typography.fontSize.large : theme.typography.fontSize.larger,
+        lineHeight: longTitle ? '1.5rem' : '2rem',
+    }),
+})`
+    color: ${({ theme }) => theme.colors.primaryText};
+    margin: 0 0 0.5rem 0;
+    min-height: 2rem;
+`;
+export const TitleTooltip = styled.div`
+    max-width: 15rem;
 `;
 
 interface NavProps {
@@ -176,12 +194,13 @@ interface ListItemProps {
 export const ListItem = styled.li.attrs<ListItemProps>({})`
     border-left: 0.25rem solid;
     border-left-color: ${({ isActive, theme }) => isActive ? theme.colors.primary : `transparent`}
+    margin: 0.25rem 0 0.5rem 0;
     padding-left: 1.25rem;
 
     ${({ divider, theme }) => {
         if (divider) {
             return `
-                margin-top: 2rem;
+                margin-top: 2.5rem;
                 position: relative;
 
                 :before {
@@ -190,7 +209,7 @@ export const ListItem = styled.li.attrs<ListItemProps>({})`
                     height: 1px;
                     left: 1.25rem;
                     position: absolute;
-                    top: -1rem;
+                    top: -1.25rem;
                     width: calc(100% - 2.5rem);
                 }`;
         }
@@ -200,14 +219,13 @@ export const ListItem = styled.li.attrs<ListItemProps>({})`
 }`;
 
 export const ItemLabel = styled.span`
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    flex-basis: 90%;
+    flex-grow: 0;
 `;
 
 export const StyledMenuItems = styled.ul`
     font-size: ${({ theme }) => theme.typography.fontSize.small};
-    line-height: 2rem;
+    line-height: 1.5rem;
     list-style-type: none;
     margin: 0;
     overflow-y: auto;
