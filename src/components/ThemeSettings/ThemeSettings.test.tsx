@@ -1,4 +1,5 @@
-import {  shallow } from 'enzyme';
+import { shallow } from 'enzyme';
+import { CheckboxInput } from 'pattern-lab';
 import React from 'react';
 
 import { getEditor, ThemeSettings } from './ThemeSettings';
@@ -41,6 +42,10 @@ const routeProps = {
 };
 
 describe('<ThemeSettings />', () => {
+    beforeEach(() => {
+        mockProp.mockReset();
+    });
+
     describe('render()', () => {
         it('renders the component', () => {
             const mockFetch = jest.fn();
@@ -152,174 +157,133 @@ describe('<ThemeSettings />', () => {
         });
     });
 
-    describe('when handleChange is called', () => {
-        describe('when target type is checkbox', () => {
-            it('should update themeconfig to new value', () => {
-                const testItems = {
-                    name: 'Typography & Icons',
-                    settings: [
-                        {
-                            content: 'Logo',
-                            type: 'heading',
-                        },
-                        {
-                            id: 'hide_content',
-                            label: 'Hide links on webpage',
-                            type: 'checkbox',
-                        },
-                        {
-                            id: 'logo-font',
-                            label: 'Font family',
-                            options: [
-                                {
-                                    group: 'Oswald',
-                                    label: 'Oswald',
-                                    value: 'Google_Oswald_400',
-                                },
-                                {
-                                    group: 'Oswald',
-                                    label: 'Oswald Light',
-                                    value: 'Google_Oswald_300',
-                                },
-                            ],
-                            type: 'font',
-                        },
-                        {
-                            content: 'Headings',
-                            type: 'heading',
-                        },
-                        {
-                            id: 'color-textHeading',
-                            label: 'Headings text color',
-                            type: 'color',
-                        },
-                        {
-                            description: 'Please specify a maximum image size for desktop display.',
-                            force_reload: true,
-                            id: 'logo_size',
-                            label: 'Logo size',
-                            options: [
-                                {
-                                    label: 'Original (as uploaded)',
-                                    value: 'original',
-                                },
-                                {
-                                    label: 'Optimized for theme',
-                                    value: '250x100',
-                                },
-                                {
-                                    label: 'Specify dimensions',
-                                    value: 'custom',
-                                },
-                            ],
-                            type: 'imageDimension',
-                        },
-                        {
-                            force_reload: true,
-                            id: 'logo-position',
-                            label: 'Logo position',
-                            options: [
-                                {
-                                    label: 'Right',
-                                    value: 'right',
-                                },
-                                {
-                                    label: 'Center',
-                                    value: 'center',
-                                },
-                                {
-                                    label: 'Left',
-                                    value: 'left',
-                                },
-                            ],
-                            type: 'select',
-                        },
-                        {
-                            force_reload: true,
-                            id: 'show_powered_by',
-                            label: 'Show Powered By',
-                            type: 'checkbox',
-                        },
-                        {
-                            id: 'pdp-sale-price-label',
-                            label: 'Product sale price label',
-                            type: 'text',
-                        },
-                    ],
-                };
+    describe('when a change event fires', () => {
+        it('should update themeconfig to new value', done => {
+            const testItems = {
+                name: 'Typography & Icons',
+                settings: [
+                    {
+                        content: 'Logo',
+                        type: 'heading',
+                    },
+                    {
+                        id: 'hide_content',
+                        label: 'Hide links on webpage',
+                        type: 'checkbox',
+                    },
+                    {
+                        id: 'logo-font',
+                        label: 'Font family',
+                        options: [
+                            {
+                                group: 'Oswald',
+                                label: 'Oswald',
+                                value: 'Google_Oswald_400',
+                            },
+                            {
+                                group: 'Oswald',
+                                label: 'Oswald Light',
+                                value: 'Google_Oswald_300',
+                            },
+                        ],
+                        type: 'font',
+                    },
+                    {
+                        content: 'Headings',
+                        type: 'heading',
+                    },
+                    {
+                        id: 'color-textHeading',
+                        label: 'Headings text color',
+                        type: 'color',
+                    },
+                    {
+                        description: 'Please specify a maximum image size for desktop display.',
+                        force_reload: true,
+                        id: 'logo_size',
+                        label: 'Logo size',
+                        options: [
+                            {
+                                label: 'Original (as uploaded)',
+                                value: 'original',
+                            },
+                            {
+                                label: 'Optimized for theme',
+                                value: '250x100',
+                            },
+                            {
+                                label: 'Specify dimensions',
+                                value: 'custom',
+                            },
+                        ],
+                        type: 'imageDimension',
+                    },
+                    {
+                        force_reload: true,
+                        id: 'logo-position',
+                        label: 'Logo position',
+                        options: [
+                            {
+                                label: 'Right',
+                                value: 'right',
+                            },
+                            {
+                                label: 'Center',
+                                value: 'center',
+                            },
+                            {
+                                label: 'Left',
+                                value: 'left',
+                            },
+                        ],
+                        type: 'select',
+                    },
+                    {
+                        force_reload: true,
+                        id: 'show_powered_by',
+                        label: 'Show Powered By',
+                        type: 'checkbox',
+                    },
+                    {
+                        id: 'pdp-sale-price-label',
+                        label: 'Product sale price label',
+                        type: 'text',
+                    },
+                ],
+            };
 
-                const setting = {
-                    id: 'hide_content',
-                    label: 'Hide links on webpage',
-                    type: 'checkbox',
-                };
+            const setting = {
+                id: 'hide_content',
+                label: 'Hide links on webpage',
+                type: 'checkbox',
+            };
 
-                let themeSettings: any;
+            let themeSettings: any;
 
-                themeSettings = shallow(
-                    <ThemeSettings
-                        position={{ x: 5, y: 10 }}
-                        settingsIndex={1}
-                        themeSettings={testItems}
-                        settings={settings}
-                        updateThemeConfigChange={mockProp}
-                        {...routeProps}
-                    />
-                );
+            themeSettings = shallow(
+                <ThemeSettings
+                    debounceTime={0}
+                    position={{ x: 5, y: 10 }}
+                    settingsIndex={1}
+                    themeSettings={testItems}
+                    settings={settings}
+                    updateThemeConfigChange={mockProp}
+                    {...routeProps}
+                />
+            );
 
-                const target = {
-                    checked: false,
-                    type: 'checkbox',
-                };
+            const target = {
+                checked: false,
+                type: 'checkbox',
+            };
 
-                themeSettings.instance().handleChange(setting)({ target });
-                expect(mockProp).toBeCalledWith({ setting, value: target.checked });
-            });
-        });
+            const event = {target};
 
-        describe('when target is not a checkbox', () => {
-            it('should update with the correct value', () => {
-                const testItems = {
-                    name: 'Typography & Icons',
-                    settings: [
-                        {
-                            content: 'Logo',
-                            type: 'heading',
-                        },
-                        {
-                            id: 'hide_content',
-                            label: 'Hide links on webpage',
-                            type: 'checkbox',
-                        },
-                    ],
-                };
-
-                const setting = {
-                    id: 'color-textHeading',
-                    label: 'Headings text color',
-                    type: 'color',
-                };
-
-                let themeSettings: any;
-
-                themeSettings = shallow(
-                    <ThemeSettings
-                        position={{ x: 5, y: 10 }}
-                        settingsIndex={1}
-                        themeSettings={testItems}
-                        settings={settings}
-                        updateThemeConfigChange={mockProp}
-                        {...routeProps}
-                    />
-                );
-
-                const target = {
-                    type: 'color',
-                    value: '#FF123',
-                };
-
-                themeSettings.instance().handleChange(setting)({ target });
-                expect(mockProp).toBeCalledWith({ setting, value: target.value });
+            themeSettings.find(CheckboxInput).first().simulate('change', event);
+            expect(mockProp).not.toHaveBeenCalled(); // verify update is debounced
+            setTimeout(() => {
+                expect(mockProp).toHaveBeenCalledWith({ setting, value: target.checked });
+                done();
             });
         });
     });
@@ -333,7 +297,7 @@ describe('<ThemeSettings />', () => {
                     type: 'color',
                 };
 
-                const colorPicker = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
+                const colorPicker = getEditor(setting, preSetValue[setting.id], mockProp);
                 expect(colorPicker).toMatchSnapshot();
             });
         });
@@ -346,7 +310,7 @@ describe('<ThemeSettings />', () => {
                     type: 'checkbox',
                 };
 
-                const checkBox = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
+                const checkBox = getEditor(setting, preSetValue[setting.id], mockProp);
                 expect(checkBox).toMatchSnapshot();
             });
         });
@@ -359,7 +323,7 @@ describe('<ThemeSettings />', () => {
                     type: 'font',
                 };
 
-                const font = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
+                const font = getEditor(setting, preSetValue[setting.id], mockProp);
                 expect(font).toMatchSnapshot();
             });
         });
@@ -372,7 +336,7 @@ describe('<ThemeSettings />', () => {
                     type: 'imageDimension',
                 };
 
-                const imageDimension = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
+                const imageDimension = getEditor(setting, preSetValue[setting.id], mockProp);
                 expect(imageDimension).toMatchSnapshot();
             });
         });
@@ -385,7 +349,7 @@ describe('<ThemeSettings />', () => {
                     type: 'optimizedCheckout-image',
                 };
 
-                const checkoutImageUpload = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
+                const checkoutImageUpload = getEditor(setting, preSetValue[setting.id], mockProp);
                 expect(checkoutImageUpload).toMatchSnapshot();
             });
         });
@@ -398,7 +362,7 @@ describe('<ThemeSettings />', () => {
                     type: 'select',
                 };
 
-                const selectBox = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
+                const selectBox = getEditor(setting, preSetValue[setting.id], mockProp);
                 expect(selectBox).toMatchSnapshot();
             });
         });
@@ -411,7 +375,7 @@ describe('<ThemeSettings />', () => {
                     type: 'text',
                 };
 
-                const text = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
+                const text = getEditor(setting, preSetValue[setting.id], mockProp);
                 expect(text).toMatchSnapshot();
             });
         });
@@ -422,7 +386,7 @@ describe('<ThemeSettings />', () => {
                     content: 'HELLO',
                     type: 'heading',
                 };
-                const heading = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
+                const heading = getEditor(setting, null, mockProp);
                 expect(heading).toMatchSnapshot();
             });
         });
@@ -433,7 +397,7 @@ describe('<ThemeSettings />', () => {
                     content: 'whatever',
                     type: 'not_a_real_type',
                 };
-                const notRealType = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
+                const notRealType = getEditor(setting, null, mockProp);
                 expect(notRealType).toEqual(null);
             });
         });
@@ -445,7 +409,7 @@ describe('<ThemeSettings />', () => {
                     label: '&lt;Here&gt; &amp; &quot;There&apos;s&quot; &copy; &reg;',
                     type: 'select',
                 };
-                const decodeLabel = getEditor(setting, preSetValue, mockProp, mockProp, mockProp);
+                const decodeLabel = getEditor(setting, preSetValue[setting.id], mockProp);
                 expect(decodeLabel).toMatchSnapshot();
             });
         });
