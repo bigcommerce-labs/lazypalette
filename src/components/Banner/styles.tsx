@@ -43,8 +43,3 @@ export const StyledShareableLink = styled.button`
     line-height: 1.375rem;
     cursor: pointer;
 `;
-
-export const StyledShareablePreviewCode = styled.div`
-    margin-left: 1rem;
-    display: inline-block;
-`;

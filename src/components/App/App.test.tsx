@@ -15,6 +15,7 @@ it('renders', () => {
         isPrelaunchStore: false,
         oauthBaseUrl: 'https://login.service.bcdev',
         seedActiveTheme: { id: 'blah', themeId: 'blah2' },
+        shopPath: 'http://catland.bigcommerce.com',
         storeHash: 'abcdefg',
         timezoneName: 'UTC',
         timezoneOffset: -7,
@@ -23,6 +24,7 @@ it('renders', () => {
     const app = shallow(
         <WrappedApp
             config={config}
+            createNotification={mockFetch}
             fetchInitialState={mockFetch}
             setStoreData={mockFetch}
             setPreviewPaneData={mockFetch}

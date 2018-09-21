@@ -6,6 +6,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
 import { setStoreData, StoreDefaultData } from '../../actions/merchant';
+import { createNotification } from '../../actions/notifications';
 import {
     setPreviewPaneData,
     PreviewPaneDefaultData
@@ -31,12 +32,14 @@ interface AppProps extends RouteComponentProps<{}> {
         isPrelaunchStore: boolean;
         oauthBaseUrl: string;
         seedActiveTheme: { themeId: string, id: string },
+        shopPath: string;
         storeHash: string;
         timezoneName: string;
         timezoneOffset: number;
     };
-    setPreviewPaneData(previewPaneData: PreviewPaneDefaultData): Dispatch<State>;
+    createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
     fetchInitialState(variationID: string, configurationId?: string, upgrade?: boolean): Dispatch<State>;
+    setPreviewPaneData(previewPaneData: PreviewPaneDefaultData): Dispatch<State>;
     setStoreData(storeData: StoreDefaultData): Dispatch<State>;
 }
 
@@ -78,6 +81,7 @@ export class App extends Component<AppProps, {}> {
             guestPassword,
             isDownForMaintenance,
             isPrelaunchStore,
+            shopPath,
         } = this.props.config;
 
         return (
@@ -87,9 +91,11 @@ export class App extends Component<AppProps, {}> {
                         <UIWindowProvider>
                             <StyledApp>
                                 <Banner
+                                    createNotification={this.props.createNotification}
                                     previewCode={guestPassword}
                                     isPrelaunchStore={isPrelaunchStore}
                                     isDownForMaintenance={isDownForMaintenance}
+                                    shopPath={shopPath}
                                 />
                                 <HeaderMenu />
                                 <Viewport>
@@ -106,6 +112,7 @@ export class App extends Component<AppProps, {}> {
 }
 
 const mapDispatchToProps = {
+    createNotification,
     fetchInitialState: loadTheme,
     setPreviewPaneData,
     setStoreData,

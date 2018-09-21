@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bc-react-scripts": "git+ssh://git@github.com:bigcommerce-labs/bc-react-scripts.git#v1.0.0-alpha.1",
+    "clipboard-copy": "^2.0.1",
     "jschannel": "bigcommerce-labs/jschannel",
     "jsonp": "^0.2.1",
     "lodash": "^4.17.10",
