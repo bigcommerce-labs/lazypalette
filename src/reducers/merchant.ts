@@ -8,8 +8,6 @@ export const initialState = {
     isPrelaunchStore: false,
     previewCode: '',
     storeHash: '',
-    timezoneName: '',
-    timezoneOffset: 0,
 };
 
 export interface MerchantStoreState {
@@ -19,8 +17,6 @@ export interface MerchantStoreState {
     isPrelaunchStore: boolean;
     previewCode: string;
     storeHash: string;
-    timezoneName: string;
-    timezoneOffset: number;
 }
 
 const merchant = (

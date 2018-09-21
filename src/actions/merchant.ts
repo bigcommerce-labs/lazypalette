@@ -20,8 +20,6 @@ export interface StoreDefaultData {
     isDownForMaintenance: boolean;
     isPrelaunchStore: boolean;
     storeHash: string;
-    timezoneName: string;
-    timezoneOffset: number;
 }
 
 export interface UpdateActiveThemeAction {

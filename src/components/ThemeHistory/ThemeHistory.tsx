@@ -19,8 +19,7 @@ interface ThemeHistoryProps extends RouteComponentProps<{}> {
     isChanged: boolean;
     isPrelaunchStore: boolean;
     position: { x: number, y: number };
-    timezoneName: string;
-    timezoneOffset: number;
+    timeZone?: string; // for testing to ensure consistent snapshots
     variationHistory: ThemeVariationHistory;
     loadTheme(configurationId: string, variationId: string): Dispatch<State>;
 }
@@ -79,24 +78,11 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
             hour: 'numeric',
             minute: 'numeric',
             month: 'long',
+            timeZone: this.props.timeZone,
             year: 'numeric',
         };
 
-        let dateString;
-
-        try {
-            dateString = date.toLocaleDateString('en', { ...localeOptions, ...{
-                timeZone: this.props.timezoneName,
-                timeZoneName: 'short',
-            }});
-        } catch (e) {
-            if (!(e instanceof RangeError)) {
-                throw e;
-            }
-
-            date.setHours(date.getHours() + this.props.timezoneOffset);
-            dateString = date.toLocaleDateString('en', { ...localeOptions, ...{ timeZone: 'UTC' } });
-        }
+        const dateString = date.toLocaleDateString('en', localeOptions);
 
         const typeLabels = this.props.isPrelaunchStore ? PreLaunchTypeLabels : PostLaunchTypeLabels;
         const typeString = typeLabels[entry.type] || entry.type;
@@ -160,8 +146,6 @@ const mapStateToProps = (state: State) => ({
     configurationId: state.theme.initialConfigurationId,
     isChanged: state.theme.isChanged,
     isPrelaunchStore: state.merchant.isPrelaunchStore,
-    timezoneName: state.merchant.timezoneName,
-    timezoneOffset: state.merchant.timezoneOffset,
     variationHistory: state.theme.variationHistory,
 });
 
