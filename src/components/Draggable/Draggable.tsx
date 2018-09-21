@@ -34,6 +34,15 @@ class Draggable extends Component<DraggableProps, DraggableState> {
 
     windowRef: any = React.createRef();
 
+    componentDidMount() {
+        this.ensureInBounds();
+        window.addEventListener('resize', this.ensureInBounds);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.ensureInBounds);
+    }
+
     componentDidUpdate(prevProps: DraggableProps, prevState: DraggableState) {
         if ((this.state.moving || this.state.resizing) &&
             !(prevState.moving || prevState.resizing)) {
@@ -45,6 +54,19 @@ class Draggable extends Component<DraggableProps, DraggableState> {
             document.removeEventListener('mouseup', this.stopDrag);
         }
     }
+
+    ensureInBounds = () => {
+        const { clientHeight: height, clientWidth: width } = this.windowRef.current
+            ? this.windowRef.current
+            : { clientHeight: 0, clientWidth: 0};
+
+        this.setState({
+            position: {
+                x: Math.max(Math.min(this.state.position.x, window.innerWidth - width), 0),
+                y: Math.max(Math.min(this.state.position.y, window.innerHeight - height), 0),
+            },
+        });
+    };
 
     startMove = (event: ReactMouseEvent<HTMLElement>) => {
         if (event.button === LEFT_BUTTON) {
@@ -93,8 +115,8 @@ class Draggable extends Component<DraggableProps, DraggableState> {
         if (this.state.moving) {
             this.setState({
                 position: {
-                    x: Math.min(Math.max(event.pageX - this.state.moveStartPos.x, 0), window.innerWidth - width),
-                    y: Math.min(Math.max(event.pageY - this.state.moveStartPos.y, 0), window.innerHeight - height),
+                    x: Math.max(Math.min(event.pageX - this.state.moveStartPos.x, window.innerWidth - width), 0),
+                    y: Math.max(Math.min(event.pageY - this.state.moveStartPos.y, window.innerHeight - height), 0),
                 },
             });
         }
