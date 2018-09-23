@@ -1,12 +1,13 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import { Collapsed } from './constants';
 import { CollapseButton } from './styles';
 import { SideMenu } from './SideMenu';
 
 describe('SideMenu', () => {
     const mockpostThemeConfig = jest.fn();
+    const mockCollapseSideMenu = jest.fn();
+
     const mockSettings = {
         'alert-color': '#fff',
         'body-font': 'Google_Karla_400',
@@ -43,6 +44,7 @@ describe('SideMenu', () => {
                 configurationId="4444-55555-77777-00000"
                 variationId="2222-11111-0000-44444"
                 versionId="2221-211111-0111-41111"
+                collapseSideMenu={mockCollapseSideMenu}
                 postThemeConfigData={mockpostThemeConfig}
                 {...routeProps}
             />
@@ -64,36 +66,41 @@ describe('SideMenu', () => {
                 configurationId="3333-2222-111111-00000"
                 variationId="2222-11111-0000-44444"
                 versionId="2221-211111-0111-41111"
+                collapseSideMenu={mockCollapseSideMenu}
                 postThemeConfigData={mockpostThemeConfig}
                 {...routeProps}
             />
         );
 
-        describe('when the page is first loaded', () => {
-            it('should have a state of initial', () => {
-                sideMenu.setState({ collapsed: Collapsed.Initial });
-                expect(sideMenu.state().collapsed).toEqual(Collapsed.Initial);
+        describe('when the user clicks the collapse button', () => {
+            describe('when the menu is in its initial state', () => {
+                it('should collapse the menu', () => {
+                    const collapseBtn = sideMenu.find(CollapseButton);
+
+                    sideMenu.setProps({ collapsed: undefined });
+                    collapseBtn.simulate('click');
+                    expect(mockCollapseSideMenu).toHaveBeenCalledWith(true);
+                });
             });
-        });
 
-        describe('when the user first clicks the collapse button', () => {
-            it('should set collapsed state to yes', () => {
-                const collapseBtn = sideMenu.find(CollapseButton);
+            describe('when the menu is not collapsed', () => {
+                it('should collapse the menu', () => {
+                    const collapseBtn = sideMenu.find(CollapseButton);
 
-                sideMenu.setState({ collapsed: Collapsed.Initial });
-                collapseBtn.simulate('click');
-                expect(sideMenu.state().collapsed).toEqual(Collapsed.Yes);
+                    sideMenu.setProps({ collapsed: false });
+                    collapseBtn.simulate('click');
+                    expect(mockCollapseSideMenu).toHaveBeenCalledWith(true);
+                });
             });
-        });
 
-        describe('when the user clicks the collapse button again to re-open menu', () => {
-            it('should set collapsed state to no', () => {
-                const collapseBtn = sideMenu.find(CollapseButton);
+            describe('when the menu is collapsed', () => {
+                it('should uncollapse the menu', () => {
+                    const collapseBtn = sideMenu.find(CollapseButton);
 
-                sideMenu.setState({ collapsed: Collapsed.Initial });
-                collapseBtn.simulate('click'); // collapse menu
-                collapseBtn.simulate('click'); // open menu
-                expect(sideMenu.state().collapsed).toEqual(Collapsed.No);
+                    sideMenu.setProps({ collapsed: true });
+                    collapseBtn.simulate('click');
+                    expect(mockCollapseSideMenu).toHaveBeenCalledWith(false);
+                });
             });
         });
     });
@@ -113,6 +120,7 @@ describe('SideMenu', () => {
                         configurationId="3333-2222-111111-00000"
                         variationId="2222-11111-0000-44444"
                         versionId="2221-211111-0111-41111"
+                        collapseSideMenu={mockCollapseSideMenu}
                         postThemeConfigData={mockpostThemeConfig}
                         {...routeProps}
                     />
@@ -136,6 +144,7 @@ describe('SideMenu', () => {
                         configurationId="3333-2222-111111-00000"
                         variationId="2222-11111-0000-44444"
                         versionId="2221-211111-0111-41111"
+                        collapseSideMenu={mockCollapseSideMenu}
                         postThemeConfigData={mockpostThemeConfig}
                         {...routeProps}
                     />
@@ -159,6 +168,7 @@ describe('SideMenu', () => {
                         configurationId="3333-2222-111111-00000"
                         variationId="2222-11111-0000-44444"
                         versionId="2221-211111-0111-41111"
+                        collapseSideMenu={mockCollapseSideMenu}
                         postThemeConfigData={mockpostThemeConfig}
                         {...routeProps}
                     />
