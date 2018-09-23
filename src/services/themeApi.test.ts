@@ -4,12 +4,13 @@ import MockAdapter from 'axios-mock-adapter';
 import { themeAPI } from '../services/themeApi';
 
 import {
+    disableStoreDesign,
     fetchAllThemeData,
     fetchThemeConfig,
     fetchThemeVersion,
     fetchVariation,
     fetchVariationHistory,
-    postThemeConfig
+    postThemeConfig,
 } from './themeApi';
 
 describe('themeApi service', () => {
@@ -356,6 +357,50 @@ describe('themeApi service', () => {
                     .reply(status, response);
 
                 postThemeConfig(themeConfigData).catch(error => {
+                    expect(error.response.status).toEqual(404);
+                    expect(error.response.data).toEqual(response);
+                    done();
+                });
+            });
+        });
+    });
+
+    describe('disableStoreDesign', () => {
+        const storeHash = 'abc';
+        const putData = {
+            enabled: false,
+        };
+
+        describe('when we get a successful response', () => {
+            const status = 200;
+            const response = {
+                mockResults: true,
+            };
+
+            it('returns the proper data', done => {
+                axiosMock.onPut(themeAPI.storeDesignSettings(storeHash), putData)
+                    .reply(status, response);
+
+                disableStoreDesign(storeHash).then(result => {
+                    expect(result.data).toEqual({ mockResults: true });
+                    done();
+                });
+            });
+        });
+
+        describe('when we get an error', () => {
+            const status = 404;
+            const response = {
+                data: {
+                    mockResults: true,
+                },
+            };
+
+            it('returns the proper error', done => {
+                axiosMock.onPut(themeAPI.storeDesignSettings(storeHash), putData)
+                    .reply(status, response);
+
+                disableStoreDesign(storeHash).catch(error => {
                     expect(error.response.status).toEqual(404);
                     expect(error.response.data).toEqual(response);
                     done();

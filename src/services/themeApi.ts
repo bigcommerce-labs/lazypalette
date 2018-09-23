@@ -2,10 +2,13 @@ import Axios from 'axios';
 
 import { ThemeConfigPostData } from '../actions/theme';
 
+const API_GATEWAY_BASE = '/admin/services/public';
+
 export const themeAPI = {
     configurationAPI: (configId: string) => `/internalapi/v1/themeeditor/configurations/${configId}`,
     configurationPostAPI: '/internalapi/v1/themeeditor/configurations',
     designPolicyAckAPI: '/internalapi/v1/themeeditor/designpolicyack/',
+    storeDesignSettings: (storeHash: string) => `${API_GATEWAY_BASE}/stores/${storeHash}/v0/store-design/settings`,
     themeVersionAPI: (storeHash: string, versionId: string) =>
         `/admin/services/themes/stores/${storeHash}/versions/${versionId}`,
     variationAPI: (variationId: string) =>
@@ -97,4 +100,12 @@ export function postThemeConfig(configData: ThemeConfigPostData) {
 export function postThemeUpgrade(configData: ThemeConfigPostData) {
     return Axios.post(themeAPI.variationUpgradeAPI(configData.variationId), configData)
         .then(({data: { data }}) => data);
+}
+
+export function disableStoreDesign(storeHash: string) {
+    const putData = {
+        enabled: false,
+    };
+
+    return Axios.put(themeAPI.storeDesignSettings(storeHash), putData);
 }

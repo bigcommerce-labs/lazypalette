@@ -1,181 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<MoreOptions /> render() renders the component 1`] = `
-<Fragment>
-  <Draggable
-    position={
-      Object {
-        "x": 10,
-        "y": 10,
-      }
-    }
-  >
-    <ExpandableMenu
-      title="More Options"
-    >
-      <styled.ul>
-        <styled.li
-          data-test-id="go-to-te"
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Go to old Theme Editor
-        </styled.li>
-        <styled.li
-          data-test-id="edit-theme-files"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Edit Theme Files
-        </styled.li>
-        <styled.li
-          data-test-id="restore-original"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Restore original theme styles
-        </styled.li>
-      </styled.ul>
-    </ExpandableMenu>
-  </Draggable>
-</Fragment>
-`;
-
-exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has been acknowledged when viewing an inactive theme renders correctly 1`] = `
-<Fragment>
-  <Draggable
-    position={
-      Object {
-        "x": 10,
-        "y": 10,
-      }
-    }
-  >
-    <ExpandableMenu
-      title="More Options"
-    >
-      <styled.ul>
-        <styled.li
-          data-test-id="go-to-te"
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Go to old Theme Editor
-        </styled.li>
-        <styled.li
-          data-test-id="edit-theme-files"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Edit Theme Files
-        </styled.li>
-        <styled.li
-          data-test-id="restore-original"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Restore original theme styles
-        </styled.li>
-      </styled.ul>
-    </ExpandableMenu>
-  </Draggable>
-</Fragment>
-`;
-
-exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has been acknowledged when viewing the active theme renders correctly 1`] = `
-<Fragment>
-  <Draggable
-    position={
-      Object {
-        "x": 10,
-        "y": 10,
-      }
-    }
-  >
-    <ExpandableMenu
-      title="More Options"
-    >
-      <styled.ul>
-        <styled.li
-          data-test-id="go-to-te"
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Go to old Theme Editor
-        </styled.li>
-        <styled.li
-          data-test-id="edit-theme-files"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Edit Theme Files
-        </styled.li>
-        <styled.li
-          data-test-id="restore-original"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Restore original theme styles
-        </styled.li>
-      </styled.ul>
-    </ExpandableMenu>
-  </Draggable>
-</Fragment>
-`;
-
 exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has not been acknowledged when viewing an inactive theme renders correctly 1`] = `
-<Fragment>
+<MoreOptions
+  activeThemeId="8900"
+  configurationId="123"
+  createNotification={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          true,
+          "Changes have been reset.",
+          "Success",
+        ],
+        Array [
+          true,
+          "Changes have been reset.",
+          "Success",
+        ],
+      ],
+    }
+  }
+  currentVariationEntry={
+    Object {
+      "configurationId": "123",
+      "defaultConfigurationId": "234",
+      "id": "567",
+      "isCurrent": true,
+      "screenshot": Object {
+        "largePreview": "host://meows/123.jpg",
+        "largeThumb": "host://meows/234.jpg",
+        "smallThumb": "host://meows/345.jpg",
+      },
+      "themeId": "8900",
+      "variationName": "light",
+    }
+  }
+  history={[MockFunction]}
+  isChanged={false}
+  isPrivate={true}
+  loadTheme={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          "234",
+          "234",
+        ],
+        Array [
+          "234",
+          "234",
+        ],
+      ],
+    }
+  }
+  location={[MockFunction]}
+  match={[MockFunction]}
+  notifications={
+    Object {
+      "autoDismiss": true,
+      "message": "hello",
+      "type": "Success",
+    }
+  }
+  position={
+    Object {
+      "x": 10,
+      "y": 10,
+    }
+  }
+  staticContext={[MockFunction]}
+  storeHash="abc"
+  themeId="8900"
+  variationId="234"
+  versionId="456"
+>
   <Draggable
     position={
       Object {
@@ -183,98 +80,497 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
         "y": 10,
       }
     }
-  >
-    <ExpandableMenu
-      title="More Options"
-    >
-      <styled.ul>
-        <styled.li
-          data-test-id="go-to-te"
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Go to old Theme Editor
-        </styled.li>
-        <styled.li
-          data-test-id="edit-theme-files"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Edit Theme Files
-        </styled.li>
-        <styled.li
-          data-test-id="restore-original"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Restore original theme styles
-        </styled.li>
-      </styled.ul>
-    </ExpandableMenu>
-  </Draggable>
-  <ConfirmModal
-    overlayClose={[Function]}
-    primaryAction={[Function]}
-    primaryActionText="Edit Theme Files"
-    secondaryAction={[Function]}
-    title="Edit Theme Files"
   >
     <styled.div
+      dragging={false}
       theme={
         Object {
-          "colors": Object {
-            "primaryText": "#FFFFFF",
-          },
-          "typography": Object {
-            "fontSize": Object {
-              "small": "12px",
-            },
+          "layers": Object {
+            "high": 100,
           },
         }
       }
     >
-      It looks like you're about to modify your theme by editing its theme files. Please note that BigCommerce is unable to offer support for any theme that has been modified with Edit Theme Files. 
-      <styled.a
-        href="https://support.bigcommerce.com/articles/Public/BigCommerce-Design-Policy"
-        target="_blank"
-        theme={
+      <div
+        className="sc-gZMcBi jqupxp"
+        style={
           Object {
-            "colors": Object {
-              "primary": "#FFFFFF",
-            },
+            "pointerEvents": "none",
           }
         }
       >
-        Learn more
-      </styled.a>
+        <ExpandableMenu
+          position={
+            Object {
+              "x": 10,
+              "y": 10,
+            }
+          }
+          startMove={[Function]}
+          startResize={[Function]}
+          title="More Options"
+          windowRef={
+            Object {
+              "current": <div
+                class="sc-ckVGcZ eeQKHk"
+                style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
+              >
+                <div
+                  class="sc-eNQAEJ ciJvEF"
+                >
+                  <h2
+                    class="sc-hMqMXs iMZiKp"
+                  >
+                    More Options
+                  </h2>
+                  <a
+                    class="sc-jKJlTe kguzhm"
+                    href="/"
+                    theme="[object Object]"
+                  />
+                </div>
+                <div
+                  class="sc-kEYyzF iGleKB"
+                >
+                  <ul
+                    class="sc-bwzfXH hgAFeZ"
+                  >
+                    <li
+                      class="sc-htpNat llgAUd"
+                      data-test-id="switch-to-theme-editor"
+                    >
+                      Switch to old Theme Editor
+                    </li>
+                    <li
+                      class="sc-htpNat llgAUd"
+                      data-test-id="edit-theme-files"
+                    >
+                      Edit Theme Files
+                    </li>
+                    <li
+                      class="sc-htpNat llgAUd"
+                      data-test-id="restore-original"
+                    >
+                      Restore original theme styles
+                    </li>
+                  </ul>
+                </div>
+                <div
+                  class="sc-kkGfuU gqvOyG"
+                >
+                  <div
+                    class="sc-iAyFgw kuqypn"
+                  >
+                    <span
+                      class="sc-ifAKCX cOuCxr"
+                    >
+                      <svg
+                        class="sc-EHOje jMQVch"
+                        version="1.1"
+                        viewBox="0 0 16 6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="
+            M16 0H0V2H16V0ZM0 6H16V4H0V6Z
+        "
+                          fill="#CFD6E5"
+                          stroke="none"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>,
+            }
+          }
+        >
+          <styled.div
+            innerRef={
+              Object {
+                "current": <div
+                  class="sc-ckVGcZ eeQKHk"
+                  style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
+                >
+                  <div
+                    class="sc-eNQAEJ ciJvEF"
+                  >
+                    <h2
+                      class="sc-hMqMXs iMZiKp"
+                    >
+                      More Options
+                    </h2>
+                    <a
+                      class="sc-jKJlTe kguzhm"
+                      href="/"
+                      theme="[object Object]"
+                    />
+                  </div>
+                  <div
+                    class="sc-kEYyzF iGleKB"
+                  >
+                    <ul
+                      class="sc-bwzfXH hgAFeZ"
+                    >
+                      <li
+                        class="sc-htpNat llgAUd"
+                        data-test-id="switch-to-theme-editor"
+                      >
+                        Switch to old Theme Editor
+                      </li>
+                      <li
+                        class="sc-htpNat llgAUd"
+                        data-test-id="edit-theme-files"
+                      >
+                        Edit Theme Files
+                      </li>
+                      <li
+                        class="sc-htpNat llgAUd"
+                        data-test-id="restore-original"
+                      >
+                        Restore original theme styles
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    class="sc-kkGfuU gqvOyG"
+                  >
+                    <div
+                      class="sc-iAyFgw kuqypn"
+                    >
+                      <span
+                        class="sc-ifAKCX cOuCxr"
+                      >
+                        <svg
+                          class="sc-EHOje jMQVch"
+                          version="1.1"
+                          viewBox="0 0 16 6"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="
+            M16 0H0V2H16V0ZM0 6H16V4H0V6Z
+        "
+                            fill="#CFD6E5"
+                            stroke="none"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>,
+              }
+            }
+            position={
+              Object {
+                "x": 10,
+                "y": 10,
+              }
+            }
+            theme={
+              Object {
+                "elevation": Object {
+                  "floating": "0 2px 12px rgba(48, 53, 64, 0.2)",
+                },
+                "layers": Object {
+                  "high": 50,
+                },
+              }
+            }
+          >
+            <div
+              className="sc-ckVGcZ eeQKHk"
+              style={
+                Object {
+                  "left": "10px",
+                  "maxHeight": "31rem",
+                  "minHeight": "10.5rem",
+                  "top": "10px",
+                }
+              }
+            >
+              <styled.div
+                theme={
+                  Object {
+                    "colors": Object {
+                      "background": "#F5F7FA",
+                      "primaryText": "#AAAAAA",
+                    },
+                    "typography": Object {
+                      "fontWeight": Object {
+                        "normal": 400,
+                      },
+                    },
+                  }
+                }
+              >
+                <div
+                  className="sc-eNQAEJ ciJvEF"
+                >
+                  <styled.h2
+                    onMouseDown={[Function]}
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "primaryText": "#AAAAAA",
+                        },
+                        "typography": Object {
+                          "fontWeight": Object {
+                            "normal": 400,
+                          },
+                        },
+                      }
+                    }
+                  >
+                    <h2
+                      className="sc-hMqMXs iMZiKp"
+                      onMouseDown={[Function]}
+                    >
+                      More Options
+                    </h2>
+                  </styled.h2>
+                  <Styled(Link)
+                    onClick={[Function]}
+                    replace={true}
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "background": "#000000",
+                          "primaryText": "#AAAAAA",
+                        },
+                      }
+                    }
+                    to="/"
+                  >
+                    <Link
+                      className="sc-jKJlTe kguzhm"
+                      onClick={[Function]}
+                      replace={true}
+                      theme={
+                        Object {
+                          "colors": Object {
+                            "background": "#000000",
+                            "primaryText": "#AAAAAA",
+                          },
+                        }
+                      }
+                      to="/"
+                    >
+                      <a
+                        className="sc-jKJlTe kguzhm"
+                        href="/"
+                        onClick={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "background": "#000000",
+                              "primaryText": "#AAAAAA",
+                            },
+                          }
+                        }
+                      />
+                    </Link>
+                  </Styled(Link)>
+                </div>
+              </styled.div>
+              <styled.div>
+                <div
+                  className="sc-kEYyzF iGleKB"
+                >
+                  <styled.ul>
+                    <ul
+                      className="sc-bwzfXH hgAFeZ"
+                    >
+                      <styled.li
+                        data-test-id="switch-to-theme-editor"
+                        onClick={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "primaryText": "#FFFFFF",
+                            },
+                          }
+                        }
+                      >
+                        <li
+                          className="sc-htpNat llgAUd"
+                          data-test-id="switch-to-theme-editor"
+                          onClick={[Function]}
+                        >
+                          Switch to old Theme Editor
+                        </li>
+                      </styled.li>
+                      <styled.li
+                        data-test-id="edit-theme-files"
+                        onClick={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "primaryText": "#FFFFFF",
+                            },
+                          }
+                        }
+                      >
+                        <li
+                          className="sc-htpNat llgAUd"
+                          data-test-id="edit-theme-files"
+                          onClick={[Function]}
+                        >
+                          Edit Theme Files
+                        </li>
+                      </styled.li>
+                      <styled.li
+                        data-test-id="restore-original"
+                        onClick={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "primaryText": "#FFFFFF",
+                            },
+                          }
+                        }
+                      >
+                        <li
+                          className="sc-htpNat llgAUd"
+                          data-test-id="restore-original"
+                          onClick={[Function]}
+                        >
+                          Restore original theme styles
+                        </li>
+                      </styled.li>
+                    </ul>
+                  </styled.ul>
+                </div>
+              </styled.div>
+              <styled.div
+                onMouseDown={[Function]}
+              >
+                <div
+                  className="sc-kkGfuU gqvOyG"
+                  onMouseDown={[Function]}
+                >
+                  <styled.div>
+                    <div
+                      className="sc-iAyFgw kuqypn"
+                    >
+                      <Icon
+                        glyph="resizeable"
+                        primaryColor="#CFD6E5"
+                        size="large"
+                      >
+                        <styled.span
+                          iconSize="large"
+                        >
+                          <span
+                            className="sc-ifAKCX cOuCxr"
+                          >
+                            <styled.svg
+                              viewBox="0 0 16 6"
+                            >
+                              <svg
+                                className="sc-EHOje jMQVch"
+                                version="1.1"
+                                viewBox="0 0 16 6"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="
+            M16 0H0V2H16V0ZM0 6H16V4H0V6Z
+        "
+                                  fill="#CFD6E5"
+                                  stroke="none"
+                                />
+                              </svg>
+                            </styled.svg>
+                          </span>
+                        </styled.span>
+                      </Icon>
+                    </div>
+                  </styled.div>
+                </div>
+              </styled.div>
+            </div>
+          </styled.div>
+        </ExpandableMenu>
+      </div>
     </styled.div>
-    <CheckboxInput
-      label="Do not show me again"
-      onChange={[Function]}
-    />
-  </ConfirmModal>
-</Fragment>
+  </Draggable>
+</MoreOptions>
 `;
 
 exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has not been acknowledged when viewing the active theme renders correctly 1`] = `
-<Fragment>
+<MoreOptions
+  activeThemeId="8900"
+  configurationId="123"
+  createNotification={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          true,
+          "Changes have been reset.",
+          "Success",
+        ],
+        Array [
+          true,
+          "Changes have been reset.",
+          "Success",
+        ],
+      ],
+    }
+  }
+  currentVariationEntry={
+    Object {
+      "configurationId": "123",
+      "defaultConfigurationId": "234",
+      "id": "567",
+      "isCurrent": true,
+      "screenshot": Object {
+        "largePreview": "host://meows/123.jpg",
+        "largeThumb": "host://meows/234.jpg",
+        "smallThumb": "host://meows/345.jpg",
+      },
+      "themeId": "8900",
+      "variationName": "light",
+    }
+  }
+  history={[MockFunction]}
+  isChanged={false}
+  isPrivate={true}
+  loadTheme={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          "234",
+          "234",
+        ],
+        Array [
+          "234",
+          "234",
+        ],
+      ],
+    }
+  }
+  location={[MockFunction]}
+  match={[MockFunction]}
+  notifications={
+    Object {
+      "autoDismiss": true,
+      "message": "hello",
+      "type": "Success",
+    }
+  }
+  position={
+    Object {
+      "x": 10,
+      "y": 10,
+    }
+  }
+  staticContext={[MockFunction]}
+  storeHash="abc"
+  themeId="8900"
+  variationId="234"
+  versionId="456"
+>
   <Draggable
     position={
       Object {
@@ -283,174 +579,419 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
       }
     }
   >
-    <ExpandableMenu
-      title="More Options"
-    >
-      <styled.ul>
-        <styled.li
-          data-test-id="go-to-te"
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Go to old Theme Editor
-        </styled.li>
-        <styled.li
-          data-test-id="edit-theme-files"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Edit Theme Files
-        </styled.li>
-        <styled.li
-          data-test-id="restore-original"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Restore original theme styles
-        </styled.li>
-      </styled.ul>
-    </ExpandableMenu>
-  </Draggable>
-  <ConfirmModal
-    overlayClose={[Function]}
-    primaryAction={[Function]}
-    primaryActionText="Edit Theme Files"
-    secondaryAction={[Function]}
-    title="Edit Theme Files"
-  >
     <styled.div
+      dragging={false}
       theme={
         Object {
-          "colors": Object {
-            "primaryText": "#FFFFFF",
-          },
-          "typography": Object {
-            "fontSize": Object {
-              "small": "12px",
-            },
+          "layers": Object {
+            "high": 100,
           },
         }
       }
     >
-      It looks like you're about to modify your active theme by editing its theme files. Any changes you apply to your active theme will be made to your live store.
-    </styled.div>
-    <styled.div
-      theme={
-        Object {
-          "colors": Object {
-            "primaryText": "#FFFFFF",
-          },
-          "typography": Object {
-            "fontSize": Object {
-              "small": "12px",
-            },
-          },
-        }
-      }
-    >
-      Please note that BigCommerce is unable to offer support for any theme that has been modified with Edit Theme Files. 
-      <styled.a
-        href="https://support.bigcommerce.com/articles/Public/BigCommerce-Design-Policy"
-        target="_blank"
-        theme={
+      <div
+        className="sc-gZMcBi jqupxp"
+        style={
           Object {
-            "colors": Object {
-              "primary": "#FFFFFF",
-            },
+            "pointerEvents": "none",
           }
         }
       >
-        Learn more
-      </styled.a>
+        <ExpandableMenu
+          position={
+            Object {
+              "x": 10,
+              "y": 10,
+            }
+          }
+          startMove={[Function]}
+          startResize={[Function]}
+          title="More Options"
+          windowRef={
+            Object {
+              "current": <div
+                class="sc-ckVGcZ eeQKHk"
+                style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
+              >
+                <div
+                  class="sc-eNQAEJ ciJvEF"
+                >
+                  <h2
+                    class="sc-hMqMXs iMZiKp"
+                  >
+                    More Options
+                  </h2>
+                  <a
+                    class="sc-jKJlTe kguzhm"
+                    href="/"
+                    theme="[object Object]"
+                  />
+                </div>
+                <div
+                  class="sc-kEYyzF iGleKB"
+                >
+                  <ul
+                    class="sc-bwzfXH hgAFeZ"
+                  >
+                    <li
+                      class="sc-htpNat llgAUd"
+                      data-test-id="switch-to-theme-editor"
+                    >
+                      Switch to old Theme Editor
+                    </li>
+                    <li
+                      class="sc-htpNat llgAUd"
+                      data-test-id="edit-theme-files"
+                    >
+                      Edit Theme Files
+                    </li>
+                    <li
+                      class="sc-htpNat llgAUd"
+                      data-test-id="restore-original"
+                    >
+                      Restore original theme styles
+                    </li>
+                  </ul>
+                </div>
+                <div
+                  class="sc-kkGfuU gqvOyG"
+                >
+                  <div
+                    class="sc-iAyFgw kuqypn"
+                  >
+                    <span
+                      class="sc-ifAKCX cOuCxr"
+                    >
+                      <svg
+                        class="sc-EHOje jMQVch"
+                        version="1.1"
+                        viewBox="0 0 16 6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="
+            M16 0H0V2H16V0ZM0 6H16V4H0V6Z
+        "
+                          fill="#CFD6E5"
+                          stroke="none"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>,
+            }
+          }
+        >
+          <styled.div
+            innerRef={
+              Object {
+                "current": <div
+                  class="sc-ckVGcZ eeQKHk"
+                  style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
+                >
+                  <div
+                    class="sc-eNQAEJ ciJvEF"
+                  >
+                    <h2
+                      class="sc-hMqMXs iMZiKp"
+                    >
+                      More Options
+                    </h2>
+                    <a
+                      class="sc-jKJlTe kguzhm"
+                      href="/"
+                      theme="[object Object]"
+                    />
+                  </div>
+                  <div
+                    class="sc-kEYyzF iGleKB"
+                  >
+                    <ul
+                      class="sc-bwzfXH hgAFeZ"
+                    >
+                      <li
+                        class="sc-htpNat llgAUd"
+                        data-test-id="switch-to-theme-editor"
+                      >
+                        Switch to old Theme Editor
+                      </li>
+                      <li
+                        class="sc-htpNat llgAUd"
+                        data-test-id="edit-theme-files"
+                      >
+                        Edit Theme Files
+                      </li>
+                      <li
+                        class="sc-htpNat llgAUd"
+                        data-test-id="restore-original"
+                      >
+                        Restore original theme styles
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    class="sc-kkGfuU gqvOyG"
+                  >
+                    <div
+                      class="sc-iAyFgw kuqypn"
+                    >
+                      <span
+                        class="sc-ifAKCX cOuCxr"
+                      >
+                        <svg
+                          class="sc-EHOje jMQVch"
+                          version="1.1"
+                          viewBox="0 0 16 6"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="
+            M16 0H0V2H16V0ZM0 6H16V4H0V6Z
+        "
+                            fill="#CFD6E5"
+                            stroke="none"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>,
+              }
+            }
+            position={
+              Object {
+                "x": 10,
+                "y": 10,
+              }
+            }
+            theme={
+              Object {
+                "elevation": Object {
+                  "floating": "0 2px 12px rgba(48, 53, 64, 0.2)",
+                },
+                "layers": Object {
+                  "high": 50,
+                },
+              }
+            }
+          >
+            <div
+              className="sc-ckVGcZ eeQKHk"
+              style={
+                Object {
+                  "left": "10px",
+                  "maxHeight": "31rem",
+                  "minHeight": "10.5rem",
+                  "top": "10px",
+                }
+              }
+            >
+              <styled.div
+                theme={
+                  Object {
+                    "colors": Object {
+                      "background": "#F5F7FA",
+                      "primaryText": "#AAAAAA",
+                    },
+                    "typography": Object {
+                      "fontWeight": Object {
+                        "normal": 400,
+                      },
+                    },
+                  }
+                }
+              >
+                <div
+                  className="sc-eNQAEJ ciJvEF"
+                >
+                  <styled.h2
+                    onMouseDown={[Function]}
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "primaryText": "#AAAAAA",
+                        },
+                        "typography": Object {
+                          "fontWeight": Object {
+                            "normal": 400,
+                          },
+                        },
+                      }
+                    }
+                  >
+                    <h2
+                      className="sc-hMqMXs iMZiKp"
+                      onMouseDown={[Function]}
+                    >
+                      More Options
+                    </h2>
+                  </styled.h2>
+                  <Styled(Link)
+                    onClick={[Function]}
+                    replace={true}
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "background": "#000000",
+                          "primaryText": "#AAAAAA",
+                        },
+                      }
+                    }
+                    to="/"
+                  >
+                    <Link
+                      className="sc-jKJlTe kguzhm"
+                      onClick={[Function]}
+                      replace={true}
+                      theme={
+                        Object {
+                          "colors": Object {
+                            "background": "#000000",
+                            "primaryText": "#AAAAAA",
+                          },
+                        }
+                      }
+                      to="/"
+                    >
+                      <a
+                        className="sc-jKJlTe kguzhm"
+                        href="/"
+                        onClick={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "background": "#000000",
+                              "primaryText": "#AAAAAA",
+                            },
+                          }
+                        }
+                      />
+                    </Link>
+                  </Styled(Link)>
+                </div>
+              </styled.div>
+              <styled.div>
+                <div
+                  className="sc-kEYyzF iGleKB"
+                >
+                  <styled.ul>
+                    <ul
+                      className="sc-bwzfXH hgAFeZ"
+                    >
+                      <styled.li
+                        data-test-id="switch-to-theme-editor"
+                        onClick={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "primaryText": "#FFFFFF",
+                            },
+                          }
+                        }
+                      >
+                        <li
+                          className="sc-htpNat llgAUd"
+                          data-test-id="switch-to-theme-editor"
+                          onClick={[Function]}
+                        >
+                          Switch to old Theme Editor
+                        </li>
+                      </styled.li>
+                      <styled.li
+                        data-test-id="edit-theme-files"
+                        onClick={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "primaryText": "#FFFFFF",
+                            },
+                          }
+                        }
+                      >
+                        <li
+                          className="sc-htpNat llgAUd"
+                          data-test-id="edit-theme-files"
+                          onClick={[Function]}
+                        >
+                          Edit Theme Files
+                        </li>
+                      </styled.li>
+                      <styled.li
+                        data-test-id="restore-original"
+                        onClick={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "primaryText": "#FFFFFF",
+                            },
+                          }
+                        }
+                      >
+                        <li
+                          className="sc-htpNat llgAUd"
+                          data-test-id="restore-original"
+                          onClick={[Function]}
+                        >
+                          Restore original theme styles
+                        </li>
+                      </styled.li>
+                    </ul>
+                  </styled.ul>
+                </div>
+              </styled.div>
+              <styled.div
+                onMouseDown={[Function]}
+              >
+                <div
+                  className="sc-kkGfuU gqvOyG"
+                  onMouseDown={[Function]}
+                >
+                  <styled.div>
+                    <div
+                      className="sc-iAyFgw kuqypn"
+                    >
+                      <Icon
+                        glyph="resizeable"
+                        primaryColor="#CFD6E5"
+                        size="large"
+                      >
+                        <styled.span
+                          iconSize="large"
+                        >
+                          <span
+                            className="sc-ifAKCX cOuCxr"
+                          >
+                            <styled.svg
+                              viewBox="0 0 16 6"
+                            >
+                              <svg
+                                className="sc-EHOje jMQVch"
+                                version="1.1"
+                                viewBox="0 0 16 6"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="
+            M16 0H0V2H16V0ZM0 6H16V4H0V6Z
+        "
+                                  fill="#CFD6E5"
+                                  stroke="none"
+                                />
+                              </svg>
+                            </styled.svg>
+                          </span>
+                        </styled.span>
+                      </Icon>
+                    </div>
+                  </styled.div>
+                </div>
+              </styled.div>
+            </div>
+          </styled.div>
+        </ExpandableMenu>
+      </div>
     </styled.div>
-    <CheckboxInput
-      label="Do not show me again"
-      onChange={[Function]}
-    />
-  </ConfirmModal>
-</Fragment>
-`;
-
-exports[`<MoreOptions /> when you click "Edit Theme Files" when viewing a non-private theme renders correctly 1`] = `
-<Fragment>
-  <Draggable
-    position={
-      Object {
-        "x": 10,
-        "y": 10,
-      }
-    }
-  >
-    <ExpandableMenu
-      title="More Options"
-    >
-      <styled.ul>
-        <styled.li
-          data-test-id="go-to-te"
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Go to old Theme Editor
-        </styled.li>
-        <styled.li
-          data-test-id="edit-theme-files"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Edit Theme Files
-        </styled.li>
-        <styled.li
-          data-test-id="restore-original"
-          onClick={[Function]}
-          theme={
-            Object {
-              "colors": Object {
-                "primaryText": "#FFFFFF",
-              },
-            }
-          }
-        >
-          Restore original theme styles
-        </styled.li>
-      </styled.ul>
-    </ExpandableMenu>
   </Draggable>
-  <ConfirmModal
-    overlayClose={[Function]}
-    primaryAction={[Function]}
-    primaryActionText="Go to My Themes"
-    secondaryAction={[Function]}
-    title="Edit Theme Files"
-  >
-    You must make a copy of your theme to edit the theme files.
-  </ConfirmModal>
-</Fragment>
+</MoreOptions>
 `;

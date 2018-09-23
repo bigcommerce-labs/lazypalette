@@ -6,6 +6,7 @@ export const enum ConfigUpdateAction {
 }
 
 export const enum ToastMessages {
+    ErrorSwitchToThemeEditor = 'There was an error switching to old Theme Editor',
     ErrorPreview = 'There was an error previewing your changes.',
     ErrorPublish = 'There was an error publishing your changes.',
     ErrorSave = 'There was an error saving your changes.',
