@@ -1,7 +1,7 @@
 import * as themeActions from '../actions/theme';
 import { ThemeConfigChange, ThemeConfigPostResponse } from '../actions/theme';
 
-import theme, { ThemeSchema, ThemeState, ThemeVariations } from './theme';
+import theme, { ThemeState, ThemeVariations } from './theme';
 
 const initialState: ThemeState = {
     configurationId: '',
@@ -23,7 +23,7 @@ const initialState: ThemeState = {
     versionId: '',
 };
 
-describe('currentThemeResponse', () => {
+describe('loadTheme test', () => {
     const themeVariations: ThemeVariations = [
         {
             configurationId: '123',
@@ -40,144 +40,50 @@ describe('currentThemeResponse', () => {
         },
     ];
 
-    const payload = {
+    const variationHistory = [{
         configurationId: '123',
-        displayVersion: '2.1.0',
-        isPurchased: true,
-        lastCommitId: '666',
-        themeId: '789',
-        themeName: 'Cornerstone',
-        variationId: '012',
-        variationName: 'light',
-        variations: themeVariations,
-        versionId: '456',
-    };
-
-    it('handles current theme response', () => {
-        const action = themeActions.currentThemeResponse(payload);
-
-        const expectedState: ThemeState = { ...initialState, ...{
-            configurationId: '123',
-            displayVersion: '2.1.0',
-            initialConfigurationId: '123',
-            isPurchased: true,
-            lastCommitId: '666',
-            themeId: '789',
-            themeName: 'Cornerstone',
-            variationId: '012',
-            variationName: 'light',
-            variations: themeVariations,
-            versionId: '456',
-        } };
-
-        expect(theme(initialState, action)).toEqual(expectedState);
-    });
-
-    it('does not modify state when an error occurred', () => {
-        const action = themeActions.currentThemeResponse(payload, true);
-
-        expect(theme(initialState, action)).toEqual(initialState);
-    });
-});
-
-describe('themeConfigResponse', () => {
-    it('handles theme config response', () => {
-        const action = themeActions.themeConfigResponse({
-            settings: { blah: 'blah' },
-        });
-        const expectedState: ThemeState = { ...initialState, ...{
-            initialSettings: { blah: 'blah' },
-            settings: { blah: 'blah' },
-        }};
-
-        expect(theme(initialState, action)).toEqual(expectedState);
-    });
-
-    it('does not modify state when an error occurred', () => {
-        const action = themeActions.themeConfigResponse({
-            settings: { blah: 'blah' },
-        }, true);
-
-        expect(theme(initialState, action)).toEqual(initialState);
-    });
-});
-
-describe('themeVersionResponse', () => {
-    const themeSchema: ThemeSchema = [
-        {
-            name: 'forms',
-            settings: [
-                {
-                    content: 'Labels',
-                    type: 'heading',
-                },
-                {
-                    id: 'form-label-font-color',
-                    label: 'Text color',
-                    type: 'color',
-                },
-            ],
-        },
-    ];
-
-    const payload = { editorSchema: themeSchema };
-
-    it('handles theme version response', () => {
-        const action = themeActions.themeVersionResponse(payload);
-        const expectedState: ThemeState = { ...initialState, ...{ schema: themeSchema } };
-
-        expect(theme(initialState, action)).toEqual(expectedState);
-    });
-
-    it('does not modify state when an error occurred', () => {
-        const action = themeActions.themeVersionResponse(payload, true);
-
-        expect(theme(initialState, action)).toEqual(initialState);
-    });
-});
-
-describe('themeVariationResponse test', () => {
-    const themeVariations: ThemeVariations = [
-        {
-            configurationId: '123',
-            defaultConfigurationId: '234',
-            id: '567',
-            isCurrent: true,
-            screenshot: {
-                largePreview: 'host://meows/123.jpg',
-                largeThumb: 'host://meows/234.jpg',
-                smallThumb: 'host://meows/345.jpg',
-            },
-            themeId: '8900',
-            variationName: 'light',
-        },
-    ];
+        displayVersion: 'ver',
+        themeId: '567',
+        themeName: 'name',
+        timestamp: '',
+        type: 'blah',
+        variationId: '234',
+        variationName: 'variation',
+        versionId: '345',
+    }];
 
     const payload = {
         configurationId: '123',
         displayVersion: '2.1.0',
+        editorSchema: [{ name: 'blah', settings: [] }],
         isPurchased: true,
         lastCommitId: '666',
         price: 0,
+        settings: { color: 'red' },
         themeId: '789',
         themeName: 'Cornerstone',
+        variationHistory,
         variationId: '012',
         variationName: 'light',
         variations: themeVariations,
         versionId: '456',
     };
 
-    it('handles variation response', () => {
-        const action = themeActions.themeVariationResponse(payload);
+    it('handles loadTheme response', () => {
+        const action = themeActions.loadThemeResponse(payload);
 
         const expectedState: ThemeState = { ...initialState, ...{
             configurationId: '123',
             displayVersion: '2.1.0',
             initialConfigurationId: '123',
+            initialSettings: { color: 'red' },
             isPurchased: true,
             lastCommitId: '666',
+            schema: [{ name: 'blah', settings: [] }],
+            settings: { color: 'red' },
             themeId: '789',
             themeName: 'Cornerstone',
+            variationHistory,
             variationId: '012',
             variationName: 'light',
             variations: themeVariations,
