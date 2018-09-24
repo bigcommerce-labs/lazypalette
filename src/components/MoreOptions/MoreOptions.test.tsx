@@ -10,14 +10,20 @@ import { sel } from '../../utils/testUtil';
 import { CurrentModal } from './constants';
 import { MoreOptions } from './MoreOptions';
 
-const mockProp: any = jest.fn();
+const mockProp: any = jest.fn(() => Promise.resolve({}));
 const routeProps = {
     history: mockProp,
     location: mockProp,
     match: mockProp,
     staticContext: mockProp,
 };
-const loadTheme: any = jest.fn();
+const mockLoadTheme: any = jest.fn(() => Promise.resolve({}));
+const mockCreateNotification: any = jest.fn();
+const mockNotification = {
+    autoDismiss: true,
+    message: 'hello',
+    type: 'Success',
+};
 
 const variationEntry: ThemeVariationsEntry = {
     configurationId: '123',
@@ -56,7 +62,9 @@ describe('<MoreOptions />', () => {
                 currentVariationEntry={variationEntry}
                 isChanged={false}
                 isPrivate={true}
-                loadTheme={loadTheme}
+                notifications={mockNotification}
+                createNotification={mockCreateNotification}
+                loadTheme={mockLoadTheme}
                 themeId="8900"
                 {...routeProps}
             />
@@ -82,7 +90,15 @@ describe('<MoreOptions />', () => {
             it('should call loadTheme', () => {
                 moreOptions.setProps({isChanged: false});
                 moreOptions.find(restoreOriginalLink).simulate('click');
-                expect(loadTheme).toHaveBeenCalled();
+                expect(mockLoadTheme).toHaveBeenCalled();
+            });
+        });
+
+        describe('when isChanged is false', () => {
+            it('should call createNotification', () => {
+                moreOptions.setProps({isChanged: false});
+                moreOptions.find(restoreOriginalLink).simulate('click');
+                expect(mockCreateNotification).toHaveBeenCalled();
             });
         });
     });

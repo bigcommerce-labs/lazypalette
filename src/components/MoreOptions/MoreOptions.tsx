@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
+import { ToastMessages, ToastType } from '../../actions/constants';
+import {
+    createNotification,
+    NotificationsProps
+} from '../../actions/notifications';
 import { loadTheme } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeVariationsEntry } from '../../reducers/theme';
@@ -30,11 +35,13 @@ interface MoreOptionsProps extends RouteComponentProps<{}> {
     currentVariationEntry: ThemeVariationsEntry;
     isChanged: boolean;
     isPrivate: boolean;
+    notifications: NotificationsProps;
     position: { x: number, y: number };
     variationId: string;
     versionId: string;
     themeId: string;
-    loadTheme(configurationId: string, variationId: string): Dispatch<State>;
+    createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
+    loadTheme(configurationId: string, variationId: string): any;
 }
 
 interface MoreOptionsState {
@@ -106,7 +113,8 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
         const { currentVariationEntry, variationId } = this.props;
         const defaultConfigurationId = currentVariationEntry ? currentVariationEntry.defaultConfigurationId : '';
         this.setState({ currentModal: CurrentModal.NONE }, () => {
-            this.props.loadTheme(variationId, defaultConfigurationId);
+            this.props.loadTheme(variationId, defaultConfigurationId)
+                .then(() => this.props.createNotification(true, ToastMessages.Reset, ToastType.Success));
         });
     };
 
@@ -201,12 +209,14 @@ const mapStateToProps = (state: State) => ({
         .filter(variationEntry => variationEntry.id === state.theme.variationId)[0],
     isChanged: state.theme.isChanged,
     isPrivate: state.theme.isPrivate,
+    notifications: state.notifications,
     themeId: state.theme.themeId,
     variationId: state.theme.variationId,
     versionId: state.theme.versionId,
 });
 
 const mapDispatchToProps = {
+    createNotification,
     loadTheme,
 };
 
