@@ -11,113 +11,6 @@ describe('theme actions', () => {
 
     const axiosMock = new MockAdapter(Axios);
 
-    it('should create a CurrentThemeResponse action', () => {
-        const payload = {
-            configurationId: '123',
-            displayVersion: '2.1.0',
-            isCurrent: true,
-            isPurchased: true,
-            lastCommitId: '666',
-            themeId: '789',
-            themeName: 'Cornerstone',
-            variationId: '012',
-            variationName: 'Bold',
-            variations: [
-                {
-                    configurationId: '123',
-                    defaultConfigurationId: '234',
-                    id: '567',
-                    isCurrent: true,
-                    lastCommitId: '',
-                    screenshot: {
-                        largePreview: 'host://meows/123.jpg',
-                        largeThumb: 'host://meows/234.jpg',
-                        smallThumb: 'host://meows/345.jpg',
-                    },
-                    themeId: '8900',
-                    variationName: 'light',
-                },
-            ],
-            versionId: '456',
-        };
-
-        const expectedAction = {
-            error: false,
-            payload,
-            type: themeActions.ThemeActionTypes.CURRENT_THEME_RESPONSE,
-        };
-
-        expect(themeActions.currentThemeResponse(payload)).toEqual(expectedAction);
-    });
-
-    it('should create a ThemeConfigResponse action', () => {
-        const payload = {
-            settings: {},
-        };
-
-        const expectedAction = {
-            error: false,
-            payload,
-            type: themeActions.ThemeActionTypes.THEME_CONFIG_RESPONSE,
-        };
-
-        expect(themeActions.themeConfigResponse(payload)).toEqual(expectedAction);
-    });
-
-    it('should create a ThemeVersionResponse action', () => {
-        const payload = {
-            editorSchema: [
-                {
-                    name: 'forms',
-                    settings: [
-                        {
-                            content: 'Labels',
-                            type: 'heading',
-                        },
-                        {
-                            id: 'form-label-font-color',
-                            label: 'Text color',
-                            type: 'color',
-                        },
-                    ],
-                },
-            ],
-        };
-
-        const expectedAction = {
-            error: false,
-            payload,
-            type: themeActions.ThemeActionTypes.THEME_VERSION_RESPONSE,
-        };
-
-        expect(themeActions.themeVersionResponse(payload)).toEqual(expectedAction);
-    });
-
-    it('should create a ThemeVariationResponseAction', () => {
-        const payload = {
-            configurationId: '012',
-            displayVersion: '2.1.1',
-            isPurchased: true,
-            lastCommitId: '666',
-            price: 0,
-            themeId: '234',
-            themeName: 'Cornerstone',
-            variationId: '123',
-            variationName: 'Warm',
-            variations: [],
-            versionId: '234',
-        };
-
-        const expectedAction = {
-            error: false,
-            payload,
-            type: themeActions.ThemeActionTypes.THEME_VARIATION_RESPONSE,
-        };
-
-        expect(themeActions.themeVariationResponse(payload)).toEqual(expectedAction);
-
-    });
-
     it('should create a ThemeVariationHistoryResponseAction', () => {
         const payload = {
             variationHistory: [
@@ -185,7 +78,7 @@ describe('theme actions', () => {
             axiosMock.onGet(themeAPI.variationAPI(variationId))
                 .reply(status, {
                     data: {
-                        configurationId: '012',
+                        configurationId,
                         currentVersionVariationId: '222',
                         displayVersion: '2.1.1',
                         id: '222',
@@ -194,7 +87,7 @@ describe('theme actions', () => {
                         themeId: '234',
                         themeName: 'Cornerstone',
                         variationName: 'Warm',
-                        versionId: '234',
+                        versionId,
                     }});
 
             axiosMock.onGet(themeAPI.variationUpgradeAPI(variationId))
@@ -209,7 +102,7 @@ describe('theme actions', () => {
                         themeId: '234',
                         themeName: 'Cornerstone',
                         variationName: 'Warm',
-                        versionId: '234',
+                        versionId,
                     }});
 
             axiosMock.onGet(themeAPI.configurationAPI(configurationId))
@@ -245,6 +138,9 @@ describe('theme actions', () => {
 
             const getState = jest.fn()
                 .mockReturnValue({
+                    merchant: {
+                        storeHash,
+                    },
                     theme: {
                         configurationId,
                         variationId,
@@ -259,37 +155,19 @@ describe('theme actions', () => {
                     payload: {
                         configurationId: '012',
                         displayVersion: '2.1.1',
+                        editorSchema: {},
                         isPurchased: true,
                         price: 0,
+                        settings: {},
                         themeId: '234',
                         themeName: 'Cornerstone',
+                        variationHistory,
                         variationId: '222',
                         variationName: 'Warm',
                         variations: variationsArray,
-                        versionId: '234',
+                        versionId,
                     },
-                    type: themeActions.ThemeActionTypes.THEME_VARIATION_RESPONSE,
-                },
-                {
-                    error: false,
-                    payload: {
-                        editorSchema: {},
-                    },
-                    type: themeActions.ThemeActionTypes.THEME_VERSION_RESPONSE,
-                },
-                {
-                    error: false,
-                    payload: {
-                        settings: {},
-                    },
-                    type: themeActions.ThemeActionTypes.THEME_CONFIG_RESPONSE,
-                },
-                {
-                    error: false,
-                    payload: {
-                        variationHistory,
-                    },
-                    type: themeActions.ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
+                    type: themeActions.ThemeActionTypes.LOAD_THEME_RESPONSE,
                 },
             ];
 
@@ -314,6 +192,9 @@ describe('theme actions', () => {
 
             const getState = jest.fn()
                 .mockReturnValue({
+                    merchant: {
+                        storeHash,
+                    },
                     theme: {
                         configurationId,
                         variationId,
@@ -328,37 +209,19 @@ describe('theme actions', () => {
                     payload: {
                         configurationId: '012',
                         displayVersion: '2.1.1',
+                        editorSchema: {},
                         isPurchased: true,
                         price: 0,
+                        settings: {},
                         themeId: '234',
                         themeName: 'Cornerstone',
+                        variationHistory,
                         variationId: '222',
                         variationName: 'Warm',
                         variations: variationsArray,
-                        versionId: '234',
+                        versionId,
                     },
-                    type: themeActions.ThemeActionTypes.THEME_VARIATION_RESPONSE,
-                },
-                {
-                    error: false,
-                    payload: {
-                        editorSchema: {},
-                    },
-                    type: themeActions.ThemeActionTypes.THEME_VERSION_RESPONSE,
-                },
-                {
-                    error: false,
-                    payload: {
-                        settings: {},
-                    },
-                    type: themeActions.ThemeActionTypes.THEME_CONFIG_RESPONSE,
-                },
-                {
-                    error: false,
-                    payload: {
-                        variationHistory,
-                    },
-                    type: themeActions.ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
+                    type: themeActions.ThemeActionTypes.LOAD_THEME_RESPONSE,
                 },
             ];
 
@@ -391,6 +254,9 @@ describe('theme actions', () => {
 
         const getState = jest.fn()
             .mockReturnValue({
+                merchant: {
+                    storeHash,
+                },
                 theme: {
                     configurationId,
                     versionId,
@@ -414,29 +280,14 @@ describe('theme actions', () => {
                 .reply(status);
         });
 
-        it('should call fetchVariation with error status', () => {
+        it('should call loadTheme with error status', () => {
             store.clearActions();
 
             const expectedActions = [
                 {
                     error: true,
                     payload: new Error('Request failed with status code 404'),
-                    type: themeActions.ThemeActionTypes.THEME_VARIATION_RESPONSE,
-                },
-                {
-                    error: true,
-                    payload: new Error('Request failed with status code 404'),
-                    type: themeActions.ThemeActionTypes.THEME_VERSION_RESPONSE,
-                },
-                {
-                    error: true,
-                    payload: new Error('Request failed with status code 404'),
-                    type: themeActions.ThemeActionTypes.THEME_CONFIG_RESPONSE,
-                },
-                {
-                    error: true,
-                    payload: new Error('Request failed with status code 404'),
-                    type: themeActions.ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE,
+                    type: themeActions.ThemeActionTypes.LOAD_THEME_RESPONSE,
                 },
             ];
 

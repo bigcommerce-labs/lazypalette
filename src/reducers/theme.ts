@@ -1,12 +1,8 @@
 import { Action } from '../actions/action';
 import {
-    CurrentThemeResponse,
+    LoadThemeResponse,
     SettingsType,
     ThemeActionTypes,
-    ThemeConfigPostResponse,
-    ThemeConfigResponse,
-    ThemeVariationResponse,
-    ThemeVersionResponse
 } from '../actions/theme';
 
 export interface ThemeState {
@@ -113,24 +109,22 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
     }
 
     switch (action.type) {
-        case ThemeActionTypes.CURRENT_THEME_RESPONSE:
-            return { ...state,
-                initialConfigurationId: action.payload.configurationId,
-                ...action.payload as CurrentThemeResponse,
-            };
-        case ThemeActionTypes.THEME_VARIATION_RESPONSE:
+        case ThemeActionTypes.LOAD_THEME_RESPONSE: {
             const {
                 configurationId,
                 displayVersion,
+                editorSchema,
                 isPurchased,
                 lastCommitId,
+                settings,
                 themeId,
                 themeName,
+                variationHistory,
                 variationId,
                 variationName,
                 variations,
                 versionId,
-            } = action.payload as ThemeVariationResponse;
+            } = action.payload as LoadThemeResponse;
             const price = isPurchased ? 0 : action.payload.price / 10;
 
             return {
@@ -138,32 +132,31 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 configurationId,
                 displayVersion,
                 initialConfigurationId: configurationId,
+                initialSettings: settings,
+                isChanged: false,
                 isPurchased,
                 lastCommitId,
                 price,
+                schema: [...editorSchema],
+                settings,
                 themeId,
                 themeName,
+                variationHistory,
                 variationId,
                 variationName,
                 variations,
                 versionId,
             };
-        case ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE:
+        }
+        case ThemeActionTypes.THEME_VARIATION_HISTORY_RESPONSE: {
             const { variationHistory } = action.payload;
 
             return {
                 ...state,
                 variationHistory,
             };
-        case ThemeActionTypes.THEME_CONFIG_RESPONSE:
-            const { settings } = action.payload as ThemeConfigResponse;
-
-            return { ...state, initialSettings: settings, settings, isChanged: false };
-        case ThemeActionTypes.THEME_VERSION_RESPONSE:
-            const { editorSchema } = action.payload as ThemeVersionResponse;
-
-            return { ...state, schema: [...editorSchema] };
-        case ThemeActionTypes.THEME_CONFIG_CHANGE:
+        }
+        case ThemeActionTypes.THEME_CONFIG_CHANGE: {
             const themeConfigChange = { [`${action.payload.setting.id}`]: action.payload.value };
 
             return {
@@ -177,29 +170,22 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                     ...themeConfigChange,
                 },
             };
-        case ThemeActionTypes.THEME_CONFIG_RESET:
+        }
+        case ThemeActionTypes.THEME_CONFIG_RESET: {
             return {
                 ...state,
                 configurationId: state.initialConfigurationId,
                 isChanged: false,
-                settings: {...state.initialSettings},
+                settings: { ...state.initialSettings },
             };
-        case ThemeActionTypes.PUBLISH_THEME_CONFIG_RESPONSE:
-            const { settings: initialSettings } = action.payload as ThemeConfigPostResponse;
-
-            return {
-                ...state,
-                configurationId: action.payload.configurationId,
-                initialConfigurationId: action.payload.configurationId,
-                initialSettings,
-                isChanged: isNotEqual(state.settings, initialSettings),
-            };
-        case ThemeActionTypes.PREVIEW_THEME_CONFIG_RESPONSE:
+        }
+        case ThemeActionTypes.PREVIEW_THEME_CONFIG_RESPONSE: {
             return {
                 ...state,
                 configurationId: action.payload.configurationId,
             };
-        case ThemeActionTypes.SAVE_THEME_CONFIG_RESPONSE:
+        }
+        case ThemeActionTypes.SAVE_THEME_CONFIG_RESPONSE: {
             return {
                 ...state,
                 configurationId: action.payload.configurationId,
@@ -207,6 +193,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 initialSettings: action.payload.settings,
                 isChanged: isNotEqual(state.settings, action.payload.settings),
             };
+        }
         default:
             return state;
     }

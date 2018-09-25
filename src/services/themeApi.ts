@@ -15,6 +15,44 @@ export const themeAPI = {
         `/internalapi/v1/marketplace/upgrade/variation/${variationId}`,
 };
 
+interface FetchAllThemeDataConfig {
+    configurationId?: string;
+    storeHash: string;
+    upgrade?: boolean;
+    variationId: string;
+}
+
+export function fetchAllThemeData(config: FetchAllThemeDataConfig) {
+    const { configurationId, storeHash, upgrade, variationId } = config;
+    let variationPromise;
+
+    if (upgrade) {
+        variationPromise = fetchVariationUpgrade(variationId);
+    } else {
+        variationPromise = fetchVariation(variationId);
+    }
+
+    return variationPromise.then(response => {
+        const { configurationId: activeConfigurationId, id: fetchedVariationId, versionId } = response;
+
+        response.configurationId = configurationId || activeConfigurationId;
+
+        return Axios.all([
+            fetchVariationHistory(storeHash, fetchedVariationId),
+            fetchThemeConfig(response.configurationId),
+            fetchThemeVersion(storeHash, versionId),
+        ])
+            .then(Axios.spread((variationHistory, { configurationId: id, settings }, { editorSchema }) => {
+                response.variationHistory = variationHistory;
+                response.id = fetchedVariationId;
+                response.settings = settings;
+                response.editorSchema = editorSchema;
+
+                return response;
+            }));
+    });
+}
+
 export function fetchThemeConfig(configurationId: string) {
     return Axios.get(themeAPI.configurationAPI(configurationId))
         .then(({ data: { data } }) => data);
