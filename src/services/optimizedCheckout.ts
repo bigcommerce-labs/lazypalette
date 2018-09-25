@@ -1,4 +1,5 @@
 import Axios, { AxiosResponse } from 'axios';
+import 'formdata-polyfill';
 
 /*
  * Response format for the Checkout Image API.
