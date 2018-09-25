@@ -35,27 +35,25 @@ interface PubShareBoxProps {
     variations: ThemeVariations;
     variationHistory: ThemeVariationHistory;
     variationId: string;
-    onPublish(): void;
+    onPublish(): any;
     onReset(): void;
-    onSave(): void;
+    onSave(): any;
     onUpdate(): void;
 }
 
 interface PubShareBoxState {
-    canPublish: boolean;
-    canSave: boolean;
     isResetOpen: boolean;
     isPublishOpen: boolean;
     isUpdate: boolean;
+    loading: boolean;
 }
 
 export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxState> {
     readonly state: PubShareBoxState = {
-        canPublish: false,
-        canSave: false,
         isPublishOpen: false,
         isResetOpen: false,
         isUpdate: false,
+        loading: false,
     };
 
     handleModalCancel = (type: string) => {
@@ -83,7 +81,10 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
 
     handleSave = () => {
         trackSave();
-        this.props.onSave();
+        this.setState({ loading: true }, () => {
+            this.props.onSave()
+                .then(() => this.setState({ loading: false }));
+        });
     };
 
     handleReset = () => {
@@ -95,8 +96,12 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
 
     handlePublish = () => {
         trackPublish(this.props.configurationId);
-        this.setState({ isPublishOpen: false}, () => {
-            this.props.onPublish();
+        this.setState({
+            isPublishOpen: false,
+            loading: true,
+        }, () => {
+            this.props.onPublish()
+                .then(() => this.setState({ loading: false }));
         });
     };
 
@@ -109,15 +114,14 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
 
     getActions = (mode: Modes) => {
         const { isPrelaunchStore, price, variationId } = this.props;
-        const { canPublish, canSave } = this.state;
+        const { loading } = this.state;
 
         switch (mode) {
             case Modes.ACTIVE:
                 return (
                     <ActiveAction
                         isPrelaunchStore={isPrelaunchStore}
-                        canPublish={canPublish}
-                        canSave={canSave}
+                        loading={loading}
                         handleSave={this.handleSave}
                         handlePublish={isPrelaunchStore ? this.handlePublish : () => this.handleModalOpen('publish')}
                     />
@@ -126,8 +130,7 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                 return (
                     <InactiveAction
                         isPrelaunchStore={isPrelaunchStore}
-                        canPublish={canPublish}
-                        canSave={canSave}
+                        loading={loading}
                         handleSave={this.handleSave}
                         handlePublish={() => this.handleModalOpen('publish')}
                     />
@@ -170,21 +173,11 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
     }
 
     componentDidUpdate() {
-        const { configurationId, initialConfigurationId, variations, variationHistory } = this.props;
-        const currentVariation = variations.filter(variation => variation.isCurrent);
-        let canPublish = false;
-        let canSave = true;
+        const { initialConfigurationId, variationHistory } = this.props;
         let isUpdate = false;
 
         if (variationHistory) {
             variationHistory.forEach(variation => {
-                if (variation.configurationId === configurationId) {
-                    canSave = false;
-                    if (variation.type === 'saved' || currentVariation.length <= 0) {
-                        canPublish = true;
-                    }
-                }
-
                 if (variation.configurationId === initialConfigurationId && variation.type === 'upgrade') {
                     isUpdate = true;
                 }
@@ -193,14 +186,6 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
 
         if (isUpdate !== this.state.isUpdate) {
             this.setState({ isUpdate });
-        }
-
-        if (canSave !== this.state.canSave) {
-            this.setState({ canSave });
-        }
-
-        if (canPublish !== this.state.canPublish) {
-            this.setState({ canPublish });
         }
     }
 

@@ -4,7 +4,7 @@ exports[`InactiveAction renders 1`] = `
 <Fragment>
   <styled.div>
     <ButtonInput
-      disabled={true}
+      disabled={false}
       onClick={[MockFunction]}
       testId="save"
       type="button"
@@ -15,7 +15,7 @@ exports[`InactiveAction renders 1`] = `
   <styled.div>
     <ButtonInput
       classType="primary"
-      disabled={true}
+      disabled={false}
       onClick={[MockFunction]}
       testId="publish"
     >

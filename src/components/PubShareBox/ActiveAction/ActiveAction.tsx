@@ -4,9 +4,8 @@ import ButtonInput from '../../ButtonInput/ButtonInput';
 import { ButtonWrapper } from '../styles';
 
 interface ActiveActionProps {
-    canPublish: boolean;
-    canSave: boolean;
     isPrelaunchStore: boolean;
+    loading: boolean;
     handlePublish(): void;
     handleSave(): void;
 }
@@ -22,7 +21,7 @@ const ActiveAction: SFC<ActiveActionProps> = props => {
                             classType="primary"
                             type="button"
                             testId="save"
-                            disabled={!props.canSave}
+                            disabled={props.loading}
                         >
                             Save
                         </ButtonInput>
@@ -34,7 +33,7 @@ const ActiveAction: SFC<ActiveActionProps> = props => {
                             onClick={props.handleSave}
                             type="button"
                             testId="save"
-                            disabled={!props.canSave}
+                            disabled={props.loading}
                         >
                             Save
                         </ButtonInput>
@@ -43,7 +42,7 @@ const ActiveAction: SFC<ActiveActionProps> = props => {
                         <ButtonInput
                             onClick={props.handlePublish}
                             classType="primary"
-                            disabled={!props.canPublish}
+                            disabled={props.loading}
                             testId="publish"
                         >
                             Publish

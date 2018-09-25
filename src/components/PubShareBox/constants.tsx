@@ -9,13 +9,13 @@ export enum Modes {
 export const PublishModalText = {
     [Modes.ACTIVE]: {
         action: 'Publish',
-        body: 'Publishing your store will make all changes publicly visible',
+        body: 'Publishing your store will make all changes publicly visible.',
         title: 'Publish Changes',
     },
     [Modes.INACTIVE]: {
-        action: 'Use As Active Theme',
-        body: 'You are about to make this the active theme in your store.',
-        title: 'Use As Active Theme',
+        action: 'Publish',
+        body: 'Publishing your store will make all changes publicly visible.',
+        title: 'Publish Changes',
     },
     [Modes.UPDATE]: {
         action: 'Apply Update',
