@@ -10,6 +10,7 @@ export const enum ToastMessages {
     ErrorPublish = 'There was an error publishing your changes.',
     ErrorSave = 'There was an error saving your changes.',
     Publish = 'Changes have been published.',
+    Reset = 'Changes have been reset.',
     Save = 'Changes have been saved.',
     Undo = 'Changes have been undone.',
     Update = 'Theme has been updated',
