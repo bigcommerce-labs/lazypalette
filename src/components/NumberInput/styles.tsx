@@ -55,6 +55,9 @@ export const Button = styled.input.attrs<ButtonProps>({})`
     background-color: ${({ theme }) => theme.colors.empty};
     color: ${({ theme }) => theme.colors.primary};
     width: 2.5rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 
     :hover {
         border-color: ${({ theme }) => theme.colors.primary};
