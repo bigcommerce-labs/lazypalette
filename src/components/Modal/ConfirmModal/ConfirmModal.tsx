@@ -8,7 +8,6 @@ import Modal from '../Modal';
 import { Messages } from '../constants';
 
 interface ConfirmModalProps extends Partial<{
-    body: string;
     title: string;
     primaryActionText?: string;
     primaryAction(): void;
@@ -47,7 +46,7 @@ class ConfirmModal extends PureComponent<ConfirmModalProps> {
 
     render() {
         const {
-            body,
+            children,
             primaryAction,
             secondaryAction,
             primaryActionText = Messages.Ok,
@@ -57,14 +56,13 @@ class ConfirmModal extends PureComponent<ConfirmModalProps> {
 
         return (
             <Modal
-                onClose={primaryAction}
+                onClose={secondaryAction}
                 overlayClose={overlayClose}
                 title={title}
                 isTransparent={false}
             >
                 <ModalView>
-                    {body &&
-                        <ModalBody>{body}</ModalBody>}
+                    <ModalBody>{children}</ModalBody>
                     <ModalFooter>
                         <CTAButtons
                             primaryAction={primaryAction}

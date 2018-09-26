@@ -1,6 +1,6 @@
 import React, { MouseEvent, MouseEventHandler, PureComponent } from 'react';
 
-import { Container, Content, Header, ModalBox, NavItem, Overlay } from './styles';
+import { Close, Container, Content, Header, ModalBox, NavItem, Overlay, Title } from './styles';
 
 interface ModalProps extends Partial<{
     backLink: string;
@@ -22,6 +22,12 @@ class Modal extends PureComponent<ModalProps> {
         }
     };
 
+    handleCloseClick = (event: MouseEvent<HTMLDivElement>) => {
+        if (this.props.onClose) {
+            this.props.onClose(event);
+        }
+    };
+
     handleModalClick = (event: MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
     };
@@ -39,7 +45,10 @@ class Modal extends PureComponent<ModalProps> {
                 <Overlay isTransparent={isTransparent} />
                 <ModalBox onClick={this.handleModalClick}>
                     {title &&
-                        <Header>{title}</Header>
+                        <Header>
+                            <Title>{title}</Title>
+                            <Close onClick={this.handleCloseClick}/>
+                        </Header>
                     }
                     {backLink &&
                         <NavItem to={backLink} replace />

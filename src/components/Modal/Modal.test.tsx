@@ -1,7 +1,7 @@
 import { mount, shallow } from 'enzyme';
 import React from 'react';
 
-import { Container, Header, ModalBox, NavItem } from './styles';
+import { Container, Header, ModalBox, NavItem, Title } from './styles';
 import Modal from './Modal';
 
 describe('Modal', () => {
@@ -105,7 +105,7 @@ describe('Modal', () => {
                 </Modal>
             );
 
-            expect(modal.find(Header).prop('children')).toEqual(title);
+            expect(modal.find(Title).prop('children')).toEqual(title);
         });
 
         it('should not render Header when not set', () => {

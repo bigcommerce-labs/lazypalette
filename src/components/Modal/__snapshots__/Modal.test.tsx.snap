@@ -41,23 +41,52 @@ exports[`Modal renders 1`] = `
       }
     }
   >
-    <styled.h3
+    <styled.div>
+      <styled.h3
+        theme={
+          Object {
+            "colors": Object {
+              "primaryText": "#303540",
+            },
+            "typography": Object {
+              "fontSize": Object {
+                "larger": "24px",
+              },
+              "fontWeight": Object {
+                "normal": 600,
+              },
+            },
+          }
+        }
+      >
+        Test Modal
+      </styled.h3>
+      <styled.div
+        onClick={[Function]}
+        theme={
+          Object {
+            "colors": Object {
+              "background": "#000000",
+              "primaryText": "#AAAAAA",
+            },
+          }
+        }
+      />
+    </styled.div>
+    <styled.div
       theme={
         Object {
           "colors": Object {
-            "primaryText": "#303540",
+            "primaryText": "#AAAAAA",
           },
           "typography": Object {
-            "fontWeight": Object {
-              "bold": 600,
+            "fontSize": Object {
+              "small": "16px",
             },
           },
         }
       }
     >
-      Test Modal
-    </styled.h3>
-    <styled.div>
       <TestChildren />
     </styled.div>
   </styled.div>

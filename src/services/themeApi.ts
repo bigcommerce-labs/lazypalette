@@ -5,6 +5,7 @@ import { ThemeConfigPostData } from '../actions/theme';
 export const themeAPI = {
     configurationAPI: (configId: string) => `/internalapi/v1/themeeditor/configurations/${configId}`,
     configurationPostAPI: '/internalapi/v1/themeeditor/configurations',
+    designPolicyAckAPI: '/internalapi/v1/themeeditor/designpolicyack/',
     themeVersionAPI: (storeHash: string, versionId: string) =>
         `/admin/services/themes/stores/${storeHash}/versions/${versionId}`,
     variationAPI: (variationId: string) =>
@@ -51,6 +52,16 @@ export function fetchAllThemeData(config: FetchAllThemeDataConfig) {
                 return response;
             }));
     });
+}
+
+export function fetchDesignPolicyAck() {
+    return Axios.get(themeAPI.designPolicyAckAPI)
+        .then(({ data: { data } }) => data);
+}
+
+export function postDesignPolicyAck(designPolicyAck: boolean) {
+    return Axios.post(themeAPI.designPolicyAckAPI, { designPolicyAck })
+        .then(({ data: { data } }) => data);
 }
 
 export function fetchThemeConfig(configurationId: string) {

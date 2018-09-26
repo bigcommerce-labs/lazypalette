@@ -16,22 +16,441 @@ exports[`<MoreOptions /> render() renders the component 1`] = `
       <styled.ul>
         <styled.li
           data-test-id="go-to-te"
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
         >
           Go to old Theme Editor
         </styled.li>
         <styled.li
           data-test-id="edit-theme-files"
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
         >
           Edit Theme Files
         </styled.li>
         <styled.li
           data-test-id="restore-original"
           onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
         >
           Restore original theme styles
         </styled.li>
       </styled.ul>
     </ExpandableMenu>
   </Draggable>
+</Fragment>
+`;
+
+exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has been acknowledged when viewing an inactive theme renders correctly 1`] = `
+<Fragment>
+  <Draggable
+    position={
+      Object {
+        "x": 10,
+        "y": 10,
+      }
+    }
+  >
+    <ExpandableMenu
+      title="More Options"
+    >
+      <styled.ul>
+        <styled.li
+          data-test-id="go-to-te"
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Go to old Theme Editor
+        </styled.li>
+        <styled.li
+          data-test-id="edit-theme-files"
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Edit Theme Files
+        </styled.li>
+        <styled.li
+          data-test-id="restore-original"
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Restore original theme styles
+        </styled.li>
+      </styled.ul>
+    </ExpandableMenu>
+  </Draggable>
+</Fragment>
+`;
+
+exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has been acknowledged when viewing the active theme renders correctly 1`] = `
+<Fragment>
+  <Draggable
+    position={
+      Object {
+        "x": 10,
+        "y": 10,
+      }
+    }
+  >
+    <ExpandableMenu
+      title="More Options"
+    >
+      <styled.ul>
+        <styled.li
+          data-test-id="go-to-te"
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Go to old Theme Editor
+        </styled.li>
+        <styled.li
+          data-test-id="edit-theme-files"
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Edit Theme Files
+        </styled.li>
+        <styled.li
+          data-test-id="restore-original"
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Restore original theme styles
+        </styled.li>
+      </styled.ul>
+    </ExpandableMenu>
+  </Draggable>
+</Fragment>
+`;
+
+exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has not been acknowledged when viewing an inactive theme renders correctly 1`] = `
+<Fragment>
+  <Draggable
+    position={
+      Object {
+        "x": 10,
+        "y": 10,
+      }
+    }
+  >
+    <ExpandableMenu
+      title="More Options"
+    >
+      <styled.ul>
+        <styled.li
+          data-test-id="go-to-te"
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Go to old Theme Editor
+        </styled.li>
+        <styled.li
+          data-test-id="edit-theme-files"
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Edit Theme Files
+        </styled.li>
+        <styled.li
+          data-test-id="restore-original"
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Restore original theme styles
+        </styled.li>
+      </styled.ul>
+    </ExpandableMenu>
+  </Draggable>
+  <ConfirmModal
+    overlayClose={[Function]}
+    primaryAction={[Function]}
+    primaryActionText="Edit Theme Files"
+    secondaryAction={[Function]}
+    title="Edit Theme Files"
+  >
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "primaryText": "#FFFFFF",
+          },
+          "typography": Object {
+            "fontSize": Object {
+              "small": "12px",
+            },
+          },
+        }
+      }
+    >
+      It looks like you're about to modify your theme by editing its theme files. Please note that BigCommerce is unable to offer support for any theme that has been modified with Edit Theme Files. 
+      <styled.a
+        href="https://support.bigcommerce.com/articles/Public/BigCommerce-Design-Policy"
+        target="_blank"
+        theme={
+          Object {
+            "colors": Object {
+              "primary": "#FFFFFF",
+            },
+          }
+        }
+      >
+        Learn more
+      </styled.a>
+    </styled.div>
+    <CheckboxInput
+      label="Do not show me again"
+      onChange={[Function]}
+    />
+  </ConfirmModal>
+</Fragment>
+`;
+
+exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has not been acknowledged when viewing the active theme renders correctly 1`] = `
+<Fragment>
+  <Draggable
+    position={
+      Object {
+        "x": 10,
+        "y": 10,
+      }
+    }
+  >
+    <ExpandableMenu
+      title="More Options"
+    >
+      <styled.ul>
+        <styled.li
+          data-test-id="go-to-te"
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Go to old Theme Editor
+        </styled.li>
+        <styled.li
+          data-test-id="edit-theme-files"
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Edit Theme Files
+        </styled.li>
+        <styled.li
+          data-test-id="restore-original"
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Restore original theme styles
+        </styled.li>
+      </styled.ul>
+    </ExpandableMenu>
+  </Draggable>
+  <ConfirmModal
+    overlayClose={[Function]}
+    primaryAction={[Function]}
+    primaryActionText="Edit Theme Files"
+    secondaryAction={[Function]}
+    title="Edit Theme Files"
+  >
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "primaryText": "#FFFFFF",
+          },
+          "typography": Object {
+            "fontSize": Object {
+              "small": "12px",
+            },
+          },
+        }
+      }
+    >
+      It looks like you're about to modify your active theme by editing its theme files. Any changes you apply to your active theme will be made to your live store.
+    </styled.div>
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "primaryText": "#FFFFFF",
+          },
+          "typography": Object {
+            "fontSize": Object {
+              "small": "12px",
+            },
+          },
+        }
+      }
+    >
+      Please note that BigCommerce is unable to offer support for any theme that has been modified with Edit Theme Files. 
+      <styled.a
+        href="https://support.bigcommerce.com/articles/Public/BigCommerce-Design-Policy"
+        target="_blank"
+        theme={
+          Object {
+            "colors": Object {
+              "primary": "#FFFFFF",
+            },
+          }
+        }
+      >
+        Learn more
+      </styled.a>
+    </styled.div>
+    <CheckboxInput
+      label="Do not show me again"
+      onChange={[Function]}
+    />
+  </ConfirmModal>
+</Fragment>
+`;
+
+exports[`<MoreOptions /> when you click "Edit Theme Files" when viewing a non-private theme renders correctly 1`] = `
+<Fragment>
+  <Draggable
+    position={
+      Object {
+        "x": 10,
+        "y": 10,
+      }
+    }
+  >
+    <ExpandableMenu
+      title="More Options"
+    >
+      <styled.ul>
+        <styled.li
+          data-test-id="go-to-te"
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Go to old Theme Editor
+        </styled.li>
+        <styled.li
+          data-test-id="edit-theme-files"
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Edit Theme Files
+        </styled.li>
+        <styled.li
+          data-test-id="restore-original"
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "primaryText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          Restore original theme styles
+        </styled.li>
+      </styled.ul>
+    </ExpandableMenu>
+  </Draggable>
+  <ConfirmModal
+    overlayClose={[Function]}
+    primaryAction={[Function]}
+    primaryActionText="Go to My Themes"
+    secondaryAction={[Function]}
+    title="Edit Theme Files"
+  >
+    You must make a copy of your theme to edit the theme files.
+  </ConfirmModal>
 </Fragment>
 `;

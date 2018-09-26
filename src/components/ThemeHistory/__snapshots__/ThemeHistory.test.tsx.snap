@@ -523,10 +523,11 @@ exports[`ThemeHistory when rendering when the modal is open renders correctly 1`
     </ExpandableMenu>
   </Draggable>
   <ConfirmModal
-    body="This theme has unpublished changes. Do you want to proceed?"
     primaryAction={[Function]}
     secondaryAction={[Function]}
     title="Theme Change Warning"
-  />
+  >
+    This theme has unpublished changes. Do you want to proceed?
+  </ConfirmModal>
 </Fragment>
 `;

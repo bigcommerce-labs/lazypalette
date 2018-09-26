@@ -1,5 +1,29 @@
 import styled from 'styled-components';
 
+export const ModalParagraph = styled.div`
+    color: ${({ theme }) => theme.colors.primaryText};
+    line-height: 1.5rem;
+    font-size: ${({ theme }) => theme.typography.fontSize.small};
+    margin: 0 0 1.5rem 0;
+
+    &:last-child {
+        margin: 0;
+    }
+`;
+
+ModalParagraph.defaultProps = {
+    theme: {
+        colors: {
+            primaryText: '#FFFFFF',
+        },
+        typography: {
+            fontSize: {
+                small: '12px',
+            },
+        },
+    },
+};
+
 export const List = styled.ul`
     cursor: pointer;
     width: 20rem;
@@ -9,6 +33,28 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
+    color: ${({theme}) => theme.colors.primaryText};
     line-height: 1.5rem;
     margin: 0 0 .5rem 0;
 `;
+
+Item.defaultProps = {
+    theme: {
+        colors: {
+            primaryText: '#FFFFFF',
+        },
+    },
+};
+
+export const Link = styled.a`
+    color: ${({ theme }) => theme.colors.primary};
+    text-decoration: none;
+`;
+
+Link.defaultProps = {
+    theme: {
+        colors: {
+            primary: '#FFFFFF',
+        },
+    },
+};

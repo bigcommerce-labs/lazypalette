@@ -5,6 +5,26 @@ interface OverlayProps {
     isTransparent?: boolean;
 }
 
+export const Close = styled.div`
+    cursor: pointer;
+    text-align: center;
+    width: 2.5rem;
+
+    :after {
+        content: '✕';
+        color: ${({ theme }) => theme.colors.primaryText};
+    }
+`;
+
+Close.defaultProps = {
+    theme: {
+        colors: {
+            background: '#000000',
+            primaryText: '#AAAAAA',
+        },
+    },
+};
+
 export const Container = styled.div`
     position: fixed;
     top: 0;
@@ -50,38 +70,69 @@ Overlay.defaultProps = {
 };
 
 export const Content = styled.div`
+    color: ${({ theme }) => theme.colors.primaryText};
+    line-height: 1.5rem;
+    font-size: ${({ theme }) => theme.typography.fontSize.small};
     margin: 0;
     padding: 0;
     overflow: auto;
 `;
 
-export const Header = styled.h3`
-    padding: 1.25rem 0 0 .5rem;
-    margin: 0 0 .5rem;
-    font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-    color: ${({ theme }) => theme.colors.primaryText};
+Content.defaultProps = {
+    theme: {
+        colors: {
+            primaryText: '#AAAAAA',
+        },
+        typography: {
+            fontSize: {
+                small: '16px',
+            },
+        },
+    },
+};
+
+export const Header = styled.div`
+    align-items: stretch;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-between;
+    line-height: 2rem;
+    margin: 0 -0.75rem 1rem 0;
+    padding: 0;
 `;
 
-Header.defaultProps = {
+export const Title = styled.h3`
+    color: ${({ theme }) => theme.colors.primaryText};
+    font-size: ${({ theme }) => theme.typography.fontSize.larger};
+    font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
+    margin: 0;
+`;
+
+Title.defaultProps = {
     theme: {
         colors: {
             primaryText: '#303540',
         },
         typography: {
+            fontSize: {
+                larger: '24px',
+            },
             fontWeight: {
-                bold: 600,
+                normal: 600,
             },
         },
     },
 };
 
 export const ModalBox = styled.div`
+    box-sizing: border-box;
     position: relative;
     background-color: ${({ theme }) => theme.colors.empty};
-    padding: .5rem .75rem;
+    padding: 1.5rem;
     border: 1px solid ${({ theme }) => theme.colors.guideText};
     box-shadow: ${({ theme }) => theme.elevation.floating};
     overflow: auto;
+    width: 30rem;
     z-index: ${({ theme }) => theme.layers.highest};
 `;
 
@@ -127,7 +178,6 @@ NavItem.defaultProps = {
 };
 
 export const ModalBody = styled.div`
-    padding-left: .5rem;
 `;
 
 export const ConfirmButtons = styled.div`
@@ -136,7 +186,7 @@ export const ConfirmButtons = styled.div`
 `;
 
 export const ConfirmButton = styled.div`
-  margin-left: 1rem;
+    margin-left: 1rem;
 `;
 
 export const ModalView = styled.div`
@@ -146,5 +196,5 @@ export const ModalView = styled.div`
 export const ModalFooter = styled.div`
     display: flex;
     justify-content: flex-end;
-    padding: 1.5rem .5rem .5rem
+    margin: 1.5rem 0 0 0;
 `;

@@ -42,7 +42,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
           }
         >
           <div
-            className="sc-htpNat dxMYRR"
+            className="sc-bxivhb boVVrw"
             onClick={[Function]}
           >
             <styled.div
@@ -59,7 +59,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
               }
             >
               <div
-                className="sc-bxivhb bqbVlT"
+                className="sc-ifAKCX brMwJ"
               />
             </styled.div>
             <styled.div
@@ -80,47 +80,85 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
               }
             >
               <div
-                className="sc-bZQynM ddzKZC"
+                className="sc-htoDjs kWVyBi"
                 onClick={[Function]}
               >
-                <styled.h3
+                <styled.div>
+                  <div
+                    className="sc-bZQynM ceVmct"
+                  >
+                    <styled.h3
+                      theme={
+                        Object {
+                          "colors": Object {
+                            "primaryText": "#303540",
+                          },
+                          "typography": Object {
+                            "fontSize": Object {
+                              "larger": "24px",
+                            },
+                            "fontWeight": Object {
+                              "normal": 600,
+                            },
+                          },
+                        }
+                      }
+                    >
+                      <h3
+                        className="sc-gzVnrw idAWTr"
+                      >
+                        You have been logged out.
+                      </h3>
+                    </styled.h3>
+                    <styled.div
+                      onClick={[Function]}
+                      theme={
+                        Object {
+                          "colors": Object {
+                            "background": "#000000",
+                            "primaryText": "#AAAAAA",
+                          },
+                        }
+                      }
+                    >
+                      <div
+                        className="sc-htpNat gAQftg"
+                        onClick={[Function]}
+                      />
+                    </styled.div>
+                  </div>
+                </styled.div>
+                <styled.div
                   theme={
                     Object {
                       "colors": Object {
-                        "primaryText": "#303540",
+                        "primaryText": "#AAAAAA",
                       },
                       "typography": Object {
-                        "fontWeight": Object {
-                          "bold": 600,
+                        "fontSize": Object {
+                          "small": "16px",
                         },
                       },
                     }
                   }
                 >
-                  <h3
-                    className="sc-EHOje fNYkwh"
-                  >
-                    You have been logged out.
-                  </h3>
-                </styled.h3>
-                <styled.div>
                   <div
-                    className="sc-ifAKCX iYhUep"
+                    className="sc-EHOje cnVQSR"
                   >
                     <styled.div>
                       <div
-                        className="sc-gZMcBi capIZi"
+                        className="sc-VigVT iwIlAC"
                       >
                         <styled.div>
                           <div
-                            className="sc-htoDjs gNgmUM"
+                            className="sc-iwsKbI iuVdIU"
                           >
                             For security reasons you have been automatically logged out. Please log in again to access Store Design.
                           </div>
                         </styled.div>
                         <styled.div>
                           <div
-                            className="sc-gqjmRU RQofY"
+                            className="sc-jTzLTM nkRIC"
                           >
                             <ButtonInput
                               classType="primary"

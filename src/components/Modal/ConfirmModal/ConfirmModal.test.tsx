@@ -16,7 +16,6 @@ describe('ConfirmModal', () => {
     it('renders', () => {
         const confirmModal = shallow(
             <ConfirmModal
-                body={mockBody}
                 title={mockTitle}
                 primaryAction={mockHandler}
                 secondaryAction={mockHandler}
@@ -26,31 +25,19 @@ describe('ConfirmModal', () => {
         expect(confirmModal).toMatchSnapshot();
     });
 
-    describe('body prop', () => {
-        it('should render ConfirmBody when body prop passed', () => {
+    describe('children prop', () => {
+        it('should render ConfirmBody when children passed', () => {
             const modal = shallow(
                 <ConfirmModal
-                    body={mockBody}
                     title={mockTitle}
                     primaryAction={mockHandler}
                     secondaryAction={mockHandler}
-                />
+                >
+                    {mockBody}
+                </ConfirmModal>
             );
 
             expect(modal.find(ModalBody).prop('children')).toEqual(mockBody);
-        });
-
-        it('should not render ConfirmBody when body prop not set', () => {
-            const modal = shallow(
-                <ConfirmModal
-                    body={undefined}
-                    title={mockTitle}
-                    primaryAction={mockHandler}
-                    secondaryAction={mockHandler}
-                />
-            );
-
-            expect(modal.find(ModalBody).exists()).toEqual(false);
         });
     });
 
@@ -61,7 +48,6 @@ describe('ConfirmModal', () => {
 
                 const modal = mount(
                     <ConfirmModal
-                        body={mockBody}
                         title={mockTitle}
                         primaryAction={mockHandler}
                         secondaryAction={mockSecondaryAction}
@@ -82,7 +68,6 @@ describe('ConfirmModal', () => {
 
                 const modal = mount(
                     <ConfirmModal
-                        body={mockBody}
                         title={mockTitle}
                         primaryAction={mockPrimaryAction}
                         secondaryAction={mockHandler}

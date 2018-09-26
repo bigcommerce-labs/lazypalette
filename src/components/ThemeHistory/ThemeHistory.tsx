@@ -123,11 +123,12 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
                 </Draggable>
                 {isConfirmOpen &&
                     <ConfirmModal
-                        body={Messages.Reset}
                         primaryAction={this.handleModalConfirm}
                         secondaryAction={this.handleModalCancel}
                         title="Theme Change Warning"
-                    />
+                    >
+                        {Messages.Reset}
+                    </ConfirmModal>
                 }
             </>
         );
