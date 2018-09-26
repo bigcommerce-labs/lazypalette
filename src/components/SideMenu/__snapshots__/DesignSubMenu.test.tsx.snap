@@ -29,7 +29,7 @@ exports[`DesignSubMenu when rendering when isPreview is false renders correctly 
       Object {
         "externalLink": true,
         "label": "Help",
-        "path": "https://support.bigcommerce.com/articles/Public/Stencil-Themes/#enabling",
+        "path": "https://support.bigcommerce.com/articles/Public/Store-Design",
       },
     ]
   }
@@ -58,7 +58,7 @@ exports[`DesignSubMenu when rendering when isPreview is true renders correctly 1
         "divider": true,
         "externalLink": true,
         "label": "Help",
-        "path": "https://support.bigcommerce.com/articles/Public/Stencil-Themes/#enabling",
+        "path": "https://support.bigcommerce.com/articles/Public/Store-Design",
       },
     ]
   }

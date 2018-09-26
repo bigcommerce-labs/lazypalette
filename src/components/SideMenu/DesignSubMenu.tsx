@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 
 import { appRoutes } from '../Routes/Routes';
 
+import { Links } from './constants';
 import MenuItems from './MenuItems';
 
 interface MenuItem {
@@ -29,7 +30,7 @@ const staticBottomPreviewItems: MenuItem[] = [
         divider: true,
         externalLink: true,
         label: 'Help',
-        path: 'https://support.bigcommerce.com/articles/Public/Stencil-Themes/#enabling',
+        path: Links.Help,
     },
 ];
 
@@ -46,7 +47,7 @@ const staticBottomItems: MenuItem[] = [
     {
         externalLink: true,
         label: 'Help',
-        path: 'https://support.bigcommerce.com/articles/Public/Stencil-Themes/#enabling',
+        path: Links.Help,
     },
 ];
 
