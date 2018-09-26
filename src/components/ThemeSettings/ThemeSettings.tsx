@@ -1,5 +1,6 @@
+import debounce from 'lodash/debounce';
 import { CheckboxInput, InputField, SelectBox } from 'pattern-lab';
-import React, { ChangeEvent, Component, SFC } from 'react';
+import React, { Component, SFC } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
@@ -22,9 +23,11 @@ import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ImageSize from '../ImageSize/ImageSize';
 import { appRoutes } from '../Routes/Routes';
 
+import { DebounceTimeMs, SettingType } from './constants';
 import { Heading, Item, List, Paragraph } from './styles';
 
 export interface ThemeSettingsProps extends RouteComponentProps<{}> {
+    debounceTime?: number;
     position: { x: number, y: number };
     settings: SettingsType;
     settingsIndex: number;
@@ -55,93 +58,86 @@ function transformOptions(setting: ThemeSchemaEntrySetting) {
     }) : [];
 }
 
-function checkTrackingType(setting: ThemeSchemaEntrySetting, target: HTMLInputElement | HTMLSelectElement) {
-    switch (setting.type) {
-        case 'checkbox':
-            return trackCheckboxChange(setting.id, (target as HTMLInputElement).checked);
-        case 'font':
-            return trackSelectChange(setting.id, (target as HTMLSelectElement).value);
-        case 'imageDimension':
-            return trackImageDimensionChange(setting.id, (target as HTMLInputElement).value);
+function trackChange(configChange: ThemeConfigChange) {
+    switch (configChange.setting.type) {
+        case SettingType.CHECKBOX:
+            return trackCheckboxChange(configChange.setting.id, configChange.value as boolean);
+        case SettingType.FONT:
+            return trackSelectChange(configChange.setting.id, configChange.value as string);
+        case SettingType.IMAGE_DIMENSION:
+            return trackImageDimensionChange(configChange.setting.id, configChange.value as string);
+        case SettingType.SELECT:
+            return trackSelectChange(configChange.setting.id, configChange.value as string);
+        case SettingType.TEXT:
+            return trackTextChange(configChange.setting.id, configChange.value as string);
     }
 }
 
 export function getEditor(
     setting: ThemeSchemaEntrySetting,
-    preSetValue: SettingsType,
-    handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
-    handleOnBlur: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void,
-    broadcastConfigChange: (
-        configChange: ThemeConfigChange
-    ) => (dispatch: Dispatch<State>, getState: () => State) => void
+    value: string | number | boolean | null,
+    handleChange: (configChange: ThemeConfigChange) => void
 ) {
     const testId = `${setting.type}.${setting.id}`;
     const prettyLabel = unescape(setting.label, 'all');
     switch (setting.type) {
-        case 'color':
+        case SettingType.COLOR:
             return <ColorPicker
-                color={preSetValue[`${setting.id}`] as string}
+                color={value as string}
                 label={prettyLabel}
                 name={setting.id!}
-                onChange={broadcastConfigChange}
+                onChange={handleChange}
                 testId={testId}
             />;
-        case 'checkbox':
+        case SettingType.CHECKBOX:
             return <CheckboxInput
-                checked={preSetValue[`${setting.id}`] as boolean}
+                checked={value as boolean}
                 label={prettyLabel}
-                onChange={handleChange}
+                onChange={({ target }) => handleChange({setting, value: target.checked})}
                 testId={testId}
             />;
-        case 'font':
+        case SettingType.FONT:
             return <SelectBox
-                selected={preSetValue[`${setting.id}`] as string}
+                selected={value as string}
                 label={prettyLabel}
-                onChange={handleChange}
+                onChange={({ target }) => handleChange({setting, value: target.value})}
                 options={transformOptions(setting)}
                 testId={testId}
             />;
-        case 'imageDimension':
+        case SettingType.IMAGE_DIMENSION:
             return <ImageSize
-                selected={preSetValue[`${setting.id}`] as string}
+                selected={value as string}
                 label={prettyLabel || ''}
-                onChange={handleChange}
+                onChange={({ target }) => handleChange({setting, value: target.value})}
                 options={transformOptions(setting)}
                 testId={testId}
             />;
-        case 'optimizedCheckout-image':
+        case SettingType.OPTIMIZED_CHECKOUT_IMAGE:
             return <CheckoutImageUpload
                 label={prettyLabel || ''}
                 name={setting.id!}
-                onChange={broadcastConfigChange}
-                imageURL={preSetValue[`${setting.id}`] as string}
+                onChange={handleChange}
+                imageURL={value as string}
                 testId={testId}
             />;
-        case 'select':
+        case SettingType.SELECT:
             return <SelectBox
-                selected={formatOptionValue(preSetValue[`${setting.id}`])}
+                selected={formatOptionValue(value as string | number | boolean)}
                 label={prettyLabel}
-                onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-                    trackSelectChange(setting.id, event.target.value);
-                    broadcastConfigChange({
-                        setting,
-                        value: parseOptionValue(event.target.value),
-                    });
-                }}
+                onChange={({ target }) => handleChange({setting, value: parseOptionValue(target.value)})}
                 options={transformOptions(setting)}
                 testId={testId}
             />;
-        case 'text':
+        case SettingType.TEXT:
             return <InputField
-                value={preSetValue[`${setting.id}`] as string}
+                value={value as string}
                 label={prettyLabel}
-                onChange={handleChange}
+                onChange={({ target }) => handleChange({setting, value: target.value})}
                 testId={testId}
-                onBlur={handleOnBlur}
             />;
-        case 'heading':
+        case SettingType.HEADING:
             return <Heading>{setting.content}</Heading>;
-        case 'paragraph':
+        case SettingType.PARAGRAPH:
             return <Paragraph>{setting.content}</Paragraph>;
         default:
             return null;
@@ -149,17 +145,11 @@ export function getEditor(
 }
 
 export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
-    handleChange = (setting: ThemeSchemaEntrySetting) =>
-        ({target}: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-            const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
-            checkTrackingType(setting, target);
-            this.props.updateThemeConfigChange({ setting, value });
-        };
+    static defaultProps = {
+        debounceTime: DebounceTimeMs,
+    };
 
-    handleOnBlur = (setting: ThemeSchemaEntrySetting) =>
-        ({target}: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-            trackTextChange(setting.label, (target as HTMLInputElement).value);
-        };
+    private static debouncedFunctions: { [id: string]: (config: ThemeConfigChange) => void } = {};
 
     render() {
         const { match, position, settings, themeSettings } = this.props;
@@ -172,20 +162,17 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
                 >
                     <List>
                         {themeSettings.settings.map((setting, index) => {
-                            const { reference, reference_default } = setting;
+                            const { id, reference, reference_default } = setting;
                             if (reference && settings[reference] === reference_default) {
                                 return null;
                             } else {
                                 return (
-
                                     <Item key={index}>
                                         {
                                             getEditor(
                                                 setting,
-                                                settings,
-                                                this.handleChange(setting),
-                                                this.handleOnBlur(setting),
-                                                this.props.updateThemeConfigChange
+                                                id ? settings[id] : null,
+                                                id ? this.debouncedUpdateThemeConfig(id) : this.updateThemeConfig
                                             )
                                         }
                                     </Item>
@@ -197,6 +184,16 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
             </Draggable>
         );
     }
+
+    private debouncedUpdateThemeConfig = (id: string) => {
+        return ThemeSettings.debouncedFunctions[id] ||
+            (ThemeSettings.debouncedFunctions[id] = debounce(this.updateThemeConfig, this.props.debounceTime));
+    };
+
+    private updateThemeConfig = (configChange: ThemeConfigChange) => {
+        trackChange(configChange);
+        this.props.updateThemeConfigChange(configChange);
+    };
 }
 
 const mapStateToProps = (state: State, ownProps: ThemeSettingsProps) => ({

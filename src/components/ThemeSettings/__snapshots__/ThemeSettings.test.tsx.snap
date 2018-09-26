@@ -14,32 +14,7 @@ exports[`<ThemeSettings /> getEditor when type equals checkbox should return wit
 <CheckboxInput
   checked={false}
   label="Hide links to web pages"
-  onChange={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "setting": Object {
-              "id": "hide_content",
-              "label": "Hide links on webpage",
-              "type": "checkbox",
-            },
-            "value": false,
-          },
-        ],
-        Array [
-          Object {
-            "setting": Object {
-              "id": "color-textHeading",
-              "label": "Headings text color",
-              "type": "color",
-            },
-            "value": "#FF123",
-          },
-        ],
-      ],
-    }
-  }
+  onChange={[Function]}
   testId="checkbox.testing-checkbox"
 />
 `;
@@ -49,32 +24,7 @@ exports[`<ThemeSettings /> getEditor when type equals color should return with t
   color="#FFFFF"
   label="Button text color"
   name="testing-color-picker"
-  onChange={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "setting": Object {
-              "id": "hide_content",
-              "label": "Hide links on webpage",
-              "type": "checkbox",
-            },
-            "value": false,
-          },
-        ],
-        Array [
-          Object {
-            "setting": Object {
-              "id": "color-textHeading",
-              "label": "Headings text color",
-              "type": "color",
-            },
-            "value": "#FF123",
-          },
-        ],
-      ],
-    }
-  }
+  onChange={[MockFunction]}
   testId="color.testing-color-picker"
 />
 `;
@@ -82,32 +32,7 @@ exports[`<ThemeSettings /> getEditor when type equals color should return with t
 exports[`<ThemeSettings /> getEditor when type equals font should return with the correct type 1`] = `
 <WithTheme(SelectBox)
   label="Logo Font Family"
-  onChange={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "setting": Object {
-              "id": "hide_content",
-              "label": "Hide links on webpage",
-              "type": "checkbox",
-            },
-            "value": false,
-          },
-        ],
-        Array [
-          Object {
-            "setting": Object {
-              "id": "color-textHeading",
-              "label": "Headings text color",
-              "type": "color",
-            },
-            "value": "#FF123",
-          },
-        ],
-      ],
-    }
-  }
+  onChange={[Function]}
   options={Array []}
   selected={false}
   testId="font.testing-font"
@@ -123,32 +48,7 @@ exports[`<ThemeSettings /> getEditor when type equals heading should return corr
 exports[`<ThemeSettings /> getEditor when type equals imageDimension should return the correct type 1`] = `
 <ImageSize
   label="Background image"
-  onChange={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "setting": Object {
-              "id": "hide_content",
-              "label": "Hide links on webpage",
-              "type": "checkbox",
-            },
-            "value": false,
-          },
-        ],
-        Array [
-          Object {
-            "setting": Object {
-              "id": "color-textHeading",
-              "label": "Headings text color",
-              "type": "color",
-            },
-            "value": "#FF123",
-          },
-        ],
-      ],
-    }
-  }
+  onChange={[Function]}
   options={Array []}
   selected="20x20"
   testId="imageDimension.test-imageDimension"
@@ -160,32 +60,7 @@ exports[`<ThemeSettings /> getEditor when type equals optimizedCheckout-image sh
   imageURL="hello_there"
   label="Upload image"
   name="test-imageUpload"
-  onChange={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "setting": Object {
-              "id": "hide_content",
-              "label": "Hide links on webpage",
-              "type": "checkbox",
-            },
-            "value": false,
-          },
-        ],
-        Array [
-          Object {
-            "setting": Object {
-              "id": "color-textHeading",
-              "label": "Headings text color",
-              "type": "color",
-            },
-            "value": "#FF123",
-          },
-        ],
-      ],
-    }
-  }
+  onChange={[MockFunction]}
   testId="optimizedCheckout-image.test-imageUpload"
 />
 `;
@@ -203,58 +78,7 @@ exports[`<ThemeSettings /> getEditor when type equals select should return corre
 exports[`<ThemeSettings /> getEditor when type equals text should return correct type 1`] = `
 <InputField
   label=""
-  onBlur={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "setting": Object {
-              "id": "hide_content",
-              "label": "Hide links on webpage",
-              "type": "checkbox",
-            },
-            "value": false,
-          },
-        ],
-        Array [
-          Object {
-            "setting": Object {
-              "id": "color-textHeading",
-              "label": "Headings text color",
-              "type": "color",
-            },
-            "value": "#FF123",
-          },
-        ],
-      ],
-    }
-  }
-  onChange={
-    [MockFunction] {
-      "calls": Array [
-        Array [
-          Object {
-            "setting": Object {
-              "id": "hide_content",
-              "label": "Hide links on webpage",
-              "type": "checkbox",
-            },
-            "value": false,
-          },
-        ],
-        Array [
-          Object {
-            "setting": Object {
-              "id": "color-textHeading",
-              "label": "Headings text color",
-              "type": "color",
-            },
-            "value": "#FF123",
-          },
-        ],
-      ],
-    }
-  }
+  onChange={[Function]}
   testId="text.test-text"
   value="kermit_the_frog"
 />
@@ -323,7 +147,7 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
         <Connect(ColorSetting)
           label="Headings text color"
           name="color-textHeading"
-          onChange={[MockFunction]}
+          onChange={[Function]}
           testId="color.color-textHeading"
         />
       </styled.li>
@@ -392,7 +216,6 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
       >
         <InputField
           label="Product sale price label"
-          onBlur={[Function]}
           onChange={[Function]}
           testId="text.pdp-sale-price-label"
         />
