@@ -11,4 +11,8 @@ export const List = styled.ul`
 export const Item = styled.li`
     line-height: 1.5rem;
     margin: 0 0 .5rem 0;
+
+    :hover {
+      text-decoration: underline
+    }
 `;

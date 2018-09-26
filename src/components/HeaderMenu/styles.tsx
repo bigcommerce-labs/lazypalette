@@ -69,6 +69,10 @@ const StyledIcon = styled.div.attrs<StyledIconProps>({
 })`
     transform: ${(props: StyledIconProps) => props.isRotated ? 'rotate(-90deg) translate(2px,1px)' : 'none'};
     transition-duration: 0.5s;
+
+    :hover {
+      background: ${theme.colors.backgroundHover};
+    }
 `;
 
 export const StyledPreviewItem = (props: StyledPreviewItemProps) => {

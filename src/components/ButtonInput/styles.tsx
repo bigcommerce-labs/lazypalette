@@ -27,7 +27,7 @@ export const Button = styled.button.attrs<ButtonProps>({})`
             color: ${isPrimary ? '#FFF' : theme.colors.primary};
 
             :hover {
-                background-color: ${isPrimary ? theme.colors.brandPrimary : theme.colors.background};
+                background-color: ${isPrimary ? theme.colors.primaryHover : theme.colors.secondaryHover};
                 ${!border && `
                     background-color: transparent;
                 `}

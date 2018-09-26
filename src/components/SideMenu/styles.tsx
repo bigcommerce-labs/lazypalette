@@ -155,6 +155,11 @@ export const NavItem = styled(NavLink)
         pointer-events: ${disabled ? 'none' : 'auto'};
         text-decoration: none;
 
+        :hover {
+          background: ${theme.colors.backgroundHover};
+          border-radius: 2px;
+        }
+
         &:visited {
             color: ${theme.colors.primaryText};
         }
@@ -174,6 +179,35 @@ export const ExternalNavItem = styled.a`
         padding-right: 0.5rem;
         text-decoration: none;
         width: max-content;
+
+        :hover {
+          text-decoration: underline;
+        }
+
+        &:visited {
+            color: ${theme.colors.primaryText};
+        }
+
+        &.${activeClassName} {
+            color: ${theme.colors.primaryText};
+            font-weight: ${theme.typography.fontWeight.bold};
+        }
+    `}
+`;
+
+export const ExternalHelpItem = styled.a`
+    ${({ theme }) => `
+        align-items: center;
+        color: ${theme.colors.primaryText};
+        display: flex;
+        margin: 0 1rem 0 0;
+        overflow: hidden;
+        text-decoration: none;
+
+        :hover {
+          background: ${theme.colors.backgroundHover};
+          border-radius: 2px;
+        }
 
         &:visited {
             color: ${theme.colors.primaryText};
@@ -195,7 +229,7 @@ export const ListItem = styled.li.attrs<ListItemProps>({})`
     border-left: 0.25rem solid;
     border-left-color: ${({ isActive, theme }) => isActive ? theme.colors.primary : `transparent`}
     margin: 0.25rem 0 0.5rem 0;
-    padding-left: 1.25rem;
+    padding-left: .5rem;
 
     ${({ divider, theme }) => {
         if (divider) {
@@ -221,6 +255,17 @@ export const ListItem = styled.li.attrs<ListItemProps>({})`
 export const ItemLabel = styled.span`
     flex-basis: 90%;
     flex-grow: 0;
+    margin-left: .75rem;
+`;
+
+export const FooterLabel = styled.span`
+    flex-basis: 90%;
+    flex-grow: 0;
+`;
+
+export const HelpLabel = styled.span`
+    flex-grow: 0;
+    margin-left: .75rem;
 `;
 
 export const StyledMenuItems = styled.ul`

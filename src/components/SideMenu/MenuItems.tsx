@@ -7,7 +7,8 @@ import { trackSectionOpen } from '../../services/analytics';
 
 import {
     activeClassName,
-    ExternalNavItem,
+    ExternalHelpItem,
+    HelpLabel,
     ItemLabel,
     ListItem,
     NavItem,
@@ -59,17 +60,17 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                             key={path}
                         >
                             {externalLink ?
-                                <ExternalNavItem
+                                <ExternalHelpItem
                                     href={path}
                                     target="_blank"
                                 >
-                                    <ItemLabel>
+                                    <HelpLabel>
                                         {label}
-                                    </ItemLabel>
+                                    </HelpLabel>
                                     <StyledExternalLink>
                                         <Icon glyph="externalLink" size="small" />
                                     </StyledExternalLink>
-                                </ExternalNavItem>
+                                </ExternalHelpItem>
 
                                 : <NavItem
                                     activeClassName={activeClassName}

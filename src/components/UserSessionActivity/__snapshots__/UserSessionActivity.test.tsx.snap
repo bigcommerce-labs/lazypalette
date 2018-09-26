@@ -154,7 +154,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                                     type="button"
                                   >
                                     <button
-                                      className="sc-bwzfXH bLHCSm"
+                                      className="sc-bwzfXH kBSfBk"
                                       data-test-id="ok"
                                       onClick={[Function]}
                                       type="button"
