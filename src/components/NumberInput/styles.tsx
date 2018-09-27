@@ -108,6 +108,7 @@ export const Input = styled.input.attrs<InputProps>({})`
     font-size: 0.75rem;
     text-align: center;
     width: 2.5rem;
+    -moz-appearance: textfield;
 
     :focus {
         border-color: ${({ theme }) => theme.colors.stroke};
