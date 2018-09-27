@@ -30,6 +30,7 @@ export interface ThemeSchema extends Array<ThemeSchemaEntry> {}
 
 export interface ThemeSchemaEntrySetting {
     content?: string;
+    enable?: string;
     force_reload?: boolean;
     id?: string;
     label?: string;
@@ -44,6 +45,7 @@ export interface ThemeSchemaEntrySetting {
 }
 
 export interface ThemeSchemaEntry {
+    enable?: string;
     name: string;
     settings: ThemeSchemaEntrySetting[];
 }

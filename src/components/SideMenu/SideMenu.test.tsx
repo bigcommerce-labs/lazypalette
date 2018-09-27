@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { StaticRouter } from 'react-router';
 
 import { Collapsed } from './constants';
 import { CollapseButton } from './styles';
@@ -22,23 +21,31 @@ describe('SideMenu', () => {
         staticContext: mockProp,
     };
 
+    const features = { enabledFeature: true, disabledFeature: false };
+
+    const themeDesignSections = [
+        { enable: 'enabledFeature', name: 'should render', settings: [] },
+        { enable: 'disabledFeature', name: 'should not render', settings: [] },
+        { enable: 'unknownFeature', name: 'should also render', settings: [] },
+        { name: 'also absolutely one of the ones that renders', settings: [] },
+    ];
+
     it('renders', () => {
         const sideMenu = shallow(
-            <StaticRouter location="/" context={{}}>
-                <SideMenu
-                    activeThemeId="1234567-1223-011123-111111"
-                    isPurchased={true}
-                    themeDesignSections={['cat', 'named', 'moe']}
-                    settings={mockSettings}
-                    themeId="1234567-1223-011123-111111"
-                    themeName="Caterstone"
-                    configurationId="4444-55555-77777-00000"
-                    variationId="2222-11111-0000-44444"
-                    versionId="2221-211111-0111-41111"
-                    postThemeConfigData={mockpostThemeConfig}
-                    {...routeProps}
-                />
-            </StaticRouter>
+            <SideMenu
+                activeThemeId="1234567-1223-011123-111111"
+                features={features}
+                isPurchased={true}
+                themeDesignSections={themeDesignSections}
+                settings={mockSettings}
+                themeId="1234567-1223-011123-111111"
+                themeName="Caterstone"
+                configurationId="4444-55555-77777-00000"
+                variationId="2222-11111-0000-44444"
+                versionId="2221-211111-0111-41111"
+                postThemeConfigData={mockpostThemeConfig}
+                {...routeProps}
+            />
         );
 
         expect(sideMenu).toMatchSnapshot();
@@ -48,8 +55,9 @@ describe('SideMenu', () => {
         const sideMenu = shallow(
             <SideMenu
                 activeThemeId="7777-9999-1111-0000"
+                features={features}
                 isPurchased={true}
-                themeDesignSections={['cat', 'named', 'joe']}
+                themeDesignSections={themeDesignSections}
                 settings={mockSettings}
                 themeId="7777-9999-1111-0000"
                 themeName="Catstone Box"
@@ -96,8 +104,9 @@ describe('SideMenu', () => {
                 const sideMenu = shallow(
                     <SideMenu
                         activeThemeId="blahblahblah"
+                        features={features}
                         isPurchased={true}
-                        themeDesignSections={['cat', 'named', 'joe']}
+                        themeDesignSections={themeDesignSections}
                         settings={mockSettings}
                         themeId="7777-9999-1111-0000"
                         themeName="Catstone Box"
@@ -118,8 +127,9 @@ describe('SideMenu', () => {
                 const sideMenu = shallow(
                     <SideMenu
                         activeThemeId="7777-9999-1111-0000"
+                        features={features}
                         isPurchased={true}
-                        themeDesignSections={['cat', 'named', 'joe']}
+                        themeDesignSections={themeDesignSections}
                         settings={mockSettings}
                         themeId="7777-9999-1111-0000"
                         themeName="Catstone Box"
@@ -140,8 +150,9 @@ describe('SideMenu', () => {
                 const sideMenu = shallow(
                     <SideMenu
                         activeThemeId="7777-9999-1111-0000"
+                        features={features}
                         isPurchased={false}
-                        themeDesignSections={['cat', 'named', 'joe']}
+                        themeDesignSections={themeDesignSections}
                         settings={mockSettings}
                         themeId="7777-9999-1111-0000"
                         themeName="Catstone Box"

@@ -220,6 +220,24 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
           testId="text.pdp-sale-price-label"
         />
       </styled.li>
+      <styled.li
+        key="9"
+      >
+        <InputField
+          label="This should render"
+          onChange={[Function]}
+          testId="text.enabled-Feature"
+        />
+      </styled.li>
+      <styled.li
+        key="11"
+      >
+        <InputField
+          label="This should render"
+          onChange={[Function]}
+          testId="text.unknown-Feature"
+        />
+      </styled.li>
     </styled.ul>
   </ExpandableMenu>
 </Draggable>

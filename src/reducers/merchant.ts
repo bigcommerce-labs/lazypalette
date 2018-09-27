@@ -1,9 +1,10 @@
 import { Action } from '../actions/action';
-import { MerchantActionTypes } from '../actions/merchant';
+import { MerchantActionTypes, StoreFeatures } from '../actions/merchant';
 
 export const initialState = {
     activeThemeId: '',
     activeVariationId: '',
+    features: {},
     isDownForMaintenance: false,
     isPrelaunchStore: false,
     previewCode: '',
@@ -13,6 +14,7 @@ export const initialState = {
 export interface MerchantStoreState {
     activeThemeId: string;
     activeVariationId: string;
+    features: StoreFeatures;
     isDownForMaintenance: boolean;
     isPrelaunchStore: boolean;
     previewCode: string;
