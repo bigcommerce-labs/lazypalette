@@ -57,10 +57,13 @@ export class PreviewPane extends Component<PreviewPaneProps> {
 
         /**
          * Structural updates can occur when the user makes a settings change which would modify the DOM of the page.
-         * If the variation changes, this should be considered a structural update.
-         * Example: User changes the number of featured products on the homepage.
+         * If the variation changes, this will set the needsForceReload to true which
+         * should be considered a structural update.
+         * Example:
+         *          User changes the number of featured products on the homepage.
+         *          User choosing a different variation from the Styles menu.
          */
-        if (needsForceReload || prevProps.variationId !== variationId) {
+        if (needsForceReload) {
             this.broadcastForceReload({
                 configurationId,
                 lastCommitId,

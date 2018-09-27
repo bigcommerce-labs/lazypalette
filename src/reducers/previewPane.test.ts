@@ -1,4 +1,6 @@
 import * as previewPaneActions from '../actions/previewPane';
+import * as themeActions from '../actions/theme';
+import { LoadThemeResponse, ThemeConfigPostResponse } from '../actions/theme';
 import { VIEWPORT_TYPES } from '../components/PreviewPane/constants';
 import { parseFont } from '../utils/fontUtil';
 
@@ -154,6 +156,92 @@ describe('Preview Pane reducer', () => {
 
             const action = previewPaneActions.updateFonts(payload);
             const expectedState = { ...initialState, ...{ fontUrl: parseFont(payload.value) } };
+
+            expect(previewPane(initialState, action)).toEqual(expectedState);
+        });
+    });
+
+    describe('when SAVE_THEME_CONFIG_RESPONSE is received', () => {
+        describe('when forceReload is false', () => {
+            const payload: ThemeConfigPostResponse = {
+                configurationId: '012',
+                forceReload: false,
+                settings: {},
+            };
+
+            it('should set needsForceReload to false', () => {
+                const action = themeActions.themeConfigSaveResponse(payload);
+                const expectedState = { ...initialState, ...{ needsForceReload: false } };
+                expect(previewPane(initialState, action)).toEqual(expectedState);
+            });
+        });
+
+        describe('when forceReload is true', () => {
+            const payload: ThemeConfigPostResponse = {
+                configurationId: '012',
+                forceReload: true,
+                settings: {},
+            };
+
+            it('should set needsForceReload to true', () => {
+                const action = themeActions.themeConfigSaveResponse(payload);
+                const expectedState = { ...initialState, ...{ needsForceReload: true } };
+                expect(previewPane(initialState, action)).toEqual(expectedState);
+            });
+        });
+    });
+
+    describe('when PREVIEW_THEME_CONFIG_RESPONSE is received', () => {
+        describe('when forceReload is false', () => {
+            const payload: ThemeConfigPostResponse = {
+                configurationId: '012',
+                forceReload: false,
+                settings: {},
+            };
+
+            it('should set needsForceReload to false', () => {
+                const action = themeActions.themeConfigPreviewResponse(payload);
+                const expectedState = { ...initialState, ...{ needsForceReload: false } };
+                expect(previewPane(initialState, action)).toEqual(expectedState);
+            });
+        });
+
+        describe('when forceReload is true', () => {
+            const payload: ThemeConfigPostResponse = {
+                configurationId: '012',
+                forceReload: true,
+                settings: {},
+            };
+
+            it('should set needsForceReload to true', () => {
+                const action = themeActions.themeConfigPreviewResponse(payload);
+                const expectedState = { ...initialState, ...{ needsForceReload: true } };
+                expect(previewPane(initialState, action)).toEqual(expectedState);
+            });
+        });
+    });
+
+    describe('when LOAD_THEME_RESPONSE is received', () => {
+        it('should set needsForceReload to true', () => {
+            const payload: LoadThemeResponse = {
+                configurationId: '123',
+                displayVersion: '2.1.0',
+                editorSchema: [{ name: 'blah', settings: [] }],
+                isPrivate: true,
+                isPurchased: true,
+                lastCommitId: '666',
+                price: 0,
+                settings: { color: 'red' },
+                themeId: '789',
+                themeName: 'Cornerstone',
+                variationHistory: [],
+                variationId: '012',
+                variationName: 'light',
+                variations: [],
+                versionId: '456',
+            };
+            const action = themeActions.loadThemeResponse(payload);
+            const expectedState = { ...initialState, ...{ needsForceReload: true } };
 
             expect(previewPane(initialState, action)).toEqual(expectedState);
         });
