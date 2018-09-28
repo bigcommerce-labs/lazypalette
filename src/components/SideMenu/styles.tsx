@@ -97,6 +97,7 @@ export const Header = styled.div`
 `;
 
 export const MenuContents = styled.div`
+    flex: 1;
     flex-grow: 1;
     margin: 0;
     overflow-y: auto;
