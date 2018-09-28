@@ -335,7 +335,7 @@ describe('PreviewPane', () => {
                         previewPane.channelService = channelService;
 
                         const newVariationId = 'a544ae50-9dd2-0136-f26b-0242ac110012';
-                        component.setProps({ variationId: newVariationId });
+                        component.setProps({ variationId: newVariationId, needsForceReload: true });
 
                         expect(channelService.safeBroadcast).toHaveBeenCalledTimes(1);
                         expect(channelService.safeBroadcast).toBeCalledWith(

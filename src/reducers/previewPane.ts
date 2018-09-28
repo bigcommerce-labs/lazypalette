@@ -88,6 +88,11 @@ const previewPane = (
                 ...state,
                 needsForceReload: action.payload.forceReload,
             };
+        case ThemeActionTypes.LOAD_THEME_RESPONSE:
+            return {
+                ...state,
+                needsForceReload: true,
+            };
         default:
             return state;
     }
