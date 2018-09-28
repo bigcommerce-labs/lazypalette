@@ -10,8 +10,10 @@ import {
     NotificationsProps
 } from '../../actions/notifications';
 import { loadTheme } from '../../actions/theme';
+import BrowserContext, {Browser} from '../../context/BrowserContext';
 import { State } from '../../reducers/reducers';
 import { ThemeVariationsEntry } from '../../reducers/theme';
+import { disableStoreDesign } from '../../services/themeApi';
 import { fetchDesignPolicyAck, postDesignPolicyAck } from '../../services/themeApi';
 
 import Draggable from '../Draggable/Draggable';
@@ -20,12 +22,13 @@ import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 import { appRoutes } from '../Routes/Routes';
 
 import {
+    themeEditorLink,
     CopyThemeText,
     CurrentModal,
     EditThemeFilesText,
     FileEditorPath,
     MyThemesPath,
-    RestoreOriginalText
+    RestoreOriginalText,
 } from './constants';
 import { Item, List } from './styles';
 
@@ -37,6 +40,7 @@ interface MoreOptionsProps extends RouteComponentProps<{}> {
     isPrivate: boolean;
     notifications: NotificationsProps;
     position: { x: number, y: number };
+    storeHash: string;
     variationId: string;
     versionId: string;
     themeId: string;
@@ -59,7 +63,7 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
         this.designPolicyAcknowledged = event.target.checked;
     };
 
-    handleCopyThemeModalCancel = () => {
+    handleModalCancel = () => {
         this.setState({ currentModal: CurrentModal.NONE });
     };
 
@@ -67,33 +71,29 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
         this.setState({ currentModal: CurrentModal.COPY_THEME });
     };
 
-    handleCopyTheme = () => {
+    handleCopyTheme = (_window: Window) => {
         this.setState({ currentModal: CurrentModal.NONE });
 
-        window.location.assign(MyThemesPath);
+        _window.location.assign(MyThemesPath);
     };
 
-    handleEditThemeFilesModalCancel = () => {
-        this.setState({ currentModal: CurrentModal.NONE });
-    };
-
-    handleEditThemeFilesModalOpen = () => {
+    handleEditThemeFilesModalOpen = (_window: Window) => {
         fetchDesignPolicyAck().then((result: { designPolicyAck: boolean }) => {
             if (!result.designPolicyAck) {
                 this.setState({ currentModal: CurrentModal.EDIT_THEME_FILES });
             } else {
-                this.handleEditThemeFiles();
+                this.handleEditThemeFiles(_window);
             }
         });
     };
 
-    handleEditThemeFiles = () => {
+    handleEditThemeFiles = (_window: Window) => {
         this.setState({ currentModal: CurrentModal.NONE });
 
         const { configurationId, variationId, versionId } = this.props;
 
         postDesignPolicyAck(this.designPolicyAcknowledged).then(data => {
-            window.location.assign(FileEditorPath(versionId, variationId, configurationId));
+            _window.location.assign(FileEditorPath(versionId, variationId, configurationId));
         });
     };
 
@@ -118,6 +118,23 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
         });
     };
 
+    handleOptOut = (_window: Window) => {
+        const { configurationId, variationId, versionId } = this.props;
+        this.setState({ currentModal: CurrentModal.NONE}, () => {
+            disableStoreDesign(this.props.storeHash)
+                .then(() => {
+                    const { protocol, hostname } = _window.location;
+                    _window.location.assign(
+                        `${protocol}//${hostname}/${themeEditorLink(versionId, variationId, configurationId)}`
+                    );
+                })
+                .catch(() => {
+                    this.props.createNotification(true, ToastMessages.ErrorSwitchToThemeEditor, ToastType.Invalid);
+                });
+        });
+
+    };
+
     render() {
         const { activeThemeId, isPrivate, match, position, themeId } = this.props;
         const { currentModal } = this.state;
@@ -125,71 +142,80 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
         const isActive = activeThemeId === themeId;
 
         return (
-            <>
-                <Draggable position={position}>
-                    <ExpandableMenu title="More Options" back={match.url}>
-                        <List>
-                            <Item data-test-id="go-to-te">Go to old Theme Editor</Item>
-                            <Item
-                                data-test-id="edit-theme-files"
-                                onClick={isPrivate
-                                    ? this.handleEditThemeFilesModalOpen
-                                    : this.handleCopyThemeModalOpen}
+            <BrowserContext.Consumer>
+                {({ _window }: Browser) =>
+                    <>
+                        <Draggable position={position}>
+                            <ExpandableMenu title="More Options" back={match.url}>
+                                <List>
+                                    <Item
+                                        data-test-id="switch-to-theme-editor"
+                                        onClick={() => this.handleOptOut(_window)}
+                                    >
+                                        Switch to old Theme Editor
+                                    </Item>
+                                    <Item
+                                        data-test-id="edit-theme-files"
+                                        onClick={isPrivate
+                                            ? () => this.handleEditThemeFilesModalOpen(_window)
+                                            : this.handleCopyThemeModalOpen}
+                                    >
+                                        Edit Theme Files
+                                    </Item>
+                                    <Item
+                                        data-test-id="restore-original"
+                                        onClick={this.handleResetModalOpen}
+                                    >
+                                        Restore original theme styles
+                                    </Item>
+                                </List>
+                            </ExpandableMenu>
+                        </Draggable>
+
+                        {currentModal === CurrentModal.COPY_THEME &&
+                            <ConfirmModal
+                                primaryAction={() => this.handleCopyTheme(_window)}
+                                primaryActionText={CopyThemeText.action}
+                                secondaryAction={this.handleModalCancel}
+                                overlayClose={this.handleModalCancel}
+                                title={CopyThemeText.title}
                             >
-                                Edit Theme Files
-                            </Item>
-                            <Item
-                                data-test-id="restore-original"
-                                onClick={this.handleResetModalOpen}
+                                {CopyThemeText.body}
+                            </ConfirmModal>
+                        }
+
+                        {currentModal === CurrentModal.EDIT_THEME_FILES &&
+                            <ConfirmModal
+                                primaryAction={() => this.handleEditThemeFiles(_window)}
+                                primaryActionText={EditThemeFilesText.action}
+                                secondaryAction={this.handleModalCancel}
+                                overlayClose={this.handleModalCancel}
+                                title={EditThemeFilesText.title}
                             >
-                                Restore original theme styles
-                            </Item>
-                        </List>
-                    </ExpandableMenu>
-                </Draggable>
+                                <>
+                                    {isActive ? EditThemeFilesText.bodyActive : EditThemeFilesText.bodyInactive}
+                                    <CheckboxInput
+                                        onChange={this.designAckChanged}
+                                        label="Do not show me again"
+                                    />
+                                </>
+                            </ConfirmModal>
+                        }
 
-                {currentModal === CurrentModal.COPY_THEME &&
-                    <ConfirmModal
-                        primaryAction={this.handleCopyTheme}
-                        primaryActionText={CopyThemeText.action}
-                        secondaryAction={this.handleCopyThemeModalCancel}
-                        overlayClose={this.handleCopyThemeModalCancel}
-                        title={CopyThemeText.title}
-                    >
-                        {CopyThemeText.body}
-                    </ConfirmModal>
+                        {currentModal === CurrentModal.RESET &&
+                            <ConfirmModal
+                                primaryAction={this.handleReset}
+                                primaryActionText={RestoreOriginalText.action}
+                                secondaryAction={this.handleResetModalCancel}
+                                overlayClose={this.handleResetModalCancel}
+                                title={RestoreOriginalText.title}
+                            >
+                                {RestoreOriginalText.body}
+                            </ConfirmModal>
+                        }
+                    </>
                 }
-
-                {currentModal === CurrentModal.EDIT_THEME_FILES &&
-                    <ConfirmModal
-                        primaryAction={this.handleEditThemeFiles}
-                        primaryActionText={EditThemeFilesText.action}
-                        secondaryAction={this.handleEditThemeFilesModalCancel}
-                        overlayClose={this.handleEditThemeFilesModalCancel}
-                        title={EditThemeFilesText.title}
-                    >
-                        <>
-                            {isActive ? EditThemeFilesText.bodyActive : EditThemeFilesText.bodyInactive}
-                            <CheckboxInput
-                                onChange={this.designAckChanged}
-                                label="Do not show me again"
-                            />
-                        </>
-                    </ConfirmModal>
-                }
-
-                {currentModal === CurrentModal.RESET &&
-                    <ConfirmModal
-                        primaryAction={this.handleReset}
-                        primaryActionText={RestoreOriginalText.action}
-                        secondaryAction={this.handleResetModalCancel}
-                        overlayClose={this.handleResetModalCancel}
-                        title={RestoreOriginalText.title}
-                    >
-                        {RestoreOriginalText.body}
-                    </ConfirmModal>
-                }
-            </>
+            </BrowserContext.Consumer>
         );
     }
 }
@@ -210,6 +236,7 @@ const mapStateToProps = (state: State) => ({
     isChanged: state.theme.isChanged,
     isPrivate: state.theme.isPrivate,
     notifications: state.notifications,
+    storeHash: state.merchant.storeHash,
     themeId: state.theme.themeId,
     variationId: state.theme.variationId,
     versionId: state.theme.versionId,
