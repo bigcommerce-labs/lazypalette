@@ -13,12 +13,17 @@ export interface SetStoreDataAction {
     type: MerchantActionTypes.SET_STORE_DEFAULTS;
 }
 
+export interface StoreFeatures {
+    [feature: string]: boolean;
+}
+
 export interface StoreDefaultData {
-    previewCode: string;
     activeThemeId: string;
     activeVariationId: string;
+    features: StoreFeatures;
     isDownForMaintenance: boolean;
     isPrelaunchStore: boolean;
+    previewCode: string;
     storeHash: string;
 }
 

@@ -6,6 +6,7 @@ import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import unescape from 'unescape';
 
+import { StoreFeatures } from '../../actions/merchant';
 import { updateThemeConfigChange, SettingsType, ThemeConfigChange } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
@@ -28,6 +29,7 @@ import { Heading, Item, List, Paragraph } from './styles';
 
 export interface ThemeSettingsProps extends RouteComponentProps<{}> {
     debounceTime?: number;
+    features: StoreFeatures;
     position: { x: number, y: number };
     settings: SettingsType;
     settingsIndex: number;
@@ -162,8 +164,8 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
                 >
                     <List>
                         {themeSettings.settings.map((setting, index) => {
-                            const { id, reference, reference_default } = setting;
-                            if (reference && settings[reference] === reference_default) {
+                            const { id } = setting;
+                            if (!this.isSettingVisible(setting)) {
                                 return null;
                             } else {
                                 return (
@@ -185,6 +187,21 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
         );
     }
 
+    private isSettingVisible(setting: ThemeSchemaEntrySetting) {
+        const { enable, reference, reference_default } = setting;
+        const { features, settings } = this.props;
+
+        if (reference && settings[reference] === reference_default) {
+            return false;
+        }
+
+        if (enable && features && enable in features) {
+            return features[enable];
+        }
+
+        return true;
+    }
+
     private debouncedUpdateThemeConfig = (id: string) => {
         return ThemeSettings.debouncedFunctions[id] ||
             (ThemeSettings.debouncedFunctions[id] = debounce(this.updateThemeConfig, this.props.debounceTime));
@@ -197,11 +214,13 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
 }
 
 const mapStateToProps = (state: State, ownProps: ThemeSettingsProps) => ({
+    features: state.merchant.features,
     settings: state.theme.settings,
     themeSettings: state.theme.schema[ownProps.settingsIndex],
 });
 
 interface StateFromProps {
+    features: StoreFeatures;
     settings: SettingsType;
     themeSettings: ThemeSchemaEntry;
 }

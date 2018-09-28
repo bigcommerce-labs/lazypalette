@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
-import { setStoreData, StoreDefaultData } from '../../actions/merchant';
+import { setStoreData, StoreDefaultData, StoreFeatures } from '../../actions/merchant';
 import { createNotification } from '../../actions/notifications';
 import {
     setPreviewPaneData,
@@ -27,6 +27,7 @@ import { StyledApp, Viewport } from './styles';
 interface AppProps extends RouteComponentProps<{}> {
     config: {
         assetPath: string;
+        features: StoreFeatures,
         guestPassword: string;
         isDownForMaintenance: boolean;
         isPrelaunchStore: boolean;
@@ -47,6 +48,7 @@ export class App extends Component<AppProps, {}> {
         const page = queryParams.redirectIframeUrl ? `/${queryParams.redirectIframeUrl}` : '/';
         const isUpdate = queryParams.appMode === 'preview';
         const {
+            features = {},
             guestPassword,
             isDownForMaintenance,
             isPrelaunchStore,
@@ -57,6 +59,7 @@ export class App extends Component<AppProps, {}> {
         this.props.setStoreData({
             activeThemeId: seedActiveTheme.themeId,
             activeVariationId: seedActiveTheme.id,
+            features,
             isDownForMaintenance,
             isPrelaunchStore,
             previewCode: guestPassword,

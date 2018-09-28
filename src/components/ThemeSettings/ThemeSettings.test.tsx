@@ -140,10 +140,29 @@ describe('<ThemeSettings />', () => {
                         label: 'Product sale price label',
                         type: 'text',
                     },
+                    {
+                        enable: 'enabledFeature',
+                        id: 'enabled-Feature',
+                        label: 'This should render',
+                        type: 'text',
+                    },
+                    {
+                        enable: 'disabledFeature',
+                        id: 'disabled-Feature',
+                        label: 'This should not render',
+                        type: 'text',
+                    },
+                    {
+                        enable: 'unknownFeature',
+                        id: 'unknown-Feature',
+                        label: 'This should render',
+                        type: 'text',
+                    },
                 ],
             };
             const themeSettings = shallow(
                 <ThemeSettings
+                    features={{ enabledFeature: true, disabledFeature: false }}
                     position={{ x: 5, y: 10 }}
                     settingsIndex={1}
                     themeSettings={testItems}
@@ -263,6 +282,7 @@ describe('<ThemeSettings />', () => {
             themeSettings = shallow(
                 <ThemeSettings
                     debounceTime={0}
+                    features={{}}
                     position={{ x: 5, y: 10 }}
                     settingsIndex={1}
                     themeSettings={testItems}

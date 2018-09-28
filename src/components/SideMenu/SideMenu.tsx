@@ -7,8 +7,10 @@ import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
 import { ConfigUpdateAction } from '../../actions/constants';
+import { StoreFeatures } from '../../actions/merchant';
 import { postThemeConfigData } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
+import { ThemeSchema, ThemeSchemaEntry } from '../../reducers/theme';
 import MoreOptions from '../MoreOptions/MoreOptions';
 import { appRoutes } from '../Routes/Routes';
 import ThemeHistory from '../ThemeHistory/ThemeHistory';
@@ -37,7 +39,8 @@ import {
 interface SideMenuProps extends RouteComponentProps<{}> {
     activeThemeId: string;
     isPurchased: boolean;
-    themeDesignSections: string[];
+    features: StoreFeatures;
+    themeDesignSections: ThemeSchema;
     settings: {[key: string]: string | boolean | number};
     themeId: string;
     themeName: string;
@@ -126,12 +129,14 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
         const isLoaded = themeDesignSections.length > 0;
         const status = this.editorThemeStatus();
 
+        const visibleThemeDesignSections = themeDesignSections.filter(this.isSectionVisible).map(({ name }) => name);
+
         return (
             <>
                 <ExpandMenuRoutes route={`${appRoutes.styles.route}`}/>
                 <ExpandMenuRoutes route={`${appRoutes.history.route}`}/>
                 <ExpandMenuRoutes route={`${appRoutes.options.route}`}/>
-                {this.props.themeDesignSections.map((name, index) => (
+                {visibleThemeDesignSections.map((name, index) => (
                     <ExpandMenuRoutes key={index} route={`${appRoutes.section.route}${index}`}/>
                 ))}
 
@@ -166,7 +171,7 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                                     <DesignSubMenu
                                         currentPath={match.path}
                                         isPreview={!isPurchased}
-                                        sections={themeDesignSections}
+                                        sections={visibleThemeDesignSections}
                                     />
                                 )}
                             />}
@@ -198,14 +203,26 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
             </>
         );
     }
+
+    private isSectionVisible = (section: ThemeSchemaEntry) => {
+        const { enable } = section;
+        const { features } = this.props;
+
+        if (enable && features && enable in features) {
+            return features[enable];
+        }
+
+        return true;
+    };
 }
 
 const mapStateToProps = ({ theme, merchant }: State) => ({
     activeThemeId: merchant.activeThemeId,
     configurationId: theme.configurationId,
+    features: merchant.features,
     isPurchased: theme.isPurchased,
     settings: theme.settings,
-    themeDesignSections: theme.schema.map(({ name }) => name),
+    themeDesignSections: theme.schema,
     themeId: theme.themeId,
     themeName: theme.themeName,
     variationId: theme.variationId,

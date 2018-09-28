@@ -10,6 +10,7 @@ describe ('merchant actions', () => {
                 const payload: StoreDefaultData = {
                     activeThemeId: '1234',
                     activeVariationId: '2345',
+                    features: { awesomeFeature: true },
                     isDownForMaintenance: false,
                     isPrelaunchStore: false,
                     previewCode: 'dodge',

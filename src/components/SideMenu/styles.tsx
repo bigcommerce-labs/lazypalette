@@ -116,6 +116,16 @@ export const HiddenTitle = styled.div`
     min-height: 2rem;
 `;
 
+HiddenTitle.defaultProps = {
+    theme: {
+        typography: {
+            fontSize: {
+                larger: '20px',
+            },
+        },
+    },
+};
+
 interface TitleProps {
     longTitle: boolean;
 }
@@ -165,6 +175,19 @@ export const NavItem = styled(NavLink)
     `}
 `;
 
+NavItem.defaultProps = {
+    theme: {
+        colors: {
+            primaryText: '#FFFFFF',
+        },
+        typography: {
+            fontWeight: {
+                bold: '600',
+            },
+        },
+    },
+};
+
 export const ExternalNavItem = styled.a`
     ${({ theme }) => `
         align-items: center;
@@ -185,6 +208,19 @@ export const ExternalNavItem = styled.a`
         }
     `}
 `;
+
+ExternalNavItem.defaultProps = {
+    theme: {
+        colors: {
+            primaryText: '#FFFFFF',
+        },
+        typography: {
+            fontWeight: {
+                bold: '600',
+            },
+        },
+    },
+};
 
 interface ListItemProps {
     divider?: boolean;
@@ -218,6 +254,14 @@ export const ListItem = styled.li.attrs<ListItemProps>({})`
     }
 }`;
 
+ListItem.defaultProps = {
+    theme: {
+        colors: {
+            stroke: '#FFFFFF',
+        },
+    },
+};
+
 export const ItemLabel = styled.span`
     flex-basis: 90%;
     flex-grow: 0;
@@ -233,12 +277,30 @@ export const StyledMenuItems = styled.ul`
     vertical-align: top;
 `;
 
+StyledMenuItems.defaultProps = {
+    theme: {
+        typography: {
+            fontSize: {
+                small: '12px',
+            },
+        },
+    },
+};
+
 export const StyledExternalLink = styled.div`
     color: ${({ theme }) => theme.colors.guideText};
     display: inline-block;
     line-height: 1rem;
     margin: 0.25rem 0 0 0.25rem;
 `;
+
+StyledExternalLink.defaultProps = {
+    theme: {
+        colors: {
+            guideText: '#FFFFFF',
+        },
+    },
+};
 
 interface CollapsedStyles extends CollapsedProps {
     theme: Theme;
@@ -343,6 +405,27 @@ export const CollapseButton = styled.button.attrs<CollapsedProps>({})`
     ${props => getCollapseStyles(props)};
 `;
 
+CollapseButton.defaultProps = {
+    theme: {
+        colors: {
+            brandPrimary: '#FFFFFF',
+            empty: '#FFFFFF',
+            primaryText: '#FFFFFF',
+            secondaryText: '#FFFFFF',
+            selectedBackground: '#FFFFFF',
+            stroke: '#FFFFFF',
+        },
+        elevation: {
+            raised: '0 1px 6px rgba(48, 53, 64, 0.2)',
+        },
+        typography: {
+            fontWeight: {
+                thin: '600',
+            },
+        },
+    },
+};
+
 interface StyledStatusProps {
     status: string;
 }
@@ -373,3 +456,22 @@ export const StyledStatus = styled.div.attrs<StyledStatusProps>({})`
         }
     }}
 `;
+
+StyledStatus.defaultProps = {
+    theme: {
+        colors: {
+            empty: '#FFFFFF',
+            guideText: '#FFFFFF',
+            secondaryText: '#FFFFFF',
+            success: '#FFFFFF',
+        },
+        typography: {
+            fontSize: {
+                smallest: '12px',
+            },
+            fontWeight: {
+                bold: '600',
+            },
+        },
+    },
+};
