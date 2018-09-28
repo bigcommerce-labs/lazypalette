@@ -36,6 +36,10 @@ export const Item = styled.li`
     color: ${({theme}) => theme.colors.primaryText};
     line-height: 1.5rem;
     margin: 0 0 .5rem 0;
+
+    :hover {
+      text-decoration: underline
+    }
 `;
 
 Item.defaultProps = {

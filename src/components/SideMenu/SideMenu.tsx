@@ -26,9 +26,9 @@ import {
     Container,
     ExternalNavItem,
     Footer,
+    FooterLabel,
     Header,
     HiddenTitle,
-    ItemLabel,
     MenuContents,
     StyledExternalLink,
     StyledStatus,
@@ -181,9 +181,9 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                             href="/"
                             target="_blank"
                         >
-                            <ItemLabel>
+                            <FooterLabel>
                                 View live store
-                            </ItemLabel>
+                            </FooterLabel>
                             <StyledExternalLink>
                                 <Icon glyph="externalLink" size="small" />
                             </StyledExternalLink>

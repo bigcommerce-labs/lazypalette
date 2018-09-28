@@ -10,6 +10,9 @@ export const List = styled.ul`
 
 export const HistoryEntry = styled.li`
     margin: 0 0 2rem 0;
+    :hover {
+      text-decoration: underline
+    }
 `;
 
 export const EntryActive = styled.div`
