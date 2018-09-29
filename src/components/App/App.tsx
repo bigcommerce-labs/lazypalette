@@ -24,18 +24,20 @@ import UIWindowProvider from '../UIWindowProvider/UIWindowProvider';
 
 import { StyledApp, Viewport } from './styles';
 
+export interface AppConfig {
+    assetPath: string;
+    features: StoreFeatures;
+    guestPassword: string;
+    isDownForMaintenance: boolean;
+    isPrelaunchStore: boolean;
+    oauthBaseUrl: string;
+    seedActiveTheme: { themeId: string, id: string };
+    shopPath: string;
+    storeHash: string;
+}
+
 interface AppProps extends RouteComponentProps<{}> {
-    config: {
-        assetPath: string;
-        features: StoreFeatures,
-        guestPassword: string;
-        isDownForMaintenance: boolean;
-        isPrelaunchStore: boolean;
-        oauthBaseUrl: string;
-        seedActiveTheme: { themeId: string, id: string },
-        shopPath: string;
-        storeHash: string;
-    };
+    config: AppConfig;
     createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
     fetchInitialState(variationID: string, configurationId?: string, upgrade?: boolean): Dispatch<State>;
     setPreviewPaneData(previewPaneData: PreviewPaneDefaultData): Dispatch<State>;
