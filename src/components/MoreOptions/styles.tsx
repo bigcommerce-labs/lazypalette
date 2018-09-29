@@ -62,3 +62,10 @@ Link.defaultProps = {
         },
     },
 };
+
+export const ExternalLink = styled.div`
+    display: inline-block;
+    margin: 0 0 0 0.25rem;
+    position: relative;
+    top: 0.125rem;
+`;

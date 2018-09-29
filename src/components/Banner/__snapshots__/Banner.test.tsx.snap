@@ -4,28 +4,35 @@ exports[`Banner when rendering renders correctly in live mode 1`] = `""`;
 
 exports[`Banner when rendering renders correctly in maintenance mode 1`] = `
 <styled.div>
-  Store is down for maintenance.
+  Your store is down for maintenance.
    
 </styled.div>
 `;
 
 exports[`Banner when rendering renders correctly in prelaunch mode 1`] = `
 <styled.div>
-  Store has not launched and is not publicly visible.
+  Your store has not launched and is not publicly visible.
    
   <Tooltip
+    clickable={true}
     message={
-      <styled.p>
-        You must launch your store from the Getting
-        <br />
-        Started page in order to make it public.
-        <br />
-        <a
-          href="/manage/getting-started"
-        >
-          Go to Getting Started
-        </a>
-      </styled.p>
+      <styled.div>
+        <UNDEFINED>
+          <p>
+            You must launch your store from the Getting Started page in order to make it public.
+          </p>
+          <p>
+            <a
+              href="/manage/getting-started"
+            >
+              Go to Getting Started
+            </a>
+          </p>
+          <p>
+            You can still let other people see your store before it is launched by sharing the private store link.
+          </p>
+        </UNDEFINED>
+      </styled.div>
     }
   >
     <styled.span>

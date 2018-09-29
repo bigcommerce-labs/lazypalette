@@ -125,13 +125,14 @@ Title.defaultProps = {
 };
 
 export const ModalBox = styled.div`
-    box-sizing: border-box;
-    position: relative;
     background-color: ${({ theme }) => theme.colors.empty};
-    padding: 1.5rem;
     border: 1px solid ${({ theme }) => theme.colors.guideText};
+    border-radius: 4px;
     box-shadow: ${({ theme }) => theme.elevation.floating};
+    box-sizing: border-box;
     overflow: auto;
+    padding: 1.5rem;
+    position: relative;
     width: 30rem;
     z-index: ${({ theme }) => theme.layers.highest};
 `;

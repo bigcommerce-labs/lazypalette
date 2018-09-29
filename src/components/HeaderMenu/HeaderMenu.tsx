@@ -13,7 +13,7 @@ import { ViewportType } from '../PreviewPane/PreviewPane';
 import PubShareBox from '../PubShareBox/PubShareBox';
 import Toast from '../Toast/Toast';
 
-import { StyledHeaderMenu, StyledPreviewItem } from './styles';
+import { StyledHeaderMenu, StyledPreviewItem, ViewportIcons } from './styles';
 import HeaderMenuLogo from './HeaderMenuLogo';
 
 interface HeaderMenuProps {
@@ -72,16 +72,18 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
         return (
             <StyledHeaderMenu>
                 <HeaderMenuLogo />
-                {viewportKeys.map(view => (
-                    <StyledPreviewItem
-                        isRotated={VIEWPORT_TYPES[view] === VIEWPORT_TYPES.DESKTOP ? undefined : isRotated}
-                        isSelected={viewportType === VIEWPORT_TYPES[view]}
-                        tooltip={VIEWPORT_TYPES[view].tooltip}
-                        key={view}
-                        onClick={this.handleIconClick(view)}
-                        viewportType={VIEWPORT_TYPES[view]}
-                    />
-                ))}
+                <ViewportIcons>
+                    {viewportKeys.map(view => (
+                        <StyledPreviewItem
+                            isRotated={VIEWPORT_TYPES[view] === VIEWPORT_TYPES.DESKTOP ? undefined : isRotated}
+                            isSelected={viewportType === VIEWPORT_TYPES[view]}
+                            tooltip={VIEWPORT_TYPES[view].tooltip}
+                            key={view}
+                            onClick={this.handleIconClick(view)}
+                            viewportType={VIEWPORT_TYPES[view]}
+                        />
+                    ))}
+                </ViewportIcons>
                 <PubShareBox
                     onPublish={this.handlePublish}
                     onSave={this.handleSave}

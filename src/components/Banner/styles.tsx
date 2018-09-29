@@ -16,8 +16,9 @@ export const StyledIcon = styled.span`
     }
 `;
 
-export const StyledMessage = styled.p`
+export const StyledMessage = styled.div`
     text-align: left;
+    width: 18rem;
 
     a {
         color: ${({ theme }) => theme.colors.primary};

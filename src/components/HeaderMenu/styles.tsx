@@ -44,10 +44,12 @@ export const StyledHeaderSpan = styled.span.attrs<StyledHeaderSpanProps>({})`
     display: inline-block;
     height: 2rem;
     margin-right: 0.5rem;
+`;
 
-    :first-of-type {
-        margin-left: 3.5rem
-    }
+export const ViewportIcons = styled.div`
+    display: inline-block;
+    height: 2rem;
+    margin-left: 3.5rem;
 `;
 
 interface StyledPreviewItemProps {

@@ -2,7 +2,7 @@ import { mount } from 'enzyme';
 import React from 'react';
 import styled from 'styled-components';
 
-import { StyledTooltip } from './styles';
+import { StyledTooltip, TooltipWrapper } from './styles';
 import Tooltip from './Tooltip';
 
 const ChildElement = styled.div``;
@@ -170,6 +170,7 @@ describe('Tooltip', () => {
 
             tooltip = mount(
                 <Tooltip
+                    clickable={true}
                     hideDelay={500}
                     message="hello"
                     mock={mock}
@@ -183,7 +184,7 @@ describe('Tooltip', () => {
         describe('when the tooltip is not shown', () => {
             describe('when the mouse enters the child element', () => {
                 it('starts a timer to show the tooltip', () => {
-                    tooltip.find(ChildElement).simulate('mouseEnter');
+                    tooltip.find(TooltipWrapper).simulate('mouseEnter');
                     expect(setTimeout).toHaveBeenCalledTimes(1);
                     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
                     jest.runAllTimers();
@@ -193,12 +194,21 @@ describe('Tooltip', () => {
 
             describe('when the mouse leaves the child element', () => {
                 it('stops the timer to show the tooltip', () => {
-                    tooltip.find(ChildElement).simulate('mouseEnter');
+                    tooltip.find(TooltipWrapper).simulate('mouseEnter');
                     expect(setTimeout).toHaveBeenCalledTimes(1);
                     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
-                    tooltip.find(ChildElement).simulate('mouseLeave');
+                    tooltip.find(TooltipWrapper).simulate('mouseLeave');
                     jest.runAllTimers();
                     expect(tooltip.state().tooltipVisible).toEqual(false);
+                });
+            });
+
+            describe('when the child element is clicked', () => {
+                it('shows the tooltip and clears the timer', () => {
+                    tooltip.find(TooltipWrapper).simulate('mouseEnter');
+                    tooltip.find(TooltipWrapper).simulate('click');
+                    expect(clearTimeout).toHaveBeenCalledTimes(1);
+                    expect(tooltip.state().tooltipVisible).toEqual(true);
                 });
             });
         });
@@ -210,7 +220,7 @@ describe('Tooltip', () => {
 
             describe('when the mouse leaves the child element', () => {
                 it('starts the timer to hide the tooltip', () => {
-                    tooltip.find(ChildElement).simulate('mouseLeave');
+                    tooltip.find(TooltipWrapper).simulate('mouseLeave');
                     expect(setTimeout).toHaveBeenCalledTimes(1);
                     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500);
                     jest.runAllTimers();
@@ -230,10 +240,10 @@ describe('Tooltip', () => {
 
             describe('when the mouse enters the child element', () => {
                 it('stops the timer to hide the tooltip', () => {
-                    tooltip.find(ChildElement).simulate('mouseLeave');
+                    tooltip.find(TooltipWrapper).simulate('mouseLeave');
                     expect(setTimeout).toHaveBeenCalledTimes(1);
                     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500);
-                    tooltip.find(ChildElement).simulate('mouseEnter');
+                    tooltip.find(TooltipWrapper).simulate('mouseEnter');
                     jest.runAllTimers();
                     expect(tooltip.state().tooltipVisible).toEqual(true);
                 });
@@ -241,12 +251,21 @@ describe('Tooltip', () => {
 
             describe('when the mouse enters the tooltip element', () => {
                 it('stops the timer to hide the tooltip', () => {
-                    tooltip.find(ChildElement).simulate('mouseLeave');
+                    tooltip.find(TooltipWrapper).simulate('mouseLeave');
                     expect(setTimeout).toHaveBeenCalledTimes(1);
                     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 500);
                     tooltip.find(StyledTooltip).simulate('mouseEnter');
                     jest.runAllTimers();
                     expect(tooltip.state().tooltipVisible).toEqual(true);
+                });
+            });
+
+            describe('when the child element is clicked', () => {
+                it('hides the tooltip and clears the timer', () => {
+                    tooltip.find(TooltipWrapper).simulate('mouseLeave');
+                    tooltip.find(TooltipWrapper).simulate('click');
+                    expect(clearTimeout).toHaveBeenCalledTimes(1);
+                    expect(tooltip.state().tooltipVisible).toEqual(false);
                 });
             });
         });

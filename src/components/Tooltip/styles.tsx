@@ -49,3 +49,8 @@ StyledTooltip.defaultProps = {
         },
     },
 };
+
+export const TooltipWrapper = styled.div`
+    cursor: pointer;
+    display: inline;
+`;

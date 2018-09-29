@@ -157,7 +157,7 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                             </HiddenTitle>
                         }
 
-                        <Tooltip message={status.tooltip}>
+                        <Tooltip clickable={true} message={status.tooltip}>
                             <StyledStatus status={status.label}>
                                 {status.label}
                             </StyledStatus>

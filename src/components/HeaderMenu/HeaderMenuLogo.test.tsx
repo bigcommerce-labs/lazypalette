@@ -5,7 +5,7 @@ import React from 'react';
 import BrowserContext from '../../context/BrowserContext';
 
 import {HeaderMenuLinks} from './constants';
-import { BCLogo } from './styles';
+import { BCLogoInline } from './styles';
 import HeaderMenuLogo from './HeaderMenuLogo';
 
 describe('<HeaderMenuLogo />', () => {
@@ -33,7 +33,7 @@ describe('<HeaderMenuLogo />', () => {
             );
 
             expect(mockWindow.location.assign).not.toBeCalled();
-            component.find(BCLogo).simulate('click');
+            component.find(BCLogoInline).simulate('click');
             expect(mockWindow.location.assign).toBeCalledWith(
                 `${mockWindow.location.protocol}//${mockWindow.location.hostname}/${HeaderMenuLinks.CONTROL_PANEL}`
             );

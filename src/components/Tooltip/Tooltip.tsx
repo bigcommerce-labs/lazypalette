@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 
-import { StyledTooltip } from './styles';
+import { StyledTooltip, TooltipWrapper } from './styles';
 
 interface TooltipProps {
+    clickable?: boolean;
     hideDelay?: number;
     message?: JSX.Element | string;
     showDelay?: number;
@@ -133,11 +134,25 @@ class Tooltip extends PureComponent<TooltipProps, TooltipState> {
         }
     };
 
-    onMouseEnter = () => {
+    handleMouseEnter = () => {
         this.state.tooltipVisible ? this.clearHideTimer() : this.startShowTimer();
     };
 
-    onMouseLeave = () => {
+    handleMouseClick = () => {
+        if (!this.props.clickable) {
+            return;
+        }
+
+        if (this.state.tooltipVisible) {
+            this.hideTooltip();
+            this.clearHideTimer();
+        } else {
+            this.showTooltip();
+            this.clearShowTimer();
+        }
+    };
+
+    handleMouseLeave = () => {
         this.state.tooltipVisible ? this.startHideTimer() : this.clearShowTimer();
     };
 
@@ -149,19 +164,23 @@ class Tooltip extends PureComponent<TooltipProps, TooltipState> {
             <>
                 {tooltipVisible && message &&
                     <StyledTooltip
-                        onMouseEnter={this.onMouseEnter}
-                        onMouseLeave={this.onMouseLeave}
+                        onMouseEnter={this.handleMouseEnter}
+                        onMouseLeave={this.handleMouseLeave}
                         innerRef={this.tooltipRef}
                         position={tooltipPosition}
                     >
                         {message}
                     </StyledTooltip>
                 }
-                {React.cloneElement(child, {
-                    innerRef: this.childRef,
-                    onMouseEnter: this.onMouseEnter,
-                    onMouseLeave: this.onMouseLeave,
-                })}
+                <TooltipWrapper
+                    onClick={this.handleMouseClick}
+                    onMouseEnter={this.handleMouseEnter}
+                    onMouseLeave={this.handleMouseLeave}
+                >
+                    {React.cloneElement(child, {
+                        innerRef: this.childRef,
+                    })}
+                </TooltipWrapper>
             </>
 
         );
