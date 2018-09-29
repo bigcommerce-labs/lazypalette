@@ -37,16 +37,21 @@ export function fetchAllThemeData(config: FetchAllThemeDataConfig) {
     }
 
     return variationPromise.then(response => {
-        const { configurationId: activeConfigurationId, id: fetchedVariationId, versionId } = response;
+        const { configurationId: activeConfigurationId, id: fetchedVariationId, isPurchased, versionId } = response;
 
         response.configurationId = configurationId || activeConfigurationId;
 
-        return Axios.all([
-            fetchVariationHistory(storeHash, fetchedVariationId),
+        const apiCalls = [
             fetchThemeConfig(response.configurationId),
             fetchThemeVersion(storeHash, versionId),
-        ])
-            .then(Axios.spread((variationHistory, { configurationId: id, settings }, { editorSchema }) => {
+        ];
+
+        if (isPurchased) {
+            apiCalls.push(fetchVariationHistory(storeHash, fetchedVariationId));
+        }
+
+        return Axios.all(apiCalls)
+            .then(Axios.spread(({ configurationId: id, settings }, { editorSchema }, variationHistory = undefined) => {
                 response.variationHistory = variationHistory;
                 response.id = fetchedVariationId;
                 response.settings = settings;
