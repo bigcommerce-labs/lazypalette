@@ -11,6 +11,12 @@ exports[`ThemeHistory when rendering when it has history items when an item is c
     }
   >
     <ExpandableMenu
+      back={
+        Object {
+          "pathname": "/",
+          "search": undefined,
+        }
+      }
       title="History"
     >
       <styled.ul>
@@ -140,6 +146,12 @@ exports[`ThemeHistory when rendering when it has history items when in prelaunch
     }
   >
     <ExpandableMenu
+      back={
+        Object {
+          "pathname": "/",
+          "search": undefined,
+        }
+      }
       title="History"
     >
       <styled.ul>
@@ -269,6 +281,12 @@ exports[`ThemeHistory when rendering when it has history items when no items are
     }
   >
     <ExpandableMenu
+      back={
+        Object {
+          "pathname": "/",
+          "search": undefined,
+        }
+      }
       title="History"
     >
       <styled.ul>
@@ -388,6 +406,12 @@ exports[`ThemeHistory when rendering when it has no history items renders correc
     }
   >
     <ExpandableMenu
+      back={
+        Object {
+          "pathname": "/",
+          "search": undefined,
+        }
+      }
       title="History"
     >
       <styled.ul />
@@ -407,6 +431,12 @@ exports[`ThemeHistory when rendering when the modal is open renders correctly 1`
     }
   >
     <ExpandableMenu
+      back={
+        Object {
+          "pathname": "/",
+          "search": undefined,
+        }
+      }
       title="History"
     >
       <styled.ul>

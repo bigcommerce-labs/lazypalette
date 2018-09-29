@@ -1,3 +1,4 @@
+import { LocationDescriptor } from 'history';
 import CheckboxInput from 'pattern-lab/build/dist/components/CheckboxInput/CheckboxInput';
 import React, { ChangeEvent, PureComponent, SFC } from 'react';
 import { connect } from 'react-redux';
@@ -179,17 +180,29 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
     };
 
     render() {
-        const { activeThemeId, isPrivate, match, position, themeId } = this.props;
+        const {
+            activeThemeId,
+            isPrivate,
+            location,
+            match,
+            position,
+            themeId,
+        } = this.props;
         const { currentModal } = this.state;
 
         const isActive = activeThemeId === themeId;
+
+        const locationDesciptor: LocationDescriptor = {
+            pathname: match.url,
+            search: location.search,
+        };
 
         return (
             <BrowserContext.Consumer>
                 {({ _window }: Browser) =>
                     <>
                         <Draggable position={position}>
-                            <ExpandableMenu title="More Options" back={match.url}>
+                            <ExpandableMenu title="More Options" back={locationDesciptor}>
                                 <List>
                                     <Item
                                         data-test-id="switch-to-theme-editor"

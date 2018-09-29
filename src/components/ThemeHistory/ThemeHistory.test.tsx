@@ -43,7 +43,12 @@ describe('ThemeHistory', () => {
     const routeProps = {
         history: mockProp,
         location: mockProp,
-        match: mockProp,
+        match: {
+            isExact: true,
+            params: '',
+            path: '/',
+            url: '/',
+        },
         staticContext: mockProp,
     };
 

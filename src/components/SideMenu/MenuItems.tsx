@@ -1,3 +1,4 @@
+import { LocationDescriptor } from 'history';
 import { theme, Icon } from 'pattern-lab';
 import React, { Component } from 'react';
 import Dotdotdot from 'react-dotdotdot';
@@ -52,6 +53,10 @@ class MenuItems extends Component<MenuItemsProps, {}> {
             <StyledMenuItems>
                 {this.props.items.map(({ disabled, divider, externalLink, path, label }) => {
                     const isActive = this.isPathActive(path);
+                    const locationDescriptor: LocationDescriptor = {
+                        pathname: this.toggleLink(path),
+                        search: this.props.location.search,
+                    };
 
                     return (
                         <ListItem
@@ -80,7 +85,7 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                                     key={path}
                                     onClick={() => this.handleClick(label)}
                                     replace
-                                    to={this.toggleLink(path)}
+                                    to={locationDescriptor}
                                 >
                                     <ItemLabel>
                                         <Dotdotdot clamp={2}>

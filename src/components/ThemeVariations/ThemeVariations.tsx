@@ -1,3 +1,4 @@
+import { LocationDescriptor } from 'history';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
@@ -83,6 +84,10 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
         const { styles } = appRoutes;
         const { position, match, themeVariants} = this.props;
         const { isConfirmOpen } = this.state;
+        const locationDescriptor: LocationDescriptor = {
+            pathname: match.url,
+            search: this.props.location.search,
+        };
 
         return (
             <Route
@@ -92,7 +97,7 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
                     <>
                         <Draggable position={position}>
                             <ExpandableMenu
-                                back={match.url}
+                                back={locationDescriptor}
                                 minHeight="20rem"
                                 title="Styles"
                             >

@@ -1,3 +1,4 @@
+import { LocationDescriptor } from 'history';
 import debounce from 'lodash/debounce';
 import { CheckboxInput, InputField, SelectBox } from 'pattern-lab';
 import React, { Component, SFC } from 'react';
@@ -155,11 +156,15 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
 
     render() {
         const { match, position, settings, themeSettings } = this.props;
+        const locationDescriptor: LocationDescriptor = {
+            pathname: match.url,
+            search: this.props.location.search,
+        };
 
         return (
             <Draggable position={position} >
                 <ExpandableMenu
-                    back={match.url}
+                    back={locationDescriptor}
                     title={themeSettings ? themeSettings.name : ''}
                 >
                     <List>
