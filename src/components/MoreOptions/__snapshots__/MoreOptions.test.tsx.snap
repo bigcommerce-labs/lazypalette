@@ -92,7 +92,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
       }
     >
       <div
-        className="sc-gZMcBi jqupxp"
+        className="sc-ckVGcZ cRvvSG"
         style={
           Object {
             "pointerEvents": "none",
@@ -112,43 +112,43 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
           windowRef={
             Object {
               "current": <div
-                class="sc-ckVGcZ eeQKHk"
+                class="sc-jKJlTe bscMFT"
                 style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
               >
                 <div
-                  class="sc-eNQAEJ ciJvEF"
+                  class="sc-hMqMXs gRogto"
                 >
                   <h2
-                    class="sc-hMqMXs iMZiKp"
+                    class="sc-kEYyzF kyDTlJ"
                   >
                     More Options
                   </h2>
                   <a
-                    class="sc-jKJlTe kguzhm"
+                    class="sc-eNQAEJ hsjWjU"
                     href="/"
                     theme="[object Object]"
                   />
                 </div>
                 <div
-                  class="sc-kEYyzF iGleKB"
+                  class="sc-kkGfuU kKTIOj"
                 >
                   <ul
-                    class="sc-bwzfXH hgAFeZ"
+                    class="sc-kgoBCf lnAFix"
                   >
                     <li
-                      class="sc-htpNat llgAUd"
+                      class="sc-kGXeez cMNWCR"
                       data-test-id="switch-to-theme-editor"
                     >
                       Switch to old Theme Editor
                     </li>
                     <li
-                      class="sc-htpNat llgAUd"
+                      class="sc-kGXeez cMNWCR"
                       data-test-id="edit-theme-files"
                     >
                       Edit Theme Files
                     </li>
                     <li
-                      class="sc-htpNat llgAUd"
+                      class="sc-kGXeez cMNWCR"
                       data-test-id="restore-original"
                     >
                       Restore original theme styles
@@ -156,16 +156,16 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                   </ul>
                 </div>
                 <div
-                  class="sc-kkGfuU gqvOyG"
+                  class="sc-iAyFgw iALBxf"
                 >
                   <div
-                    class="sc-iAyFgw kuqypn"
+                    class="sc-hSdWYo hTJEal"
                   >
                     <span
-                      class="sc-ifAKCX cOuCxr"
+                      class="sc-htpNat gUgXl"
                     >
                       <svg
-                        class="sc-EHOje jMQVch"
+                        class="sc-bxivhb fJCLdB"
                         version="1.1"
                         viewBox="0 0 16 6"
                         xmlns="http://www.w3.org/2000/svg"
@@ -189,43 +189,43 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
             innerRef={
               Object {
                 "current": <div
-                  class="sc-ckVGcZ eeQKHk"
+                  class="sc-jKJlTe bscMFT"
                   style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
                 >
                   <div
-                    class="sc-eNQAEJ ciJvEF"
+                    class="sc-hMqMXs gRogto"
                   >
                     <h2
-                      class="sc-hMqMXs iMZiKp"
+                      class="sc-kEYyzF kyDTlJ"
                     >
                       More Options
                     </h2>
                     <a
-                      class="sc-jKJlTe kguzhm"
+                      class="sc-eNQAEJ hsjWjU"
                       href="/"
                       theme="[object Object]"
                     />
                   </div>
                   <div
-                    class="sc-kEYyzF iGleKB"
+                    class="sc-kkGfuU kKTIOj"
                   >
                     <ul
-                      class="sc-bwzfXH hgAFeZ"
+                      class="sc-kgoBCf lnAFix"
                     >
                       <li
-                        class="sc-htpNat llgAUd"
+                        class="sc-kGXeez cMNWCR"
                         data-test-id="switch-to-theme-editor"
                       >
                         Switch to old Theme Editor
                       </li>
                       <li
-                        class="sc-htpNat llgAUd"
+                        class="sc-kGXeez cMNWCR"
                         data-test-id="edit-theme-files"
                       >
                         Edit Theme Files
                       </li>
                       <li
-                        class="sc-htpNat llgAUd"
+                        class="sc-kGXeez cMNWCR"
                         data-test-id="restore-original"
                       >
                         Restore original theme styles
@@ -233,16 +233,16 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     </ul>
                   </div>
                   <div
-                    class="sc-kkGfuU gqvOyG"
+                    class="sc-iAyFgw iALBxf"
                   >
                     <div
-                      class="sc-iAyFgw kuqypn"
+                      class="sc-hSdWYo hTJEal"
                     >
                       <span
-                        class="sc-ifAKCX cOuCxr"
+                        class="sc-htpNat gUgXl"
                       >
                         <svg
-                          class="sc-EHOje jMQVch"
+                          class="sc-bxivhb fJCLdB"
                           version="1.1"
                           viewBox="0 0 16 6"
                           xmlns="http://www.w3.org/2000/svg"
@@ -279,7 +279,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
             }
           >
             <div
-              className="sc-ckVGcZ eeQKHk"
+              className="sc-jKJlTe bscMFT"
               style={
                 Object {
                   "left": "10px",
@@ -305,7 +305,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                 }
               >
                 <div
-                  className="sc-eNQAEJ ciJvEF"
+                  className="sc-hMqMXs gRogto"
                 >
                   <styled.h2
                     onMouseDown={[Function]}
@@ -323,7 +323,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     }
                   >
                     <h2
-                      className="sc-hMqMXs iMZiKp"
+                      className="sc-kEYyzF kyDTlJ"
                       onMouseDown={[Function]}
                     >
                       More Options
@@ -343,7 +343,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     to="/"
                   >
                     <Link
-                      className="sc-jKJlTe kguzhm"
+                      className="sc-eNQAEJ hsjWjU"
                       onClick={[Function]}
                       replace={true}
                       theme={
@@ -357,7 +357,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                       to="/"
                     >
                       <a
-                        className="sc-jKJlTe kguzhm"
+                        className="sc-eNQAEJ hsjWjU"
                         href="/"
                         onClick={[Function]}
                         theme={
@@ -373,13 +373,21 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                   </Styled(Link)>
                 </div>
               </styled.div>
-              <styled.div>
+              <styled.div
+                theme={
+                  Object {
+                    "colors": Object {
+                      "empty": "#FFFFFF",
+                    },
+                  }
+                }
+              >
                 <div
-                  className="sc-kEYyzF iGleKB"
+                  className="sc-kkGfuU kKTIOj"
                 >
                   <styled.ul>
                     <ul
-                      className="sc-bwzfXH hgAFeZ"
+                      className="sc-kgoBCf lnAFix"
                     >
                       <styled.li
                         data-test-id="switch-to-theme-editor"
@@ -393,7 +401,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         }
                       >
                         <li
-                          className="sc-htpNat llgAUd"
+                          className="sc-kGXeez cMNWCR"
                           data-test-id="switch-to-theme-editor"
                           onClick={[Function]}
                         >
@@ -412,7 +420,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         }
                       >
                         <li
-                          className="sc-htpNat llgAUd"
+                          className="sc-kGXeez cMNWCR"
                           data-test-id="edit-theme-files"
                           onClick={[Function]}
                         >
@@ -431,7 +439,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         }
                       >
                         <li
-                          className="sc-htpNat llgAUd"
+                          className="sc-kGXeez cMNWCR"
                           data-test-id="restore-original"
                           onClick={[Function]}
                         >
@@ -446,12 +454,12 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                 onMouseDown={[Function]}
               >
                 <div
-                  className="sc-kkGfuU gqvOyG"
+                  className="sc-iAyFgw iALBxf"
                   onMouseDown={[Function]}
                 >
                   <styled.div>
                     <div
-                      className="sc-iAyFgw kuqypn"
+                      className="sc-hSdWYo hTJEal"
                     >
                       <Icon
                         glyph="resizeable"
@@ -462,13 +470,13 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                           iconSize="large"
                         >
                           <span
-                            className="sc-ifAKCX cOuCxr"
+                            className="sc-htpNat gUgXl"
                           >
                             <styled.svg
                               viewBox="0 0 16 6"
                             >
                               <svg
-                                className="sc-EHOje jMQVch"
+                                className="sc-bxivhb fJCLdB"
                                 version="1.1"
                                 viewBox="0 0 16 6"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -590,7 +598,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
       }
     >
       <div
-        className="sc-gZMcBi jqupxp"
+        className="sc-ckVGcZ cRvvSG"
         style={
           Object {
             "pointerEvents": "none",
@@ -610,43 +618,43 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
           windowRef={
             Object {
               "current": <div
-                class="sc-ckVGcZ eeQKHk"
+                class="sc-jKJlTe bscMFT"
                 style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
               >
                 <div
-                  class="sc-eNQAEJ ciJvEF"
+                  class="sc-hMqMXs gRogto"
                 >
                   <h2
-                    class="sc-hMqMXs iMZiKp"
+                    class="sc-kEYyzF kyDTlJ"
                   >
                     More Options
                   </h2>
                   <a
-                    class="sc-jKJlTe kguzhm"
+                    class="sc-eNQAEJ hsjWjU"
                     href="/"
                     theme="[object Object]"
                   />
                 </div>
                 <div
-                  class="sc-kEYyzF iGleKB"
+                  class="sc-kkGfuU kKTIOj"
                 >
                   <ul
-                    class="sc-bwzfXH hgAFeZ"
+                    class="sc-kgoBCf lnAFix"
                   >
                     <li
-                      class="sc-htpNat llgAUd"
+                      class="sc-kGXeez cMNWCR"
                       data-test-id="switch-to-theme-editor"
                     >
                       Switch to old Theme Editor
                     </li>
                     <li
-                      class="sc-htpNat llgAUd"
+                      class="sc-kGXeez cMNWCR"
                       data-test-id="edit-theme-files"
                     >
                       Edit Theme Files
                     </li>
                     <li
-                      class="sc-htpNat llgAUd"
+                      class="sc-kGXeez cMNWCR"
                       data-test-id="restore-original"
                     >
                       Restore original theme styles
@@ -654,16 +662,16 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                   </ul>
                 </div>
                 <div
-                  class="sc-kkGfuU gqvOyG"
+                  class="sc-iAyFgw iALBxf"
                 >
                   <div
-                    class="sc-iAyFgw kuqypn"
+                    class="sc-hSdWYo hTJEal"
                   >
                     <span
-                      class="sc-ifAKCX cOuCxr"
+                      class="sc-htpNat gUgXl"
                     >
                       <svg
-                        class="sc-EHOje jMQVch"
+                        class="sc-bxivhb fJCLdB"
                         version="1.1"
                         viewBox="0 0 16 6"
                         xmlns="http://www.w3.org/2000/svg"
@@ -687,43 +695,43 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
             innerRef={
               Object {
                 "current": <div
-                  class="sc-ckVGcZ eeQKHk"
+                  class="sc-jKJlTe bscMFT"
                   style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
                 >
                   <div
-                    class="sc-eNQAEJ ciJvEF"
+                    class="sc-hMqMXs gRogto"
                   >
                     <h2
-                      class="sc-hMqMXs iMZiKp"
+                      class="sc-kEYyzF kyDTlJ"
                     >
                       More Options
                     </h2>
                     <a
-                      class="sc-jKJlTe kguzhm"
+                      class="sc-eNQAEJ hsjWjU"
                       href="/"
                       theme="[object Object]"
                     />
                   </div>
                   <div
-                    class="sc-kEYyzF iGleKB"
+                    class="sc-kkGfuU kKTIOj"
                   >
                     <ul
-                      class="sc-bwzfXH hgAFeZ"
+                      class="sc-kgoBCf lnAFix"
                     >
                       <li
-                        class="sc-htpNat llgAUd"
+                        class="sc-kGXeez cMNWCR"
                         data-test-id="switch-to-theme-editor"
                       >
                         Switch to old Theme Editor
                       </li>
                       <li
-                        class="sc-htpNat llgAUd"
+                        class="sc-kGXeez cMNWCR"
                         data-test-id="edit-theme-files"
                       >
                         Edit Theme Files
                       </li>
                       <li
-                        class="sc-htpNat llgAUd"
+                        class="sc-kGXeez cMNWCR"
                         data-test-id="restore-original"
                       >
                         Restore original theme styles
@@ -731,16 +739,16 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     </ul>
                   </div>
                   <div
-                    class="sc-kkGfuU gqvOyG"
+                    class="sc-iAyFgw iALBxf"
                   >
                     <div
-                      class="sc-iAyFgw kuqypn"
+                      class="sc-hSdWYo hTJEal"
                     >
                       <span
-                        class="sc-ifAKCX cOuCxr"
+                        class="sc-htpNat gUgXl"
                       >
                         <svg
-                          class="sc-EHOje jMQVch"
+                          class="sc-bxivhb fJCLdB"
                           version="1.1"
                           viewBox="0 0 16 6"
                           xmlns="http://www.w3.org/2000/svg"
@@ -777,7 +785,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
             }
           >
             <div
-              className="sc-ckVGcZ eeQKHk"
+              className="sc-jKJlTe bscMFT"
               style={
                 Object {
                   "left": "10px",
@@ -803,7 +811,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                 }
               >
                 <div
-                  className="sc-eNQAEJ ciJvEF"
+                  className="sc-hMqMXs gRogto"
                 >
                   <styled.h2
                     onMouseDown={[Function]}
@@ -821,7 +829,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     }
                   >
                     <h2
-                      className="sc-hMqMXs iMZiKp"
+                      className="sc-kEYyzF kyDTlJ"
                       onMouseDown={[Function]}
                     >
                       More Options
@@ -841,7 +849,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     to="/"
                   >
                     <Link
-                      className="sc-jKJlTe kguzhm"
+                      className="sc-eNQAEJ hsjWjU"
                       onClick={[Function]}
                       replace={true}
                       theme={
@@ -855,7 +863,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                       to="/"
                     >
                       <a
-                        className="sc-jKJlTe kguzhm"
+                        className="sc-eNQAEJ hsjWjU"
                         href="/"
                         onClick={[Function]}
                         theme={
@@ -871,13 +879,21 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                   </Styled(Link)>
                 </div>
               </styled.div>
-              <styled.div>
+              <styled.div
+                theme={
+                  Object {
+                    "colors": Object {
+                      "empty": "#FFFFFF",
+                    },
+                  }
+                }
+              >
                 <div
-                  className="sc-kEYyzF iGleKB"
+                  className="sc-kkGfuU kKTIOj"
                 >
                   <styled.ul>
                     <ul
-                      className="sc-bwzfXH hgAFeZ"
+                      className="sc-kgoBCf lnAFix"
                     >
                       <styled.li
                         data-test-id="switch-to-theme-editor"
@@ -891,7 +907,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         }
                       >
                         <li
-                          className="sc-htpNat llgAUd"
+                          className="sc-kGXeez cMNWCR"
                           data-test-id="switch-to-theme-editor"
                           onClick={[Function]}
                         >
@@ -910,7 +926,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         }
                       >
                         <li
-                          className="sc-htpNat llgAUd"
+                          className="sc-kGXeez cMNWCR"
                           data-test-id="edit-theme-files"
                           onClick={[Function]}
                         >
@@ -929,7 +945,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         }
                       >
                         <li
-                          className="sc-htpNat llgAUd"
+                          className="sc-kGXeez cMNWCR"
                           data-test-id="restore-original"
                           onClick={[Function]}
                         >
@@ -944,12 +960,12 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                 onMouseDown={[Function]}
               >
                 <div
-                  className="sc-kkGfuU gqvOyG"
+                  className="sc-iAyFgw iALBxf"
                   onMouseDown={[Function]}
                 >
                   <styled.div>
                     <div
-                      className="sc-iAyFgw kuqypn"
+                      className="sc-hSdWYo hTJEal"
                     >
                       <Icon
                         glyph="resizeable"
@@ -960,13 +976,13 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                           iconSize="large"
                         >
                           <span
-                            className="sc-ifAKCX cOuCxr"
+                            className="sc-htpNat gUgXl"
                           >
                             <styled.svg
                               viewBox="0 0 16 6"
                             >
                               <svg
-                                className="sc-EHOje jMQVch"
+                                className="sc-bxivhb fJCLdB"
                                 version="1.1"
                                 viewBox="0 0 16 6"
                                 xmlns="http://www.w3.org/2000/svg"

@@ -49,4 +49,5 @@ export const CheckoutImageRemoveLink = styled.a`
 export const SmallText = styled.span`
     color: ${({ theme }) => theme.colors.secondaryText};
     font-size: ${({ theme }) => theme.typography.fontSize.smaller};
+    line-height: 1.25rem;
 `;

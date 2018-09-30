@@ -21,21 +21,30 @@ exports[`Tooltip renders correctly when the tooltip is not shown 1`] = `
   }
 >
   <styled.div
-    innerRef={
-      Object {
-        "current": <div
-          class="sc-bwzfXH uTxCW"
-        />,
-      }
-    }
+    onClick={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
     <div
-      className="sc-bwzfXH uTxCW"
+      className="sc-bwzfXH kYDFiJ"
+      onClick={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-    />
+    >
+      <styled.div
+        innerRef={
+          Object {
+            "current": <div
+              class="sc-htpNat KtFsv"
+            />,
+          }
+        }
+      >
+        <div
+          className="sc-htpNat KtFsv"
+        />
+      </styled.div>
+    </div>
   </styled.div>
 </Tooltip>
 `;
@@ -119,21 +128,30 @@ exports[`Tooltip renders correctly when the tooltip is shown 1`] = `
     </div>
   </styled.div>
   <styled.div
-    innerRef={
-      Object {
-        "current": <div
-          class="sc-bwzfXH uTxCW"
-        />,
-      }
-    }
+    onClick={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
     <div
-      className="sc-bwzfXH uTxCW"
+      className="sc-bwzfXH kYDFiJ"
+      onClick={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-    />
+    >
+      <styled.div
+        innerRef={
+          Object {
+            "current": <div
+              class="sc-htpNat KtFsv"
+            />,
+          }
+        }
+      >
+        <div
+          className="sc-htpNat KtFsv"
+        />
+      </styled.div>
+    </div>
   </styled.div>
 </Tooltip>
 `;
@@ -159,21 +177,30 @@ exports[`Tooltip renders correctly when the tooltip is shown but the message is 
   }
 >
   <styled.div
-    innerRef={
-      Object {
-        "current": <div
-          class="sc-bwzfXH uTxCW"
-        />,
-      }
-    }
+    onClick={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
     <div
-      className="sc-bwzfXH uTxCW"
+      className="sc-bwzfXH kYDFiJ"
+      onClick={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-    />
+    >
+      <styled.div
+        innerRef={
+          Object {
+            "current": <div
+              class="sc-htpNat KtFsv"
+            />,
+          }
+        }
+      >
+        <div
+          className="sc-htpNat KtFsv"
+        />
+      </styled.div>
+    </div>
   </styled.div>
 </Tooltip>
 `;
@@ -265,21 +292,30 @@ exports[`Tooltip renders correctly when the tooltip is shown with a component as
     </div>
   </styled.div>
   <styled.div
-    innerRef={
-      Object {
-        "current": <div
-          class="sc-bwzfXH uTxCW"
-        />,
-      }
-    }
+    onClick={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
     <div
-      className="sc-bwzfXH uTxCW"
+      className="sc-bwzfXH kYDFiJ"
+      onClick={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-    />
+    >
+      <styled.div
+        innerRef={
+          Object {
+            "current": <div
+              class="sc-htpNat KtFsv"
+            />,
+          }
+        }
+      >
+        <div
+          className="sc-htpNat KtFsv"
+        />
+      </styled.div>
+    </div>
   </styled.div>
 </Tooltip>
 `;

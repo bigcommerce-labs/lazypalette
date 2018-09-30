@@ -46,6 +46,7 @@ exports[`SideMenu Theme status label when active theme is not the current theme 
         Catstone Box
       </styled.div>
       <Tooltip
+        clickable={true}
         message="This theme is not currently applied to your store."
       >
         <styled.div
@@ -73,7 +74,15 @@ exports[`SideMenu Theme status label when active theme is not the current theme 
         </styled.div>
       </Tooltip>
     </styled.div>
-    <styled.div>
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "background": "#FFFFFF",
+          },
+        }
+      }
+    >
       <Route
         path="/"
         render={[Function]}
@@ -194,6 +203,7 @@ exports[`SideMenu Theme status label when activeTheme is the current theme and i
         Catstone Box
       </styled.div>
       <Tooltip
+        clickable={true}
         message="This theme is currently applied to your store."
       >
         <styled.div
@@ -221,7 +231,15 @@ exports[`SideMenu Theme status label when activeTheme is the current theme and i
         </styled.div>
       </Tooltip>
     </styled.div>
-    <styled.div>
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "background": "#FFFFFF",
+          },
+        }
+      }
+    >
       <Route
         path="/"
         render={[Function]}
@@ -342,6 +360,7 @@ exports[`SideMenu Theme status label when isPurchased is false renders correctly
         Catstone Box
       </styled.div>
       <Tooltip
+        clickable={true}
         message="To use this theme, you must buy it before you can save or publish to your store."
       >
         <styled.div
@@ -369,7 +388,15 @@ exports[`SideMenu Theme status label when isPurchased is false renders correctly
         </styled.div>
       </Tooltip>
     </styled.div>
-    <styled.div>
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "background": "#FFFFFF",
+          },
+        }
+      }
+    >
       <Route
         path="/"
         render={[Function]}
@@ -490,6 +517,7 @@ exports[`SideMenu renders 1`] = `
         Caterstone
       </styled.div>
       <Tooltip
+        clickable={true}
         message="This theme is currently applied to your store."
       >
         <styled.div
@@ -517,7 +545,15 @@ exports[`SideMenu renders 1`] = `
         </styled.div>
       </Tooltip>
     </styled.div>
-    <styled.div>
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "background": "#FFFFFF",
+          },
+        }
+      }
+    >
       <Route
         path="/"
         render={[Function]}

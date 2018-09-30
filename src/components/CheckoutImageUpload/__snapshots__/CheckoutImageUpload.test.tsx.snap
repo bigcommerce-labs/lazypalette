@@ -44,7 +44,7 @@ exports[`CheckoutImageUpload handleChangeImage when the user upload files displa
             </styled.label>
             <styled.span>
               <span
-                className="sc-gzVnrw ilxeHL"
+                className="sc-gzVnrw giqQgB"
               >
                 1000x400px recommended
               </span>
@@ -123,7 +123,7 @@ exports[`CheckoutImageUpload handleChangeImage when the user upload files when w
             </styled.label>
             <styled.span>
               <span
-                className="sc-gzVnrw ilxeHL"
+                className="sc-gzVnrw giqQgB"
               >
                 1000x400px recommended
               </span>
@@ -218,7 +218,7 @@ exports[`CheckoutImageUpload handleRemoveImage when the user clicks the remove b
             </styled.label>
             <styled.span>
               <span
-                className="sc-gzVnrw ilxeHL"
+                className="sc-gzVnrw giqQgB"
               >
                 1000x400px recommended
               </span>
@@ -291,7 +291,7 @@ exports[`CheckoutImageUpload handleRemoveImage when we have a previously set ima
             </styled.label>
             <styled.span>
               <span
-                className="sc-gzVnrw ilxeHL"
+                className="sc-gzVnrw giqQgB"
               >
                 1000x400px recommended
               </span>

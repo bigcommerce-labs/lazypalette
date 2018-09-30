@@ -101,12 +101,39 @@ export const MenuContents = styled.div`
     flex-grow: 1;
     margin: 0;
     overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+
+        &:vertical {
+            width: 11px;
+        }
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        border: 2px solid ${({ theme: { colors } }) => colors.background};
+        background-color: rgba(0, 0, 0, .5);
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: ${({ theme: { colors } }) => colors.background};
+        border-radius: 8px;
+    }
 `;
+
+MenuContents.defaultProps = {
+    theme: {
+        colors: {
+            background: '#FFFFFF',
+        },
+    },
+};
 
 export const Footer = styled.div`
     flex-grow: 0;
     flex-shrink: 1;
-    margin: 1rem 1.25rem 1.25rem 1.5rem;
+    margin: 1rem 1.25rem 1.5rem 1.5rem;
 `;
 
 export const HiddenTitle = styled.div`
@@ -421,7 +448,7 @@ const getCollapseStyles = ({collapsed, theme}: CollapsedStyles) => {
 
 export const CollapseButton = styled.button.attrs<CollapsedProps>({})`
     position: absolute;
-    bottom: 1.25rem;
+    bottom: 1.5rem;
     width: 2rem;
     height: 2rem;
     border-radius: 50%;

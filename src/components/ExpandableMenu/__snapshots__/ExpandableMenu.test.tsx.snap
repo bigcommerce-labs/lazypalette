@@ -58,7 +58,15 @@ exports[`renders 1`] = `
       to="/bar"
     />
   </styled.div>
-  <styled.div>
+  <styled.div
+    theme={
+      Object {
+        "colors": Object {
+          "empty": "#FFFFFF",
+        },
+      }
+    }
+  >
     <TestChildren />
   </styled.div>
   <styled.div>

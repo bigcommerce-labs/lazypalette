@@ -80,7 +80,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
               }
             >
               <div
-                className="sc-htoDjs kWVyBi"
+                className="sc-htoDjs dirVeL"
                 onClick={[Function]}
               >
                 <styled.div>

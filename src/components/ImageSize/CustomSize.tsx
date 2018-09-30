@@ -2,6 +2,7 @@ import { Icon } from 'pattern-lab';
 import React, { ChangeEvent, ChangeEventHandler, FocusEvent, PureComponent } from 'react';
 
 import NumberInput from '../NumberInput/NumberInput';
+import Tooltip from '../Tooltip/Tooltip';
 
 import { Messages } from './constants';
 import { Axis, DimensionMessage, SizeModal, StyledContainer, StyledImageLock } from './styles';
@@ -108,12 +109,14 @@ class CustomSize extends PureComponent<CustomSizeProps, CustomSizeState> {
                         />
                     </Axis>
 
-                    <StyledImageLock onClick={this.imageLock}>
-                        <Icon
-                            glyph={ imageLock ? 'imageLock' : 'imageUnlock' }
-                            size="large"
-                        />
-                    </StyledImageLock>
+                    <Tooltip message={Messages.Lock}>
+                        <StyledImageLock onClick={this.imageLock}>
+                            <Icon
+                                glyph={ imageLock ? 'imageLock' : 'imageUnlock' }
+                                size="large"
+                            />
+                        </StyledImageLock>
+                    </Tooltip>
 
                     <Axis>
                         <NumberInput

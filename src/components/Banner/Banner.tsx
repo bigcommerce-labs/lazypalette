@@ -8,7 +8,7 @@ import Tooltip from '../Tooltip/Tooltip';
 import { ToastType } from '../../actions/constants';
 import { State } from '../../reducers/reducers';
 
-import { CopyMessage } from './constants';
+import { CopyMessage, MaintenanceMessage, PrelaunchMessage, TooltipMessage } from './constants';
 import { StyledBanner, StyledIcon, StyledMessage, StyledShareableLink } from './styles';
 
 interface BannerProps {
@@ -23,9 +23,9 @@ const Banner = (props: BannerProps) => {
     const { createNotification, isDownForMaintenance, isPrelaunchStore, previewCode, shopPath } = props;
     const addBanner = isDownForMaintenance || isPrelaunchStore;
     const message = isDownForMaintenance
-        ? 'Store is down for maintenance.'
+        ? MaintenanceMessage
         : isPrelaunchStore
-            ? 'Store has not launched and is not publicly visible.'
+            ? PrelaunchMessage
             : '';
 
     const copyLink = () => {
@@ -40,11 +40,10 @@ const Banner = (props: BannerProps) => {
             <StyledBanner>
                 {message} {(!isDownForMaintenance && isPrelaunchStore) &&
                     <Tooltip
+                        clickable={true}
                         message={
                             <StyledMessage>
-                                You must launch your store from the Getting<br/>
-                                Started page in order to make it public.<br/>
-                                <a href="/manage/getting-started">Go to Getting Started</a>
+                                {TooltipMessage}
                             </StyledMessage>
                         }
                     >

@@ -1,6 +1,7 @@
+import { theme, Icon } from 'pattern-lab';
 import React from 'react';
 
-import { Link, ModalParagraph } from './styles';
+import { ExternalLink, Link, ModalParagraph } from './styles';
 
 export const FileEditorPath = (versionId: string, variationId: string, configurationId: string) =>
     `/manage/file-editor/${versionId}/${variationId}/${configurationId}`;
@@ -35,6 +36,9 @@ export const EditThemeFilesText = {
                 Theme Files.&nbsp;
                 <Link href={designPolicyUrl} target="_blank">
                     Learn more
+                    <ExternalLink>
+                        <Icon primaryColor={theme.colors.primary} glyph="externalLink" size="small" />
+                    </ExternalLink>
                 </Link>
             </ModalParagraph>
         </>,
@@ -44,6 +48,9 @@ export const EditThemeFilesText = {
             is unable to offer support for any theme that has been modified with Edit Theme Files.&nbsp;
             <Link href={designPolicyUrl} target="_blank">
                 Learn more
+                <ExternalLink>
+                    <Icon primaryColor={theme.colors.primary} glyph="externalLink" size="small" />
+                </ExternalLink>
             </Link>
         </ModalParagraph>,
     title: 'Edit Theme Files',

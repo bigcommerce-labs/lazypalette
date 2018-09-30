@@ -37,7 +37,6 @@ export const ExpandModal = styled.div.attrs<ExpandModalProps>({
     animation: ${openAnimation} 100ms ease-out;
     pointer-events: auto;
     visibility: visible;
-    -ms-overflow-y: auto;
 }}
 `;
 
@@ -137,7 +136,35 @@ export const Content = styled.div`
     padding: 1.5rem 0 0 0;
     overflow-x: hidden;
     overflow-y: auto;
+    -ms-overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+
+        &:vertical {
+            width: 11px;
+        }
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        border: 2px solid ${({ theme: { colors } }) => colors.empty};
+        background-color: rgba(0, 0, 0, .5);
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: ${({ theme: { colors } }) => colors.empty};
+        border-radius: 8px;
+    }
 `;
+
+Content.defaultProps = {
+    theme: {
+        colors: {
+            empty: '#FFFFFF',
+        },
+    },
+};
 
 export const ResizeHandle = styled.div`
     cursor: pointer;
