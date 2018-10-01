@@ -14,9 +14,8 @@ describe('InactiveAction', () => {
     const mockHandleSave = jest.fn();
 
     const InactiveActionElement = <InactiveAction
-        canPublish={false}
-        canSave={false}
         isPrelaunchStore={false}
+        loading={false}
         handlePublish={mockHandlePublish}
         handleSave={mockHandleSave}
     />;
@@ -41,6 +40,26 @@ describe('InactiveAction', () => {
             inactiveActionMount.setProps({isPrelaunchStore: false});
             expect(inactiveActionMount.find(useAsActiveButton).hostNodes().length).toBe(0);
             expect(inactiveActionMount.find(publishButton).hostNodes().length).toBe(1);
+        });
+    });
+
+    describe('when isPrelaunchStore is false and loading is true', () => {
+        it('publish button should be disable', () => {
+            inactiveActionMount.setProps({
+                isPrelaunchStore: false,
+                loading: true,
+            });
+            expect(inactiveActionMount.find(publishButton).hostNodes().props().disabled).toBe(true);
+        });
+    });
+
+    describe('when isPrelaunchStore is true and loading is false', () => {
+        it('publish button should be enabled', () => {
+            inactiveActionMount.setProps({
+                isPrelaunchStore: false,
+                loading: false,
+            });
+            expect(inactiveActionMount.find(publishButton).hostNodes().props().disabled).toBe(false);
         });
     });
 });

@@ -16,11 +16,10 @@ exports[`PubShareBox when rendering when this is a purchased theme when this is 
   isChanged={false}
 >
   <InactiveAction
-    canPublish={true}
-    canSave={false}
     handlePublish={[Function]}
     handleSave={[Function]}
     isPrelaunchStore={false}
+    loading={false}
   />
 </styled.div>
 `;
@@ -30,11 +29,10 @@ exports[`PubShareBox when rendering when this is a purchased theme when this is 
   isChanged={false}
 >
   <ActiveAction
-    canPublish={true}
-    canSave={false}
     handlePublish={[Function]}
     handleSave={[Function]}
     isPrelaunchStore={true}
+    loading={false}
   />
 </styled.div>
 `;
@@ -44,11 +42,10 @@ exports[`PubShareBox when rendering when this is a purchased theme when this is 
   isChanged={false}
 >
   <ActiveAction
-    canPublish={true}
-    canSave={false}
     handlePublish={[Function]}
     handleSave={[Function]}
     isPrelaunchStore={false}
+    loading={false}
   />
 </styled.div>
 `;

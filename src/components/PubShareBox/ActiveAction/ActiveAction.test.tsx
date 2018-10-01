@@ -7,28 +7,22 @@ import ActiveAction from './ActiveAction';
 
 describe('ActiveAction', () => {
 
-    const mockHandleSave = jest.fn(() => {
-        activeActionMount.setProps({canSave: false});
-    });
-    const mockHandlePublish = jest.fn(() => {
-        activeActionMount.setProps({canPublish: false});
-    });
+    const mockHandleSave = jest.fn();
+    const mockHandlePublish = jest.fn();
 
     const saveButton = sel('save');
     const publishButton = sel('publish');
 
     const activeActionShallow = shallow(<ActiveAction
         isPrelaunchStore={false}
-        canPublish={false}
-        canSave={false}
+        loading={false}
         handleSave={mockHandleSave}
         handlePublish={mockHandlePublish}
     />);
 
     const activeActionMount = mount(<ActiveAction
         isPrelaunchStore={false}
-        canPublish={false}
-        canSave={false}
+        loading={false}
         handleSave={mockHandleSave}
         handlePublish={mockHandlePublish}
     />);
@@ -53,47 +47,41 @@ describe('ActiveAction', () => {
     });
 
     describe('save action', () => {
-        it('should be enabled if canSave is true', () => {
-            activeActionMount.setProps({canSave: true});
+        it('should be enabled if loading is false', () => {
+            activeActionMount.setProps({loading: false});
             expect(activeActionMount.find(saveButton).hostNodes().props().disabled).toBe(false);
         });
 
-        it('should be disabled if canSave is false', () => {
-            activeActionMount.setProps({canSave: false});
+        it('should be disabled if loading is true', () => {
+            activeActionMount.setProps({loading: true});
             expect(activeActionMount.find(saveButton).hostNodes().props().disabled).toBe(true);
         });
 
-        describe('when canSave is true and save is clicked', () => {
+        describe('when save button is clicked', () => {
             it('should call handleSave', () => {
-                activeActionMount.setProps({canSave: true});
+                activeActionMount.setProps({loading: false});
                 activeActionMount.find(saveButton).hostNodes().simulate('click');
                 expect(mockHandleSave).toHaveBeenCalledTimes(1);
-            });
-            it('should disable save button after', () => {
-                expect(activeActionMount.find(saveButton).hostNodes().props().disabled).toBe(true);
             });
         });
     });
 
     describe('publish action', () => {
-        it('should be enabled if canPublish is true', () => {
-            activeActionMount.setProps({canPublish: true});
+        it('should be enabled if loading is false', () => {
+            activeActionMount.setProps({loading: false});
             expect(activeActionMount.find(publishButton).hostNodes().props().disabled).toBe(false);
         });
 
-        it('should be disabled if canPublish is false', () => {
-            activeActionMount.setProps({canPublish: false});
+        it('should be disabled if loading is true', () => {
+            activeActionMount.setProps({loading: true});
             expect(activeActionMount.find(publishButton).hostNodes().props().disabled).toBe(true);
         });
 
         describe('when canPublish is true and publish is clicked', () => {
             it('should call handlePublish', () => {
-                activeActionMount.setProps({canPublish: true});
+                activeActionMount.setProps({loading: false});
                 activeActionMount.find(publishButton).hostNodes().simulate('click');
                 expect(mockHandlePublish).toHaveBeenCalledTimes(1);
-            });
-            it('should disable publish button after', () => {
-                expect(activeActionMount.find(publishButton).hostNodes().props().disabled).toBe(true);
             });
         });
     });
