@@ -147,7 +147,7 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 settings,
                 themeId,
                 themeName,
-                variationHistory,
+                variationHistory: isPurchased ? variationHistory : [],
                 variationId,
                 variationName,
                 variations,

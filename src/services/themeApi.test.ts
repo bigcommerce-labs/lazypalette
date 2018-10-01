@@ -26,6 +26,7 @@ describe('themeApi service', () => {
         const fetchedVariationId = 'fetchedVariationId';
         const upgradeVariationId = 'upgradeVariationId';
         const variationId = 'variationId';
+        const marketplaceVariationId = 'marketplaceVariationId';
         const versionId = 'versionId';
         const storeHash = 'storeHash';
         const activeSettings = { color: 'red' };
@@ -40,6 +41,17 @@ describe('themeApi service', () => {
                         data: {
                             configurationId: activeConfigurationId,
                             id: fetchedVariationId,
+                            isPurchased: true,
+                            versionId,
+                        },
+                    });
+
+                axiosMock.onGet(themeAPI.variationAPI(marketplaceVariationId))
+                    .reply(status, {
+                        data: {
+                            configurationId: activeConfigurationId,
+                            id: marketplaceVariationId,
+                            isPurchased: false,
                             versionId,
                         },
                     });
@@ -49,6 +61,7 @@ describe('themeApi service', () => {
                         data: {
                             configurationId: activeConfigurationId,
                             id: upgradeVariationId,
+                            isPurchased: true,
                             versionId,
                         },
                     });
@@ -76,6 +89,7 @@ describe('themeApi service', () => {
                             configurationId,
                             editorSchema: [],
                             id: fetchedVariationId,
+                            isPurchased: true,
                             settings,
                             variationHistory: [],
                             versionId,
@@ -92,6 +106,7 @@ describe('themeApi service', () => {
                             configurationId: activeConfigurationId,
                             editorSchema: [],
                             id: fetchedVariationId,
+                            isPurchased: true,
                             settings: activeSettings,
                             variationHistory: [],
                             versionId,
@@ -108,8 +123,25 @@ describe('themeApi service', () => {
                             configurationId: activeConfigurationId,
                             editorSchema: [],
                             id: upgradeVariationId,
+                            isPurchased: true,
                             settings: activeSettings,
                             variationHistory: [],
+                            versionId,
+                        });
+                        done();
+                    });
+                });
+            });
+
+            describe('when loading a marketplace configuration', () => {
+                it('returns the proper data', done => {
+                    fetchAllThemeData({ storeHash, variationId: marketplaceVariationId }).then(result => {
+                        expect(result).toEqual({
+                            configurationId: activeConfigurationId,
+                            editorSchema: [],
+                            id: marketplaceVariationId,
+                            isPurchased: false,
+                            settings: activeSettings,
                             versionId,
                         });
                         done();
