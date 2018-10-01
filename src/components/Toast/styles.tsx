@@ -54,7 +54,7 @@ export const ToastBox = styled.div.attrs<ToastBoxProps>({})`
     box-shadow: ${({ theme }) => theme.elevation.raised};
     animation: ${slideIn} 250ms linear;
 
-    ${({ theme, type }) => type === ToastType.Invalid && `
+    ${({ theme, type }) => type === ToastType.Error && `
         background-color: ${theme.colors.error};
     `}
 `;

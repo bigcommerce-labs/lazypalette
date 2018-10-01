@@ -15,7 +15,7 @@ describe('notifications reducer', () => {
             const action = notificationsActions.openNotification({
                 autoDismiss: false,
                 message: 'some message',
-                type: ToastType.Invalid,
+                type: ToastType.Error,
             });
             action.error = true;
 
