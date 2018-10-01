@@ -13,8 +13,17 @@ import { loadTheme } from '../../actions/theme';
 import BrowserContext, {Browser} from '../../context/BrowserContext';
 import { State } from '../../reducers/reducers';
 import { ThemeVariationsEntry } from '../../reducers/theme';
-import { disableStoreDesign } from '../../services/themeApi';
-import { fetchDesignPolicyAck, postDesignPolicyAck } from '../../services/themeApi';
+import {
+    trackCopyThemeCancel,
+    trackCopyThemeConfirm,
+    trackEditThemeFiles,
+    trackEditThemeFilesCancel,
+    trackEditThemeFilesConfirm,
+    trackRestoreOriginalSettings,
+    trackRestoreOriginalSettingsCancel,
+    trackRestoreOriginalSettingsConfirm,
+} from '../../services/analytics';
+import { disableStoreDesign, fetchDesignPolicyAck, postDesignPolicyAck } from '../../services/themeApi';
 
 import Draggable from '../Draggable/Draggable';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
@@ -63,12 +72,19 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
         this.designPolicyAcknowledged = event.target.checked;
     };
 
-    handleModalCancel = () => {
+    handleCopyThemeModalCancel = () => {
+        trackCopyThemeCancel();
         this.setState({ currentModal: CurrentModal.NONE });
     };
 
     handleCopyThemeModalOpen = () => {
+        trackEditThemeFiles('copy');
         this.setState({ currentModal: CurrentModal.COPY_THEME });
+    };
+
+    handleCopyThemeModalConfirm = (_window: Window) => {
+        trackCopyThemeConfirm();
+        this.handleCopyTheme(_window);
     };
 
     handleCopyTheme = (_window: Window) => {
@@ -77,14 +93,26 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
         _window.location.assign(MyThemesPath);
     };
 
+    handleEditThemeFilesModalCancel = () => {
+        trackEditThemeFilesCancel();
+        this.setState({ currentModal: CurrentModal.NONE });
+    };
+
     handleEditThemeFilesModalOpen = (_window: Window) => {
         fetchDesignPolicyAck().then((result: { designPolicyAck: boolean }) => {
             if (!result.designPolicyAck) {
+                trackEditThemeFiles('edit');
                 this.setState({ currentModal: CurrentModal.EDIT_THEME_FILES });
             } else {
+                trackEditThemeFiles();
                 this.handleEditThemeFiles(_window);
             }
         });
+    };
+
+    handleEditThemeFilesModalConfirm = (_window: Window) => {
+        trackEditThemeFilesConfirm();
+        this.handleEditThemeFiles(_window);
     };
 
     handleEditThemeFiles = (_window: Window) => {
@@ -98,20 +126,29 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
     };
 
     handleResetModalCancel = () => {
+        trackRestoreOriginalSettingsCancel();
         this.setState({ currentModal: CurrentModal.NONE });
     };
 
     handleResetModalOpen = () => {
         if (this.props.isChanged) {
+            trackRestoreOriginalSettings('reset');
             this.setState({ currentModal: CurrentModal.RESET });
         } else {
+            trackRestoreOriginalSettings();
             this.handleReset();
         }
+    };
+
+    handleResetModalConfirm = () => {
+        trackRestoreOriginalSettingsConfirm();
+        this.handleReset();
     };
 
     handleReset = () => {
         const { currentVariationEntry, variationId } = this.props;
         const defaultConfigurationId = currentVariationEntry ? currentVariationEntry.defaultConfigurationId : '';
+
         this.setState({ currentModal: CurrentModal.NONE }, () => {
             this.props.loadTheme(variationId, defaultConfigurationId)
                 .then(() => this.props.createNotification(true, ToastMessages.Reset, ToastType.Success));
@@ -174,10 +211,10 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
 
                         {currentModal === CurrentModal.COPY_THEME &&
                             <ConfirmModal
-                                primaryAction={() => this.handleCopyTheme(_window)}
+                                primaryAction={() => this.handleCopyThemeModalConfirm(_window)}
                                 primaryActionText={CopyThemeText.action}
-                                secondaryAction={this.handleModalCancel}
-                                overlayClose={this.handleModalCancel}
+                                secondaryAction={this.handleCopyThemeModalCancel}
+                                overlayClose={this.handleCopyThemeModalCancel}
                                 title={CopyThemeText.title}
                             >
                                 {CopyThemeText.body}
@@ -186,10 +223,10 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
 
                         {currentModal === CurrentModal.EDIT_THEME_FILES &&
                             <ConfirmModal
-                                primaryAction={() => this.handleEditThemeFiles(_window)}
+                                primaryAction={() => this.handleEditThemeFilesModalConfirm(_window)}
                                 primaryActionText={EditThemeFilesText.action}
-                                secondaryAction={this.handleModalCancel}
-                                overlayClose={this.handleModalCancel}
+                                secondaryAction={this.handleEditThemeFilesModalCancel}
+                                overlayClose={this.handleEditThemeFilesModalCancel}
                                 title={EditThemeFilesText.title}
                             >
                                 <>
@@ -204,7 +241,7 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
 
                         {currentModal === CurrentModal.RESET &&
                             <ConfirmModal
-                                primaryAction={this.handleReset}
+                                primaryAction={this.handleResetModalConfirm}
                                 primaryActionText={RestoreOriginalText.action}
                                 secondaryAction={this.handleResetModalCancel}
                                 overlayClose={this.handleResetModalCancel}

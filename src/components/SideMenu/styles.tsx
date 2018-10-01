@@ -2,8 +2,6 @@ import { Theme } from 'pattern-lab';
 import { NavLink } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
-import { Collapsed } from './constants';
-
 export const activeClassName = 'nav-item-active';
 
 export const fadeIn = keyframes`
@@ -56,28 +54,28 @@ export const fadeOut = keyframes`
 `;
 
 interface CollapsedProps {
-    collapsed: string;
+    collapsed?: boolean;
 }
 
 const getSideMenuStyles = ({collapsed}: CollapsedProps) => {
-    if (collapsed === Collapsed.Yes) {
+    if (collapsed === undefined) {
+        return `
+            width: 16.5rem;
+            visibility: visible;
+    `;
+    } else if (collapsed) {
         return `
             width: 1rem;
             visibility: hidden;
             animation: ${fadeIn} 250ms linear;
         `;
-    } else if (collapsed === Collapsed.No) {
+    } else {
         return `
             width: 16.5rem;
             visibility: visible;
             animation: ${fadeOut} 250ms linear;
         `;
     }
-
-    return `
-        width: 16.5rem;
-        visibility: visible;
-    `;
 };
 
 export const Container = styled.nav.attrs<CollapsedProps>({})`
@@ -404,7 +402,7 @@ export const fadeBtnOut = keyframes`
 `;
 
 const getCollapseStyles = ({collapsed, theme}: CollapsedStyles) => {
-    if (collapsed === Collapsed.Yes) {
+    if (collapsed === true) {
         return `
             left: 3rem;
             background: ${theme.colors.primary};
@@ -425,7 +423,7 @@ const getCollapseStyles = ({collapsed, theme}: CollapsedStyles) => {
                 color: ${theme.colors.empty};
             }
         `;
-    } else if (collapsed === Collapsed.No) {
+    } else if (collapsed === false) {
         return `
             right: 1rem;
             background: ${theme.colors.empty};

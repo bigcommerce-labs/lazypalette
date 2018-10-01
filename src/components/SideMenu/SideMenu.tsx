@@ -8,9 +8,11 @@ import { Dispatch } from 'redux';
 
 import { ConfigUpdateAction } from '../../actions/constants';
 import { StoreFeatures } from '../../actions/merchant';
+import { collapseSideMenu, CollapseSideMenuAction } from '../../actions/sideMenu';
 import { postThemeConfigData } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeSchema, ThemeSchemaEntry } from '../../reducers/theme';
+import { trackCollapseSideMenu, trackViewLiveStore } from '../../services/analytics';
 import MoreOptions from '../MoreOptions/MoreOptions';
 import { appRoutes } from '../Routes/Routes';
 import ThemeHistory from '../ThemeHistory/ThemeHistory';
@@ -18,7 +20,7 @@ import ThemeSettings from '../ThemeSettings/ThemeSettings';
 import ThemeVariations from '../ThemeVariations/ThemeVariations';
 import Tooltip from '../Tooltip/Tooltip';
 
-import { Collapsed, ThemeStatus, Tips } from './constants';
+import { ThemeStatus, Tips } from './constants';
 import DesignSubMenu from './DesignSubMenu';
 
 import {
@@ -38,6 +40,7 @@ import {
 
 interface SideMenuProps extends RouteComponentProps<{}> {
     activeThemeId: string;
+    collapsed?: boolean;
     isPurchased: boolean;
     features: StoreFeatures;
     themeDesignSections: ThemeSchema;
@@ -47,11 +50,11 @@ interface SideMenuProps extends RouteComponentProps<{}> {
     configurationId: string;
     variationId: string;
     versionId: string;
+    collapseSideMenu(collapsed: boolean): CollapseSideMenuAction;
     postThemeConfigData(configDataOption: ConfigUpdateAction): Dispatch<State>;
 }
 
 interface SideMenuState {
-    collapsed: string;
     longTitle: boolean;
     showTooltip: boolean;
     titleRendered: boolean;
@@ -79,7 +82,6 @@ const ExpandMenuRoutes = ({ route }: { route: string }) => {
 
 export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
     readonly state: SideMenuState = {
-        collapsed: Collapsed.Initial,
         longTitle: false,
         showTooltip: false,
         titleRendered: false,
@@ -87,9 +89,11 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
 
     titleRef = React.createRef<any>();
 
-    handleCollapse = () => this.setState(({collapsed}) => ({
-        collapsed: `${Collapsed.Yes}`.includes(collapsed) ? Collapsed.No : Collapsed.Yes,
-    }));
+    handleCollapse = () => {
+        const collapsed = this.props.collapsed !== true;
+        this.props.collapseSideMenu(collapsed);
+        trackCollapseSideMenu(collapsed);
+    };
 
     editorThemeStatus = () => {
         const { activeThemeId, isPurchased, themeId } = this.props;
@@ -120,12 +124,13 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
 
     render() {
         const {
+            collapsed,
             isPurchased,
             themeDesignSections,
             themeName,
         } = this.props;
         const { home } = appRoutes;
-        const { collapsed, longTitle, titleRendered } = this.state;
+        const { longTitle, titleRendered } = this.state;
         const isLoaded = themeDesignSections.length > 0;
         const status = this.editorThemeStatus();
 
@@ -177,7 +182,7 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                             />}
                     </MenuContents>
                     <Footer>
-                        <ExternalNavItem
+                        <ExternalNavItem onClick={trackViewLiveStore}
                             href="/"
                             target="_blank"
                         >
@@ -190,7 +195,7 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                         </ExternalNavItem>
                         <Tooltip
                             hideDelay={0}
-                            message={collapsed === Collapsed.Yes ? Tips.Secondary : Tips.Primary}
+                            message={collapsed ? Tips.Secondary : Tips.Primary}
                         >
                             <CollapseButton
                                 collapsed={collapsed}
@@ -216,8 +221,9 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
     };
 }
 
-const mapStateToProps = ({ theme, merchant }: State) => ({
+const mapStateToProps = ({ theme, merchant, sideMenu }: State) => ({
     activeThemeId: merchant.activeThemeId,
+    collapsed: sideMenu.collapsed,
     configurationId: theme.configurationId,
     features: merchant.features,
     isPurchased: theme.isPurchased,
@@ -230,6 +236,7 @@ const mapStateToProps = ({ theme, merchant }: State) => ({
 });
 
 const mapDispatchToProps = {
+    collapseSideMenu,
     postThemeConfigData,
 };
 

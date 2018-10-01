@@ -7,6 +7,7 @@ import { closeNotification, CloseNotificationAction, NotificationsProps } from '
 import { previewPanePageReloading, viewportChange, ViewportChange } from '../../actions/previewPane';
 import { postApplyUpdate, postThemeConfigData, themeConfigReset } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
+import { trackViewportChange } from '../../services/analytics';
 
 import { VIEWPORT_TYPES } from '../PreviewPane/constants';
 import { ViewportType } from '../PreviewPane/PreviewPane';
@@ -50,15 +51,15 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
 
     handleIconClick = (view: string) => () => {
         const { isRotated, toggleViewport, viewportType } = this.props;
+        const args: ViewportChange = { viewportType: VIEWPORT_TYPES[view] };
 
-        if (VIEWPORT_TYPES[view] === VIEWPORT_TYPES.DESKTOP) {
-            return toggleViewport({ viewportType: VIEWPORT_TYPES.DESKTOP });
+        if (VIEWPORT_TYPES[view] !== VIEWPORT_TYPES.DESKTOP) {
+            args.isRotated = viewportType === VIEWPORT_TYPES[view] ? !isRotated : isRotated;
         }
 
-        return toggleViewport({
-            isRotated: viewportType === VIEWPORT_TYPES[view] ? !isRotated : isRotated,
-            viewportType: VIEWPORT_TYPES[view],
-        });
+        trackViewportChange(view, !!args.isRotated);
+        toggleViewport(args);
+
     };
 
     handleToastClose = () => this.props.closeNotification();

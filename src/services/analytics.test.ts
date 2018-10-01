@@ -1,9 +1,8 @@
-
 import createMockStore from 'redux-mock-store';
 
 import {
     init,
-    trackCheckboxChange,
+    trackCheckboxChange, trackCollapseSideMenu,
     trackImageDimensionChange,
     trackImageUpload,
     trackPublish,
@@ -15,7 +14,7 @@ import {
     trackSectionClose,
     trackSectionOpen,
     trackSelectChange,
-    trackTextChange,
+    trackTextChange, trackViewLiveStore,
 } from './analytics';
 
 declare const global: any;
@@ -35,13 +34,28 @@ describe('analytics service', () => {
             };
 
             init(storeCreator({
+                merchant: {
+                    activeThemeId: '234',
+                    isDownForMaintenance: false,
+                    isPrelaunchStore: false,
+                },
+                previewPane: {
+                    page: '/blah',
+                    viewportType: {
+                        glyphName: 'desktop',
+                    },
+                },
+                sideMenu: {
+                    collapsed: false,
+                },
                 theme: {
                     configurationId: '1234',
                     displayVersion: '2345',
-                    initialSettings: {},
+                    initialSettings: { setting1: 'abc', setting2: 'xyz', setting3: 'cbs' },
                     isChanged: false,
+                    isPurchased: false,
                     schema: [],
-                    settings: {},
+                    settings: { setting1: 'abd', setting2: 'xyz', setting3: 'cbz' },
                     themeId: '7890',
                     themeName: '4567',
                     variationId: '3456',
@@ -52,23 +66,35 @@ describe('analytics service', () => {
             }));
         });
 
+        const universalData = {
+            is_active_theme: 'false',
+            is_maintenance: 'false',
+            is_prelaunch: 'false',
+            is_purchased: 'false',
+            side_menu_collapsed: 'false',
+            storefront_page: '/blah',
+            theme_configuration_id: '1234',
+            theme_id: '7890',
+            theme_name: '4567',
+            theme_variation: '5678',
+            theme_variation_id: '3456',
+            theme_version: '2345',
+            theme_version_id: '6789',
+            viewport: 'desktop',
+        };
+
         describe('trackPublish', () => {
             it('calls analytics.track with the proper arguments', () => {
                 const configurationId = '1234';
                 trackPublish(configurationId);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
                     category: 'store-design_publish',
+                    changedSettings: JSON.stringify({ setting1: 'abd', setting3: 'cbz' }),
                     configurationId,
                     element: 'button',
                     label: 'store-design_header-publish',
                     text: 'Publish',
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                 });
             });
         });
@@ -77,17 +103,12 @@ describe('analytics service', () => {
             it('calls analytics.track with the proper arguments', () => {
                 trackSave();
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
                     category: 'store-design_save',
+                    changedSettings: JSON.stringify({ setting1: 'abd', setting3: 'cbz' }),
                     element: 'button',
                     label: 'store-design_save',
                     text: 'Save',
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                 });
             });
         });
@@ -96,17 +117,11 @@ describe('analytics service', () => {
             it('calls analytics.track with proper arguments', () => {
                 trackResetClick();
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
                     category: 'store-design_reset',
                     element: 'button',
                     label: 'store-design_reset',
                     text: 'Reset',
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                 });
             });
         });
@@ -115,17 +130,11 @@ describe('analytics service', () => {
             it('calls analytics.track with proper arguments', () => {
                 trackResetConfirmation();
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
                     category: 'store-design_reset',
                     element: 'button',
                     label: 'store-design_reset_confirmation',
                     text: 'OK',
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                 });
             });
         });
@@ -134,17 +143,11 @@ describe('analytics service', () => {
             it('calls analytics.track with proper arguments', () => {
                 trackResetCancel();
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
                     category: 'store-design_reset',
                     element: 'button',
                     label: 'store-design_reset_cancel',
                     text: 'Cancel',
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                 });
             });
         });
@@ -153,17 +156,11 @@ describe('analytics service', () => {
             it('calls analytics.track with proper arguments', () => {
                 trackResetModalClose();
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
                     category: 'store-design_reset',
                     element: 'div',
                     label: 'store-design_modal_close',
                     text: '',
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                 });
             });
         });
@@ -173,17 +170,11 @@ describe('analytics service', () => {
                 const label = 'Styles';
                 trackSectionOpen(label);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
                     category: 'store-design_section',
                     element: 'a',
                     label: 'store-design_section_open',
                     text: label,
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                 });
             });
         });
@@ -193,17 +184,11 @@ describe('analytics service', () => {
                 const title = 'Styles';
                 trackSectionClose(title);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
                     category: 'store-design_section',
                     element: 'a',
                     label: 'store-design_section_close',
                     text: 'x',
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                     title,
                 });
             });
@@ -215,19 +200,13 @@ describe('analytics service', () => {
                 const id = 'hide_content_navigation';
                 trackCheckboxChange(id, checked);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
+                    ...universalData,
                     category: 'store-design_change',
                     checked: checked ? 'true' : 'false',
                     element: 'input',
                     id,
                     label: 'store-design_checkbox_change',
                     text: '',
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                 });
             });
         });
@@ -238,19 +217,13 @@ describe('analytics service', () => {
                 const id = 'logo_size';
                 trackImageDimensionChange(id, dimension);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
+                    ...universalData,
                     category: 'store-design_change',
                     dimension,
                     element: 'input',
                     id,
                     label: 'store-design_image_dimension_change',
                     text: '',
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                 });
             });
         });
@@ -261,19 +234,13 @@ describe('analytics service', () => {
                 const id = 'logo-position';
                 trackSelectChange(id, selected);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
+                    ...universalData,
                     category: 'store-design_change',
                     element: 'select',
                     id,
                     label: 'store-design_select_change',
                     selected,
                     text: selected,
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                 });
             });
         });
@@ -284,18 +251,12 @@ describe('analytics service', () => {
                 const id = 'geotrust_ssl_common_name';
                 trackTextChange(id, text);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
+                    ...universalData,
                     category: 'store-design_change',
                     element: 'input',
                     id,
                     label: 'store-design_text_change',
                     text,
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
                 });
             });
         });
@@ -306,19 +267,40 @@ describe('analytics service', () => {
                 const id = 'optimizedCheckout-backgroundImage';
                 trackImageUpload(id, imageName);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
+                    ...universalData,
                     category: 'store-design_change',
                     element: 'div',
                     id,
                     imageName,
                     label: 'store-design_image_upload',
                     text: 'Upload image',
-                    theme_configuration_id: '1234',
-                    theme_id: '7890',
-                    theme_name: '4567',
-                    theme_variation: '5678',
-                    theme_variation_id: '3456',
-                    theme_version: '2345',
-                    theme_version_id: '6789',
+                });
+            });
+        });
+
+        describe('trackViewLiveStore', () => {
+            it('calls analytics.track with proper arguments', () => {
+                trackViewLiveStore();
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
+                    category: 'store-design_view-store',
+                    element: 'a',
+                    label: 'store-design_view-store',
+                    text: 'View live store',
+                });
+            });
+        });
+
+        describe('trackCollapseSideMenu', () => {
+            it('calls analytics.track with proper arguments', () => {
+                trackCollapseSideMenu(true);
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
+                    category: 'store-design_side-menu',
+                    collapsed: 'true',
+                    element: 'button',
+                    label: 'store-design_side-menu-collapse',
+                    text: '',
                 });
             });
         });

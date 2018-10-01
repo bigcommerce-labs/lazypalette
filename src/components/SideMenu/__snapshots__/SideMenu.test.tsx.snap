@@ -23,9 +23,7 @@ exports[`SideMenu Theme status label when active theme is not the current theme 
     key="2"
     route="section/2"
   />
-  <styled.nav
-    collapsed="initial"
-  >
+  <styled.nav>
     <styled.div>
       <styled.div
         innerRef={
@@ -91,6 +89,7 @@ exports[`SideMenu Theme status label when active theme is not the current theme 
     <styled.div>
       <styled.a
         href="/"
+        onClick={[Function]}
         target="_blank"
         theme={
           Object {
@@ -128,7 +127,6 @@ exports[`SideMenu Theme status label when active theme is not the current theme 
         message="Collapse menu"
       >
         <styled.button
-          collapsed="initial"
           onClick={[Function]}
           theme={
             Object {
@@ -180,9 +178,7 @@ exports[`SideMenu Theme status label when activeTheme is the current theme and i
     key="2"
     route="section/2"
   />
-  <styled.nav
-    collapsed="initial"
-  >
+  <styled.nav>
     <styled.div>
       <styled.div
         innerRef={
@@ -248,6 +244,7 @@ exports[`SideMenu Theme status label when activeTheme is the current theme and i
     <styled.div>
       <styled.a
         href="/"
+        onClick={[Function]}
         target="_blank"
         theme={
           Object {
@@ -285,7 +282,6 @@ exports[`SideMenu Theme status label when activeTheme is the current theme and i
         message="Collapse menu"
       >
         <styled.button
-          collapsed="initial"
           onClick={[Function]}
           theme={
             Object {
@@ -337,9 +333,7 @@ exports[`SideMenu Theme status label when isPurchased is false renders correctly
     key="2"
     route="section/2"
   />
-  <styled.nav
-    collapsed="initial"
-  >
+  <styled.nav>
     <styled.div>
       <styled.div
         innerRef={
@@ -405,6 +399,7 @@ exports[`SideMenu Theme status label when isPurchased is false renders correctly
     <styled.div>
       <styled.a
         href="/"
+        onClick={[Function]}
         target="_blank"
         theme={
           Object {
@@ -442,7 +437,6 @@ exports[`SideMenu Theme status label when isPurchased is false renders correctly
         message="Collapse menu"
       >
         <styled.button
-          collapsed="initial"
           onClick={[Function]}
           theme={
             Object {
@@ -494,9 +488,7 @@ exports[`SideMenu renders 1`] = `
     key="2"
     route="section/2"
   />
-  <styled.nav
-    collapsed="initial"
-  >
+  <styled.nav>
     <styled.div>
       <styled.div
         innerRef={
@@ -562,6 +554,7 @@ exports[`SideMenu renders 1`] = `
     <styled.div>
       <styled.a
         href="/"
+        onClick={[Function]}
         target="_blank"
         theme={
           Object {
@@ -599,7 +592,6 @@ exports[`SideMenu renders 1`] = `
         message="Collapse menu"
       >
         <styled.button
-          collapsed="initial"
           onClick={[Function]}
           theme={
             Object {
