@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 import { VIEWPORT_TYPES } from './constants';
 import { ViewportType } from './PreviewPane';
@@ -9,6 +10,7 @@ interface PreviewPaneContainerProps {
 
 export const PreviewPaneContainer = styled.div.attrs<PreviewPaneContainerProps>({})`
     display: flex;
+    position: relative;
     flex: auto;
     justify-content: center;
     overflow: auto;
@@ -96,19 +98,84 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
         }
 
         return `
-            background-color: ${viewportType === VIEWPORT_TYPES.DESKTOP ? theme.colors.empty : theme.colors.stroke}
+            background-color: ${viewportType === VIEWPORT_TYPES.DESKTOP ? theme.colors.empty : theme.colors.stroke};
             border: 0px;
             border-radius: ${borderRadius};
             box-shadow: ${boxShadow};
+            opacity: ${isFetching ? 0.5 : 1.0};
             max-height: calc(100% - ${paddingTop});
             min-width: ${isRotated ? viewportType.viewportHeight : viewportType.viewportWidth};
-            opacity: ${isFetching ? 0.5 : 1};
             padding: ${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft};
             overflow: scroll;
             -webkit-overflow-scrolling: touch;
         `;
     }}
 `;
+
+export const PreviewPaneLoadingContainer = styled.div`
+    margin: auto;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    span:first-of-type {
+      -webkit-animation-delay: -0.30s;
+      animation-delay: -0.30s;
+    }
+
+    span:nth-child(2) {
+      -webkit-animation-delay: -0.15s;
+      animation-delay: -0.15s;
+    }
+`;
+
+export const fadeIn = keyframes`
+    0% {
+      animation: sk-bouncedelay;
+      transform: scale(0);
+    }
+    25% {
+      animation: sk-bouncedelay;
+      transform: scale(0);
+    }
+    50% {
+      animation: sk-bouncedelay;
+      transform: scale(1.0);
+    }
+    100% {
+      animation: sk-bouncedelay;
+      transform: scale(0);
+    }
+`;
+
+export const PreviewPaneLoadingBall = styled.span`
+    margin: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: ${({ theme }) => theme.colors.guideText};
+    border-radius: 50%;
+    display: inline-block;
+
+    animation: ${fadeIn} 1s infinite ease-in-out both;
+`;
+
+PreviewPaneLoadingBall.defaultProps = {
+    theme: {
+        colors: {
+            guideText: '#ABB1BE',
+        },
+    },
+};
+
+export const PreviewPaneLoading = () => (
+    <PreviewPaneLoadingContainer>
+        <PreviewPaneLoadingBall />
+        <PreviewPaneLoadingBall />
+        <PreviewPaneLoadingBall />
+    </PreviewPaneLoadingContainer>
+);
 
 PreviewPaneIframe.defaultProps = {
     theme: {

@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import {
     buildIframeUrl,
     previewPaneLoaded,
-    previewPaneLoading,
     previewPanePageReloaded,
     updatePage,
     UpdatePagePayload
@@ -14,7 +13,11 @@ import { State } from '../../reducers/reducers';
 import ChannelService from '../../services/previewPane/channelService/channelService';
 
 import { VIEWPORT_TYPES } from './constants';
-import { PreviewPaneContainer, PreviewPaneIframe } from './styles';
+import {
+    PreviewPaneContainer,
+    PreviewPaneIframe,
+    PreviewPaneLoading,
+} from './styles';
 
 export interface ViewportType {
     glyphName: string;
@@ -43,7 +46,6 @@ interface PreviewPaneProps {
     viewportType: ViewportType;
     buildIframeUrl(page: string): void;
     previewPaneLoaded(): void;
-    previewPaneLoading(): void;
     previewPanePageReloaded(): void;
     updatePage(payload: UpdatePagePayload): void;
 }
@@ -102,14 +104,17 @@ export class PreviewPane extends Component<PreviewPaneProps> {
                         src={iframeUrl}
                         viewportType={viewportType}
                     />
+
                 }
+                {isFetching &&
+                  <PreviewPaneLoading />
+                }
+
             </PreviewPaneContainer>
         );
     }
 
     private broadcastFontChange = (fontUrl: string) => {
-        this.props.previewPaneLoading();
-
         if (!this.channelService) {
             this.raceConditionHandler();
 
@@ -125,8 +130,6 @@ export class PreviewPane extends Component<PreviewPaneProps> {
     };
 
     private broadcastReloadStylesheets = (configurationId: string) => {
-        this.props.previewPaneLoading();
-
         if (!this.channelService) {
             this.raceConditionHandler();
 
@@ -219,7 +222,6 @@ const mapStateToProps = (state: State): Partial<PreviewPaneProps> => {
 const mapDispatchToProps = (dispatch: Dispatch): Partial<PreviewPaneProps> => bindActionCreators({
     buildIframeUrl,
     previewPaneLoaded,
-    previewPaneLoading,
     previewPanePageReloaded,
     updatePage,
 }, dispatch);

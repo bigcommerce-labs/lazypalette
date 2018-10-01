@@ -123,7 +123,6 @@ describe('PreviewPane', () => {
                             viewportType={viewportType}
                             buildIframeUrl={buildIframeUrl}
                             previewPaneLoaded={() => { return; } }
-                            previewPaneLoading={() => { return; } }
                             previewPanePageReloaded={previewPanePageReloaded}
                             updatePage={(payload: UpdatePagePayload) => { return; } }
                         />
@@ -157,7 +156,6 @@ describe('PreviewPane', () => {
                                 viewportType={viewportType}
                                 buildIframeUrl={() => { return; } }
                                 previewPaneLoaded={() => { return; } }
-                                previewPaneLoading={() => { return; } }
                                 previewPanePageReloaded={() => { return; } }
                                 updatePage={(payload: UpdatePagePayload) => { return; } }
                             />
@@ -207,7 +205,6 @@ describe('PreviewPane', () => {
                             viewportType={viewportType}
                             buildIframeUrl={buildIframeUrl}
                             previewPaneLoaded={() => { return; } }
-                            previewPaneLoading={() => { return; } }
                             previewPanePageReloaded={previewPanePageReloaded}
                             updatePage={(payload: UpdatePagePayload) => { return; } }
                         />
@@ -241,7 +238,6 @@ describe('PreviewPane', () => {
                                 viewportType={viewportType}
                                 buildIframeUrl={() => { return; } }
                                 previewPaneLoaded={() => { return; } }
-                                previewPaneLoading={() => { return; } }
                                 previewPanePageReloaded={() => { return; } }
                                 updatePage={(payload: UpdatePagePayload) => { return; } }
                             />
@@ -291,7 +287,6 @@ describe('PreviewPane', () => {
                             viewportType={viewportType}
                             buildIframeUrl={buildIframeUrl}
                             previewPaneLoaded={() => { return; } }
-                            previewPaneLoading={() => { return; } }
                             previewPanePageReloaded={previewPanePageReloaded}
                             updatePage={(payload: UpdatePagePayload) => { return; } }
                         />
@@ -324,7 +319,6 @@ describe('PreviewPane', () => {
                                 viewportType={viewportType}
                                 buildIframeUrl={() => { return; } }
                                 previewPaneLoaded={() => { return; } }
-                                previewPaneLoading={() => { return; } }
                                 previewPanePageReloaded={() => { return; } }
                                 updatePage={(payload: UpdatePagePayload) => { return; } }
                             />
@@ -373,7 +367,6 @@ describe('PreviewPane', () => {
                                 viewportType={viewportType}
                                 buildIframeUrl={() => { return; } }
                                 previewPaneLoaded={() => { return; } }
-                                previewPaneLoading={() => { return; } }
                                 previewPanePageReloaded={() => { return; } }
                                 updatePage={(payload: UpdatePagePayload) => { return; } }
                             />

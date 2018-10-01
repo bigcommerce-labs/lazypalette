@@ -13,7 +13,7 @@ import { Action } from './action';
 import { ConfigUpdateAction, ToastMessages, ToastType } from './constants';
 import { updateActiveTheme } from './merchant';
 import { createNotification } from './notifications';
-import { updateFonts } from './previewPane';
+import { previewPaneLoading, updateFonts } from './previewPane';
 
 export enum ThemeActionTypes {
     LOAD_THEME_RESPONSE = 'LOAD_THEME_RESPONSE',
@@ -187,6 +187,7 @@ export function themeVariationHistoryResponse(
 export function loadTheme(variationId: string, configurationId?: string, upgrade?: boolean) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
         const storeHash = getState().merchant.storeHash;
+        dispatch(previewPaneLoading());
 
         return api.fetchAllThemeData({ storeHash, variationId, configurationId, upgrade }).then(({
             configurationId: activeConfigurationId,
@@ -241,6 +242,7 @@ export function fetchVariationHistory(variationId: string) {
 
 export function updateThemeConfigChange(configChange: ThemeConfigChange) {
     return (dispatch: Dispatch<State>, getState: () => State) => {
+        dispatch(previewPaneLoading());
         dispatch(themeConfigChange(configChange));
 
         if (configChange.setting.type === 'font') {
