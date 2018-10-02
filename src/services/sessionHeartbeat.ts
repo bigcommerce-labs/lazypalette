@@ -17,6 +17,7 @@ export interface SessionHeartbeatResponse {
 const heartbeatRoute = (oauthBaseUrl: string, lastActive: number) =>
     `${oauthBaseUrl}/session/heartbeat?last_active=${lastActive}`;
 
+// https://github.com/bigcommerce/A-A/blob/master/app/controllers/sessions_controller.rb#L21
 export function loginHeartbeat(
     oauthBaseUrl: string,
     callback: (data: SessionHeartbeatResponse, err: Error | null) => void
@@ -26,6 +27,19 @@ export function loginHeartbeat(
     const jsonpOpts = {};
 
     return jsonp(route, jsonpOpts, (loginError: Error, data: SessionHeartbeatResponse) => {
+        // If we get any errors from the login service, we will treat the user as logged out.
+        // TODO - Look into adding retry logic with back-off so we arent so aggressive in logging the user out in the
+        // case of a brief incident.
+        if (loginError) {
+            callback(
+                { ok: false },
+                new Error('LoginSvc - Logged Out')
+            );
+
+            return;
+        }
+
+        // Make sure the response from A&A says the user is still logged in
         const err = data.ok ? null : new Error('LoginSvc - Logged Out');
 
         callback(
