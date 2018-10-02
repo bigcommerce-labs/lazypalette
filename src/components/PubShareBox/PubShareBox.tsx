@@ -172,6 +172,15 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
         return Modes.UNKNOWN;
     }
 
+    getPublishModalText(mode: Modes) {
+        const { isPrelaunchStore } = this.props;
+        if (mode === Modes.INACTIVE) {
+            return isPrelaunchStore ? PublishModalText[mode].prelaunch : PublishModalText[mode].launched;
+        } else {
+            return PublishModalText[mode];
+        }
+    }
+
     componentDidUpdate() {
         const { initialConfigurationId, variationHistory } = this.props;
         let isUpdate = false;
@@ -199,8 +208,7 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
         } = this.state;
 
         const mode = this.getMode();
-
-        const publishModalText = PublishModalText[mode];
+        const publishModalText = this.getPublishModalText(mode);
 
         return (
             <Container isChanged={isChanged}>
