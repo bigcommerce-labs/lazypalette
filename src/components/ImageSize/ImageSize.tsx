@@ -43,10 +43,12 @@ class ImageSize extends Component<ImageSizeProps, ImageSizeState> {
         const { defaultValue } = this.state;
         this.setState({ selectedValue: value });
 
-        const selectEvent = value === 'custom' ? {...event, target: {...event.target, value: defaultValue}} : event;
+        if (value === 'custom') {
+            event.target.value = defaultValue;
+        }
 
         if (this.props.onChange) {
-            this.props.onChange(selectEvent);
+            this.props.onChange(event);
         }
     };
 
