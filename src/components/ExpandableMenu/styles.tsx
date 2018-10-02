@@ -30,7 +30,7 @@ export const ExpandModal = styled.div.attrs<ExpandModalProps>({
     border-radius: 6px;
     position: absolute;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background: #FFF;
     padding: 0rem;
     box-shadow: ${({ theme }) => theme.elevation.floating};
@@ -50,6 +50,13 @@ ExpandModal.defaultProps = {
         },
     },
 };
+
+export const ContentsWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    max-height: inherit;
+    min-height: inherit;
+`;
 
 export const NavItem = styled(Link)`
     text-align: center;

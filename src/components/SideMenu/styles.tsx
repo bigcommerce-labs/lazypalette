@@ -329,7 +329,6 @@ export const ItemLabel = styled.span`
 `;
 
 export const FooterLabel = styled.span`
-    flex-basis: 90%;
     flex-grow: 0;
 `;
 
