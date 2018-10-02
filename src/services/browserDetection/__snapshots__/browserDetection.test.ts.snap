@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`browserDetection when we detect the user is running an unsupported browser returns a rejected promise with an unsupported browser error 1`] = `"UnsupportedBrowser detected. Detected user is running InternetExplorer10"`;
+
+exports[`browserDetection when we we have many checks which are detected returns a rejected promise with an unsupported browser error 1`] = `"UnsupportedBrowser detected. Detected user is running InternetExplorer10"`;
