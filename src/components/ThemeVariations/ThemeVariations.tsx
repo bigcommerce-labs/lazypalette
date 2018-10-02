@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
-import { loadTheme } from '../../actions/theme';
+import { ToastMessages, ToastType } from '../../actions/constants';
+import { createNotification } from '../../actions/notifications';
+import { loadTheme, LoadThemeResponseAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
-import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
-
 import Draggable from '../Draggable/Draggable';
+import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 import { appRoutes } from '../Routes/Routes';
 
@@ -18,7 +19,8 @@ interface ThemeVariationsProps extends RouteComponentProps<{}> {
     isChanged: boolean;
     position: { x: number, y: number };
     themeVariants: ThemePropsList;
-    loadTheme(variationID: string): Dispatch<State>;
+    createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
+    loadTheme(variationID: string): any;
 }
 
 export interface ThemePropsList extends Array<StateProps> {}
@@ -58,14 +60,23 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
             isConfirmOpen: false,
             variationId: '',
         }, () => {
-            this.props.loadTheme(variationId);
+            this.switchVariations(variationId);
         });
     };
 
     handleVariationChange = (variationId: string): void => {
         const { isChanged } = this.props;
 
-        isChanged ? this.open(variationId) : this.props.loadTheme(variationId);
+        isChanged ? this.open(variationId) : this.switchVariations(variationId);
+    };
+
+    switchVariations = (variationId: string) => {
+        this.props.loadTheme(variationId)
+            .then((result: LoadThemeResponseAction) => {
+                if (result.error) {
+                    this.props.createNotification(true, ToastMessages.ErrorVariation, ToastType.Error);
+                }
+            });
     };
 
     render() {
@@ -118,6 +129,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = {
+    createNotification,
     loadTheme,
 };
 

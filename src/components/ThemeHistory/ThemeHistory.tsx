@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
-import { loadTheme } from '../../actions/theme';
+import { ToastMessages, ToastType } from '../../actions/constants';
+import { createNotification } from '../../actions/notifications';
+import { loadTheme, LoadThemeResponseAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeVariationHistory, ThemeVariationHistoryEntry } from '../../reducers/theme';
 import Draggable from '../Draggable/Draggable';
@@ -21,7 +23,8 @@ interface ThemeHistoryProps extends RouteComponentProps<{}> {
     position: { x: number, y: number };
     timeZone?: string; // for testing to ensure consistent snapshots
     variationHistory: ThemeVariationHistory;
-    loadTheme(configurationId: string, variationId: string): Dispatch<State>;
+    createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
+    loadTheme(configurationId: string, variationId: string): any;
 }
 
 interface ThemeHistoryState {
@@ -59,7 +62,7 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
         this.setState({
             isConfirmOpen: false,
         }, () => {
-            this.props.loadTheme(variationId, configurationId);
+            this.loadHistoryEntry(variationId, configurationId);
         });
     };
 
@@ -67,8 +70,17 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
         if (this.props.isChanged) {
             this.openModal(variationId, configurationId);
         } else {
-            this.props.loadTheme(variationId, configurationId);
+            this.loadHistoryEntry(variationId, configurationId);
         }
+    };
+
+    loadHistoryEntry = (variationId: string, configurationId: string) => {
+        this.props.loadTheme(variationId, configurationId)
+            .then((result: LoadThemeResponseAction) => {
+                if (result.error) {
+                    this.props.createNotification(true, ToastMessages.ErrorHistory, ToastType.Error);
+                }
+            });
     };
 
     getEntryDescription(entry: ThemeVariationHistoryEntry) {
@@ -151,6 +163,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = {
+    createNotification,
     loadTheme,
 };
 

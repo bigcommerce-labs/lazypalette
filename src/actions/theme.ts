@@ -284,7 +284,10 @@ export function postApplyUpdate() {
                 dispatch(fetchVariationHistory(variationId));
                 dispatch(createNotification(true, ToastMessages.Update, ToastType.Success));
             })
-            .catch(error => dispatch(themeConfigPostResponse(error, true)));
+            .catch(error => {
+                dispatch(themeConfigPostResponse(error, true));
+                dispatch(createNotification(true, ToastMessages.ErrorUpdate, ToastType.Error));
+            });
     };
 }
 
@@ -350,7 +353,7 @@ export function postThemeConfigData(configUpdateOption: ConfigUpdateAction, forc
                     errorMsg = ToastMessages.ErrorPreview;
                 }
 
-                dispatch(createNotification(false, errorMsg, ToastType.Invalid));
+                dispatch(createNotification(false, errorMsg, ToastType.Error));
                 dispatch(themeConfigPostResponse(error, true));
             });
     };

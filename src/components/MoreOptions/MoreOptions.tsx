@@ -9,7 +9,7 @@ import {
     createNotification,
     NotificationsProps
 } from '../../actions/notifications';
-import { loadTheme } from '../../actions/theme';
+import { loadTheme, LoadThemeResponseAction } from '../../actions/theme';
 import BrowserContext, {Browser} from '../../context/BrowserContext';
 import { State } from '../../reducers/reducers';
 import { ThemeVariationsEntry } from '../../reducers/theme';
@@ -151,7 +151,13 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
 
         this.setState({ currentModal: CurrentModal.NONE }, () => {
             this.props.loadTheme(variationId, defaultConfigurationId)
-                .then(() => this.props.createNotification(true, ToastMessages.Reset, ToastType.Success));
+                .then((result: LoadThemeResponseAction) => {
+                    if (result.error) {
+                        this.props.createNotification(true, ToastMessages.ErrorReset, ToastType.Error);
+                    } else {
+                        this.props.createNotification(true, ToastMessages.Reset, ToastType.Success);
+                    }
+                });
         });
     };
 
@@ -166,7 +172,7 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
                     );
                 })
                 .catch(() => {
-                    this.props.createNotification(true, ToastMessages.ErrorSwitchToThemeEditor, ToastType.Invalid);
+                    this.props.createNotification(true, ToastMessages.ErrorSwitchToThemeEditor, ToastType.Error);
                 });
         });
 

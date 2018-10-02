@@ -47,10 +47,12 @@ describe('ThemeHistory', () => {
         staticContext: mockProp,
     };
 
+    let mockCreateNotification: any;
     let mockLoadTheme: any;
 
     beforeEach(() => {
-        mockLoadTheme = jest.fn();
+        mockCreateNotification = jest.fn();
+        mockLoadTheme = jest.fn().mockResolvedValue(true);
     });
 
     describe('when rendering', () => {
@@ -63,6 +65,7 @@ describe('ThemeHistory', () => {
                             isChanged={false}
                             isPrelaunchStore={false}
                             position={{ x: 5, y: 10 }}
+                            createNotification={mockCreateNotification}
                             loadTheme={mockLoadTheme}
                             timeZone="UTC"
                             variationHistory={history}
@@ -80,6 +83,7 @@ describe('ThemeHistory', () => {
                             isChanged={false}
                             isPrelaunchStore={true}
                             position={{ x: 5, y: 10 }}
+                            createNotification={mockCreateNotification}
                             loadTheme={mockLoadTheme}
                             timeZone="UTC"
                             variationHistory={history}
@@ -97,6 +101,7 @@ describe('ThemeHistory', () => {
                             isChanged={false}
                             isPrelaunchStore={false}
                             position={{ x: 5, y: 10 }}
+                            createNotification={mockCreateNotification}
                             loadTheme={mockLoadTheme}
                             timeZone="UTC"
                             variationHistory={history}
@@ -115,6 +120,7 @@ describe('ThemeHistory', () => {
                         isChanged={false}
                         isPrelaunchStore={false}
                         position={{ x: 5, y: 10 }}
+                        createNotification={mockCreateNotification}
                         loadTheme={mockLoadTheme}
                         timeZone="UTC"
                         variationHistory={[]}
@@ -132,6 +138,7 @@ describe('ThemeHistory', () => {
                         isChanged={true}
                         isPrelaunchStore={false}
                         position={{ x: 5, y: 10 }}
+                        createNotification={mockCreateNotification}
                         loadTheme={mockLoadTheme}
                         timeZone="UTC"
                         variationHistory={history}
@@ -151,20 +158,49 @@ describe('ThemeHistory', () => {
 
     describe('when an entry is clicked', () => {
         describe('when there are no unsaved changes', () => {
-            it('calls loadTheme', () => {
-                const themeHistory = shallow(
-                    <ThemeHistory
-                        configurationId={'blaaaah'}
-                        isChanged={false}
-                        isPrelaunchStore={false}
-                        position={{ x: 5, y: 10 }}
-                        loadTheme={mockLoadTheme}
-                        variationHistory={history}
-                        {...routeProps}/>);
+            describe('when loadTheme succeeds', () => {
+                it('calls loadTheme', () => {
+                    const themeHistory = shallow(
+                        <ThemeHistory
+                            configurationId={'blaaaah'}
+                            isChanged={false}
+                            isPrelaunchStore={false}
+                            position={{ x: 5, y: 10 }}
+                            createNotification={mockCreateNotification}
+                            loadTheme={mockLoadTheme}
+                            variationHistory={history}
+                            {...routeProps}/>);
 
-                themeHistory.find(HistoryEntry).first().simulate('click');
+                    themeHistory.find(HistoryEntry).first().simulate('click');
 
-                expect(mockLoadTheme).toHaveBeenCalled();
+                    expect(mockLoadTheme).toHaveBeenCalled();
+                });
+            });
+
+            describe('when loadTheme fails', () => {
+                it('creates a notification', done => {
+                    mockLoadTheme.mockReset();
+                    mockLoadTheme.mockResolvedValue({ error: true });
+
+                    const themeHistory = shallow(
+                        <ThemeHistory
+                            configurationId={'blaaaah'}
+                            isChanged={false}
+                            isPrelaunchStore={false}
+                            position={{ x: 5, y: 10 }}
+                            createNotification={mockCreateNotification}
+                            loadTheme={mockLoadTheme}
+                            variationHistory={history}
+                            {...routeProps}/>);
+
+                    themeHistory.find(HistoryEntry).first().simulate('click');
+
+                    expect(mockLoadTheme).toHaveBeenCalled();
+                    setTimeout(() => {
+                        expect(mockCreateNotification).toHaveBeenCalled();
+                        done();
+                    });
+                });
             });
         });
 
@@ -176,6 +212,7 @@ describe('ThemeHistory', () => {
                         isChanged={true}
                         isPrelaunchStore={false}
                         position={{ x: 5, y: 10 }}
+                        createNotification={mockCreateNotification}
                         loadTheme={mockLoadTheme}
                         variationHistory={history}
                         {...routeProps}/>);
@@ -204,6 +241,7 @@ describe('ThemeHistory', () => {
                     isChanged={true}
                     isPrelaunchStore={false}
                     position={{ x: 5, y: 10 }}
+                    createNotification={mockCreateNotification}
                     loadTheme={mockLoadTheme}
                     variationHistory={history}
                     {...routeProps}/>);

@@ -22,6 +22,7 @@ exports[`ThemeVariations renders 1`] = `
   }
 >
   <ThemeVariations
+    createNotification={[MockFunction]}
     history={[MockFunction]}
     isChanged={false}
     loadTheme={[MockFunction]}

@@ -9,12 +9,12 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
       "calls": Array [
         Array [
           true,
-          "Changes have been reset.",
+          "Original theme styles restored.",
           "Success",
         ],
         Array [
           true,
-          "Changes have been reset.",
+          "Original theme styles restored.",
           "Success",
         ],
       ],
@@ -515,12 +515,12 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
       "calls": Array [
         Array [
           true,
-          "Changes have been reset.",
+          "Original theme styles restored.",
           "Success",
         ],
         Array [
           true,
-          "Changes have been reset.",
+          "Original theme styles restored.",
           "Success",
         ],
       ],
