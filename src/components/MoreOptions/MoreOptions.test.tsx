@@ -2,7 +2,7 @@ import Axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { mount, ReactWrapper } from 'enzyme';
 import React, { cloneElement } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 import BrowserContext from '../../context/BrowserContext';
 import { ThemeVariationsEntry } from '../../reducers/theme';
@@ -16,9 +16,15 @@ const mockProp: any = jest.fn(() => Promise.resolve({}));
 const routeProps = {
     history: mockProp,
     location: mockProp,
-    match: mockProp,
+    match: {
+        isExact: true,
+        params: '',
+        path: '/',
+        url: '/',
+    },
     staticContext: mockProp,
 };
+
 const mockLoadTheme: any = jest.fn(() => Promise.resolve({}));
 const mockCreateNotification: any = jest.fn();
 const mockNotification = {

@@ -53,7 +53,14 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
     }
   }
   location={[MockFunction]}
-  match={[MockFunction]}
+  match={
+    Object {
+      "isExact": true,
+      "params": "",
+      "path": "/",
+      "url": "/",
+    }
+  }
   notifications={
     Object {
       "autoDismiss": true,
@@ -100,6 +107,12 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
         }
       >
         <ExpandableMenu
+          back={
+            Object {
+              "pathname": "/",
+              "search": undefined,
+            }
+          }
           position={
             Object {
               "x": 10,
@@ -340,7 +353,12 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         },
                       }
                     }
-                    to="/"
+                    to={
+                      Object {
+                        "pathname": "/",
+                        "search": undefined,
+                      }
+                    }
                   >
                     <Link
                       className="sc-eNQAEJ hsjWjU"
@@ -354,7 +372,12 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                           },
                         }
                       }
-                      to="/"
+                      to={
+                        Object {
+                          "pathname": "/",
+                          "search": undefined,
+                        }
+                      }
                     >
                       <a
                         className="sc-eNQAEJ hsjWjU"
@@ -559,7 +582,14 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
     }
   }
   location={[MockFunction]}
-  match={[MockFunction]}
+  match={
+    Object {
+      "isExact": true,
+      "params": "",
+      "path": "/",
+      "url": "/",
+    }
+  }
   notifications={
     Object {
       "autoDismiss": true,
@@ -606,6 +636,12 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
         }
       >
         <ExpandableMenu
+          back={
+            Object {
+              "pathname": "/",
+              "search": undefined,
+            }
+          }
           position={
             Object {
               "x": 10,
@@ -846,7 +882,12 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         },
                       }
                     }
-                    to="/"
+                    to={
+                      Object {
+                        "pathname": "/",
+                        "search": undefined,
+                      }
+                    }
                   >
                     <Link
                       className="sc-eNQAEJ hsjWjU"
@@ -860,7 +901,12 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                           },
                         }
                       }
-                      to="/"
+                      to={
+                        Object {
+                          "pathname": "/",
+                          "search": undefined,
+                        }
+                      }
                     >
                       <a
                         className="sc-eNQAEJ hsjWjU"

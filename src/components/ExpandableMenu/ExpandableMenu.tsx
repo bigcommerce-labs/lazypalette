@@ -1,3 +1,4 @@
+import { LocationDescriptor } from 'history';
 import { theme, Icon } from 'pattern-lab';
 import React, { PureComponent } from 'react';
 
@@ -6,7 +7,7 @@ import { trackSectionClose } from '../../services/analytics';
 import { Content, ExpandModal, Header, NavItem, ResizeHandle, ResizeIcon, Title } from './styles';
 
 interface ExpandableMenuProps extends Partial<{
-    back: string;
+    back: LocationDescriptor;
     children: JSX.Element;
     minHeight: string;
     position: { x: number, y: number };
@@ -19,7 +20,17 @@ interface ExpandableMenuProps extends Partial<{
 
 class ExpandableMenu extends PureComponent<ExpandableMenuProps> {
     render() {
-        const { back = '/', children, minHeight, position, size, startMove, startResize, title, windowRef} = this.props;
+        const {
+            back = {pathname: '/'},
+            children,
+            minHeight,
+            position,
+            size,
+            startMove,
+            startResize,
+            title,
+            windowRef,
+        } = this.props;
         const { stroke } = theme.colors;
 
         return (

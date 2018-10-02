@@ -94,6 +94,12 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
   }
 >
   <ExpandableMenu
+    back={
+      Object {
+        "pathname": "/",
+        "search": undefined,
+      }
+    }
     title="Typography & Icons"
   >
     <styled.ul>

@@ -55,7 +55,11 @@ exports[`renders 1`] = `
           },
         }
       }
-      to="/bar"
+      to={
+        Object {
+          "pathname": "bar",
+        }
+      }
     />
   </styled.div>
   <styled.div

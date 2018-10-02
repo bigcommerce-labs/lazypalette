@@ -1,3 +1,4 @@
+import { LocationDescriptor } from 'history';
 import React, { PureComponent, SFC } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
@@ -107,13 +108,18 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
     };
 
     render() {
-        const { match, position, variationHistory} = this.props;
+        const { match, position, variationHistory, location} = this.props;
         const { isConfirmOpen } = this.state;
+
+        const locationDescriptor: LocationDescriptor = {
+            pathname: match.url,
+            search: location.search,
+        };
 
         return (
             <>
                 <Draggable position={position}>
-                    <ExpandableMenu title="History" back={match.url}>
+                    <ExpandableMenu title="History" back={locationDescriptor}>
                         <List>
                             {variationHistory.map(entry => (
                                 <HistoryEntry
