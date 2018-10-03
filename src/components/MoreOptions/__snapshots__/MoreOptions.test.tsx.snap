@@ -132,7 +132,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                   class="sc-eNQAEJ gNZsNX"
                 >
                   <div
-                    class="sc-kEYyzF edIUPc"
+                    class="sc-kEYyzF jxrfWL"
                   >
                     <h2
                       class="sc-kkGfuU klAQHe"
@@ -213,7 +213,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     class="sc-eNQAEJ gNZsNX"
                   >
                     <div
-                      class="sc-kEYyzF edIUPc"
+                      class="sc-kEYyzF jxrfWL"
                     >
                       <h2
                         class="sc-kkGfuU klAQHe"
@@ -330,7 +330,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     }
                   >
                     <div
-                      className="sc-kEYyzF edIUPc"
+                      className="sc-kEYyzF jxrfWL"
                     >
                       <styled.h2
                         onMouseDown={[Function]}
@@ -675,7 +675,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                   class="sc-eNQAEJ gNZsNX"
                 >
                   <div
-                    class="sc-kEYyzF edIUPc"
+                    class="sc-kEYyzF jxrfWL"
                   >
                     <h2
                       class="sc-kkGfuU klAQHe"
@@ -756,7 +756,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     class="sc-eNQAEJ gNZsNX"
                   >
                     <div
-                      class="sc-kEYyzF edIUPc"
+                      class="sc-kEYyzF jxrfWL"
                     >
                       <h2
                         class="sc-kkGfuU klAQHe"
@@ -873,7 +873,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     }
                   >
                     <div
-                      className="sc-kEYyzF edIUPc"
+                      className="sc-kEYyzF jxrfWL"
                     >
                       <styled.h2
                         onMouseDown={[Function]}

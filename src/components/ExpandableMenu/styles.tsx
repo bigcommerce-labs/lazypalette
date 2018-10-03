@@ -86,6 +86,7 @@ NavItem.defaultProps = {
 export const Header = styled.div`
     align-items: stretch;
     background-color: ${({ theme }) => theme.colors.background};
+    border-radius: 6px 6px 0 0;
     cursor: pointer;
     cursor: move;
     display: flex;
