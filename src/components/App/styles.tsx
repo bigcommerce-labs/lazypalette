@@ -12,6 +12,7 @@ export const StyledApp = styled.div`
 
 export const Viewport = styled.div`
     display: flex;
+    flex-basis: 100%;
     flex-direction: row;
     flex-grow: 1;
     min-height: 0;

@@ -125,102 +125,28 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
           windowRef={
             Object {
               "current": <div
-                class="sc-jKJlTe bscMFT"
+                class="sc-jKJlTe eNHUZn"
                 style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
               >
                 <div
-                  class="sc-hMqMXs gRogto"
-                >
-                  <h2
-                    class="sc-kEYyzF kyDTlJ"
-                  >
-                    More Options
-                  </h2>
-                  <a
-                    class="sc-eNQAEJ hsjWjU"
-                    href="/"
-                    theme="[object Object]"
-                  />
-                </div>
-                <div
-                  class="sc-kkGfuU kKTIOj"
-                >
-                  <ul
-                    class="sc-kgoBCf lnAFix"
-                  >
-                    <li
-                      class="sc-kGXeez cMNWCR"
-                      data-test-id="switch-to-theme-editor"
-                    >
-                      Switch to old Theme Editor
-                    </li>
-                    <li
-                      class="sc-kGXeez cMNWCR"
-                      data-test-id="edit-theme-files"
-                    >
-                      Edit Theme Files
-                    </li>
-                    <li
-                      class="sc-kGXeez cMNWCR"
-                      data-test-id="restore-original"
-                    >
-                      Restore original theme styles
-                    </li>
-                  </ul>
-                </div>
-                <div
-                  class="sc-iAyFgw iALBxf"
+                  class="sc-eNQAEJ gNZsNX"
                 >
                   <div
-                    class="sc-hSdWYo hTJEal"
-                  >
-                    <span
-                      class="sc-htpNat gUgXl"
-                    >
-                      <svg
-                        class="sc-bxivhb fJCLdB"
-                        version="1.1"
-                        viewBox="0 0 16 6"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="
-            M16 0H0V2H16V0ZM0 6H16V4H0V6Z
-        "
-                          fill="#CFD6E5"
-                          stroke="none"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </div>,
-            }
-          }
-        >
-          <styled.div
-            innerRef={
-              Object {
-                "current": <div
-                  class="sc-jKJlTe bscMFT"
-                  style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
-                >
-                  <div
-                    class="sc-hMqMXs gRogto"
+                    class="sc-kEYyzF edIUPc"
                   >
                     <h2
-                      class="sc-kEYyzF kyDTlJ"
+                      class="sc-kkGfuU klAQHe"
                     >
                       More Options
                     </h2>
                     <a
-                      class="sc-eNQAEJ hsjWjU"
+                      class="sc-hMqMXs hOzlTA"
                       href="/"
                       theme="[object Object]"
                     />
                   </div>
                   <div
-                    class="sc-kkGfuU kKTIOj"
+                    class="sc-iAyFgw gLJSFE"
                   >
                     <ul
                       class="sc-kgoBCf lnAFix"
@@ -246,10 +172,10 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     </ul>
                   </div>
                   <div
-                    class="sc-iAyFgw iALBxf"
+                    class="sc-hSdWYo eXSuhC"
                   >
                     <div
-                      class="sc-hSdWYo hTJEal"
+                      class="sc-eHgmQL fbxFaP"
                     >
                       <span
                         class="sc-htpNat gUgXl"
@@ -269,6 +195,88 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                           />
                         </svg>
                       </span>
+                    </div>
+                  </div>
+                </div>
+              </div>,
+            }
+          }
+        >
+          <styled.div
+            innerRef={
+              Object {
+                "current": <div
+                  class="sc-jKJlTe eNHUZn"
+                  style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
+                >
+                  <div
+                    class="sc-eNQAEJ gNZsNX"
+                  >
+                    <div
+                      class="sc-kEYyzF edIUPc"
+                    >
+                      <h2
+                        class="sc-kkGfuU klAQHe"
+                      >
+                        More Options
+                      </h2>
+                      <a
+                        class="sc-hMqMXs hOzlTA"
+                        href="/"
+                        theme="[object Object]"
+                      />
+                    </div>
+                    <div
+                      class="sc-iAyFgw gLJSFE"
+                    >
+                      <ul
+                        class="sc-kgoBCf lnAFix"
+                      >
+                        <li
+                          class="sc-kGXeez cMNWCR"
+                          data-test-id="switch-to-theme-editor"
+                        >
+                          Switch to old Theme Editor
+                        </li>
+                        <li
+                          class="sc-kGXeez cMNWCR"
+                          data-test-id="edit-theme-files"
+                        >
+                          Edit Theme Files
+                        </li>
+                        <li
+                          class="sc-kGXeez cMNWCR"
+                          data-test-id="restore-original"
+                        >
+                          Restore original theme styles
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      class="sc-hSdWYo eXSuhC"
+                    >
+                      <div
+                        class="sc-eHgmQL fbxFaP"
+                      >
+                        <span
+                          class="sc-htpNat gUgXl"
+                        >
+                          <svg
+                            class="sc-bxivhb fJCLdB"
+                            version="1.1"
+                            viewBox="0 0 16 6"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="
+            M16 0H0V2H16V0ZM0 6H16V4H0V6Z
+        "
+                              fill="#CFD6E5"
+                              stroke="none"
+                            />
+                          </svg>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>,
@@ -292,7 +300,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
             }
           >
             <div
-              className="sc-jKJlTe bscMFT"
+              className="sc-jKJlTe eNHUZn"
               style={
                 Object {
                   "left": "10px",
@@ -302,29 +310,15 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                 }
               }
             >
-              <styled.div
-                theme={
-                  Object {
-                    "colors": Object {
-                      "background": "#F5F7FA",
-                      "primaryText": "#AAAAAA",
-                    },
-                    "typography": Object {
-                      "fontWeight": Object {
-                        "normal": 400,
-                      },
-                    },
-                  }
-                }
-              >
+              <styled.div>
                 <div
-                  className="sc-hMqMXs gRogto"
+                  className="sc-eNQAEJ gNZsNX"
                 >
-                  <styled.h2
-                    onMouseDown={[Function]}
+                  <styled.div
                     theme={
                       Object {
                         "colors": Object {
+                          "background": "#F5F7FA",
                           "primaryText": "#AAAAAA",
                         },
                         "typography": Object {
@@ -335,54 +329,34 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                       }
                     }
                   >
-                    <h2
-                      className="sc-kEYyzF kyDTlJ"
-                      onMouseDown={[Function]}
+                    <div
+                      className="sc-kEYyzF edIUPc"
                     >
-                      More Options
-                    </h2>
-                  </styled.h2>
-                  <Styled(Link)
-                    onClick={[Function]}
-                    replace={true}
-                    theme={
-                      Object {
-                        "colors": Object {
-                          "background": "#000000",
-                          "primaryText": "#AAAAAA",
-                        },
-                      }
-                    }
-                    to={
-                      Object {
-                        "pathname": "/",
-                        "search": undefined,
-                      }
-                    }
-                  >
-                    <Link
-                      className="sc-eNQAEJ hsjWjU"
-                      onClick={[Function]}
-                      replace={true}
-                      theme={
-                        Object {
-                          "colors": Object {
-                            "background": "#000000",
-                            "primaryText": "#AAAAAA",
-                          },
+                      <styled.h2
+                        onMouseDown={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "primaryText": "#AAAAAA",
+                            },
+                            "typography": Object {
+                              "fontWeight": Object {
+                                "normal": 400,
+                              },
+                            },
+                          }
                         }
-                      }
-                      to={
-                        Object {
-                          "pathname": "/",
-                          "search": undefined,
-                        }
-                      }
-                    >
-                      <a
-                        className="sc-eNQAEJ hsjWjU"
-                        href="/"
+                      >
+                        <h2
+                          className="sc-kkGfuU klAQHe"
+                          onMouseDown={[Function]}
+                        >
+                          More Options
+                        </h2>
+                      </styled.h2>
+                      <Styled(Link)
                         onClick={[Function]}
+                        replace={true}
                         theme={
                           Object {
                             "colors": Object {
@@ -391,131 +365,171 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                             },
                           }
                         }
-                      />
-                    </Link>
-                  </Styled(Link)>
-                </div>
-              </styled.div>
-              <styled.div
-                theme={
-                  Object {
-                    "colors": Object {
-                      "empty": "#FFFFFF",
-                    },
-                  }
-                }
-              >
-                <div
-                  className="sc-kkGfuU kKTIOj"
-                >
-                  <styled.ul>
-                    <ul
-                      className="sc-kgoBCf lnAFix"
-                    >
-                      <styled.li
-                        data-test-id="switch-to-theme-editor"
-                        onClick={[Function]}
-                        theme={
+                        to={
                           Object {
-                            "colors": Object {
-                              "primaryText": "#FFFFFF",
-                            },
+                            "pathname": "/",
+                            "search": undefined,
                           }
                         }
                       >
-                        <li
-                          className="sc-kGXeez cMNWCR"
-                          data-test-id="switch-to-theme-editor"
+                        <Link
+                          className="sc-hMqMXs hOzlTA"
                           onClick={[Function]}
-                        >
-                          Switch to old Theme Editor
-                        </li>
-                      </styled.li>
-                      <styled.li
-                        data-test-id="edit-theme-files"
-                        onClick={[Function]}
-                        theme={
-                          Object {
-                            "colors": Object {
-                              "primaryText": "#FFFFFF",
-                            },
+                          replace={true}
+                          theme={
+                            Object {
+                              "colors": Object {
+                                "background": "#000000",
+                                "primaryText": "#AAAAAA",
+                              },
+                            }
                           }
-                        }
-                      >
-                        <li
-                          className="sc-kGXeez cMNWCR"
-                          data-test-id="edit-theme-files"
-                          onClick={[Function]}
-                        >
-                          Edit Theme Files
-                        </li>
-                      </styled.li>
-                      <styled.li
-                        data-test-id="restore-original"
-                        onClick={[Function]}
-                        theme={
-                          Object {
-                            "colors": Object {
-                              "primaryText": "#FFFFFF",
-                            },
+                          to={
+                            Object {
+                              "pathname": "/",
+                              "search": undefined,
+                            }
                           }
-                        }
-                      >
-                        <li
-                          className="sc-kGXeez cMNWCR"
-                          data-test-id="restore-original"
-                          onClick={[Function]}
                         >
-                          Restore original theme styles
-                        </li>
-                      </styled.li>
-                    </ul>
-                  </styled.ul>
-                </div>
-              </styled.div>
-              <styled.div
-                onMouseDown={[Function]}
-              >
-                <div
-                  className="sc-iAyFgw iALBxf"
-                  onMouseDown={[Function]}
-                >
-                  <styled.div>
+                          <a
+                            className="sc-hMqMXs hOzlTA"
+                            href="/"
+                            onClick={[Function]}
+                            theme={
+                              Object {
+                                "colors": Object {
+                                  "background": "#000000",
+                                  "primaryText": "#AAAAAA",
+                                },
+                              }
+                            }
+                          />
+                        </Link>
+                      </Styled(Link)>
+                    </div>
+                  </styled.div>
+                  <styled.div
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "empty": "#FFFFFF",
+                        },
+                      }
+                    }
+                  >
                     <div
-                      className="sc-hSdWYo hTJEal"
+                      className="sc-iAyFgw gLJSFE"
                     >
-                      <Icon
-                        glyph="resizeable"
-                        primaryColor="#CFD6E5"
-                        size="large"
-                      >
-                        <styled.span
-                          iconSize="large"
+                      <styled.ul>
+                        <ul
+                          className="sc-kgoBCf lnAFix"
                         >
-                          <span
-                            className="sc-htpNat gUgXl"
+                          <styled.li
+                            data-test-id="switch-to-theme-editor"
+                            onClick={[Function]}
+                            theme={
+                              Object {
+                                "colors": Object {
+                                  "primaryText": "#FFFFFF",
+                                },
+                              }
+                            }
                           >
-                            <styled.svg
-                              viewBox="0 0 16 6"
+                            <li
+                              className="sc-kGXeez cMNWCR"
+                              data-test-id="switch-to-theme-editor"
+                              onClick={[Function]}
                             >
-                              <svg
-                                className="sc-bxivhb fJCLdB"
-                                version="1.1"
-                                viewBox="0 0 16 6"
-                                xmlns="http://www.w3.org/2000/svg"
+                              Switch to old Theme Editor
+                            </li>
+                          </styled.li>
+                          <styled.li
+                            data-test-id="edit-theme-files"
+                            onClick={[Function]}
+                            theme={
+                              Object {
+                                "colors": Object {
+                                  "primaryText": "#FFFFFF",
+                                },
+                              }
+                            }
+                          >
+                            <li
+                              className="sc-kGXeez cMNWCR"
+                              data-test-id="edit-theme-files"
+                              onClick={[Function]}
+                            >
+                              Edit Theme Files
+                            </li>
+                          </styled.li>
+                          <styled.li
+                            data-test-id="restore-original"
+                            onClick={[Function]}
+                            theme={
+                              Object {
+                                "colors": Object {
+                                  "primaryText": "#FFFFFF",
+                                },
+                              }
+                            }
+                          >
+                            <li
+                              className="sc-kGXeez cMNWCR"
+                              data-test-id="restore-original"
+                              onClick={[Function]}
+                            >
+                              Restore original theme styles
+                            </li>
+                          </styled.li>
+                        </ul>
+                      </styled.ul>
+                    </div>
+                  </styled.div>
+                  <styled.div
+                    onMouseDown={[Function]}
+                  >
+                    <div
+                      className="sc-hSdWYo eXSuhC"
+                      onMouseDown={[Function]}
+                    >
+                      <styled.div>
+                        <div
+                          className="sc-eHgmQL fbxFaP"
+                        >
+                          <Icon
+                            glyph="resizeable"
+                            primaryColor="#CFD6E5"
+                            size="large"
+                          >
+                            <styled.span
+                              iconSize="large"
+                            >
+                              <span
+                                className="sc-htpNat gUgXl"
                               >
-                                <path
-                                  d="
+                                <styled.svg
+                                  viewBox="0 0 16 6"
+                                >
+                                  <svg
+                                    className="sc-bxivhb fJCLdB"
+                                    version="1.1"
+                                    viewBox="0 0 16 6"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="
             M16 0H0V2H16V0ZM0 6H16V4H0V6Z
         "
-                                  fill="#CFD6E5"
-                                  stroke="none"
-                                />
-                              </svg>
-                            </styled.svg>
-                          </span>
-                        </styled.span>
-                      </Icon>
+                                      fill="#CFD6E5"
+                                      stroke="none"
+                                    />
+                                  </svg>
+                                </styled.svg>
+                              </span>
+                            </styled.span>
+                          </Icon>
+                        </div>
+                      </styled.div>
                     </div>
                   </styled.div>
                 </div>
@@ -654,102 +668,28 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
           windowRef={
             Object {
               "current": <div
-                class="sc-jKJlTe bscMFT"
+                class="sc-jKJlTe eNHUZn"
                 style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
               >
                 <div
-                  class="sc-hMqMXs gRogto"
-                >
-                  <h2
-                    class="sc-kEYyzF kyDTlJ"
-                  >
-                    More Options
-                  </h2>
-                  <a
-                    class="sc-eNQAEJ hsjWjU"
-                    href="/"
-                    theme="[object Object]"
-                  />
-                </div>
-                <div
-                  class="sc-kkGfuU kKTIOj"
-                >
-                  <ul
-                    class="sc-kgoBCf lnAFix"
-                  >
-                    <li
-                      class="sc-kGXeez cMNWCR"
-                      data-test-id="switch-to-theme-editor"
-                    >
-                      Switch to old Theme Editor
-                    </li>
-                    <li
-                      class="sc-kGXeez cMNWCR"
-                      data-test-id="edit-theme-files"
-                    >
-                      Edit Theme Files
-                    </li>
-                    <li
-                      class="sc-kGXeez cMNWCR"
-                      data-test-id="restore-original"
-                    >
-                      Restore original theme styles
-                    </li>
-                  </ul>
-                </div>
-                <div
-                  class="sc-iAyFgw iALBxf"
+                  class="sc-eNQAEJ gNZsNX"
                 >
                   <div
-                    class="sc-hSdWYo hTJEal"
-                  >
-                    <span
-                      class="sc-htpNat gUgXl"
-                    >
-                      <svg
-                        class="sc-bxivhb fJCLdB"
-                        version="1.1"
-                        viewBox="0 0 16 6"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="
-            M16 0H0V2H16V0ZM0 6H16V4H0V6Z
-        "
-                          fill="#CFD6E5"
-                          stroke="none"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </div>,
-            }
-          }
-        >
-          <styled.div
-            innerRef={
-              Object {
-                "current": <div
-                  class="sc-jKJlTe bscMFT"
-                  style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
-                >
-                  <div
-                    class="sc-hMqMXs gRogto"
+                    class="sc-kEYyzF edIUPc"
                   >
                     <h2
-                      class="sc-kEYyzF kyDTlJ"
+                      class="sc-kkGfuU klAQHe"
                     >
                       More Options
                     </h2>
                     <a
-                      class="sc-eNQAEJ hsjWjU"
+                      class="sc-hMqMXs hOzlTA"
                       href="/"
                       theme="[object Object]"
                     />
                   </div>
                   <div
-                    class="sc-kkGfuU kKTIOj"
+                    class="sc-iAyFgw gLJSFE"
                   >
                     <ul
                       class="sc-kgoBCf lnAFix"
@@ -775,10 +715,10 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                     </ul>
                   </div>
                   <div
-                    class="sc-iAyFgw iALBxf"
+                    class="sc-hSdWYo eXSuhC"
                   >
                     <div
-                      class="sc-hSdWYo hTJEal"
+                      class="sc-eHgmQL fbxFaP"
                     >
                       <span
                         class="sc-htpNat gUgXl"
@@ -798,6 +738,88 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                           />
                         </svg>
                       </span>
+                    </div>
+                  </div>
+                </div>
+              </div>,
+            }
+          }
+        >
+          <styled.div
+            innerRef={
+              Object {
+                "current": <div
+                  class="sc-jKJlTe eNHUZn"
+                  style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
+                >
+                  <div
+                    class="sc-eNQAEJ gNZsNX"
+                  >
+                    <div
+                      class="sc-kEYyzF edIUPc"
+                    >
+                      <h2
+                        class="sc-kkGfuU klAQHe"
+                      >
+                        More Options
+                      </h2>
+                      <a
+                        class="sc-hMqMXs hOzlTA"
+                        href="/"
+                        theme="[object Object]"
+                      />
+                    </div>
+                    <div
+                      class="sc-iAyFgw gLJSFE"
+                    >
+                      <ul
+                        class="sc-kgoBCf lnAFix"
+                      >
+                        <li
+                          class="sc-kGXeez cMNWCR"
+                          data-test-id="switch-to-theme-editor"
+                        >
+                          Switch to old Theme Editor
+                        </li>
+                        <li
+                          class="sc-kGXeez cMNWCR"
+                          data-test-id="edit-theme-files"
+                        >
+                          Edit Theme Files
+                        </li>
+                        <li
+                          class="sc-kGXeez cMNWCR"
+                          data-test-id="restore-original"
+                        >
+                          Restore original theme styles
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      class="sc-hSdWYo eXSuhC"
+                    >
+                      <div
+                        class="sc-eHgmQL fbxFaP"
+                      >
+                        <span
+                          class="sc-htpNat gUgXl"
+                        >
+                          <svg
+                            class="sc-bxivhb fJCLdB"
+                            version="1.1"
+                            viewBox="0 0 16 6"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="
+            M16 0H0V2H16V0ZM0 6H16V4H0V6Z
+        "
+                              fill="#CFD6E5"
+                              stroke="none"
+                            />
+                          </svg>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>,
@@ -821,7 +843,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
             }
           >
             <div
-              className="sc-jKJlTe bscMFT"
+              className="sc-jKJlTe eNHUZn"
               style={
                 Object {
                   "left": "10px",
@@ -831,29 +853,15 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                 }
               }
             >
-              <styled.div
-                theme={
-                  Object {
-                    "colors": Object {
-                      "background": "#F5F7FA",
-                      "primaryText": "#AAAAAA",
-                    },
-                    "typography": Object {
-                      "fontWeight": Object {
-                        "normal": 400,
-                      },
-                    },
-                  }
-                }
-              >
+              <styled.div>
                 <div
-                  className="sc-hMqMXs gRogto"
+                  className="sc-eNQAEJ gNZsNX"
                 >
-                  <styled.h2
-                    onMouseDown={[Function]}
+                  <styled.div
                     theme={
                       Object {
                         "colors": Object {
+                          "background": "#F5F7FA",
                           "primaryText": "#AAAAAA",
                         },
                         "typography": Object {
@@ -864,54 +872,34 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                       }
                     }
                   >
-                    <h2
-                      className="sc-kEYyzF kyDTlJ"
-                      onMouseDown={[Function]}
+                    <div
+                      className="sc-kEYyzF edIUPc"
                     >
-                      More Options
-                    </h2>
-                  </styled.h2>
-                  <Styled(Link)
-                    onClick={[Function]}
-                    replace={true}
-                    theme={
-                      Object {
-                        "colors": Object {
-                          "background": "#000000",
-                          "primaryText": "#AAAAAA",
-                        },
-                      }
-                    }
-                    to={
-                      Object {
-                        "pathname": "/",
-                        "search": undefined,
-                      }
-                    }
-                  >
-                    <Link
-                      className="sc-eNQAEJ hsjWjU"
-                      onClick={[Function]}
-                      replace={true}
-                      theme={
-                        Object {
-                          "colors": Object {
-                            "background": "#000000",
-                            "primaryText": "#AAAAAA",
-                          },
+                      <styled.h2
+                        onMouseDown={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "primaryText": "#AAAAAA",
+                            },
+                            "typography": Object {
+                              "fontWeight": Object {
+                                "normal": 400,
+                              },
+                            },
+                          }
                         }
-                      }
-                      to={
-                        Object {
-                          "pathname": "/",
-                          "search": undefined,
-                        }
-                      }
-                    >
-                      <a
-                        className="sc-eNQAEJ hsjWjU"
-                        href="/"
+                      >
+                        <h2
+                          className="sc-kkGfuU klAQHe"
+                          onMouseDown={[Function]}
+                        >
+                          More Options
+                        </h2>
+                      </styled.h2>
+                      <Styled(Link)
                         onClick={[Function]}
+                        replace={true}
                         theme={
                           Object {
                             "colors": Object {
@@ -920,131 +908,171 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                             },
                           }
                         }
-                      />
-                    </Link>
-                  </Styled(Link)>
-                </div>
-              </styled.div>
-              <styled.div
-                theme={
-                  Object {
-                    "colors": Object {
-                      "empty": "#FFFFFF",
-                    },
-                  }
-                }
-              >
-                <div
-                  className="sc-kkGfuU kKTIOj"
-                >
-                  <styled.ul>
-                    <ul
-                      className="sc-kgoBCf lnAFix"
-                    >
-                      <styled.li
-                        data-test-id="switch-to-theme-editor"
-                        onClick={[Function]}
-                        theme={
+                        to={
                           Object {
-                            "colors": Object {
-                              "primaryText": "#FFFFFF",
-                            },
+                            "pathname": "/",
+                            "search": undefined,
                           }
                         }
                       >
-                        <li
-                          className="sc-kGXeez cMNWCR"
-                          data-test-id="switch-to-theme-editor"
+                        <Link
+                          className="sc-hMqMXs hOzlTA"
                           onClick={[Function]}
-                        >
-                          Switch to old Theme Editor
-                        </li>
-                      </styled.li>
-                      <styled.li
-                        data-test-id="edit-theme-files"
-                        onClick={[Function]}
-                        theme={
-                          Object {
-                            "colors": Object {
-                              "primaryText": "#FFFFFF",
-                            },
+                          replace={true}
+                          theme={
+                            Object {
+                              "colors": Object {
+                                "background": "#000000",
+                                "primaryText": "#AAAAAA",
+                              },
+                            }
                           }
-                        }
-                      >
-                        <li
-                          className="sc-kGXeez cMNWCR"
-                          data-test-id="edit-theme-files"
-                          onClick={[Function]}
-                        >
-                          Edit Theme Files
-                        </li>
-                      </styled.li>
-                      <styled.li
-                        data-test-id="restore-original"
-                        onClick={[Function]}
-                        theme={
-                          Object {
-                            "colors": Object {
-                              "primaryText": "#FFFFFF",
-                            },
+                          to={
+                            Object {
+                              "pathname": "/",
+                              "search": undefined,
+                            }
                           }
-                        }
-                      >
-                        <li
-                          className="sc-kGXeez cMNWCR"
-                          data-test-id="restore-original"
-                          onClick={[Function]}
                         >
-                          Restore original theme styles
-                        </li>
-                      </styled.li>
-                    </ul>
-                  </styled.ul>
-                </div>
-              </styled.div>
-              <styled.div
-                onMouseDown={[Function]}
-              >
-                <div
-                  className="sc-iAyFgw iALBxf"
-                  onMouseDown={[Function]}
-                >
-                  <styled.div>
+                          <a
+                            className="sc-hMqMXs hOzlTA"
+                            href="/"
+                            onClick={[Function]}
+                            theme={
+                              Object {
+                                "colors": Object {
+                                  "background": "#000000",
+                                  "primaryText": "#AAAAAA",
+                                },
+                              }
+                            }
+                          />
+                        </Link>
+                      </Styled(Link)>
+                    </div>
+                  </styled.div>
+                  <styled.div
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "empty": "#FFFFFF",
+                        },
+                      }
+                    }
+                  >
                     <div
-                      className="sc-hSdWYo hTJEal"
+                      className="sc-iAyFgw gLJSFE"
                     >
-                      <Icon
-                        glyph="resizeable"
-                        primaryColor="#CFD6E5"
-                        size="large"
-                      >
-                        <styled.span
-                          iconSize="large"
+                      <styled.ul>
+                        <ul
+                          className="sc-kgoBCf lnAFix"
                         >
-                          <span
-                            className="sc-htpNat gUgXl"
+                          <styled.li
+                            data-test-id="switch-to-theme-editor"
+                            onClick={[Function]}
+                            theme={
+                              Object {
+                                "colors": Object {
+                                  "primaryText": "#FFFFFF",
+                                },
+                              }
+                            }
                           >
-                            <styled.svg
-                              viewBox="0 0 16 6"
+                            <li
+                              className="sc-kGXeez cMNWCR"
+                              data-test-id="switch-to-theme-editor"
+                              onClick={[Function]}
                             >
-                              <svg
-                                className="sc-bxivhb fJCLdB"
-                                version="1.1"
-                                viewBox="0 0 16 6"
-                                xmlns="http://www.w3.org/2000/svg"
+                              Switch to old Theme Editor
+                            </li>
+                          </styled.li>
+                          <styled.li
+                            data-test-id="edit-theme-files"
+                            onClick={[Function]}
+                            theme={
+                              Object {
+                                "colors": Object {
+                                  "primaryText": "#FFFFFF",
+                                },
+                              }
+                            }
+                          >
+                            <li
+                              className="sc-kGXeez cMNWCR"
+                              data-test-id="edit-theme-files"
+                              onClick={[Function]}
+                            >
+                              Edit Theme Files
+                            </li>
+                          </styled.li>
+                          <styled.li
+                            data-test-id="restore-original"
+                            onClick={[Function]}
+                            theme={
+                              Object {
+                                "colors": Object {
+                                  "primaryText": "#FFFFFF",
+                                },
+                              }
+                            }
+                          >
+                            <li
+                              className="sc-kGXeez cMNWCR"
+                              data-test-id="restore-original"
+                              onClick={[Function]}
+                            >
+                              Restore original theme styles
+                            </li>
+                          </styled.li>
+                        </ul>
+                      </styled.ul>
+                    </div>
+                  </styled.div>
+                  <styled.div
+                    onMouseDown={[Function]}
+                  >
+                    <div
+                      className="sc-hSdWYo eXSuhC"
+                      onMouseDown={[Function]}
+                    >
+                      <styled.div>
+                        <div
+                          className="sc-eHgmQL fbxFaP"
+                        >
+                          <Icon
+                            glyph="resizeable"
+                            primaryColor="#CFD6E5"
+                            size="large"
+                          >
+                            <styled.span
+                              iconSize="large"
+                            >
+                              <span
+                                className="sc-htpNat gUgXl"
                               >
-                                <path
-                                  d="
+                                <styled.svg
+                                  viewBox="0 0 16 6"
+                                >
+                                  <svg
+                                    className="sc-bxivhb fJCLdB"
+                                    version="1.1"
+                                    viewBox="0 0 16 6"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="
             M16 0H0V2H16V0ZM0 6H16V4H0V6Z
         "
-                                  fill="#CFD6E5"
-                                  stroke="none"
-                                />
-                              </svg>
-                            </styled.svg>
-                          </span>
-                        </styled.span>
-                      </Icon>
+                                      fill="#CFD6E5"
+                                      stroke="none"
+                                    />
+                                  </svg>
+                                </styled.svg>
+                              </span>
+                            </styled.span>
+                          </Icon>
+                        </div>
+                      </styled.div>
                     </div>
                   </styled.div>
                 </div>

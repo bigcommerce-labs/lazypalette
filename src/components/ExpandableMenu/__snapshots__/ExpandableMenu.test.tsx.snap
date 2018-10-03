@@ -13,25 +13,12 @@ exports[`renders 1`] = `
     }
   }
 >
-  <styled.div
-    theme={
-      Object {
-        "colors": Object {
-          "background": "#F5F7FA",
-          "primaryText": "#AAAAAA",
-        },
-        "typography": Object {
-          "fontWeight": Object {
-            "normal": 400,
-          },
-        },
-      }
-    }
-  >
-    <styled.h2
+  <styled.div>
+    <styled.div
       theme={
         Object {
           "colors": Object {
+            "background": "#F5F7FA",
             "primaryText": "#AAAAAA",
           },
           "typography": Object {
@@ -42,44 +29,59 @@ exports[`renders 1`] = `
         }
       }
     >
-      foo
-    </styled.h2>
-    <Styled(Link)
-      onClick={[Function]}
-      replace={true}
+      <styled.h2
+        theme={
+          Object {
+            "colors": Object {
+              "primaryText": "#AAAAAA",
+            },
+            "typography": Object {
+              "fontWeight": Object {
+                "normal": 400,
+              },
+            },
+          }
+        }
+      >
+        foo
+      </styled.h2>
+      <Styled(Link)
+        onClick={[Function]}
+        replace={true}
+        theme={
+          Object {
+            "colors": Object {
+              "background": "#000000",
+              "primaryText": "#AAAAAA",
+            },
+          }
+        }
+        to={
+          Object {
+            "pathname": "bar",
+          }
+        }
+      />
+    </styled.div>
+    <styled.div
       theme={
         Object {
           "colors": Object {
-            "background": "#000000",
-            "primaryText": "#AAAAAA",
+            "empty": "#FFFFFF",
           },
         }
       }
-      to={
-        Object {
-          "pathname": "bar",
-        }
-      }
-    />
-  </styled.div>
-  <styled.div
-    theme={
-      Object {
-        "colors": Object {
-          "empty": "#FFFFFF",
-        },
-      }
-    }
-  >
-    <TestChildren />
-  </styled.div>
-  <styled.div>
+    >
+      <TestChildren />
+    </styled.div>
     <styled.div>
-      <Icon
-        glyph="resizeable"
-        primaryColor="#CFD6E5"
-        size="large"
-      />
+      <styled.div>
+        <Icon
+          glyph="resizeable"
+          primaryColor="#CFD6E5"
+          size="large"
+        />
+      </styled.div>
     </styled.div>
   </styled.div>
 </styled.div>

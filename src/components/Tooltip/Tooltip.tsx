@@ -109,7 +109,7 @@ class Tooltip extends PureComponent<TooltipProps, TooltipState> {
         this.showTimer = setTimeout(() => {
             this.showTooltip();
             this.clearShowTimer();
-        }, this.props.showDelay === undefined ? 250 : this.props.showDelay);
+        }, this.props.showDelay === undefined ? 500 : this.props.showDelay);
     };
 
     clearShowTimer = () => {
