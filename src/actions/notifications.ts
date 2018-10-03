@@ -36,7 +36,13 @@ export function openNotification(content: NotificationsProps): OpenNotificationA
     };
 }
 
+let autoDismissTimer: number;
+
 export function closeNotification(): CloseNotificationAction {
+    if (autoDismissTimer) {
+        clearTimeout(autoDismissTimer);
+    }
+
     return {
         type: NotificationActionTypes.CLOSE_NOTIFICATION,
     };
@@ -44,12 +50,11 @@ export function closeNotification(): CloseNotificationAction {
 
 export function createNotification(autoDismiss: boolean, message: string, type: string) {
     return (dispatch: Dispatch<State>) => {
+        dispatch(closeNotification());
         dispatch(openNotification({ autoDismiss, message, type }));
 
         if (autoDismiss) {
-            setTimeout(() => {
-                dispatch(closeNotification());
-            }, ToastTimeout.Duration);
+            autoDismissTimer = window.setTimeout(() => dispatch(closeNotification()), ToastTimeout.Duration);
         }
     };
 }
