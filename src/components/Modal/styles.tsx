@@ -53,16 +53,13 @@ export const Overlay = styled.div.attrs<OverlayProps>({})`
     bottom: 0;
     left: 0;
     overflow-y: auto;
-    opacity: ${({ isTransparent }) => isTransparent ? 0 : 0.8};
-    background: ${({ theme }) => theme.colors.empty};
+    opacity: ${({ isTransparent }) => isTransparent ? 0 : 0.45};
+    background: #000000;
     z-index: ${({ theme }) => theme.layers.higher};
 `;
 
 Overlay.defaultProps = {
     theme: {
-        colors: {
-            empty: '#FFFFFF',
-        },
         layers: {
             higher: 100,
         },

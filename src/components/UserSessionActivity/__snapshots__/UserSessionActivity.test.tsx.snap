@@ -49,9 +49,6 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
               isTransparent={false}
               theme={
                 Object {
-                  "colors": Object {
-                    "empty": "#FFFFFF",
-                  },
                   "layers": Object {
                     "higher": 100,
                   },
@@ -59,7 +56,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
               }
             >
               <div
-                className="sc-ifAKCX brMwJ"
+                className="sc-ifAKCX glQnqD"
               />
             </styled.div>
             <styled.div

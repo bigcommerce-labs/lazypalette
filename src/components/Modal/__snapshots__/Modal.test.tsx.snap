@@ -15,9 +15,6 @@ exports[`Modal renders 1`] = `
     isTransparent={false}
     theme={
       Object {
-        "colors": Object {
-          "empty": "#FFFFFF",
-        },
         "layers": Object {
           "higher": 100,
         },
