@@ -8,6 +8,7 @@ export const initialState = {
     isDownForMaintenance: false,
     isPrelaunchStore: false,
     previewCode: '',
+    queryParams: '',
     storeHash: '',
 };
 
@@ -18,6 +19,7 @@ export interface MerchantStoreState {
     isDownForMaintenance: boolean;
     isPrelaunchStore: boolean;
     previewCode: string;
+    queryParams: string;
     storeHash: string;
 }
 
@@ -36,6 +38,11 @@ const merchant = (
             return { ...state,
                 activeThemeId: action.payload.activeThemeId,
                 activeVariationId: action.payload.activeVariationId,
+            };
+        case MerchantActionTypes.UPDATE_QUERY_PARAMS:
+            return {
+                ...state,
+                queryParams: action.payload.queryParams,
             };
         default:
             return state;

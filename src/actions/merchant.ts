@@ -1,10 +1,11 @@
-import { Dispatch } from 'redux';
+import { Dispatch} from 'redux';
 
 import { State } from '../reducers/reducers';
 
 export enum MerchantActionTypes {
     SET_STORE_DEFAULTS = 'SET_STORE_DEFAULTS',
     UPDATE_ACTIVE_THEME = 'UPDATE_ACTIVE_THEME',
+    UPDATE_QUERY_PARAMS = 'UPDATE_QUERY_PARAMS',
 }
 
 export interface SetStoreDataAction {
@@ -32,6 +33,15 @@ export interface UpdateActiveThemeAction {
     type: MerchantActionTypes.UPDATE_ACTIVE_THEME;
 }
 
+export interface UpdateQueryParamsAction {
+    payload: QueryParamsData;
+    type: MerchantActionTypes.UPDATE_QUERY_PARAMS;
+}
+
+export interface QueryParamsData {
+    queryParams: string;
+}
+
 export interface UpdateActiveThemeData {
     activeThemeId: string;
     activeVariationId: string;
@@ -56,5 +66,12 @@ export function updateActiveTheme(payload: UpdateActiveThemeData): UpdateActiveT
     return {
         payload,
         type: MerchantActionTypes.UPDATE_ACTIVE_THEME,
+    };
+}
+
+export function setQueryParams(payload: QueryParamsData): UpdateQueryParamsAction {
+    return {
+        payload,
+        type: MerchantActionTypes.UPDATE_QUERY_PARAMS,
     };
 }

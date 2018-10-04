@@ -34,6 +34,8 @@ exports[`ThemeVariations renders 1`] = `
         "y": 10,
       }
     }
+    queryParams=""
+    setQueryParams={[MockFunction]}
     staticContext={[MockFunction]}
     themeVariants={
       Array [

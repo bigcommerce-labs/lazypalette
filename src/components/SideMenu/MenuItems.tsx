@@ -1,4 +1,5 @@
 import { LocationDescriptor } from 'history';
+import { createBrowserHistory } from 'history';
 import { theme, Icon } from 'pattern-lab';
 import React, { Component } from 'react';
 import Dotdotdot from 'react-dotdotdot';
@@ -57,9 +58,10 @@ class MenuItems extends Component<MenuItemsProps, {}> {
             <StyledMenuItems>
                 {this.props.items.map(({ disabled, divider, externalLink, path, label }) => {
                     const isActive = this.isPathActive(path);
+                    const history = createBrowserHistory();
                     const locationDescriptor: LocationDescriptor = {
                         pathname: this.toggleLink(path),
-                        search: this.props.location.search,
+                        search: history.location.search,
                     };
 
                     return (

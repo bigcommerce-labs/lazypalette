@@ -42,9 +42,11 @@ describe('ThemeVariations', () => {
                 <ThemeVariations
                     isChanged={false}
                     position={{ x: 5, y: 10}}
+                    queryParams=""
                     themeVariants={testItems}
                     createNotification={mockHandler}
                     loadTheme={mockHandler}
+                    setQueryParams={mockHandler}
                     {...routeProps}
                 />
             </StaticRouter>
@@ -56,6 +58,7 @@ describe('ThemeVariations', () => {
     describe('handleVariationChange', () => {
         const mockLoadTheme = jest.fn();
         const mockCreateNotification = jest.fn();
+        const mockSetQueryParams = jest.fn();
 
         beforeEach(() => {
             mockLoadTheme.mockReset();
@@ -71,9 +74,11 @@ describe('ThemeVariations', () => {
                         <ThemeVariations
                             isChanged={false} // no theme changes
                             position={{ x: 5, y: 10}}
+                            queryParams=""
                             themeVariants={testItems}
                             createNotification={mockCreateNotification}
                             loadTheme={mockLoadTheme}
+                            setQueryParams={mockSetQueryParams}
                             {...routeProps}
                         />
                     </StaticRouter>
@@ -100,9 +105,11 @@ describe('ThemeVariations', () => {
                             <ThemeVariations
                                 isChanged={false} // no theme changes
                                 position={{ x: 5, y: 10 }}
+                                queryParams=""
                                 themeVariants={testItems}
                                 createNotification={mockCreateNotification}
                                 loadTheme={mockLoadTheme}
+                                setQueryParams={mockSetQueryParams}
                                 {...routeProps}
                             />
                         </StaticRouter>
@@ -132,9 +139,11 @@ describe('ThemeVariations', () => {
                             <ThemeVariations
                                 isChanged={false} // no theme changes
                                 position={{ x: 5, y: 10 }}
+                                queryParams=""
                                 themeVariants={testItems}
                                 createNotification={mockCreateNotification}
                                 loadTheme={mockLoadTheme}
+                                setQueryParams={mockSetQueryParams}
                                 {...routeProps}
                             />
                         </StaticRouter>
@@ -165,9 +174,11 @@ describe('ThemeVariations', () => {
                         <ThemeVariations
                             isChanged={true} // theme has unsaved changes
                             position={{ x: 5, y: 10}}
+                            queryParams=""
                             themeVariants={testItems}
                             createNotification={mockCreateNotification}
                             loadTheme={mockLoadTheme}
+                            setQueryParams={mockSetQueryParams}
                             {...routeProps}
                         />
                     </StaticRouter>

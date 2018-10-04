@@ -5,10 +5,12 @@ import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
 import { ToastMessages, ToastType } from '../../actions/constants';
+import { setQueryParams, QueryParamsData, UpdateQueryParamsAction } from '../../actions/merchant';
 import { createNotification } from '../../actions/notifications';
 import { loadTheme, LoadThemeResponseAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { trackVariationChange } from '../../services/analytics';
+import { updateQueryParamsService } from '../../services/queryParam';
 import Draggable from '../Draggable/Draggable';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
@@ -20,9 +22,11 @@ import ThemeModule from './ThemeModule';
 interface ThemeVariationsProps extends RouteComponentProps<{}> {
     isChanged: boolean;
     position: { x: number, y: number };
+    queryParams: string;
     themeVariants: ThemePropsList;
     createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
     loadTheme(variationID: string): any;
+    setQueryParams(queryData: QueryParamsData): UpdateQueryParamsAction;
 }
 
 export interface ThemePropsList extends Array<StateProps> {}
@@ -85,6 +89,9 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
             .then((result: LoadThemeResponseAction) => {
                 if (result.error) {
                     this.props.createNotification(true, ToastMessages.ErrorVariation, ToastType.Error);
+                } else {
+                    const queryParams: string = updateQueryParamsService(variationId);
+                    this.props.setQueryParams({queryParams});
                 }
             });
     };
@@ -95,7 +102,7 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
         const { isConfirmOpen } = this.state;
         const locationDescriptor: LocationDescriptor = {
             pathname: match.url,
-            search: this.props.location.search,
+            search: this.props.queryParams,
         };
 
         return (
@@ -134,6 +141,7 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
 
 const mapStateToProps = (state: State) => ({
     isChanged: state.theme.isChanged,
+    queryParams: state.merchant.queryParams,
     themeVariants: state.theme.variations.map(({ screenshot, variationName, id }): StateProps => ({
         image: screenshot.largeThumb,
         isActive: state.theme.variationId === id,
@@ -145,6 +153,7 @@ const mapStateToProps = (state: State) => ({
 const mapDispatchToProps = {
     createNotification,
     loadTheme,
+    setQueryParams,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ThemeVariations));
