@@ -1,8 +1,9 @@
 import React, {SFC} from 'react';
 
-import BrowserContext, {Browser} from '../../../context/BrowserContext';
+import BrowserContext, { Browser } from '../../../context/BrowserContext';
 import { purchaseEndPoint } from '../constants';
 
+import { trackAddTheme } from '../../..//services/analytics';
 import ButtonInput from '../../ButtonInput/ButtonInput';
 import { ButtonWrapper } from '../styles';
 
@@ -17,14 +18,19 @@ const PreviewAction: SFC<PreviewActionProps> = props => {
     const actionText = price > 0 ? `Buy $${themePrice}` : 'Add Theme';
     const actionTestId = price > 0 ? 'buy' : 'add-theme';
 
+    const handlePurchase = ({ _window }: Browser) => {
+        trackAddTheme(variationId, actionText);
+        _window.location.assign(purchaseEndPoint(variationId));
+    };
+
     return (
         <>
             <BrowserContext.Consumer>
-                {({ _window }: Browser) =>
+                {(browser: Browser) =>
                     <ButtonWrapper>
                         <ButtonInput
                             classType="primary"
-                            onClick={() => _window.location.assign(purchaseEndPoint(variationId))}
+                            onClick={() => handlePurchase(browser)}
                             type="button"
                             testId={actionTestId}
                             disabled={false}

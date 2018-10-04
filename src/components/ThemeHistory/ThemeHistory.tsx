@@ -9,6 +9,7 @@ import { createNotification } from '../../actions/notifications';
 import { loadTheme, LoadThemeResponseAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeVariationHistory, ThemeVariationHistoryEntry } from '../../reducers/theme';
+import { trackHistoryChange } from '../../services/analytics';
 import Draggable from '../Draggable/Draggable';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
@@ -30,8 +31,7 @@ interface ThemeHistoryProps extends RouteComponentProps<{}> {
 
 interface ThemeHistoryState {
     confirmData: {
-        configurationId: string;
-        variationId: string;
+        entry?: ThemeVariationHistoryEntry,
     };
     isConfirmOpen: boolean;
 }
@@ -39,16 +39,13 @@ interface ThemeHistoryState {
 export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryState> {
     readonly state: ThemeHistoryState = {
         confirmData: {
-            configurationId: '',
-            variationId: '',
         },
         isConfirmOpen: false,
     };
 
-    openModal = (variationId: string, configurationId: string) => this.setState({
+    openModal = (entry: ThemeVariationHistoryEntry) => this.setState({
         confirmData: {
-            configurationId,
-            variationId,
+            entry,
         },
         isConfirmOpen: true,
     });
@@ -58,30 +55,33 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
     });
 
     handleModalConfirm = () => {
-        const { configurationId, variationId } = this.state.confirmData;
-
         this.setState({
             isConfirmOpen: false,
         }, () => {
-            this.loadHistoryEntry(variationId, configurationId);
+            this.loadHistoryEntry(this.state.confirmData.entry);
         });
     };
 
-    handleEntrySelect = (variationId: string, configurationId: string) => {
+    handleEntrySelect = (entry: ThemeVariationHistoryEntry) => {
         if (this.props.isChanged) {
-            this.openModal(variationId, configurationId);
+            this.openModal(entry);
         } else {
-            this.loadHistoryEntry(variationId, configurationId);
+            this.loadHistoryEntry(entry);
         }
     };
 
-    loadHistoryEntry = (variationId: string, configurationId: string) => {
-        this.props.loadTheme(variationId, configurationId)
-            .then((result: LoadThemeResponseAction) => {
-                if (result.error) {
-                    this.props.createNotification(true, ToastMessages.ErrorHistory, ToastType.Error);
-                }
-            });
+    loadHistoryEntry = (entry?: ThemeVariationHistoryEntry) => {
+        if (entry) {
+            const { configurationId, variationId } = entry;
+            const text = this.getEntryDescription(entry);
+            trackHistoryChange(variationId, configurationId, text);
+            this.props.loadTheme(variationId, configurationId)
+                .then((result: LoadThemeResponseAction) => {
+                    if (result.error) {
+                        this.props.createNotification(true, ToastMessages.ErrorHistory, ToastType.Error);
+                    }
+                });
+        }
     };
 
     getEntryDescription(entry: ThemeVariationHistoryEntry) {
@@ -124,7 +124,7 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
                             {variationHistory.map(entry => (
                                 <HistoryEntry
                                     onClick={() =>
-                                        this.handleEntrySelect(entry.variationId, entry.configurationId)}
+                                        this.handleEntrySelect(entry)}
                                     key={entry.configurationId}>
                                     <EntryDescription>
                                         {this.getEntryDescription(entry)}

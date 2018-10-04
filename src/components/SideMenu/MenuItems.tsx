@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Dotdotdot from 'react-dotdotdot';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { trackSectionOpen } from '../../services/analytics';
+import { trackHelp, trackSectionOpen } from '../../services/analytics';
 
 import {
     activeClassName,
@@ -44,8 +44,12 @@ class MenuItems extends Component<MenuItemsProps, {}> {
         this.isPathActive(path) ? this.props.currentPath : `${this.props.currentPath}${path}`
     );
 
-    handleClick = (label: string) => (
+    handleSectionClick = (label: string) => (
         trackSectionOpen(label)
+    );
+
+    handleHelpClick = (label: string) => (
+        trackHelp(label)
     );
 
     render() {
@@ -67,6 +71,7 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                             {externalLink ?
                                 <ExternalHelpItem
                                     href={path}
+                                    onClick={() => this.handleHelpClick(label)}
                                     target="_blank"
                                 >
                                     <HelpLabel>
@@ -83,7 +88,7 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                                     exact
                                     isActive={(match, location) => this.isPathActive(path)}
                                     key={path}
-                                    onClick={() => this.handleClick(label)}
+                                    onClick={() => this.handleSectionClick(label)}
                                     replace
                                     to={locationDescriptor}
                                 >

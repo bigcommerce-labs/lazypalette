@@ -8,6 +8,7 @@ import { ToastMessages, ToastType } from '../../actions/constants';
 import { createNotification } from '../../actions/notifications';
 import { loadTheme, LoadThemeResponseAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
+import { trackVariationChange } from '../../services/analytics';
 import Draggable from '../Draggable/Draggable';
 import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
@@ -72,6 +73,14 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
     };
 
     switchVariations = (variationId: string) => {
+        const variation = this.props.themeVariants.find(v => v.variationId === variationId);
+
+        if (variation === undefined) {
+            throw new Error(`Unable to find variation with variationId ${variationId}`);
+        }
+
+        const { name } = variation;
+        trackVariationChange(variationId, name);
         this.props.loadTheme(variationId)
             .then((result: LoadThemeResponseAction) => {
                 if (result.error) {

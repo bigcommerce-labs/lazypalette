@@ -1,5 +1,6 @@
 import React from 'react';
 
+export const CopyButtonText = 'Copy private store link';
 export const CopyMessage = 'Link copied to clipboard.';
 
 export const TooltipMessage =
