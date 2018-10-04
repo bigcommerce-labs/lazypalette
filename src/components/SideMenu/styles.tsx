@@ -132,6 +132,7 @@ export const Footer = styled.div`
     flex-grow: 0;
     flex-shrink: 1;
     margin: 1rem 1.25rem 1.5rem 1.5rem;
+    z-index: ${({ theme }) => theme.layers.high};
 `;
 
 export const HiddenTitle = styled.div`
