@@ -7,8 +7,9 @@ import Tooltip from '../Tooltip/Tooltip';
 
 import { ToastType } from '../../actions/constants';
 import { State } from '../../reducers/reducers';
+import { trackCopyPrivateLink } from '../../services/analytics';
 
-import { CopyMessage, MaintenanceMessage, PrelaunchMessage, TooltipMessage } from './constants';
+import { CopyButtonText, CopyMessage, MaintenanceMessage, PrelaunchMessage, TooltipMessage } from './constants';
 import { StyledBanner, StyledIcon, StyledMessage, StyledShareableLink } from './styles';
 
 interface BannerProps {
@@ -29,6 +30,7 @@ const Banner = (props: BannerProps) => {
             : '';
 
     const copyLink = () => {
+        trackCopyPrivateLink(CopyButtonText);
         clipboardCopy(`${shopPath}/?guestTkn=${previewCode}`);
         createNotification(true, CopyMessage, ToastType.Success);
     };
@@ -58,7 +60,7 @@ const Banner = (props: BannerProps) => {
                 }
                 {!props.isDownForMaintenance &&
                     <StyledShareableLink onClick={copyLink}>
-                        Copy private store link
+                        {CopyButtonText}
                     </StyledShareableLink>
                 }
             </StyledBanner>

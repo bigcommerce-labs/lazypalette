@@ -193,6 +193,17 @@ export function trackTextChange(id: any, text: string) {
     });
 }
 
+export function trackColorChange(id: any, color: string) {
+    track('store-design_change', {
+        category: 'store-design_change',
+        color,
+        element: 'div',
+        id,
+        label: 'store-design_color_change',
+        text: '',
+    });
+}
+
 export function trackImageUpload(id: any, imageName: string) {
     track('store-design_change', {
         category: 'store-design_change',
@@ -201,6 +212,55 @@ export function trackImageUpload(id: any, imageName: string) {
         imageName,
         label: 'store-design_image_upload',
         text: 'Upload image',
+    });
+}
+
+export function trackVariationChange(variationId: string, text: string) {
+    track('store-design_click', {
+        category: 'store-design_variation-change',
+        element: 'div',
+        label: 'store-design_variation-change',
+        selected_variation_id: variationId,
+        text,
+    });
+}
+
+export function trackHistoryChange(variationId: string, configurationId: string, text: string) {
+    track('store-design_click', {
+        category: 'store-design_history-change',
+        element: 'div',
+        label: 'store-design_history-change',
+        selected_configuration_id: configurationId,
+        selected_variation_id: variationId,
+        text,
+    });
+}
+
+export function trackHelp(text: string) {
+    track('store-design_click', {
+        category: 'store-design_help',
+        element: 'a',
+        label: 'store-design_help',
+        text,
+    });
+}
+
+export function trackCopyPrivateLink(text: string) {
+    track('store-design_click', {
+        category: 'store-design_copy-private-link',
+        element: 'button',
+        label: 'store-design_copy-private-link',
+        text,
+    });
+}
+
+export function trackAddTheme(variationId: string, text: string) {
+    track('store-design_click', {
+        category: 'store-design_add-theme',
+        element: 'button',
+        label: 'store-design_header-add-theme',
+        text,
+        variation_id: variationId,
     });
 }
 

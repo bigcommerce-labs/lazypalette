@@ -1,21 +1,6 @@
 import createMockStore from 'redux-mock-store';
 
-import {
-    init,
-    trackCheckboxChange, trackCollapseSideMenu,
-    trackImageDimensionChange,
-    trackImageUpload,
-    trackPublish,
-    trackResetCancel,
-    trackResetClick,
-    trackResetConfirmation,
-    trackResetModalClose,
-    trackSave,
-    trackSectionClose,
-    trackSectionOpen,
-    trackSelectChange,
-    trackTextChange, trackViewLiveStore,
-} from './analytics';
+import * as analytics from './analytics';
 
 declare const global: any;
 
@@ -24,7 +9,7 @@ describe('analytics service', () => {
 
     beforeEach(() => {
         global.analytics = undefined;
-        init();
+        analytics.init();
     });
 
     describe('when we have segment and the redux store initialized', () => {
@@ -33,7 +18,7 @@ describe('analytics service', () => {
                 track: jest.fn(),
             };
 
-            init(storeCreator({
+            analytics.init(storeCreator({
                 merchant: {
                     activeThemeId: '234',
                     isDownForMaintenance: false,
@@ -86,7 +71,7 @@ describe('analytics service', () => {
         describe('trackPublish', () => {
             it('calls analytics.track with the proper arguments', () => {
                 const configurationId = '1234';
-                trackPublish(configurationId);
+                analytics.trackPublish(configurationId);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
                     ...universalData,
                     category: 'store-design_publish',
@@ -101,7 +86,7 @@ describe('analytics service', () => {
 
         describe('trackSave', () => {
             it('calls analytics.track with the proper arguments', () => {
-                trackSave();
+                analytics.trackSave();
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
                     ...universalData,
                     category: 'store-design_save',
@@ -115,7 +100,7 @@ describe('analytics service', () => {
 
         describe('trackResetClick', () => {
             it('calls analytics.track with proper arguments', () => {
-                trackResetClick();
+                analytics.trackResetClick();
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
                     ...universalData,
                     category: 'store-design_reset',
@@ -128,7 +113,7 @@ describe('analytics service', () => {
 
         describe('trackResetConfirmation', () => {
             it('calls analytics.track with proper arguments', () => {
-                trackResetConfirmation();
+                analytics.trackResetConfirmation();
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
                     ...universalData,
                     category: 'store-design_reset',
@@ -141,7 +126,7 @@ describe('analytics service', () => {
 
         describe('trackResetCancel', () => {
             it('calls analytics.track with proper arguments', () => {
-                trackResetCancel();
+                analytics.trackResetCancel();
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
                     ...universalData,
                     category: 'store-design_reset',
@@ -154,7 +139,7 @@ describe('analytics service', () => {
 
         describe('trackResetModalClose', () => {
             it('calls analytics.track with proper arguments', () => {
-                trackResetModalClose();
+                analytics.trackResetModalClose();
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
                     ...universalData,
                     category: 'store-design_reset',
@@ -168,7 +153,7 @@ describe('analytics service', () => {
         describe('trackSectionOpen', () => {
             it('calls analytics.track with proper arguments', () => {
                 const label = 'Styles';
-                trackSectionOpen(label);
+                analytics.trackSectionOpen(label);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
                     ...universalData,
                     category: 'store-design_section',
@@ -182,7 +167,7 @@ describe('analytics service', () => {
         describe('trackSectionClose', () => {
             it('calls analytics.track with proper arguments', () => {
                 const title = 'Styles';
-                trackSectionClose(title);
+                analytics.trackSectionClose(title);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
                     ...universalData,
                     category: 'store-design_section',
@@ -198,7 +183,7 @@ describe('analytics service', () => {
             it('calls analytics.track with proper arguments', () => {
                 const checked = true;
                 const id = 'hide_content_navigation';
-                trackCheckboxChange(id, checked);
+                analytics.trackCheckboxChange(id, checked);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
                     ...universalData,
                     category: 'store-design_change',
@@ -215,7 +200,7 @@ describe('analytics service', () => {
             it('calls analytics.track with proper arguments', () => {
                 const dimension = '20x20';
                 const id = 'logo_size';
-                trackImageDimensionChange(id, dimension);
+                analytics.trackImageDimensionChange(id, dimension);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
                     ...universalData,
                     category: 'store-design_change',
@@ -232,7 +217,7 @@ describe('analytics service', () => {
             it('calls analytics.track with proper arguments', () => {
                 const selected = 'Hello';
                 const id = 'logo-position';
-                trackSelectChange(id, selected);
+                analytics.trackSelectChange(id, selected);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
                     ...universalData,
                     category: 'store-design_change',
@@ -249,7 +234,7 @@ describe('analytics service', () => {
             it('calls analytics.track with proper arguments', () => {
                 const text = 'Bye';
                 const id = 'geotrust_ssl_common_name';
-                trackTextChange(id, text);
+                analytics.trackTextChange(id, text);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
                     ...universalData,
                     category: 'store-design_change',
@@ -261,11 +246,28 @@ describe('analytics service', () => {
             });
         });
 
+        describe('trackColorChange', () => {
+            it('calls analytics.track with proper arguments', () => {
+                const color = '#FFFFFF';
+                const id = 'pretty-color';
+                analytics.trackColorChange(id, color);
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
+                    ...universalData,
+                    category: 'store-design_change',
+                    color,
+                    element: 'div',
+                    id,
+                    label: 'store-design_color_change',
+                    text: '',
+                });
+            });
+        });
+
         describe('trackImageUpload', () => {
             it('calls analytics.track with proper arguments', () => {
                 const imageName = 'kermit_the_frog';
                 const id = 'optimizedCheckout-backgroundImage';
-                trackImageUpload(id, imageName);
+                analytics.trackImageUpload(id, imageName);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
                     ...universalData,
                     category: 'store-design_change',
@@ -280,7 +282,7 @@ describe('analytics service', () => {
 
         describe('trackViewLiveStore', () => {
             it('calls analytics.track with proper arguments', () => {
-                trackViewLiveStore();
+                analytics.trackViewLiveStore();
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
                     ...universalData,
                     category: 'store-design_view-store',
@@ -293,7 +295,7 @@ describe('analytics service', () => {
 
         describe('trackCollapseSideMenu', () => {
             it('calls analytics.track with proper arguments', () => {
-                trackCollapseSideMenu(true);
+                analytics.trackCollapseSideMenu(true);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
                     ...universalData,
                     category: 'store-design_side-menu',
@@ -304,11 +306,80 @@ describe('analytics service', () => {
                 });
             });
         });
+
+        describe('trackHelp', () => {
+            it('calls analytics.track with proper arguments', () => {
+                analytics.trackHelp('Help');
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
+                    category: 'store-design_help',
+                    element: 'a',
+                    label: 'store-design_help',
+                    text: 'Help',
+                });
+            });
+        });
+
+        describe('trackCopyPrivateLink', () => {
+            it('calls analytics.track with proper arguments', () => {
+                analytics.trackCopyPrivateLink('Copy Private Link');
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
+                    category: 'store-design_copy-private-link',
+                    element: 'button',
+                    label: 'store-design_copy-private-link',
+                    text: 'Copy Private Link',
+                });
+            });
+        });
+
+        describe('trackAddTheme', () => {
+            it('calls analytics.track with proper arguments', () => {
+                analytics.trackAddTheme('12345', 'Add Theme');
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
+                    category: 'store-design_add-theme',
+                    element: 'button',
+                    label: 'store-design_header-add-theme',
+                    text: 'Add Theme',
+                    variation_id: '12345',
+                });
+            });
+        });
+
+        describe('trackVariationChange', () => {
+            it('calls analytics.track with proper arguments', () => {
+                analytics.trackVariationChange('12345', 'Pretty Variation');
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
+                    category: 'store-design_variation-change',
+                    element: 'div',
+                    label: 'store-design_variation-change',
+                    selected_variation_id: '12345',
+                    text: 'Pretty Variation',
+                });
+            });
+        });
+
+        describe('trackHistoryChange', () => {
+            it('calls analytics.track with proper arguments', () => {
+                analytics.trackHistoryChange('12345', '56789', 'Lovely History');
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
+                    category: 'store-design_history-change',
+                    element: 'div',
+                    label: 'store-design_history-change',
+                    selected_configuration_id: '56789',
+                    selected_variation_id: '12345',
+                    text: 'Lovely History',
+                });
+            });
+        });
     });
 
     describe('when we do not have segment initialized', () => {
         beforeEach(() => {
-            init(storeCreator({
+            analytics.init(storeCreator({
                 theme: {
                     configurationId: '1234',
                     displayVersion: '2345',
@@ -328,7 +399,7 @@ describe('analytics service', () => {
 
         it('does not call analytics.track', () => {
             expect(global.analytics).not.toBeDefined();
-            expect(() => trackPublish('1234')).not.toThrow();
+            expect(() => analytics.trackPublish('1234')).not.toThrow();
         });
     });
 
@@ -340,7 +411,7 @@ describe('analytics service', () => {
         });
 
         it('does not call analytics.track', () => {
-            expect(() => trackPublish('1234')).not.toThrow();
+            expect(() => analytics.trackPublish('1234')).not.toThrow();
             expect(global.analytics.track).not.toHaveBeenCalled();
         });
     });

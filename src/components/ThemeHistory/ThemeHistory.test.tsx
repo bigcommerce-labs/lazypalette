@@ -151,8 +151,7 @@ describe('ThemeHistory', () => {
 
                 themeHistory.setState({
                     confirmData: {
-                        configurationId: history[0].configurationId,
-                        variationId: history[0].variationId,
+                        entry: history[0],
                     },
                     isConfirmOpen: true,
                 });
@@ -227,8 +226,7 @@ describe('ThemeHistory', () => {
                 expect(mockLoadTheme).not.toHaveBeenCalled();
                 expect(themeHistory.state()).toEqual({
                     confirmData: {
-                        configurationId: history[0].configurationId,
-                        variationId: history[0].variationId,
+                        entry: history[0],
                     },
                     isConfirmOpen: true,
                 });
@@ -253,8 +251,7 @@ describe('ThemeHistory', () => {
 
             themeHistory.setState({
                 confirmData: {
-                    configurationId: history[0].configurationId,
-                    variationId: history[0].variationId,
+                    entry: history[0],
                 },
                 isConfirmOpen: true,
             });

@@ -13,6 +13,7 @@ import { State } from '../../reducers/reducers';
 import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
 import {
     trackCheckboxChange,
+    trackColorChange,
     trackImageDimensionChange,
     trackSelectChange,
     trackTextChange,
@@ -73,6 +74,8 @@ function trackChange(configChange: ThemeConfigChange) {
             return trackSelectChange(configChange.setting.id, configChange.value as string);
         case SettingType.TEXT:
             return trackTextChange(configChange.setting.id, configChange.value as string);
+        case SettingType.COLOR:
+            return trackColorChange(configChange.setting.id, configChange.value as string);
     }
 }
 
