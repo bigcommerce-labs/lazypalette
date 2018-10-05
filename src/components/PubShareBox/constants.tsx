@@ -10,13 +10,13 @@ export const PublishModalText = {
     [Modes.ACTIVE]: {
         action: 'Publish',
         body: 'Publishing your store will make all changes publicly visible.',
-        title: 'Publish Changes',
+        title: 'Publish Theme',
     },
     [Modes.INACTIVE]: {
         launched: {
             action: 'Publish',
             body: 'Publishing your store will make all changes publicly visible.',
-            title: 'Publish Changes',
+            title: 'Publish Theme',
         },
         prelaunch: {
             action: 'Use As Active Theme',

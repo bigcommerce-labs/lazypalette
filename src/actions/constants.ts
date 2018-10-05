@@ -14,7 +14,7 @@ export const enum ToastMessages {
     ErrorSave = 'There was an error saving your changes.',
     ErrorUpdate = 'There was an error applying your update.',
     ErrorVariation = 'There was an error switching styles.',
-    Publish = 'Changes have been published.',
+    Publish = 'Theme has been published.',
     Reset = 'Original theme styles restored.',
     Save = 'Changes have been saved.',
     Undo = 'Changes have been undone.',

@@ -1,6 +1,6 @@
 import React, { Component, MouseEvent as ReactMouseEvent } from 'react';
 
-import { Content, Header, Overlay, StyledWindow, Title } from './styles';
+import { Content, Header, NavItem, Overlay, StyledWindow, Title } from './styles';
 
 interface UIWindowProps {
     children?: JSX.Element;
@@ -42,8 +42,18 @@ class UIWindow extends Component<UIWindowProps> {
         event.stopPropagation();
     };
 
+    handleOnClose = (id: string) => {
+        return (event: ReactMouseEvent<HTMLDivElement>) => {
+            const { onClose } = this.props;
+
+            if (onClose) {
+                onClose(id);
+            }
+        };
+    };
+
     render() {
-        const { children, position, startMove, title, windowRef } = this.props;
+        const { children, id, position, startMove, title, windowRef } = this.props;
 
         return (
             <Overlay>
@@ -57,6 +67,7 @@ class UIWindow extends Component<UIWindowProps> {
                     >
                         {title &&
                         <Title>{title}</Title>}
+                        <NavItem onClick={this.handleOnClose(id)}/>
                     </Header>
                     <Content>{children}</Content>
                 </StyledWindow>

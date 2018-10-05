@@ -84,11 +84,17 @@ describe('UIWindow', () => {
             });
 
             describe('inside the modal', () => {
-                it('does not call the onClose prop', () => {
+                it('does not call the onClose prop unless on X', () => {
                     const paragraph = uiWindow.find('#blah').first().getDOMNode();
                     uiWindow.instance().handleDocumentClick({ target: paragraph, button: 0 });
 
                     expect(mockCloseWindow).not.toHaveBeenCalled();
+                });
+
+                it('does call the onClose prop when clicking X', () => {
+                    const iconX = uiWindow.find('NavItem');
+                    iconX.simulate('click');
+                    expect(mockCloseWindow).toHaveBeenCalled();
                 });
             });
 

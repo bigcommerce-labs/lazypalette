@@ -55,6 +55,23 @@ exports[`UIWindow when given a window renders correctly 1`] = `
       >
         hello
       </styled.h4>
+      <NavItem
+        onClick={[Function]}
+        theme={
+          Object {
+            "colors": Object {
+              "background": "#F5F7FA",
+              "empty": "#FFFFFF",
+              "guideText": "#AAAAAA",
+            },
+            "typography": Object {
+              "fontSize": Object {
+                "smaller": "14px",
+              },
+            },
+          }
+        }
+      />
     </Header>
     <styled.div>
       <p>

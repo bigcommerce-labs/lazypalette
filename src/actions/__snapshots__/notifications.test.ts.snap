@@ -10,7 +10,7 @@ exports[`notifications actions OPEN_NOTIFICATION should macth the correct action
 Object {
   "payload": Object {
     "autoDismiss": true,
-    "message": "Changes have been published.",
+    "message": "Theme has been published.",
     "type": "Success",
   },
   "type": "OPEN_NOTIFICATION",
