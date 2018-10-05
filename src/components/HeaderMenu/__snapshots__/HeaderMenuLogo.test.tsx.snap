@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<HeaderMenuLogo /> render() renders the component 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+exports[`HeaderMenuLogo when rendering renders the component 1`] = `
+<Fragment>
+  <Component
+    onClick={[Function]}
+    tooltip="Go back to Control Panel"
+  />
+</Fragment>
 `;
