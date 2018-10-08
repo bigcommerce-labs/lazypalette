@@ -40,7 +40,7 @@ exports[`PreviewPane render renders the component 1`] = `
       }
     >
       <div
-        className="sc-bdVaJa kqEwVy"
+        className="sc-bdVaJa ebveTt"
       >
         <styled.iframe
           innerRef={[Function]}
@@ -122,7 +122,7 @@ exports[`PreviewPane render when the iframeUrl is not ready does not render the 
       }
     >
       <div
-        className="sc-bdVaJa kqEwVy"
+        className="sc-bdVaJa ebveTt"
       />
     </styled.div>
   </PreviewPane>

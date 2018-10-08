@@ -23,7 +23,7 @@ export const PreviewPaneContainer = styled.div.attrs<PreviewPaneContainerProps>(
                 background: ${theme.colors.empty};
                 border-radius: 8px;
                 box-shadow: ${theme.elevation.raised};
-                margin: 1.25rem 0.75rem 1.25rem 0;
+                margin: 1.25rem 0.75rem 1.5rem 0;
             `;
         } else {
             return `
