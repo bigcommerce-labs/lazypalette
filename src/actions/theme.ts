@@ -23,6 +23,7 @@ export enum ThemeActionTypes {
     POST_THEME_CONFIG_RESPONSE = 'POST_THEME_CONFIG_RESPONSE',
     PREVIEW_THEME_CONFIG_RESPONSE = 'PREVIEW_THEME_CONFIG_RESPONSE',
     SAVE_THEME_CONFIG_RESPONSE = 'SAVE_THEME_CONFIG_RESPONSE',
+    PUBLISH_THEME_CONFIG_RESPONSE = 'PUBLISH_THEME_CONFIG_RESPONSE',
 }
 
 export interface ThemeConfigChangeAction extends Action  {
@@ -50,6 +51,12 @@ export interface ThemeConfigSaveAction extends Action  {
     error: boolean;
     payload: ThemeConfigPostResponse | Error;
     type: ThemeActionTypes.SAVE_THEME_CONFIG_RESPONSE;
+}
+
+export interface ThemeConfigPublishAction extends Action  {
+    error: boolean;
+    payload: ThemeConfigPublishResponse | Error;
+    type: ThemeActionTypes.PUBLISH_THEME_CONFIG_RESPONSE;
 }
 
 export interface LoadThemeResponseAction extends Action  {
@@ -80,6 +87,11 @@ export interface ThemeConfigChange {
 export interface ThemeConfigPostResponse {
     configurationId: string;
     forceReload: boolean | undefined;
+    settings: {};
+}
+
+export interface ThemeConfigPublishResponse {
+    configurationId: string;
     settings: {};
 }
 
@@ -159,6 +171,17 @@ export function themeConfigSaveResponse(
         error,
         payload,
         type: ThemeActionTypes.SAVE_THEME_CONFIG_RESPONSE,
+    };
+}
+
+export function themeConfigPublishResponse(
+    payload: ThemeConfigPublishResponse | Error,
+    error: boolean = false
+): ThemeConfigPublishAction {
+    return {
+        error,
+        payload,
+        type: ThemeActionTypes.PUBLISH_THEME_CONFIG_RESPONSE,
     };
 }
 
@@ -320,11 +343,15 @@ export function postThemeConfigData(configUpdateOption: ConfigUpdateAction, forc
                 const { settings: newSettings } = configData;
 
                 if (configData.publish) {
-                    dispatch(loadTheme(variationId));
+                    dispatch(themeConfigPublishResponse({
+                        configurationId: newConfigurationId,
+                        settings: newSettings,
+                    }));
                     dispatch(updateActiveTheme({
                         activeThemeId: themeId,
                         activeVariationId: variationId,
                     }));
+                    dispatch(fetchVariationHistory(variationId));
                     dispatch(createNotification(
                         true,
                         isPrelaunchStore ? ToastMessages.Save : ToastMessages.Publish,
