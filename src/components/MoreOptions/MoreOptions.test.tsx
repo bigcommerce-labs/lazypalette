@@ -67,6 +67,7 @@ describe('<MoreOptions />', () => {
                 <BrowserContext.Provider value={{ _window: mockWindow }}>
                     <MoreOptions
                         activeThemeId="8900"
+                        canOptOut={true}
                         configurationId="123"
                         position={{ x: 10, y: 10 }}
                         storeHash="abc"
@@ -87,6 +88,48 @@ describe('<MoreOptions />', () => {
 
         moreOptions = wrapper.find(MoreOptions);
         originalMoreOptions = wrapper.props().children.props.children;
+    });
+
+    describe('opt out link', () => {
+        describe('when canOptOut is true', () => {
+            it('display the opt out link', () => {
+                const optOutLink = moreOptions.find(gotoThemeEditorLink);
+                expect(optOutLink.hostNodes().length).toEqual(1);
+            });
+        });
+
+        describe('when canOptOut is false', () => {
+            it('does not display the opt out link', () => {
+                wrapper = mount(
+                    <BrowserRouter>
+                        <BrowserContext.Provider value={{ _window: mockWindow }}>
+                            <MoreOptions
+                                activeThemeId="8900"
+                                canOptOut={false}
+                                configurationId="123"
+                                position={{ x: 10, y: 10 }}
+                                storeHash="abc"
+                                variationId="234"
+                                versionId="456"
+                                currentVariationEntry={variationEntry}
+                                isChanged={false}
+                                isPrivate={true}
+                                notifications={mockNotification}
+                                createNotification={mockCreateNotification}
+                                loadTheme={mockLoadTheme}
+                                themeId="8900"
+                                {...routeProps}
+                            />
+                        </BrowserContext.Provider>
+                    </BrowserRouter>
+                );
+
+                moreOptions = wrapper.find(MoreOptions);
+
+                const optOutLink = moreOptions.find(gotoThemeEditorLink);
+                expect(optOutLink.hostNodes().length).toEqual(0);
+            });
+        });
     });
 
     describe('when you click "Restore original theme styles"', () => {

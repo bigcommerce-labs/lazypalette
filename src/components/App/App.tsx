@@ -33,6 +33,7 @@ import { StyledApp, Viewport } from './styles';
 
 export interface AppConfig {
     assetPath: string;
+    canOptOut: boolean;
     features: StoreFeatures;
     guestPassword: string;
     isDownForMaintenance: boolean;
@@ -59,6 +60,7 @@ export class App extends Component<AppProps, {}> {
         const isUpdate = queryParams.appMode === 'preview';
         const {
             features = {},
+            canOptOut,
             guestPassword,
             isDownForMaintenance,
             isPrelaunchStore,
@@ -69,6 +71,7 @@ export class App extends Component<AppProps, {}> {
         this.props.setStoreData({
             activeThemeId: seedActiveTheme.themeId,
             activeVariationId: seedActiveTheme.id,
+            canOptOut,
             features,
             isDownForMaintenance,
             isPrelaunchStore,

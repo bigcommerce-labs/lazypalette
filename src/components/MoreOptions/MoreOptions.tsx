@@ -44,6 +44,7 @@ import { Item, List } from './styles';
 
 interface MoreOptionsProps extends RouteComponentProps<{}> {
     activeThemeId: string;
+    canOptOut: boolean;
     configurationId: string;
     currentVariationEntry: ThemeVariationsEntry;
     isChanged: boolean;
@@ -182,6 +183,7 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
     render() {
         const {
             activeThemeId,
+            canOptOut,
             isPrivate,
             location,
             match,
@@ -204,12 +206,14 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
                         <Draggable position={position}>
                             <ExpandableMenu title="More Options" back={locationDesciptor}>
                                 <List>
-                                    <Item
-                                        data-test-id="switch-to-theme-editor"
-                                        onClick={() => this.handleOptOut(_window)}
-                                    >
-                                        Switch to old Theme Editor
-                                    </Item>
+                                    {canOptOut &&
+                                        <Item
+                                            data-test-id="switch-to-theme-editor"
+                                            onClick={() => this.handleOptOut(_window)}
+                                        >
+                                            Switch to old Theme Editor
+                                        </Item>
+                                    }
                                     <Item
                                         data-test-id="edit-theme-files"
                                         onClick={isPrivate
@@ -286,6 +290,7 @@ const RoutedMoreOptions: SFC<MoreOptionsProps> = props => (
 
 const mapStateToProps = (state: State) => ({
     activeThemeId: state.merchant.activeThemeId,
+    canOptOut: state.merchant.canOptOut,
     configurationId: state.theme.configurationId,
     currentVariationEntry: state.theme.variations
         .filter(variationEntry => variationEntry.id === state.theme.variationId)[0],

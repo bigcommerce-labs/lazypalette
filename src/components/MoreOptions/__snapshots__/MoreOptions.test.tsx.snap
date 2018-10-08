@@ -3,6 +3,7 @@
 exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has not been acknowledged when viewing an inactive theme renders correctly 1`] = `
 <MoreOptions
   activeThemeId="8900"
+  canOptOut={true}
   configurationId="123"
   createNotification={
     [MockFunction] {
@@ -546,6 +547,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
 exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has not been acknowledged when viewing the active theme renders correctly 1`] = `
 <MoreOptions
   activeThemeId="8900"
+  canOptOut={true}
   configurationId="123"
   createNotification={
     [MockFunction] {

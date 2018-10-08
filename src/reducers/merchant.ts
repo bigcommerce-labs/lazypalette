@@ -4,6 +4,7 @@ import { MerchantActionTypes, StoreFeatures } from '../actions/merchant';
 export const initialState = {
     activeThemeId: '',
     activeVariationId: '',
+    canOptOut: false,
     features: {},
     isDownForMaintenance: false,
     isPrelaunchStore: false,
@@ -15,6 +16,7 @@ export const initialState = {
 export interface MerchantStoreState {
     activeThemeId: string;
     activeVariationId: string;
+    canOptOut: boolean;
     features: StoreFeatures;
     isDownForMaintenance: boolean;
     isPrelaunchStore: boolean;
