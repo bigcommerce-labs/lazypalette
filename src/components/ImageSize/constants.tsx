@@ -3,3 +3,5 @@ export const enum Messages {
         'scale down the image for smaller devices.',
     Lock = 'Constrain Proportions',
 }
+
+export const ImageDimensionPattern = (/^[\d]+x[\d]+$/);

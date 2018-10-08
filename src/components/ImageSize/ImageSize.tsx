@@ -1,6 +1,7 @@
 import { SelectBox } from 'pattern-lab';
 import React, { ChangeEvent, ChangeEventHandler, Component } from 'react';
 
+import { ImageDimensionPattern } from './constants';
 import { ImageSizeModal } from './styles';
 import CustomSize from './CustomSize';
 
@@ -22,8 +23,8 @@ interface ImageSizeState {
 
 class ImageSize extends Component<ImageSizeProps, ImageSizeState> {
     readonly state: ImageSizeState = {
-        defaultValue: '1x1',
-        selectedValue: 'optimized',
+        defaultValue: '',
+        selectedValue: '',
     };
 
     componentDidMount() {
@@ -53,15 +54,26 @@ class ImageSize extends Component<ImageSizeProps, ImageSizeState> {
     };
 
     handleCustomChange = (event: ChangeEvent<HTMLInputElement>) => {
-        if (this.state.selectedValue === 'optimized') {
-            this.setState({ selectedValue: 'custom' });
-        }
         this.props.onChange!(event);
+    };
+
+    getDefaultValue = () => {
+        const defaultOption = this.props.options.find(option => !!option.value.match(ImageDimensionPattern));
+        if (this.state.selectedValue !== 'custom') {
+            return this.props.selected;
+        } else if (defaultOption) {
+            return defaultOption.value;
+        } else {
+            return '1x1';
+        }
     };
 
     render() {
         const { label, options, selected, testId } = this.props;
         const { selectedValue } = this.state;
+
+        const defaultInput = this.getDefaultValue();
+
         const optionExists = options.some(({value}) => value === selected);
         const optionSelected = (optionExists && selectedValue !== 'custom') ? selected : 'custom';
 
@@ -75,7 +87,7 @@ class ImageSize extends Component<ImageSizeProps, ImageSizeState> {
                     testId={testId}
                 />
                 {optionSelected === 'custom' &&
-                    <CustomSize defaultValue={selected} onChange={this.handleCustomChange} />
+                    <CustomSize defaultValue={defaultInput} onChange={this.handleCustomChange} />
                 }
             </ImageSizeModal>
         );
