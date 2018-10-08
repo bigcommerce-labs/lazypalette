@@ -107,22 +107,6 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                         You have been logged out.
                       </h3>
                     </styled.h3>
-                    <styled.div
-                      onClick={[Function]}
-                      theme={
-                        Object {
-                          "colors": Object {
-                            "background": "#000000",
-                            "primaryText": "#AAAAAA",
-                          },
-                        }
-                      }
-                    >
-                      <div
-                        className="sc-htpNat gAQftg"
-                        onClick={[Function]}
-                      />
-                    </styled.div>
                   </div>
                 </styled.div>
                 <styled.div
@@ -144,18 +128,18 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                   >
                     <styled.div>
                       <div
-                        className="sc-VigVT iwIlAC"
+                        className="sc-gqjmRU kBtJdw"
                       >
                         <styled.div>
                           <div
-                            className="sc-iwsKbI iuVdIU"
+                            className="sc-dnqmqq hJxOZJ"
                           >
                             For security reasons you have been automatically logged out. Please log in again to access Store Design.
                           </div>
                         </styled.div>
                         <styled.div>
                           <div
-                            className="sc-jTzLTM nkRIC"
+                            className="sc-VigVT NpmmH"
                           >
                             <ButtonInput
                               classType="primary"

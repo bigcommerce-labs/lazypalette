@@ -89,3 +89,170 @@ exports[`Modal renders 1`] = `
   </styled.div>
 </styled.div>
 `;
+
+exports[`Modal title prop should not render Header without close button when onClose is not set 1`] = `
+<styled.div
+  onClick={[Function]}
+  theme={
+    Object {
+      "layers": Object {
+        "higher": 100,
+      },
+    }
+  }
+>
+  <styled.div
+    isTransparent={true}
+    theme={
+      Object {
+        "layers": Object {
+          "higher": 100,
+        },
+      }
+    }
+  />
+  <styled.div
+    onClick={[Function]}
+    theme={
+      Object {
+        "colors": Object {
+          "empty": "#FFFFFF",
+          "guideText": "#ABB1BE",
+        },
+        "elevation": Object {
+          "floating": "0 2px 12px rgba(48, 53, 64, 0.2)",
+        },
+        "layers": Object {
+          "highest": 500,
+        },
+      }
+    }
+  >
+    <styled.div>
+      <styled.h3
+        theme={
+          Object {
+            "colors": Object {
+              "primaryText": "#303540",
+            },
+            "typography": Object {
+              "fontSize": Object {
+                "larger": "24px",
+              },
+              "fontWeight": Object {
+                "normal": 600,
+              },
+            },
+          }
+        }
+      />
+    </styled.div>
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "primaryText": "#AAAAAA",
+          },
+          "typography": Object {
+            "fontSize": Object {
+              "small": "16px",
+            },
+          },
+        }
+      }
+    >
+      <TestChildren />
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Modal title prop should render Header with close button when onClose is set 1`] = `
+<styled.div
+  onClick={[Function]}
+  theme={
+    Object {
+      "layers": Object {
+        "higher": 100,
+      },
+    }
+  }
+>
+  <styled.div
+    isTransparent={true}
+    theme={
+      Object {
+        "layers": Object {
+          "higher": 100,
+        },
+      }
+    }
+  />
+  <styled.div
+    onClick={[Function]}
+    theme={
+      Object {
+        "colors": Object {
+          "empty": "#FFFFFF",
+          "guideText": "#ABB1BE",
+        },
+        "elevation": Object {
+          "floating": "0 2px 12px rgba(48, 53, 64, 0.2)",
+        },
+        "layers": Object {
+          "highest": 500,
+        },
+      }
+    }
+  >
+    <styled.div>
+      <styled.h3
+        theme={
+          Object {
+            "colors": Object {
+              "primaryText": "#303540",
+            },
+            "typography": Object {
+              "fontSize": Object {
+                "larger": "24px",
+              },
+              "fontWeight": Object {
+                "normal": 600,
+              },
+            },
+          }
+        }
+      >
+        Test Modal
+      </styled.h3>
+      <styled.div
+        onClick={[Function]}
+        theme={
+          Object {
+            "colors": Object {
+              "background": "#000000",
+              "primaryText": "#AAAAAA",
+            },
+          }
+        }
+      />
+    </styled.div>
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "primaryText": "#AAAAAA",
+          },
+          "typography": Object {
+            "fontSize": Object {
+              "small": "16px",
+            },
+          },
+        }
+      }
+    >
+      <TestChildren />
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
