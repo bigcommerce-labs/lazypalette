@@ -1,9 +1,8 @@
 import React, { MouseEvent, MouseEventHandler, PureComponent } from 'react';
 
-import { Close, Container, Content, Header, ModalBox, NavItem, Overlay, Title } from './styles';
+import { Close, Container, Content, Header, ModalBox, Overlay, Title } from './styles';
 
 interface ModalProps extends Partial<{
-    backLink: string;
     children: any;
     isTransparent: boolean;
     title: string;
@@ -34,9 +33,9 @@ class Modal extends PureComponent<ModalProps> {
 
     render() {
         const {
-            backLink,
             children,
             isTransparent,
+            onClose,
             title,
         } = this.props;
 
@@ -44,15 +43,12 @@ class Modal extends PureComponent<ModalProps> {
             <Container onClick={this.handleContainerClick}>
                 <Overlay isTransparent={isTransparent} />
                 <ModalBox onClick={this.handleModalClick}>
-                    {title &&
-                        <Header>
-                            <Title>{title}</Title>
+                    <Header>
+                        <Title>{title}</Title>
+                        {onClose &&
                             <Close onClick={this.handleCloseClick}/>
-                        </Header>
-                    }
-                    {backLink &&
-                        <NavItem to={backLink} replace />
-                    }
+                        }
+                    </Header>
                     <Content>{children}</Content>
                 </ModalBox>
             </Container>

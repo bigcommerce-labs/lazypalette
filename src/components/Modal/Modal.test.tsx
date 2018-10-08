@@ -1,7 +1,7 @@
 import { mount, shallow } from 'enzyme';
 import React from 'react';
 
-import { Container, Header, ModalBox, NavItem, Title } from './styles';
+import { Container, ModalBox } from './styles';
 import Modal from './Modal';
 
 describe('Modal', () => {
@@ -14,7 +14,6 @@ describe('Modal', () => {
 
         const modal = shallow(
             <Modal
-                backLink=""
                 isTransparent={false}
                 title="Test Modal"
                 onClose={mockHandler}
@@ -37,7 +36,6 @@ describe('Modal', () => {
 
                 const modal = shallow(
                     <Modal
-                        backLink=""
                         isTransparent={false}
                         title="Test Modal"
                         overlayClose={mockHandler}
@@ -66,7 +64,6 @@ describe('Modal', () => {
 
                 const modal = mount(
                     <Modal
-                        backLink=""
                         isTransparent={false}
                         title="Test Modal"
                         onClose={mockHandler}
@@ -94,7 +91,7 @@ describe('Modal', () => {
             <div>some inner content</div>
         );
 
-        it('should render Header styled-component when prop set', () => {
+        it('should render Header with close button when onClose is set', () => {
             const title = 'Test Modal';
             const modal = shallow(
                 <Modal
@@ -105,57 +102,21 @@ describe('Modal', () => {
                 </Modal>
             );
 
-            expect(modal.find(Title).prop('children')).toEqual(title);
+            expect(modal).toMatchSnapshot();
         });
 
-        it('should not render Header when not set', () => {
+        it('should not render Header without close button when onClose is not set', () => {
             const title = undefined;
 
             const modal = shallow(
                 <Modal
                     title={title}
-                    onClose={mockHandler}
                 >
                     <TestChildren />
                 </Modal>
             );
 
-            expect(modal.find(Header).exists()).toEqual(false);
-        });
-    });
-
-    describe('backLink prop', () => {
-        const mockHandler = jest.fn();
-        const TestChildren = () => (
-            <div>some inner content</div>
-        );
-
-        it('should render NavItem styled-component when prop set', () => {
-            const backLink = '/design';
-            const modal = shallow(
-                <Modal
-                    backLink={backLink}
-                    onClose={mockHandler}
-                >
-                    <TestChildren />
-                </Modal>
-            );
-
-            expect(modal.find(NavItem).prop('to')).toEqual(backLink);
-        });
-
-        it('should not render NavItem when not set', () => {
-            const backLink = undefined;
-            const modal = shallow(
-                <Modal
-                    backLink={backLink}
-                    onClose={mockHandler}
-                >
-                    <TestChildren />
-                </Modal>
-            );
-
-            expect(modal.find(NavItem).exists()).toEqual(false);
+            expect(modal).toMatchSnapshot();
         });
     });
 });

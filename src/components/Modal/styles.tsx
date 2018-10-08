@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface OverlayProps {
@@ -145,32 +144,6 @@ ModalBox.defaultProps = {
         },
         layers: {
             highest: 500,
-        },
-    },
-};
-
-export const NavItem = styled(Link)`
-    position: absolute;
-    right: 1rem;
-    top: .5rem;
-    text-decoration: none;
-    text-shadow: 0 1px 0 ${({ theme }) => theme.colors.background};
-
-    :after {
-        content: '✕';
-        color: ${({ theme }) => theme.colors.primaryText};
-
-        :visited, :hover, :active {
-            color: ${({ theme }) => theme.colors.primaryText};
-        }
-    }
-`;
-
-NavItem.defaultProps = {
-    theme: {
-        colors: {
-            background: '#F5F7FA',
-            primaryText: '#303540',
         },
     },
 };
