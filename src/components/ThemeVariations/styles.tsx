@@ -1,4 +1,3 @@
-import { Theme } from 'pattern-lab';
 import styled, { StyledComponentClass } from 'styled-components';
 
 export const List = styled.ul`
@@ -37,20 +36,35 @@ Title.defaultProps = {
 };
 
 interface ThumbProps {
-    theme: Theme;
-    isActive: boolean;
     previewPath: string;
 }
 
-export const Thumb: StyledComponentClass<any, any> = styled.div`
-    height: 10rem;
+export const Thumb = styled.div.attrs<ThumbProps>({})`
     background: url("${({ previewPath }: ThumbProps) => previewPath}") left top/cover no-repeat;
-    border: 1px solid ${({ isActive, theme }: ThumbProps) => isActive ? theme.colors.primary : theme.colors.empty };
+    height: 10rem;
+    transition: all .25s cubic-bezier(.25,.46,.45,.94);
+
+    :hover {
+        transform: scale(1.1);
+    }
 `;
 
 Thumb.defaultProps = {
-    isActive: false,
     previewPath: '',
+};
+
+interface ThumbWrapperProps {
+    isActive: boolean;
+}
+
+export const ThumbWrapper = styled.div.attrs<ThumbWrapperProps>({})`
+    border: 2px solid ${({ isActive, theme }) => isActive ? theme.colors.primary : theme.colors.empty };
+    height: 10rem;
+    overflow: hidden;
+`;
+
+ThumbWrapper.defaultProps = {
+    isActive: false,
     theme: {
         colors: {
             empty: '#FFFFFF',
