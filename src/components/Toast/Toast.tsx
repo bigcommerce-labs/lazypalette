@@ -1,6 +1,7 @@
+import { theme, Icon } from 'pattern-lab';
 import React, { MouseEvent, MouseEventHandler, PureComponent } from 'react';
 
-import { CloseIcon, Container, ToastBox } from './styles';
+import { CloseIcon, Container, Message, ToastBox } from './styles';
 
 interface ToastProps extends Partial<{
     autoDismiss: boolean;
@@ -26,8 +27,14 @@ class Toast extends PureComponent<ToastProps> {
         return (
             <Container autoDismiss={autoDismiss}>
                 <ToastBox type={type}>
-                    {children}
-                    <CloseIcon onClick={this.handleClose} />
+                    <Message>{children}</Message>
+                    <CloseIcon onClick={this.handleClose}>
+                        <Icon
+                            glyph="closeX"
+                            primaryColor={theme.colors.background}
+                            size="small"
+                        />
+                    </CloseIcon>
                 </ToastBox>
             </Container>
         );

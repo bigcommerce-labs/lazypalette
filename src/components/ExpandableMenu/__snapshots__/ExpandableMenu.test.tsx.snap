@@ -51,7 +51,8 @@ exports[`renders 1`] = `
         theme={
           Object {
             "colors": Object {
-              "background": "#000000",
+              "background": "#F5F7FA",
+              "darkHover": "#D3D9E5",
               "primaryText": "#AAAAAA",
             },
           }
@@ -61,7 +62,13 @@ exports[`renders 1`] = `
             "pathname": "bar",
           }
         }
-      />
+      >
+        <Icon
+          glyph="closeX"
+          primaryColor="#303540"
+          size="small"
+        />
+      </Styled(Link)>
     </styled.div>
     <styled.div
       theme={

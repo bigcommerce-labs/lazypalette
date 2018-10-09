@@ -7,18 +7,24 @@ interface OverlayProps {
 export const Close = styled.div`
     cursor: pointer;
     text-align: center;
-    width: 2.5rem;
+    width: 2rem;
+    height: 2rem;
+    margin-right: .25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    :after {
-        content: '✕';
-        color: ${({ theme }) => theme.colors.primaryText};
+    :hover {
+      cursor: pointer;
+      background: ${({ theme }) => theme.colors.darkHover};
+      border-radius: 50%;
     }
 `;
 
 Close.defaultProps = {
     theme: {
         colors: {
-            background: '#000000',
+            darkHover: '#D3D9E5',
             primaryText: '#AAAAAA',
         },
     },

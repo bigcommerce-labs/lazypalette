@@ -1,3 +1,4 @@
+import { theme, Icon } from 'pattern-lab';
 import React, { MouseEvent, MouseEventHandler, PureComponent } from 'react';
 
 import { Close, Container, Content, Header, ModalBox, Overlay, Title } from './styles';
@@ -46,7 +47,13 @@ class Modal extends PureComponent<ModalProps> {
                     <Header>
                         <Title>{title}</Title>
                         {onClose &&
-                            <Close onClick={this.handleCloseClick}/>
+                            <Close onClick={this.handleCloseClick}>
+                                <Icon
+                                    glyph="closeX"
+                                    primaryColor={theme.colors.primaryText}
+                                    size="small"
+                                />
+                            </Close>
                         }
                     </Header>
                     <Content>{children}</Content>

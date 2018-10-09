@@ -53,6 +53,7 @@ export const ToastBox = styled.div.attrs<ToastBoxProps>({})`
     border-radius: 2px;
     box-shadow: ${({ theme }) => theme.elevation.raised};
     animation: ${slideIn} 250ms linear;
+    align-items: center;
 
     ${({ theme, type }) => type === ToastType.Error && `
         background-color: ${theme.colors.error};
@@ -63,15 +64,11 @@ export const CloseIcon = styled.div`
     pointer-events: auto;
     text-decoration: none;
     cursor: pointer;
+    width: 1.5rem;
     margin-left: 1.5rem;
-
-    :after {
-        content: '✕';
-        color: ${({ theme }) => theme.colors.empty};
-        padding: .25rem .5rem;
-
-        :visited, :hover, :active {
-            color: ${({ theme }) => theme.colors.primaryText};
-        }
-    }
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
 `;
+
+export const Message = styled.span``;

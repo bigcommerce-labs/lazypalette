@@ -1,3 +1,4 @@
+import { theme, Icon } from 'pattern-lab';
 import React, { Component, MouseEvent as ReactMouseEvent } from 'react';
 
 import { Content, Header, NavItem, Overlay, StyledWindow, Title } from './styles';
@@ -67,7 +68,13 @@ class UIWindow extends Component<UIWindowProps> {
                     >
                         {title &&
                         <Title>{title}</Title>}
-                        <NavItem onClick={this.handleOnClose(id)}/>
+                        <NavItem onClick={this.handleOnClose(id)}>
+                            <Icon
+                                glyph="closeX"
+                                primaryColor={theme.colors.primaryText}
+                                size="smaller"
+                            />
+                        </NavItem>
                     </Header>
                     <Content>{children}</Content>
                 </StyledWindow>

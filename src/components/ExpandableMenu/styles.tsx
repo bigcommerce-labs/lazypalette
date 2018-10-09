@@ -62,22 +62,24 @@ export const NavItem = styled(Link)`
     text-align: center;
     text-decoration: none;
     text-shadow: 0 1px 0 ${({ theme }) => theme.colors.background};
-    width: 3.5rem;
+    width: 2rem;
+    height: 2rem;
+    margin: .75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    :after {
-        content: '✕';
-        color: ${({ theme }) => theme.colors.primaryText};
-
-        :visited, :hover, :active {
-            color: ${({ theme }) => theme.colors.primaryText};
-        }
+    :hover {
+      background: ${({ theme }) => theme.colors.darkHover};
+      border-radius: 50%;
     }
 `;
 
 NavItem.defaultProps = {
     theme: {
         colors: {
-            background: '#000000',
+            background: '#F5F7FA',
+            darkHover: '#D3D9E5',
             primaryText: '#AAAAAA',
         },
     },
