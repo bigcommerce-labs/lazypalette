@@ -97,76 +97,70 @@ export class PreviewPane extends Component<PreviewPaneProps> {
             <PreviewPaneContainer showBorder={viewportType === VIEWPORT_TYPES.DESKTOP}>
                 {iframeUrl &&
                     <PreviewPaneIframe
-                        innerRef={(x: HTMLIFrameElement) => (this.iframeRef = x)}
+                        innerRef={(iframeRef: HTMLIFrameElement) => (this.iframeRef = iframeRef)}
                         isFetching={isFetching}
                         isRotated={isRotated}
                         onLoad={this.onLoad}
                         src={iframeUrl}
                         viewportType={viewportType}
-                    />
+                    />}
 
-                }
                 {isFetching &&
-                  <PreviewPaneLoading />
-                }
-
+                    <PreviewPaneLoading />}
             </PreviewPaneContainer>
         );
     }
 
-    private broadcastFontChange = (fontUrl: string) => {
+    private get ensureChannelAvailable() {
+        // If the channel service is not available, force reload preview pane
         if (!this.channelService) {
             this.raceConditionHandler();
 
-            return;
+            return false;
         }
 
-        this.channelService.safeBroadcast({
-            error: (error: any) => { return; }, // TODO
-            method: 'add-font',
-            params: { fontUrl },
-            success: (data: any) => this.props.previewPaneLoaded(),
-        }, this.raceConditionHandler);
+        return true;
+    }
+
+    private broadcastFontChange = (fontUrl: string) => {
+        if (this.ensureChannelAvailable) {
+            this.channelService.safeBroadcast({
+                error: (error: any) => this.raceConditionHandler(),
+                method: 'add-font',
+                params: { fontUrl },
+                success: (data: any) => this.props.previewPaneLoaded(),
+            }, this.raceConditionHandler);
+        }
     };
 
     private broadcastReloadStylesheets = (configurationId: string) => {
-        if (!this.channelService) {
-            this.raceConditionHandler();
-
-            return;
+        if (this.ensureChannelAvailable) {
+            this.channelService.safeBroadcast({
+                error: (error: any) => this.raceConditionHandler(),
+                method: 'reload-stylesheets',
+                params: { configurationId },
+                success: (data: any) => this.props.previewPaneLoaded(),
+            }, this.raceConditionHandler);
         }
-
-        this.channelService.safeBroadcast({
-            error: (error: any) => { return; }, // TODO
-            method: 'reload-stylesheets',
-            params: { configurationId },
-            success: (data: any) => this.props.previewPaneLoaded(),
-        }, this.raceConditionHandler);
     };
 
     private broadcastForceReload = ({ variationId, versionId, configurationId, lastCommitId }: SetCookiesParams) => {
-        if (!this.channelService) {
-            this.raceConditionHandler();
-
-            return;
+        if (this.ensureChannelAvailable) {
+            this.channelService.safeBroadcast({
+                error: (error: any) => this.raceConditionHandler(),
+                method: 'set-cookie',
+                params: {
+                    configurationId,
+                    reloadPage: true,
+                    // sessionId === lastCommitId
+                    // https://github.com/bigcommerce-labs/stencil-preview-sdk/blob/master/src/app/iframe-sdk.js#L99
+                    sessionId: lastCommitId,
+                    variationId,
+                    versionId,
+                },
+                success: (data: any) => this.props.previewPanePageReloaded(),
+            }, this.raceConditionHandler);
         }
-
-        this.channelService.safeBroadcast({
-            error: (error: any) => { return; }, // TODO
-            method: 'set-cookie',
-            params: {
-                configurationId,
-                reloadPage: true,
-                // sessionId === lastCommitId
-                // See: https://github.com/bigcommerce-labs/stencil-preview-sdk/blob/master/src/app/iframe-sdk.js#L99
-                sessionId: lastCommitId,
-                variationId,
-                versionId,
-            },
-            success: (data: any) => {
-                this.props.previewPanePageReloaded();
-            },
-        }, this.raceConditionHandler);
     };
 
     private raceConditionHandler = () => {
@@ -208,14 +202,11 @@ export class PreviewPane extends Component<PreviewPaneProps> {
 }
 
 const mapStateToProps = (state: State): Partial<PreviewPaneProps> => {
+    const { configurationId, lastCommitId, variationId, versionId } = state.theme;
+
     return {
         ...state.previewPane,
-        ...{
-            configurationId: state.theme.configurationId,
-            lastCommitId: state.theme.lastCommitId,
-            variationId: state.theme.variationId,
-            versionId: state.theme.versionId,
-        },
+        ...{ configurationId, lastCommitId, variationId, versionId },
     };
 };
 
