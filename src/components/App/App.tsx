@@ -5,7 +5,14 @@ import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
-import { setStoreData, StoreDefaultData, StoreFeatures } from '../../actions/merchant';
+import {
+    setQueryParams,
+    setStoreData,
+    QueryParamsData,
+    StoreDefaultData,
+    StoreFeatures,
+    UpdateQueryParamsAction
+} from '../../actions/merchant';
 import { createNotification } from '../../actions/notifications';
 import {
     setPreviewPaneData,
@@ -41,6 +48,7 @@ interface AppProps extends RouteComponentProps<{}> {
     createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
     fetchInitialState(variationID: string, configurationId?: string, upgrade?: boolean): Dispatch<State>;
     setPreviewPaneData(previewPaneData: PreviewPaneDefaultData): Dispatch<State>;
+    setQueryParams(queryData: QueryParamsData): UpdateQueryParamsAction;
     setStoreData(storeData: StoreDefaultData): Dispatch<State>;
 }
 
@@ -67,6 +75,8 @@ export class App extends Component<AppProps, {}> {
             previewCode: guestPassword,
             storeHash,
         });
+
+        this.props.setQueryParams({queryParams: this.props.location.search});
 
         this.props.setPreviewPaneData({page});
 
@@ -114,6 +124,7 @@ const mapDispatchToProps = {
     createNotification,
     fetchInitialState: loadTheme,
     setPreviewPaneData,
+    setQueryParams,
     setStoreData,
 };
 

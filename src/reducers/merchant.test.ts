@@ -10,6 +10,7 @@ describe('Merchant reducer', () => {
         isDownForMaintenance: false,
         isPrelaunchStore: false,
         previewCode: '',
+        queryParams: '',
         storeHash: '',
     };
 
@@ -21,6 +22,7 @@ describe('Merchant reducer', () => {
         isPrelaunchStore: false,
         isUpdate: false,
         previewCode: 'k4k4t9q44d',
+        queryParams: '',
         storeHash: '1234567890',
     };
 

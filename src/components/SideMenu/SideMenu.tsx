@@ -43,6 +43,7 @@ interface SideMenuProps extends RouteComponentProps<{}> {
     collapsed?: boolean;
     isPurchased: boolean;
     features: StoreFeatures;
+    queryParams: string;
     themeDesignSections: ThemeSchema;
     settings: {[key: string]: string | boolean | number};
     themeId: string;
@@ -221,12 +222,17 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
     };
 }
 
+// TODO Remove queryParam after addressing the routing
+// merchant.queryParam is updated when we update the location.search value.
+// We have merchant.queryParam in mapStateToProps just so that it re-renders SideMenu when this value changes.
+
 const mapStateToProps = ({ theme, merchant, sideMenu }: State) => ({
     activeThemeId: merchant.activeThemeId,
     collapsed: sideMenu.collapsed,
     configurationId: theme.configurationId,
     features: merchant.features,
     isPurchased: theme.isPurchased,
+    queryParams: merchant.queryParams,
     settings: theme.settings,
     themeDesignSections: theme.schema,
     themeId: theme.themeId,

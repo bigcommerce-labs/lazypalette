@@ -25,8 +25,9 @@ it('renders', () => {
             config={config}
             createNotification={mockFetch}
             fetchInitialState={mockFetch}
-            setStoreData={mockFetch}
             setPreviewPaneData={mockFetch}
+            setQueryParams={mockFetch}
+            setStoreData={mockFetch}
         />
     );
 
