@@ -186,7 +186,8 @@ export const NavItem = styled(NavLink)
         color: ${theme.colors.primaryText};
         display: flex;
         justify-content: space-between;
-        margin: 0 1rem 0 0;
+        padding: .375rem 0 .375rem 0;
+        margin: 0 .75rem 0 .5rem;
         opacity: ${disabled ? 0.5 : 1}
         overflow: hidden;
         pointer-events: ${disabled ? 'none' : 'auto'};
@@ -250,7 +251,8 @@ export const ExternalHelpItem = styled.a`
         align-items: center;
         color: ${theme.colors.primaryText};
         display: flex;
-        margin: 0 1rem 0 0;
+        padding: .25rem 0 .25rem 0;
+        margin: 0 .75rem 0 .5rem;
         overflow: hidden;
         text-decoration: none;
 
@@ -291,13 +293,15 @@ interface ListItemProps {
 export const ListItem = styled.li.attrs<ListItemProps>({})`
     border-left: 0.25rem solid;
     border-left-color: ${({ isActive, theme }) => isActive ? theme.colors.primary : `transparent`}
-    margin: 0.25rem 0 0.5rem 0;
-    padding-left: .5rem;
+
+    span:last-child {
+      margin-right: .25rem;
+    }
 
     ${({ divider, theme }) => {
         if (divider) {
             return `
-                margin-top: 2.5rem;
+                margin-top: 2rem;
                 position: relative;
 
                 :before {
@@ -306,7 +310,7 @@ export const ListItem = styled.li.attrs<ListItemProps>({})`
                     height: 1px;
                     left: 1.25rem;
                     position: absolute;
-                    top: -1.25rem;
+                    top: -1rem;
                     width: calc(100% - 2.5rem);
                 }`;
         }
@@ -340,7 +344,6 @@ export const HelpLabel = styled.span`
 
 export const StyledMenuItems = styled.ul`
     font-size: ${({ theme }) => theme.typography.fontSize.small};
-    line-height: 1.5rem;
     list-style-type: none;
     margin: 0;
     overflow-y: auto;
