@@ -86,7 +86,15 @@ exports[`SideMenu Theme status label when active theme is not the current theme 
         render={[Function]}
       />
     </styled.div>
-    <styled.div>
+    <styled.div
+      theme={
+        Object {
+          "layers": Object {
+            "high": 50,
+          },
+        }
+      }
+    >
       <styled.a
         href="/"
         onClick={[Function]}
@@ -241,7 +249,15 @@ exports[`SideMenu Theme status label when activeTheme is the current theme and i
         render={[Function]}
       />
     </styled.div>
-    <styled.div>
+    <styled.div
+      theme={
+        Object {
+          "layers": Object {
+            "high": 50,
+          },
+        }
+      }
+    >
       <styled.a
         href="/"
         onClick={[Function]}
@@ -396,7 +412,15 @@ exports[`SideMenu Theme status label when isPurchased is false renders correctly
         render={[Function]}
       />
     </styled.div>
-    <styled.div>
+    <styled.div
+      theme={
+        Object {
+          "layers": Object {
+            "high": 50,
+          },
+        }
+      }
+    >
       <styled.a
         href="/"
         onClick={[Function]}
@@ -551,7 +575,148 @@ exports[`SideMenu renders 1`] = `
         render={[Function]}
       />
     </styled.div>
+    <styled.div
+      theme={
+        Object {
+          "layers": Object {
+            "high": 50,
+          },
+        }
+      }
+    >
+      <styled.a
+        href="/"
+        onClick={[Function]}
+        target="_blank"
+        theme={
+          Object {
+            "colors": Object {
+              "primaryText": "#FFFFFF",
+            },
+            "typography": Object {
+              "fontWeight": Object {
+                "bold": "600",
+              },
+            },
+          }
+        }
+      >
+        <styled.span>
+          View live store
+        </styled.span>
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "guideText": "#FFFFFF",
+              },
+            }
+          }
+        >
+          <Icon
+            glyph="externalLink"
+            size="small"
+          />
+        </styled.div>
+      </styled.a>
+      <Tooltip
+        hideDelay={0}
+        message="Collapse menu"
+      >
+        <styled.button
+          onClick={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "brandPrimary": "#FFFFFF",
+                "empty": "#FFFFFF",
+                "primaryText": "#FFFFFF",
+                "secondaryText": "#FFFFFF",
+                "selectedBackground": "#FFFFFF",
+                "stroke": "#FFFFFF",
+              },
+              "elevation": Object {
+                "raised": "0 1px 6px rgba(48, 53, 64, 0.2)",
+              },
+              "typography": Object {
+                "fontWeight": Object {
+                  "thin": "600",
+                },
+              },
+            }
+          }
+        />
+      </Tooltip>
+    </styled.div>
+  </styled.nav>
+</Fragment>
+`;
+
+exports[`SideMenu when the sidebar data is not ready shows loading indicators 1`] = `
+<Fragment>
+  <ExpandMenuRoutes
+    route="styles"
+  />
+  <ExpandMenuRoutes
+    route="history"
+  />
+  <ExpandMenuRoutes
+    route="options"
+  />
+  <styled.nav>
     <styled.div>
+      <BulletListStyle
+        height={60}
+        primaryColor="#ECEFF4"
+        secondaryColor="#CFD6E5"
+        width={200}
+      />
+      <styled.div
+        innerRef={
+          Object {
+            "current": null,
+          }
+        }
+        theme={
+          Object {
+            "typography": Object {
+              "fontSize": Object {
+                "larger": "20px",
+              },
+            },
+          }
+        }
+      >
+        Catstone Box
+      </styled.div>
+    </styled.div>
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "background": "#FFFFFF",
+          },
+        }
+      }
+    >
+      <styled.div>
+        <BulletListStyle
+          height={200}
+          primaryColor="#ECEFF4"
+          secondaryColor="#CFD6E5"
+          width={200}
+        />
+      </styled.div>
+    </styled.div>
+    <styled.div
+      theme={
+        Object {
+          "layers": Object {
+            "high": 50,
+          },
+        }
+      }
+    >
       <styled.a
         href="/"
         onClick={[Function]}

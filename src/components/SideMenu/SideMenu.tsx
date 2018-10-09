@@ -1,5 +1,6 @@
-import { Icon } from 'pattern-lab';
+import { theme as patternLabTheme, Icon } from 'pattern-lab';
 import React, { PureComponent } from 'react';
+import { BulletList } from 'react-content-loader';
 import Dotdotdot from 'react-dotdotdot';
 
 import { connect } from 'react-redux';
@@ -32,6 +33,7 @@ import {
     Header,
     HiddenTitle,
     MenuContents,
+    SideMenuLoadingContainer,
     StyledExternalLiveStore,
     StyledStatus,
     Title,
@@ -98,6 +100,7 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
 
     editorThemeStatus = () => {
         const { activeThemeId, isPurchased, themeId } = this.props;
+
         if (!isPurchased) {
             return ThemeStatus.preview;
         } else if (activeThemeId !== themeId) {
@@ -148,7 +151,15 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
 
                 <Container collapsed={collapsed}>
                     <Header>
-                        { titleRendered
+                        {!isLoaded &&
+                            <BulletList
+                                primaryColor={patternLabTheme.colors.backgroundHover}
+                                secondaryColor={patternLabTheme.colors.stroke}
+                                width={200}
+                                height={60}
+                            />}
+
+                        {titleRendered
                             ? <Tooltip message={longTitle ? <TitleTooltip>{themeName}</TitleTooltip> : undefined}>
                                 <Title
                                     longTitle={longTitle}
@@ -163,13 +174,25 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                             </HiddenTitle>
                         }
 
-                        <Tooltip clickable={true} message={status.tooltip}>
-                            <StyledStatus status={status.label}>
-                                {status.label}
-                            </StyledStatus>
-                        </Tooltip>
+                        {isLoaded &&
+                            <Tooltip clickable={true} message={status.tooltip}>
+                                <StyledStatus status={status.label}>
+                                    {status.label}
+                                </StyledStatus>
+                            </Tooltip>
+                        }
                     </Header>
                     <MenuContents>
+                        {!isLoaded &&
+                            <SideMenuLoadingContainer>
+                                <BulletList
+                                    primaryColor={patternLabTheme.colors.backgroundHover}
+                                    secondaryColor={patternLabTheme.colors.stroke}
+                                    width={200}
+                                    height={200}
+                                />
+                            </SideMenuLoadingContainer>}
+
                         {isLoaded &&
                             <Route
                                 path={home.path}
