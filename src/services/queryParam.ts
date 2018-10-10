@@ -1,13 +1,29 @@
 import { createBrowserHistory, LocationDescriptor } from 'history';
 import * as queryString from 'querystring';
 
-export function updateQueryParamsService(variationId: string): string {
+const validQueryParams = [ 'variationId', 'optIn' ];
+
+export interface AppQueryParams {
+    [paramName: string]: string[] | string | null;
+}
+
+export function updateQueryParamsService(newQueryParams: AppQueryParams): string {
     const history = createBrowserHistory();
-    const queryParams = queryString.parse(history.location.search.replace('?', ''));
+    const originalQueryParams = queryString.parse(history.location.search.replace('?', ''));
 
-    queryParams.variationId = variationId;
+    validQueryParams.forEach((param: string) => {
+        const originalParam = originalQueryParams[param];
 
-    const updatedQueryParams = queryString.stringify(queryParams);
+        if (!(param in newQueryParams)) {
+            if (originalParam !== undefined) {
+                newQueryParams[param] = originalParam;
+            }
+        } else if (newQueryParams[param] === null) {
+            delete newQueryParams[param];
+        }
+    });
+
+    const updatedQueryParams = queryString.stringify(newQueryParams);
     const locationDescriptor: LocationDescriptor = {
         pathname: history.location.pathname,
         search: updatedQueryParams,

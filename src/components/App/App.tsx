@@ -24,6 +24,7 @@ import { State } from '../../reducers/reducers';
 
 import Banner from '../Banner/Banner';
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
+import Onboarding from '../Onboarding/Onboarding';
 import Routes from '../Routes/Routes';
 import SideMenu from '../SideMenu/SideMenu';
 import UserSessionActivity from '../UserSessionActivity/UserSessionActivity';
@@ -102,6 +103,7 @@ export class App extends Component<AppProps, {}> {
                     <UserSessionActivity oauthBaseUrl={this.props.config.oauthBaseUrl}>
                         <UIWindowProvider>
                             <StyledApp>
+                                <Onboarding/>
                                 <Banner
                                     createNotification={this.props.createNotification}
                                     previewCode={guestPassword}

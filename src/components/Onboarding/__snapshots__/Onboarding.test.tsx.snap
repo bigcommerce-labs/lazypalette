@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Onboarding /> when rendering when optIn query parameter is "true" renders correctly 1`] = `
+<AlertModal
+  actionText="Start exploring"
+  body="We've made significant improvements to the way you customize the look and feel of your store."
+  primaryAction={[Function]}
+  title="Welcome to Store Design!"
+/>
+`;
+
+exports[`<Onboarding /> when rendering when optIn query parameter is not "true" renders correctly 1`] = `""`;
+
+exports[`<Onboarding /> when rendering when optIn query parameter is not present renders correctly 1`] = `""`;

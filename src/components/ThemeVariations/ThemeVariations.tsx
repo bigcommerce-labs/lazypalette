@@ -90,7 +90,7 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
                 if (result.error) {
                     this.props.createNotification(true, ToastMessages.ErrorVariation, ToastType.Error);
                 } else {
-                    const queryParams: string = updateQueryParamsService(variationId);
+                    const queryParams: string = updateQueryParamsService({ variationId });
                     this.props.setQueryParams({queryParams});
                 }
             });
