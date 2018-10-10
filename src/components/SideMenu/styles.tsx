@@ -132,7 +132,6 @@ export const Footer = styled.div`
     flex-grow: 0;
     flex-shrink: 1;
     margin: 1rem 1.25rem 1.5rem 1.5rem;
-    z-index: ${({ theme }) => theme.layers.high};
 `;
 
 export const HiddenTitle = styled.div`
@@ -225,7 +224,7 @@ export const ExternalNavItem = styled.a`
     ${({ theme }) => `
         align-items: center;
         color: ${theme.colors.primaryText};
-        display: flex;
+        display: inline-block;
         overflow: hidden;
         padding-right: 0.5rem;
         text-decoration: none;
@@ -361,14 +360,31 @@ StyledMenuItems.defaultProps = {
     },
 };
 
-export const StyledExternalLink = styled.div`
+export const StyledExternalLiveStore = styled.div`
+    color: ${({ theme }) => theme.colors.guideText};
+    display: inline-block;
+    line-height: 1rem;
+    margin: 0 0 0 0.25rem;
+    vertical-align: middle;
+`;
+
+StyledExternalLiveStore.defaultProps = {
+    theme: {
+        colors: {
+            guideText: '#FFFFFF',
+        },
+    },
+};
+
+export const StyledExternalHelp = styled.div`
     color: ${({ theme }) => theme.colors.guideText};
     display: inline-block;
     line-height: 1rem;
     margin: 0.25rem 0 0 0.25rem;
+    vertical-align: middle;
 `;
 
-StyledExternalLink.defaultProps = {
+StyledExternalHelp.defaultProps = {
     theme: {
         colors: {
             guideText: '#FFFFFF',

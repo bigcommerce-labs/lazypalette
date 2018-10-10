@@ -10,7 +10,6 @@ interface PreviewPaneContainerProps {
 
 export const PreviewPaneContainer = styled.div.attrs<PreviewPaneContainerProps>({})`
     display: flex;
-    position: relative;
     flex: auto;
     justify-content: center;
     overflow: auto;
@@ -114,11 +113,8 @@ export const PreviewPaneIframe = styled.iframe.attrs<PreviewPaneIframeProps>({
 
 export const PreviewPaneLoadingContainer = styled.div`
     margin: auto;
-    text-align: center;
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
     span:first-of-type {
       -webkit-animation-delay: -0.30s;
