@@ -48,7 +48,13 @@ class ExpandableMenu extends PureComponent<ExpandableMenuProps> {
                             onClick={() => title ? trackSectionClose(title) : ''}
                             replace
                             to={back}
-                        />
+                        >
+                            <Icon
+                                glyph="closeX"
+                                primaryColor={theme.colors.primaryText}
+                                size="small"
+                            />
+                        </NavItem>
                     </Header>
                     <Content>{children}</Content>
                     <ResizeHandle onMouseDown={startResize}>

@@ -140,10 +140,32 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                       More Options
                     </h2>
                     <a
-                      class="sc-hMqMXs hOzlTA"
+                      class="sc-hMqMXs csYlEe"
                       href="/"
                       theme="[object Object]"
-                    />
+                    >
+                      <span
+                        class="sc-htpNat jbiXdI"
+                      >
+                        <svg
+                          class="sc-bxivhb fJCLdB"
+                          version="1.1"
+                          viewBox="0 0 10 10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="
+          M9.66536 1.27398L8.72536 0.333984L4.9987 4.06065L1.27203
+          0.333984L0.332031 1.27398L4.0587 5.00065L0.332031 8.72732L1.27203
+          9.66732L4.9987 5.94065L8.72536 9.66732L9.66536 8.72732L5.9387
+          5.00065L9.66536 1.27398Z
+      "
+                            fill="#303540"
+                            stroke="none"
+                          />
+                        </svg>
+                      </span>
+                    </a>
                   </div>
                   <div
                     class="sc-iAyFgw gLJSFE"
@@ -221,10 +243,32 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         More Options
                       </h2>
                       <a
-                        class="sc-hMqMXs hOzlTA"
+                        class="sc-hMqMXs csYlEe"
                         href="/"
                         theme="[object Object]"
-                      />
+                      >
+                        <span
+                          class="sc-htpNat jbiXdI"
+                        >
+                          <svg
+                            class="sc-bxivhb fJCLdB"
+                            version="1.1"
+                            viewBox="0 0 10 10"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="
+          M9.66536 1.27398L8.72536 0.333984L4.9987 4.06065L1.27203
+          0.333984L0.332031 1.27398L4.0587 5.00065L0.332031 8.72732L1.27203
+          9.66732L4.9987 5.94065L8.72536 9.66732L9.66536 8.72732L5.9387
+          5.00065L9.66536 1.27398Z
+      "
+                              fill="#303540"
+                              stroke="none"
+                            />
+                          </svg>
+                        </span>
+                      </a>
                     </div>
                     <div
                       class="sc-iAyFgw gLJSFE"
@@ -360,7 +404,8 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         theme={
                           Object {
                             "colors": Object {
-                              "background": "#000000",
+                              "background": "#F5F7FA",
+                              "darkHover": "#D3D9E5",
                               "primaryText": "#AAAAAA",
                             },
                           }
@@ -373,13 +418,14 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         }
                       >
                         <Link
-                          className="sc-hMqMXs hOzlTA"
+                          className="sc-hMqMXs csYlEe"
                           onClick={[Function]}
                           replace={true}
                           theme={
                             Object {
                               "colors": Object {
-                                "background": "#000000",
+                                "background": "#F5F7FA",
+                                "darkHover": "#D3D9E5",
                                 "primaryText": "#AAAAAA",
                               },
                             }
@@ -392,18 +438,55 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                           }
                         >
                           <a
-                            className="sc-hMqMXs hOzlTA"
+                            className="sc-hMqMXs csYlEe"
                             href="/"
                             onClick={[Function]}
                             theme={
                               Object {
                                 "colors": Object {
-                                  "background": "#000000",
+                                  "background": "#F5F7FA",
+                                  "darkHover": "#D3D9E5",
                                   "primaryText": "#AAAAAA",
                                 },
                               }
                             }
-                          />
+                          >
+                            <Icon
+                              glyph="closeX"
+                              primaryColor="#303540"
+                              size="small"
+                            >
+                              <styled.span
+                                iconSize="small"
+                              >
+                                <span
+                                  className="sc-htpNat jbiXdI"
+                                >
+                                  <styled.svg
+                                    viewBox="0 0 10 10"
+                                  >
+                                    <svg
+                                      className="sc-bxivhb fJCLdB"
+                                      version="1.1"
+                                      viewBox="0 0 10 10"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="
+          M9.66536 1.27398L8.72536 0.333984L4.9987 4.06065L1.27203
+          0.333984L0.332031 1.27398L4.0587 5.00065L0.332031 8.72732L1.27203
+          9.66732L4.9987 5.94065L8.72536 9.66732L9.66536 8.72732L5.9387
+          5.00065L9.66536 1.27398Z
+      "
+                                        fill="#303540"
+                                        stroke="none"
+                                      />
+                                    </svg>
+                                  </styled.svg>
+                                </span>
+                              </styled.span>
+                            </Icon>
+                          </a>
                         </Link>
                       </Styled(Link)>
                     </div>
@@ -683,10 +766,32 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                       More Options
                     </h2>
                     <a
-                      class="sc-hMqMXs hOzlTA"
+                      class="sc-hMqMXs csYlEe"
                       href="/"
                       theme="[object Object]"
-                    />
+                    >
+                      <span
+                        class="sc-htpNat jbiXdI"
+                      >
+                        <svg
+                          class="sc-bxivhb fJCLdB"
+                          version="1.1"
+                          viewBox="0 0 10 10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="
+          M9.66536 1.27398L8.72536 0.333984L4.9987 4.06065L1.27203
+          0.333984L0.332031 1.27398L4.0587 5.00065L0.332031 8.72732L1.27203
+          9.66732L4.9987 5.94065L8.72536 9.66732L9.66536 8.72732L5.9387
+          5.00065L9.66536 1.27398Z
+      "
+                            fill="#303540"
+                            stroke="none"
+                          />
+                        </svg>
+                      </span>
+                    </a>
                   </div>
                   <div
                     class="sc-iAyFgw gLJSFE"
@@ -764,10 +869,32 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         More Options
                       </h2>
                       <a
-                        class="sc-hMqMXs hOzlTA"
+                        class="sc-hMqMXs csYlEe"
                         href="/"
                         theme="[object Object]"
-                      />
+                      >
+                        <span
+                          class="sc-htpNat jbiXdI"
+                        >
+                          <svg
+                            class="sc-bxivhb fJCLdB"
+                            version="1.1"
+                            viewBox="0 0 10 10"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="
+          M9.66536 1.27398L8.72536 0.333984L4.9987 4.06065L1.27203
+          0.333984L0.332031 1.27398L4.0587 5.00065L0.332031 8.72732L1.27203
+          9.66732L4.9987 5.94065L8.72536 9.66732L9.66536 8.72732L5.9387
+          5.00065L9.66536 1.27398Z
+      "
+                              fill="#303540"
+                              stroke="none"
+                            />
+                          </svg>
+                        </span>
+                      </a>
                     </div>
                     <div
                       class="sc-iAyFgw gLJSFE"
@@ -903,7 +1030,8 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         theme={
                           Object {
                             "colors": Object {
-                              "background": "#000000",
+                              "background": "#F5F7FA",
+                              "darkHover": "#D3D9E5",
                               "primaryText": "#AAAAAA",
                             },
                           }
@@ -916,13 +1044,14 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                         }
                       >
                         <Link
-                          className="sc-hMqMXs hOzlTA"
+                          className="sc-hMqMXs csYlEe"
                           onClick={[Function]}
                           replace={true}
                           theme={
                             Object {
                               "colors": Object {
-                                "background": "#000000",
+                                "background": "#F5F7FA",
+                                "darkHover": "#D3D9E5",
                                 "primaryText": "#AAAAAA",
                               },
                             }
@@ -935,18 +1064,55 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
                           }
                         >
                           <a
-                            className="sc-hMqMXs hOzlTA"
+                            className="sc-hMqMXs csYlEe"
                             href="/"
                             onClick={[Function]}
                             theme={
                               Object {
                                 "colors": Object {
-                                  "background": "#000000",
+                                  "background": "#F5F7FA",
+                                  "darkHover": "#D3D9E5",
                                   "primaryText": "#AAAAAA",
                                 },
                               }
                             }
-                          />
+                          >
+                            <Icon
+                              glyph="closeX"
+                              primaryColor="#303540"
+                              size="small"
+                            >
+                              <styled.span
+                                iconSize="small"
+                              >
+                                <span
+                                  className="sc-htpNat jbiXdI"
+                                >
+                                  <styled.svg
+                                    viewBox="0 0 10 10"
+                                  >
+                                    <svg
+                                      className="sc-bxivhb fJCLdB"
+                                      version="1.1"
+                                      viewBox="0 0 10 10"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="
+          M9.66536 1.27398L8.72536 0.333984L4.9987 4.06065L1.27203
+          0.333984L0.332031 1.27398L4.0587 5.00065L0.332031 8.72732L1.27203
+          9.66732L4.9987 5.94065L8.72536 9.66732L9.66536 8.72732L5.9387
+          5.00065L9.66536 1.27398Z
+      "
+                                        fill="#303540"
+                                        stroke="none"
+                                      />
+                                    </svg>
+                                  </styled.svg>
+                                </span>
+                              </styled.span>
+                            </Icon>
+                          </a>
                         </Link>
                       </Styled(Link)>
                     </div>

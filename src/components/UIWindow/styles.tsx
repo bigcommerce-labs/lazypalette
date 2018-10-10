@@ -14,7 +14,7 @@ export const Header = styled.div`
     display: flex;
     justify-content: flex-end;
     height: 1rem;
-    padding: 0.75rem 0.75rem 0.75rem 1.5rem;
+    padding: 0.75rem 0.25rem 0.75rem 1.5rem;
     margin: 0;
     font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
     color: ${({ theme }) => theme.colors.primaryText};
@@ -111,24 +111,29 @@ export const Overlay = styled.div`
 `;
 
 export const NavItem = styled.div`
-    text-align: center;
     text-decoration: none;
     text-shadow: 0 1px 0 ${({ theme }) => theme.colors.background};
-    font-size: ${({ theme }) => theme.typography.fontSize.smaller};
-
-    :after {
-        content: '✕';
-        color: ${({ theme }) => theme.colors.primaryText};
-
-        :visited, :hover, :active {
-            color: ${({ theme }) => theme.colors.primaryText};
-        }
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
 
     :hover {
       cursor: pointer;
+      background: ${({ theme }) => theme.colors.darkHover};
+      border-radius: 50%;
     }
 `;
+
+NavItem.defaultProps = {
+    theme: {
+        colors: {
+            background: '#F5F7FA',
+            darkHover: '#D3D9E5',
+        },
+    },
+};
 
 NavItem.displayName = 'NavItem';
 

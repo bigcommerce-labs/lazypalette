@@ -63,12 +63,18 @@ exports[`Modal renders 1`] = `
         theme={
           Object {
             "colors": Object {
-              "background": "#000000",
+              "darkHover": "#D3D9E5",
               "primaryText": "#AAAAAA",
             },
           }
         }
-      />
+      >
+        <Icon
+          glyph="closeX"
+          primaryColor="#303540"
+          size="small"
+        />
+      </styled.div>
     </styled.div>
     <styled.div
       theme={
@@ -230,12 +236,18 @@ exports[`Modal title prop should render Header with close button when onClose is
         theme={
           Object {
             "colors": Object {
-              "background": "#000000",
+              "darkHover": "#D3D9E5",
               "primaryText": "#AAAAAA",
             },
           }
         }
-      />
+      >
+        <Icon
+          glyph="closeX"
+          primaryColor="#303540"
+          size="small"
+        />
+      </styled.div>
     </styled.div>
     <styled.div
       theme={

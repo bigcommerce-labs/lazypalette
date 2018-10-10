@@ -7,10 +7,18 @@ exports[`Toast renders 1`] = `
   <styled.div
     type="Success"
   >
-    Changes have been saved.
+    <styled.span>
+      Changes have been saved.
+    </styled.span>
     <styled.div
       onClick={[Function]}
-    />
+    >
+      <Icon
+        glyph="closeX"
+        primaryColor="#F5F7FA"
+        size="small"
+      />
+    </styled.div>
   </styled.div>
 </styled.div>
 `;

@@ -71,7 +71,13 @@ exports[`UIWindow when given a window renders correctly 1`] = `
             },
           }
         }
-      />
+      >
+        <Icon
+          glyph="closeX"
+          primaryColor="#303540"
+          size="smaller"
+        />
+      </NavItem>
     </Header>
     <styled.div>
       <p>
