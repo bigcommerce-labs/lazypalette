@@ -5,7 +5,7 @@ export const List = styled.ul`
     width: 20rem;
     list-style: none;
     padding: 0;
-    margin: 0 1rem 0 1.5rem;
+    margin: 0 1.5rem 0 1.5rem;
 
     > :first-child > * {
         margin-top: 0;
