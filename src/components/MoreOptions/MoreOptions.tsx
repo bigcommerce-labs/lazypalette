@@ -20,6 +20,7 @@ import {
     trackEditThemeFiles,
     trackEditThemeFilesCancel,
     trackEditThemeFilesConfirm,
+    trackOptOut,
     trackRestoreOriginalSettings,
     trackRestoreOriginalSettingsCancel,
     trackRestoreOriginalSettingsConfirm,
@@ -166,6 +167,7 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
     handleOptOut = (_window: Window) => {
         const { configurationId, variationId, versionId } = this.props;
         this.setState({ currentModal: CurrentModal.NONE}, () => {
+            trackOptOut();
             disableStoreDesign(this.props.storeHash)
                 .then(() => {
                     const { protocol, hostname } = _window.location;

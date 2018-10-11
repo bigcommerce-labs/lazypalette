@@ -13,7 +13,7 @@ interface EventData {
     element: string;
     label: string;
     text: string;
-    [key: string]: string;
+    [key: string]: string | number;
 }
 
 const config: AnalyticsConfig = {
@@ -27,11 +27,13 @@ function track(eventName: string, data: EventData) {
     if (window.analytics && config.store) {
         const state = config.store.getState();
         data = { ...data, ...{
+            is_ab_test_subject: (!state.merchant.canOptOut).toString(),
             is_active_theme: (state.theme.themeId === state.merchant.activeThemeId).toString(),
             is_maintenance: state.merchant.isDownForMaintenance.toString(),
             is_prelaunch: state.merchant.isPrelaunchStore.toString(),
             is_purchased: state.theme.isPurchased.toString(),
             side_menu_collapsed: (!!state.sideMenu.collapsed).toString(),
+            store_design_version: 2,
             storefront_page: state.previewPane.page,
             theme_configuration_id: state.theme.configurationId,
             theme_id: state.theme.themeId,
@@ -362,5 +364,14 @@ export function trackRestoreOriginalSettingsConfirm() {
         element: 'button',
         label: 'store-design_restore-original-settings-confirm',
         text: 'Restore',
+    });
+}
+
+export function trackOptOut() {
+    track('store-design_click', {
+        category: 'store-design_opt-out',
+        element: 'a',
+        label: 'store-design_opt-out',
+        text: 'Switch to old Theme Editor',
     });
 }
