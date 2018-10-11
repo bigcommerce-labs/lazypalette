@@ -91,7 +91,7 @@ export const Container = styled.nav.attrs<CollapsedProps>({})`
 
 export const Header = styled.div`
     flex-grow: 0;
-    margin: 1.5rem 1.25rem 1.25rem 1.5rem;
+    padding: 1.5rem 1.25rem;
 `;
 
 export const MenuContents = styled.div`
@@ -134,12 +134,19 @@ export const Footer = styled.div`
     margin: 1rem 1.25rem 1.5rem 1.5rem;
 `;
 
+Footer.defaultProps = {
+    theme: {
+        layers: {
+            high: 50,
+        },
+    },
+};
+
 export const HiddenTitle = styled.div`
     color: transparent;
     font-size: ${({ theme }) => theme.typography.fontSize.larger};
     line-height: 2rem;
     margin: 0 0 0.5rem 0;
-    min-height: 2rem;
 `;
 
 HiddenTitle.defaultProps = {
@@ -565,3 +572,7 @@ StyledStatus.defaultProps = {
         },
     },
 };
+
+export const SideMenuLoadingContainer = styled.div`
+    padding: 0rem 1.25rem 1.5rem 1.25rem;
+`;

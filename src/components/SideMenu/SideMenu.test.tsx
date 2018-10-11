@@ -54,6 +54,31 @@ describe('SideMenu', () => {
         expect(sideMenu).toMatchSnapshot();
     });
 
+    describe('when the sidebar data is not ready', () => {
+        const sideMenu = shallow(
+            <SideMenu
+                activeThemeId="7777-9999-1111-0000"
+                features={features}
+                isPurchased={true}
+                queryParams=""
+                themeDesignSections={[]}
+                settings={mockSettings}
+                themeId="7777-9999-1111-0000"
+                themeName="Catstone Box"
+                configurationId="3333-2222-111111-00000"
+                variationId="2222-11111-0000-44444"
+                versionId="2221-211111-0111-41111"
+                collapseSideMenu={mockCollapseSideMenu}
+                postThemeConfigData={mockpostThemeConfig}
+                {...routeProps}
+            />
+        );
+
+        it('shows loading indicators', () => {
+            expect(sideMenu).toMatchSnapshot();
+        });
+    });
+
     describe('Collapse Menu Button', () => {
         const sideMenu = shallow(
             <SideMenu
