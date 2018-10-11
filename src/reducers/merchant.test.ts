@@ -6,6 +6,7 @@ describe('Merchant reducer', () => {
     const initialState: MerchantStoreState = {
         activeThemeId: '',
         activeVariationId: '',
+        canOptOut: false,
         features: {},
         isDownForMaintenance: false,
         isPrelaunchStore: false,
@@ -17,6 +18,7 @@ describe('Merchant reducer', () => {
     const payload = {
         activeThemeId: 'theme1',
         activeVariationId: 'variation1',
+        canOptOut: true,
         features: { awesomeFeature: true },
         isDownForMaintenance: false,
         isPrelaunchStore: false,

@@ -75,13 +75,16 @@ export const renderUnsupportedBrowserPage = (config: AppConfig) => {
                border-color: ${theme.colors.brandPrimary};
             }
         </style>
-
         <div class="unsupportedBrowser-inner">
             <h1>${UnsupportedBrowserText.heading}</h1>
             <p>${UnsupportedBrowserText.unsupportedMessage}</p>
             <p>${UnsupportedBrowserText.contactMessage}</p>
             <br>
-            <p><button id="unsupportedBrowser-optOut">${UnsupportedBrowserText.optOut}</button></p>
+
+        ${config.canOptOut
+        ? `<p><button id="unsupportedBrowser-optOut">${UnsupportedBrowserText.optOut}</button></p>`
+        : ``}
+
             <p><a href="${UnsupportedBrowserEndpoint.cpDashboard}">${UnsupportedBrowserText.back}</a></p>
         </div>
     `;
