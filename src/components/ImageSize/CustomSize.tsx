@@ -77,6 +77,11 @@ class CustomSize extends PureComponent<CustomSizeProps, CustomSizeState> {
             const dimensions = axis === 'height'
                 ? `${ratioValue}x${value}`
                 : `${value}x${ratioValue}`;
+
+            axis === 'height'
+                ? this.setState({ width: `${ratioValue}`, height: `${value}`})
+                : this.setState({ width: `${value}`, height: `${ratioValue}`});
+
             newEvent = {...event, target: {...event.target, value: dimensions}};
         } else {
             const [width, height] = this.props.defaultValue.split('x');
