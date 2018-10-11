@@ -20,6 +20,7 @@ import HeaderMenuLogo from './HeaderMenuLogo';
 interface HeaderMenuProps {
     configurationId: string;
     displayVersion: string;
+    isChanged: boolean;
     isRotated: boolean;
     notifications: NotificationsProps;
     themeName: string;
@@ -65,14 +66,14 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
     handleToastClose = () => this.props.closeNotification();
 
     render() {
-        const { isRotated, notifications, viewportType } = this.props;
+        const { isChanged, isRotated, notifications, viewportType } = this.props;
         const { autoDismiss, message, type } = notifications;
         const [DESKTOP, MOBILE, TABLET] = Object.keys(VIEWPORT_TYPES);
         const viewportKeys = [DESKTOP, TABLET, MOBILE];
 
         return (
             <StyledHeaderMenu>
-                <HeaderMenuLogo />
+                <HeaderMenuLogo isChanged={isChanged} />
                 <ViewportIcons>
                     {viewportKeys.map(view => (
                         <StyledPreviewItem
@@ -108,6 +109,7 @@ class HeaderMenu extends PureComponent<HeaderMenuProps> {
 const mapStateToProps = ({ theme, notifications, previewPane }: State): Partial<HeaderMenuProps> => ({
     configurationId: theme.configurationId,
     displayVersion: theme.displayVersion,
+    isChanged: theme.isChanged,
     isRotated: previewPane.isRotated,
     notifications,
     themeName: theme.themeName,

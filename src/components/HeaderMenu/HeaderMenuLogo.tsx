@@ -1,24 +1,55 @@
 import React, {PureComponent} from 'react';
 
-import BrowserContext, { Browser } from '../../context/BrowserContext';
+import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 
 import { HeaderMenuLinks, HeaderMenuMessages } from './constants';
 import { BCLogo } from './styles';
 
-class HeaderMenuLogo extends PureComponent {
-    handleLogoClick = (_window: Window) => () => {
-        _window.location.assign(
-            `${_window.location.protocol}//${_window.location.hostname}/${HeaderMenuLinks.CONTROL_PANEL}`
-        );
+interface HeaderMenuLogoProps {
+    isChanged?: boolean;
+}
+
+interface HeaderMenuLogoState {
+    isUnsavedOpen: boolean;
+}
+
+class HeaderMenuLogo extends PureComponent<HeaderMenuLogoProps> {
+    readonly state: HeaderMenuLogoState = {
+        isUnsavedOpen: false,
     };
 
+    handleLogoClick = () => {
+        const { isChanged } = this.props;
+
+        if (isChanged) {
+            this.setState({ isUnsavedOpen: true });
+        } else {
+            this.handleLogoLink();
+        }
+    };
+
+    handleLogoLink = () => window.location.assign(`/${HeaderMenuLinks.ControlPanel}`);
+
+    handleModalCancel = () => this.setState({ isUnsavedOpen: false });
+
     render() {
+        const { isUnsavedOpen } = this.state;
+
         return (
-            <BrowserContext.Consumer>
-                {({_window}: Browser) =>
-                    <BCLogo tooltip={HeaderMenuMessages.GO_BACK} onClick={this.handleLogoClick(_window)}/>
+            <>
+                <BCLogo tooltip={HeaderMenuMessages.GoBack} onClick={this.handleLogoClick} />
+                {isUnsavedOpen &&
+                    <ConfirmModal
+                        primaryAction={this.handleLogoLink}
+                        primaryActionText={HeaderMenuMessages.ModalAction}
+                        secondaryAction={this.handleModalCancel}
+                        overlayClose={this.handleModalCancel}
+                        title={HeaderMenuMessages.ModalTitle}
+                    >
+                        {HeaderMenuMessages.UnsavedModalBody}
+                    </ConfirmModal>
                 }
-            </BrowserContext.Consumer>
+            </>
         );
     }
 }

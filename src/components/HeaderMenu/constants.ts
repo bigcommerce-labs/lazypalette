@@ -1,7 +1,11 @@
 export const enum HeaderMenuLinks {
-    CONTROL_PANEL = 'manage',
+    ControlPanel = 'manage',
 }
 
-export const enum HeaderMenuMessages {
-    GO_BACK = 'Go back to Control Panel',
-}
+export const HeaderMenuMessages = {
+    GoBack: 'Go back to Control Panel',
+    ModalAction: 'Leave this page',
+    ModalTitle: 'Leave Page?',
+    UnsavedModalBody: `You have unsaved changes that will be lost if you decide to continue.
+        Are you sure you want to leave this page?`,
+};
