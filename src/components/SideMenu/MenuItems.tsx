@@ -14,7 +14,7 @@ import {
     ItemLabel,
     ListItem,
     NavItem,
-    StyledExternalLink,
+    StyledExternalHelp,
     StyledMenuItems,
 } from './styles';
 
@@ -79,9 +79,9 @@ class MenuItems extends Component<MenuItemsProps, {}> {
                                     <HelpLabel>
                                         {label}
                                     </HelpLabel>
-                                    <StyledExternalLink>
+                                    <StyledExternalHelp>
                                         <Icon glyph="externalLink" size="small" />
-                                    </StyledExternalLink>
+                                    </StyledExternalHelp>
                                 </ExternalHelpItem>
 
                                 : <NavItem

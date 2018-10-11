@@ -32,7 +32,7 @@ import {
     Header,
     HiddenTitle,
     MenuContents,
-    StyledExternalLink,
+    StyledExternalLiveStore,
     StyledStatus,
     Title,
     TitleTooltip
@@ -190,9 +190,9 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
                             <FooterLabel>
                                 View live store
                             </FooterLabel>
-                            <StyledExternalLink>
+                            <StyledExternalLiveStore>
                                 <Icon glyph="externalLink" size="small" />
-                            </StyledExternalLink>
+                            </StyledExternalLiveStore>
                         </ExternalNavItem>
                         <Tooltip
                             hideDelay={0}
