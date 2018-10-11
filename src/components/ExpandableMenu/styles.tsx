@@ -22,7 +22,7 @@ interface ExpandModalProps {
 export const ExpandModal = styled.div.attrs<ExpandModalProps>({
     style: ({ minHeight, position, size }: ExpandModalProps) => ({
         left: position ? `${position.x}px` : undefined,
-        maxHeight: size ? `${size.height}px` : '31rem',
+        maxHeight: size ? `${size.height}px` : '32rem',
         minHeight: minHeight ? minHeight : '10.5rem',
         top: position ? `${position.y}px` : undefined,
     }),

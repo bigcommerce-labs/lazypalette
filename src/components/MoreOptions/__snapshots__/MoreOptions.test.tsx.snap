@@ -126,7 +126,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
             Object {
               "current": <div
                 class="sc-jKJlTe eNHUZn"
-                style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
+                style="left: 10px; max-height: 32rem; min-height: 10.5rem; top: 10px;"
               >
                 <div
                   class="sc-eNQAEJ gNZsNX"
@@ -229,7 +229,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
               Object {
                 "current": <div
                   class="sc-jKJlTe eNHUZn"
-                  style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
+                  style="left: 10px; max-height: 32rem; min-height: 10.5rem; top: 10px;"
                 >
                   <div
                     class="sc-eNQAEJ gNZsNX"
@@ -348,7 +348,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
               style={
                 Object {
                   "left": "10px",
-                  "maxHeight": "31rem",
+                  "maxHeight": "32rem",
                   "minHeight": "10.5rem",
                   "top": "10px",
                 }
@@ -752,7 +752,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
             Object {
               "current": <div
                 class="sc-jKJlTe eNHUZn"
-                style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
+                style="left: 10px; max-height: 32rem; min-height: 10.5rem; top: 10px;"
               >
                 <div
                   class="sc-eNQAEJ gNZsNX"
@@ -855,7 +855,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
               Object {
                 "current": <div
                   class="sc-jKJlTe eNHUZn"
-                  style="left: 10px; max-height: 31rem; min-height: 10.5rem; top: 10px;"
+                  style="left: 10px; max-height: 32rem; min-height: 10.5rem; top: 10px;"
                 >
                   <div
                     class="sc-eNQAEJ gNZsNX"
@@ -974,7 +974,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
               style={
                 Object {
                   "left": "10px",
-                  "maxHeight": "31rem",
+                  "maxHeight": "32rem",
                   "minHeight": "10.5rem",
                   "top": "10px",
                 }
