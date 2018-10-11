@@ -75,6 +75,7 @@ export const Content = styled.div`
     color: ${({ theme }) => theme.colors.primaryText};
     line-height: 1.5rem;
     font-size: ${({ theme }) => theme.typography.fontSize.small};
+    font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
     margin: 0;
     padding: 0;
     overflow: auto;
@@ -88,6 +89,9 @@ Content.defaultProps = {
         typography: {
             fontSize: {
                 small: '16px',
+            },
+            fontWeight: {
+                normal: 400,
             },
         },
     },

@@ -19,14 +19,6 @@ export const StyledIcon = styled.span`
 export const StyledMessage = styled.div`
     text-align: left;
     width: 18rem;
-
-    a {
-        color: ${({ theme }) => theme.colors.primary};
-        display: block;
-        font-weight: bold;
-        margin-top: 5px;
-        text-decoration: none;
-    }
 `;
 
 export const StyledShareableLink = styled.button`
@@ -43,4 +35,17 @@ export const StyledShareableLink = styled.button`
     padding: .25rem .5rem;
     line-height: 1.375rem;
     cursor: pointer;
+`;
+
+export const StyledLink = styled.a`
+    color: ${({ theme }) => theme.colors.primary};
+    display: block;
+    font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+    margin-top: .25rem;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:visited {
+        color: ${({ theme }) => theme.colors.primary};
+    }
 `;

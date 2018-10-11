@@ -86,6 +86,9 @@ exports[`Modal renders 1`] = `
             "fontSize": Object {
               "small": "16px",
             },
+            "fontWeight": Object {
+              "normal": 400,
+            },
           },
         }
       }
@@ -162,6 +165,9 @@ exports[`Modal title prop should not render Header without close button when onC
           "typography": Object {
             "fontSize": Object {
               "small": "16px",
+            },
+            "fontWeight": Object {
+              "normal": 400,
             },
           },
         }
@@ -258,6 +264,9 @@ exports[`Modal title prop should render Header with close button when onClose is
           "typography": Object {
             "fontSize": Object {
               "small": "16px",
+            },
+            "fontWeight": Object {
+              "normal": 400,
             },
           },
         }

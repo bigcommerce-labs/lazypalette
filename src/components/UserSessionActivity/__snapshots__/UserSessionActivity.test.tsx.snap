@@ -119,12 +119,15 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                         "fontSize": Object {
                           "small": "16px",
                         },
+                        "fontWeight": Object {
+                          "normal": 400,
+                        },
                       },
                     }
                   }
                 >
                   <div
-                    className="sc-EHOje cnVQSR"
+                    className="sc-EHOje hspKix"
                   >
                     <styled.div>
                       <div
