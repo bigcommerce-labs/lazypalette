@@ -21,6 +21,7 @@ describe('analytics service', () => {
             analytics.init(storeCreator({
                 merchant: {
                     activeThemeId: '234',
+                    canOptOut: true,
                     isDownForMaintenance: false,
                     isPrelaunchStore: false,
                 },
@@ -52,11 +53,13 @@ describe('analytics service', () => {
         });
 
         const universalData = {
+            is_ab_test_subject: 'false',
             is_active_theme: 'false',
             is_maintenance: 'false',
             is_prelaunch: 'false',
             is_purchased: 'false',
             side_menu_collapsed: 'false',
+            store_design_version: 2,
             storefront_page: '/blah',
             theme_configuration_id: '1234',
             theme_id: '7890',
@@ -372,6 +375,19 @@ describe('analytics service', () => {
                     selected_configuration_id: '56789',
                     selected_variation_id: '12345',
                     text: 'Lovely History',
+                });
+            });
+        });
+
+        describe('trackOptOut', () => {
+            it('calls analytics.track with proper arguments', () => {
+                analytics.trackOptOut();
+                expect(global.analytics.track).toHaveBeenCalledWith('store-design_click', {
+                    ...universalData,
+                    category: 'store-design_opt-out',
+                    element: 'a',
+                    label: 'store-design_opt-out',
+                    text: 'Switch to old Theme Editor',
                 });
             });
         });
