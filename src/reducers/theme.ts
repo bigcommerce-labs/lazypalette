@@ -200,6 +200,15 @@ function theme(state: ThemeState = initialState, action: Action): ThemeState {
                 isChanged: isNotEqual(state.settings, action.payload.settings),
             };
         }
+        case ThemeActionTypes.PUBLISH_THEME_CONFIG_RESPONSE: {
+            return {
+                ...state,
+                configurationId: action.payload.configurationId,
+                initialConfigurationId: action.payload.configurationId,
+                initialSettings: action.payload.settings,
+                isChanged: false,
+            };
+        }
         default:
             return state;
     }

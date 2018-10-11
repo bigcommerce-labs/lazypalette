@@ -1,5 +1,5 @@
 import * as themeActions from '../actions/theme';
-import { ThemeConfigChange, ThemeConfigPostResponse } from '../actions/theme';
+import {ThemeConfigChange, ThemeConfigPostResponse, ThemeConfigPublishResponse} from '../actions/theme';
 
 import theme, { ThemeState, ThemeVariations } from './theme';
 
@@ -176,6 +176,26 @@ describe('themeConfigSaveResponse', () => {
 
             expect(theme(initialState, action)).toEqual(expectedState);
         });
+    });
+});
+
+describe('themeConfigPublishResponse', () => {
+    const payload: ThemeConfigPublishResponse = {
+        configurationId: '013',
+        settings: {},
+    };
+
+    it('handles theme config publish actions response', () => {
+        const action = themeActions.themeConfigPublishResponse(payload);
+
+        const expectedState: ThemeState = { ...initialState, ...{
+            configurationId: '013',
+            initialConfigurationId: '013',
+            initialSettings: {},
+            isChanged: false,
+        }};
+
+        expect(theme(initialState, action)).toEqual(expectedState);
     });
 });
 
