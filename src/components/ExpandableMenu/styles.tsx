@@ -150,21 +150,23 @@ export const Content = styled.div`
 
     &::-webkit-scrollbar {
         -webkit-appearance: none;
+        width: 13px;
+    }
 
-        &:vertical {
-            width: 11px;
+     &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        box-shadow: inset 0 0 10px 10px #C1C1C1;
+        border: solid 3px transparent;
+
+        :hover {
+          box-shadow: inset 0 0 10px 10px rgba(0, 0, 0, .5);
+          border: solid 3px transparent;
         }
     }
 
-    &::-webkit-scrollbar-thumb {
-        border-radius: 8px;
-        border: 2px solid ${({ theme: { colors } }) => colors.empty};
-        background-color: rgba(0, 0, 0, .5);
-    }
-
-    &::-webkit-scrollbar-track {
-        background-color: ${({ theme: { colors } }) => colors.empty};
-        border-radius: 8px;
+     &::-webkit-scrollbar-track {
+        background-color: #FAFAFA;
+        border: 1px solid #E8E8E8;
     }
 `;
 
