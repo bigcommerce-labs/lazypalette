@@ -29,7 +29,7 @@ script:
   - ./.travis.sh
 
 notifications:
-  email: false
+  email: true
   webhooks:
     urls:
       - https://launchbay.bigcommerce.net/api/v1/build_results/store-design
