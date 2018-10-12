@@ -6,11 +6,11 @@ const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 
 const middleware = [];
 
+middleware.push(thunk);
+
 if (process.env.NODE_ENV !== 'production') {
     middleware.push(createLogger({ collapsed: true }));
 }
-
-middleware.push(thunk);
 
 export default composeEnhancers(
     applyMiddleware(...middleware)
