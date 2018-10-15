@@ -390,6 +390,7 @@ export function postThemeConfigData(configUpdateOption: ConfigUpdateAction, forc
 
 export function themeConfigReset(): Dispatch<State> {
     return (dispatch: Dispatch<State>) => {
+        dispatch(previewPaneLoading());
         dispatch(themeConfigResetResponse());
         dispatch(createNotification(true, ToastMessages.Undo, ToastType.Success));
     };
