@@ -15,7 +15,13 @@ import ExpandableMenu from '../ExpandableMenu/ExpandableMenu';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 import { appRoutes } from '../Routes/Routes';
 
-import { Messages, PostLaunchTypeLabels, PreLaunchTypeLabels } from './constants';
+import {
+    Messages,
+    MessagesActionText,
+    MessagesTitle,
+    PostLaunchTypeLabels,
+    PreLaunchTypeLabels
+} from './constants';
 import { EntryActive, EntryDescription, EntryVersion, HistoryEntry, List } from './styles';
 
 interface ThemeHistoryProps extends RouteComponentProps<{}> {
@@ -142,10 +148,11 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
                 {isConfirmOpen &&
                     <ConfirmModal
                         primaryAction={this.handleModalConfirm}
+                        primaryActionText={MessagesActionText.Restore}
                         secondaryAction={this.handleModalCancel}
-                        title="Theme Change Warning"
+                        title={MessagesTitle.Restore}
                     >
-                        {Messages.Reset}
+                        {Messages.Restore}
                     </ConfirmModal>
                 }
             </>
