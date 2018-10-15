@@ -28,6 +28,34 @@ exports[`ColorSetting when an initial color does not start with a # should add a
 </styled.div>
 `;
 
+exports[`ColorSetting when an initial color is a hex color but is not capitalized should capitalize the hex color 1`] = `
+<styled.div>
+  <styled.label />
+  <styled.div>
+    #FFFFFF
+  </styled.div>
+  <styled.div
+    color="#FFFFFF"
+    focus={false}
+    onClick={[Function]}
+  />
+</styled.div>
+`;
+
+exports[`ColorSetting when an initial color is not a hex color should not capitalize the color 1`] = `
+<styled.div>
+  <styled.label />
+  <styled.div>
+    Transparent
+  </styled.div>
+  <styled.div
+    color="Transparent"
+    focus={false}
+    onClick={[Function]}
+  />
+</styled.div>
+`;
+
 exports[`ColorSetting when an initial color is provided should render and match ColorText box 1`] = `
 <styled.div>
   <styled.label />
