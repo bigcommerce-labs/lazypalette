@@ -1,5 +1,5 @@
 import { theme, Icon } from 'pattern-lab';
-import React, { Component, MouseEvent as ReactMouseEvent } from 'react';
+import React, { Component, KeyboardEvent as ReactKeyBoardEvent, MouseEvent as ReactMouseEvent } from 'react';
 
 import { Content, Header, NavItem, Overlay, StyledWindow, Title } from './styles';
 
@@ -39,6 +39,16 @@ class UIWindow extends Component<UIWindowProps> {
         }
     };
 
+    handleKeyDown = (event: ReactKeyBoardEvent<HTMLDivElement>) => {
+        if (event.key === 'Escape') {
+            const { id, onClose } = this.props;
+
+            if (onClose) {
+                onClose(id);
+            }
+        }
+    };
+
     handleWindowClick = (event: ReactMouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
     };
@@ -62,6 +72,7 @@ class UIWindow extends Component<UIWindowProps> {
                     onClick={this.handleWindowClick}
                     position={position}
                     innerRef={windowRef}
+                    onKeyDown={this.handleKeyDown}
                 >
                     <Header
                         onMouseDown={startMove}
