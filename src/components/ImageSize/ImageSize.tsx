@@ -58,7 +58,11 @@ class ImageSize extends Component<ImageSizeProps, ImageSizeState> {
     };
 
     getDefaultValue = () => {
-        const defaultOption = this.props.options.find(option => !!option.value.match(ImageDimensionPattern));
+        const { options } = this.props;
+
+        // TODO: Polyfill Array.prototype.find or use lodash, ie11 doesnt support .find method
+        const defaultOption = options.filter(option => !!option.value.match(ImageDimensionPattern))[0];
+
         if (this.state.selectedValue !== 'custom') {
             return this.props.selected;
         } else if (defaultOption) {

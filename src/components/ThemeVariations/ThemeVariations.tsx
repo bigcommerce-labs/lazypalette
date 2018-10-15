@@ -77,7 +77,8 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
     };
 
     switchVariations = (variationId: string) => {
-        const variation = this.props.themeVariants.find(v => v.variationId === variationId);
+        // TODO: Polyfill Array.prototype.find or use lodash, ie11 doesnt support .find method
+        const variation = this.props.themeVariants.filter(v => v.variationId === variationId)[0];
 
         if (variation === undefined) {
             throw new Error(`Unable to find variation with variationId ${variationId}`);
