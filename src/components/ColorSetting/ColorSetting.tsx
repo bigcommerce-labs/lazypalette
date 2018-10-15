@@ -69,9 +69,8 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
     componentDidMount() {
         const { color } = this.props;
 
-        // Prepend '#' to hex if missing
-        if (color && !color.match(/^#+/)) {
-            this.setState({ color: '#' + color });
+        if (color) {
+            return this.setState({ color: this.formatColorString(color) });
         }
     }
 
@@ -79,21 +78,32 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
         const { color } = this.props;
 
         if (color && color !== prevProps.color) {
-            // Prepend '#' to hex if missing
-            if (!color.match(/^#+/)) {
-                return this.setState({ color: `#${color}` });
-            }
-
-            return this.setState({ color });
+            return this.setState({ color: this.formatColorString(color) });
         }
     }
+
+    formatColorString = (color: string) => {
+        let formattedColor = color;
+        // Prepend '#' to hex if missing
+        if (formattedColor.match(/^[A-Fa-f0-9]+$/)) {
+            formattedColor = `#${formattedColor}`;
+        }
+
+        if (formattedColor.match(/^#[A-Fa-f0-9]+$/)) {
+            formattedColor = formattedColor.toUpperCase();
+        } else if (formattedColor.length) {
+            formattedColor = formattedColor[0].toUpperCase() + formattedColor.substr(1);
+        }
+
+        return formattedColor;
+    };
 
     render() {
         return (
             <Container>
                 <Label>{this.props.label}
                 </Label>
-                <ColorText>{this.state.color.toUpperCase()}</ColorText>
+                <ColorText>{this.state.color}</ColorText>
                 <SelectedColor
                     focus={this.state.focus}
                     color={this.state.color}
