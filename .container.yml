@@ -1,5 +1,7 @@
 name: microapp-store-design
 base_image: language/static
+team: merc
+slack_channel: merc-notifications
 processes:
   web:
     cmd: nginx >> $LOG_DIR/nginx_startup_plain.log 2>&1
@@ -12,3 +14,6 @@ processes:
         # Required for http, https, and TCP. The URL on your application which the health check resides.
         endpoint: /manifest.json
     port: 8080
+    alert_via:
+      - slack
+      - pagerduty
