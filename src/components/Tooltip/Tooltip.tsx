@@ -41,8 +41,8 @@ class Tooltip extends PureComponent<TooltipProps, TooltipState> {
     childRef: any = React.createRef();
     tooltipRef: any = React.createRef();
 
-    componentDidUpdate() {
-        if (this.state.tooltipVisible && this.props.message) {
+    componentDidUpdate(prevProps: TooltipProps, prevState: TooltipState) {
+        if (this.state.tooltipVisible && this.state.tooltipVisible !== prevState.tooltipVisible && this.props.message) {
             const tooltipPosition = this.getTooltipPosition();
 
             if (tooltipPosition.x !== this.state.tooltipPosition.x ||
