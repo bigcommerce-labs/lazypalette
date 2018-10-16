@@ -4,6 +4,7 @@ exports[`UIWindow when given a window renders correctly 1`] = `
 <styled.div>
   <styled.div
     onClick={[Function]}
+    onKeyDown={[Function]}
     position={
       Object {
         "x": 5,

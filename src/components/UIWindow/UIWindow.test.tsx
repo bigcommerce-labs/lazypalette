@@ -134,4 +134,44 @@ describe('UIWindow', () => {
             });
         });
     });
+
+    describe('when user presses keyboard keys', () => {
+        let uiWindow: any;
+
+        beforeEach(() => {
+            uiWindow = mount(<UIWindow
+                id="1234"
+                position={{ x: 5, y: 10 }}
+                title="hello"
+                topmost={true}
+                onClose={mockCloseWindow}
+                windowRef={React.createRef()}>
+                <p id="blah">blah</p>
+            </UIWindow>);
+        });
+
+        describe('when user types Esc key', () => {
+            it('should call the onClose prop', () => {
+                const event: any = {
+                    key: 'Escape',
+                    keyCode: 27,
+                    which: 27,
+                };
+                uiWindow.instance().handleKeyDown(event);
+                expect(mockCloseWindow).toHaveBeenCalledWith('1234');
+            });
+        });
+
+        describe('when user types any key other than Esc', () => {
+            it('should not call the onClose prop', () => {
+                const event: any = {
+                    key: 'Enter',
+                    keyCode: 13,
+                    which: 27,
+                };
+                uiWindow.instance().handleKeyDown(event);
+                expect(mockCloseWindow).not.toHaveBeenCalled();
+            });
+        });
+    });
 });
