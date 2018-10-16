@@ -41,7 +41,7 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
     handleChange = (color: ColorResult) => {
         const { name, onChange } = this.props;
 
-        this.setState({ color: color.hex });
+        this.setState({ color: this.formatColorString(color.hex) });
 
         if (onChange) {
             onChange({ setting: { id: name, type: 'color' }, value: color.hex });
