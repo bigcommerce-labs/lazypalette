@@ -10,12 +10,18 @@ import { Messages } from '../constants';
 interface ConfirmModalProps extends Partial<{
     title: string;
     primaryActionText?: string;
+    primaryActionTestId?: string;
     primaryAction(): void;
     secondaryAction(): void;
     overlayClose(): void;
 }> {}
 
-const CTAButtons = ({ primaryAction, primaryActionText = Messages.Ok, secondaryAction }: ConfirmModalProps) => (
+const CTAButtons = ({
+    primaryAction,
+    primaryActionTestId,
+    primaryActionText = Messages.Ok,
+    secondaryAction,
+}: ConfirmModalProps) => (
     <ConfirmButtons>
         <ConfirmButton>
             <ButtonInput
@@ -31,7 +37,9 @@ const CTAButtons = ({ primaryAction, primaryActionText = Messages.Ok, secondaryA
                 classType="primary"
                 onClick={primaryAction}
                 type="button"
-                testId={primaryActionText.replace(/\s+/g, '-').toLowerCase()}
+                testId={ primaryActionTestId
+                    ? primaryActionTestId
+                    : primaryActionText.replace(/\s+/g, '-').toLowerCase()}
             >
                 {primaryActionText}
             </ButtonInput>
@@ -49,6 +57,7 @@ class ConfirmModal extends PureComponent<ConfirmModalProps> {
             children,
             primaryAction,
             secondaryAction,
+            primaryActionTestId,
             primaryActionText = Messages.Ok,
             overlayClose,
             title,
@@ -66,6 +75,7 @@ class ConfirmModal extends PureComponent<ConfirmModalProps> {
                     <ModalFooter>
                         <CTAButtons
                             primaryAction={primaryAction}
+                            primaryActionTestId={primaryActionTestId}
                             primaryActionText={primaryActionText}
                             secondaryAction={secondaryAction}
                         />

@@ -32,7 +32,8 @@ export const PublishModalText = {
 };
 
 export const ResetModalText = {
-    action: 'Undo Changes',
+    action: (changes: number) => `Undo ${changes} Change${changes > 1 ? 's' : ''}`,
+    actionTestId: 'undo-changes',
     body: 'This will discard any changes made since the last time you saved.',
     title: 'Undo Changes',
 };

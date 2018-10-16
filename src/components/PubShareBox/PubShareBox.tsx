@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
+import { SettingsType } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeVariations, ThemeVariationHistory } from '../../reducers/theme';
 import {
@@ -27,10 +28,12 @@ interface PubShareBoxProps {
     activeThemeId: string;
     initialConfigurationId: string;
     isChanged: boolean;
+    initialSettings: SettingsType;
     isPrelaunchStore: boolean;
     isPurchased: boolean;
     configurationId: string;
     price: number;
+    settings: SettingsType;
     themeId: string;
     variations: ThemeVariations;
     variationHistory: ThemeVariationHistory;
@@ -64,6 +67,13 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
             this.setState({ isPublishOpen: false });
         }
     };
+
+    getChangeCount(initialSettings: SettingsType, settings: SettingsType) {
+        return Object
+            .keys(settings)
+            .filter(key => settings[key] !== initialSettings[key])
+            .length;
+    }
 
     handleModalOpen = (type: string) => {
         if (type === 'reset') {
@@ -201,6 +211,8 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
     render() {
         const {
             isChanged,
+            initialSettings,
+            settings,
         } = this.props;
         const {
             isPublishOpen,
@@ -209,6 +221,7 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
 
         const mode = this.getMode();
         const publishModalText = this.getPublishModalText(mode);
+        const changesCount = this.getChangeCount(initialSettings, settings);
 
         return (
             <Container isChanged={isChanged}>
@@ -228,7 +241,8 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
                 {isResetOpen &&
                     <ConfirmModal
                         primaryAction={this.handleReset}
-                        primaryActionText={ResetModalText.action}
+                        primaryActionTestId={ResetModalText.actionTestId}
+                        primaryActionText={ResetModalText.action(changesCount)}
                         secondaryAction={() => this.handleModalCancel('reset')}
                         overlayClose={this.overlayClose}
                         title={ResetModalText.title}
@@ -257,10 +271,12 @@ const mapStateToProps = ({ theme, merchant }: State) => ({
     activeThemeId: merchant.activeThemeId,
     configurationId: theme.configurationId,
     initialConfigurationId: theme.initialConfigurationId,
+    initialSettings: theme.initialSettings,
     isChanged: theme.isChanged,
     isPrelaunchStore: merchant.isPrelaunchStore,
     isPurchased: theme.isPurchased,
     price: theme.price,
+    settings: theme.settings,
     themeId: theme.themeId,
     variationHistory: theme.variationHistory,
     variationId: theme.variationId,
