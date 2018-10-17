@@ -11,6 +11,15 @@ describe('PubShareBox', () => {
 
     const undoChangesButton = sel('undo-changes');
 
+    const initialSettings = {
+        'font-color': '#111111',
+        'font-name': 'Arial',
+    };
+    const settings = {
+        'font-color': '#111111',
+        'font-name': 'Arial',
+    };
+
     const mockVariations = [
         {
             configurationId: '123',
@@ -80,11 +89,13 @@ describe('PubShareBox', () => {
     const pubShareBoxElement = <PubShareBox
         activeThemeId="activeTheme"
         initialConfigurationId="111"
+        initialSettings={initialSettings}
         isChanged={false}
         isPrelaunchStore={false}
         isPurchased={true}
         price={0}
         configurationId="123"
+        settings={settings}
         themeId="inactiveTheme"
         variationHistory={mockVariationHistory}
         variationId="234"
@@ -208,6 +219,39 @@ describe('PubShareBox', () => {
                         pubBoxMount.setProps({ isChanged: true });
                         pubBoxMount.find(undoChangesButton).hostNodes().simulate('click');
                         expect(pubBoxMount.find(ConfirmModal).length).toBe(1);
+                    });
+
+                    describe('when there is one change', () => {
+                        it('has "Undo 1 Change" on the ConfirmModal button', () => {
+                            pubBoxMount.setProps({ settings: {'font-color': '#222222'} });
+                            pubBoxMount.setProps({ isChanged: true });
+                            pubBoxMount.find(undoChangesButton).hostNodes().simulate('click');
+                            expect(pubBoxMount.find(ConfirmModal).find(undoChangesButton).hostNodes().length).toBe(1);
+                            expect(pubBoxMount
+                                .find(ConfirmModal)
+                                .find(undoChangesButton)
+                                .hostNodes()
+                                .text()
+                            ).toBe('Undo 1 Change');
+                        });
+                    });
+
+                    describe('when there is more than one change', () => {
+                        it('has "Undo 2 Changes" on the ConfirmModal button', () => {
+                            pubBoxMount.setProps({ settings: {
+                                'font-color': '#222222',
+                                'font-name': 'Times',
+                            }});
+                            pubBoxMount.setProps({ isChanged: true });
+                            pubBoxMount.find(undoChangesButton).hostNodes().simulate('click');
+                            expect(pubBoxMount.find(ConfirmModal).find(undoChangesButton).hostNodes().length).toBe(1);
+                            expect(pubBoxMount
+                                .find(ConfirmModal)
+                                .find(undoChangesButton)
+                                .hostNodes()
+                                .text()
+                            ).toBe('Undo 2 Changes');
+                        });
                     });
                 });
             });
