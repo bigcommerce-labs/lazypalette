@@ -1,7 +1,10 @@
-// tslint:disable:max-line-length
-export const enum Messages {
-    LogoutAlertHeading = 'You have been logged out.',
-    LogoutAlertBody = 'For security reasons you have been automatically logged out. Please log in again to access Store Design.',
-    Ok = 'Ok',
+export const enum SessionLinks {
+    StoreDesign = '/deep-links/store-design',
 }
-// tslint:enable:max-line-length
+
+export const Messages = {
+    LogoutAlertBody: `For security reasons you have been automatically logged out.
+        Please log in again to access Store Design.`,
+    LogoutAlertHeading: 'You have been logged out.',
+    Ok: 'Ok',
+};

@@ -1,15 +1,16 @@
-import React, { SFC } from 'react';
+import React, { PureComponent } from 'react';
+import PageVisibility from 'react-page-visibility';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { sessionHeartbeatResponse } from '../../actions/sessionHeartbeat';
 import BrowserContext, { Browser } from '../../context/BrowserContext';
 import { State } from '../../reducers/reducers';
-import { throttledHeartbeat } from '../../services/sessionHeartbeat';
+import { throttledHeartbeat } from '../../services/sessionHeartbeat/sessionHeartbeat';
 
 import AlertModal from '../Modal/AlertModal/AlertModal';
 
-import { Messages } from './constants';
+import { Messages, SessionLinks } from './constants';
 
 interface UserSessionActivityProps {
     heartbeatResponse: Dispatch<State>;
@@ -22,31 +23,52 @@ interface UserSessionActivityProps {
  * HoC which handles keeping the users session active. When used, any events which this component listens for will
  * be sent to a throttled heartbeat which will keep the users session active in the control panel.
  */
-export const UserSessionActivity: SFC<UserSessionActivityProps> = ({
-    children,
-    oauthBaseUrl,
-    heartbeatResponse,
-    isLoggedIn,
-}) => {
-    const close = (_window: Window) => _window.location.assign(`${oauthBaseUrl}/deep-links/store-design`);
+export class UserSessionActivity extends PureComponent<UserSessionActivityProps> {
+    componentDidMount() {
+        this.handleHeartbeat();
+    }
 
-    return (
-        <div onClick={throttledHeartbeat(oauthBaseUrl, heartbeatResponse)}>
-            {!isLoggedIn &&
-                <BrowserContext.Consumer>
-                    {({ _window }: Browser) =>
-                        <AlertModal
-                            title={Messages.LogoutAlertHeading}
-                            body={Messages.LogoutAlertBody}
-                            primaryAction={() => close(_window)}
-                        />
+    handleChange = (isVisible: boolean) => {
+        if (isVisible) {
+            this.handleHeartbeat();
+        }
+    };
+
+    handleHeartbeat = () => {
+        const { heartbeatResponse, oauthBaseUrl } = this.props;
+
+        throttledHeartbeat(oauthBaseUrl, heartbeatResponse);
+    };
+
+    handleClose = (_window: Window) => {
+        const { oauthBaseUrl } = this.props;
+
+        _window.location.assign(`${oauthBaseUrl}${SessionLinks.StoreDesign}`);
+    };
+
+    render() {
+        const { children, isLoggedIn } = this.props;
+
+        return (
+            <PageVisibility onChange={this.handleChange}>
+                <div onClick={this.handleHeartbeat}>
+                    {!isLoggedIn &&
+                        <BrowserContext.Consumer>
+                            {({ _window }: Browser) =>
+                                <AlertModal
+                                    title={Messages.LogoutAlertHeading}
+                                    body={Messages.LogoutAlertBody}
+                                    primaryAction={() => this.handleClose(_window)}
+                                />
+                            }
+                        </BrowserContext.Consumer>
                     }
-                </BrowserContext.Consumer>
-            }
-            {children}
-        </div>
-    );
-};
+                    {children}
+                </div>
+            </PageVisibility>
+        );
+    }
+}
 
 const mapDispatchToProps = {
     heartbeatResponse: sessionHeartbeatResponse,

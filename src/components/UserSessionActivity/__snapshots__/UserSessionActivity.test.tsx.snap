@@ -1,207 +1,229 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UserSessionActivity renders consistently 1`] = `
-<div>
-  <p>
-    Ok!
-  </p>
-</div>
-`;
-
-exports[`UserSessionActivity when the user is logged out renders an AlertModal 1`] = `
-<Component
-  heartbeatResponse={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-    }
-  }
-  isLoggedIn={false}
-  oauthBaseUrl="https://login.service.bcdev"
+exports[`UserSessionActivity pageActivityHandler componentDidMount should trigger sessionHeartbeat 1`] = `
+<PageVisibility
+  onChange={[Function]}
 >
-  <div>
-    <AlertModal
-      actionText="Ok"
-      body="For security reasons you have been automatically logged out. Please log in again to access Store Design."
-      primaryAction={[Function]}
-      title="You have been logged out."
-    >
-      <Modal
-        isTransparent={false}
-        title="You have been logged out."
-      >
-        <styled.div
-          onClick={[Function]}
-          theme={
-            Object {
-              "layers": Object {
-                "higher": 100,
-              },
-            }
-          }
-        >
-          <div
-            className="sc-bxivhb boVVrw"
-            onClick={[Function]}
-          >
-            <styled.div
-              isTransparent={false}
-              theme={
-                Object {
-                  "layers": Object {
-                    "higher": 100,
-                  },
-                }
-              }
-            >
-              <div
-                className="sc-ifAKCX glQnqD"
-              />
-            </styled.div>
-            <styled.div
-              onClick={[Function]}
-              theme={
-                Object {
-                  "colors": Object {
-                    "empty": "#FFFFFF",
-                    "guideText": "#ABB1BE",
-                  },
-                  "elevation": Object {
-                    "floating": "0 2px 12px rgba(48, 53, 64, 0.2)",
-                  },
-                  "layers": Object {
-                    "highest": 500,
-                  },
-                }
-              }
-            >
-              <div
-                className="sc-htoDjs dirVeL"
-                onClick={[Function]}
-              >
-                <styled.div>
-                  <div
-                    className="sc-bZQynM ceVmct"
-                  >
-                    <styled.h3
-                      theme={
-                        Object {
-                          "colors": Object {
-                            "primaryText": "#303540",
-                          },
-                          "typography": Object {
-                            "fontSize": Object {
-                              "larger": "24px",
-                            },
-                            "fontWeight": Object {
-                              "normal": 600,
-                            },
-                          },
-                        }
-                      }
-                    >
-                      <h3
-                        className="sc-gzVnrw idAWTr"
-                      >
-                        You have been logged out.
-                      </h3>
-                    </styled.h3>
-                  </div>
-                </styled.div>
-                <styled.div
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "primaryText": "#AAAAAA",
-                      },
-                      "typography": Object {
-                        "fontSize": Object {
-                          "small": "16px",
-                        },
-                        "fontWeight": Object {
-                          "normal": 400,
-                        },
-                      },
-                    }
-                  }
-                >
-                  <div
-                    className="sc-EHOje hspKix"
-                  >
-                    <styled.div>
-                      <div
-                        className="sc-gqjmRU kBtJdw"
-                      >
-                        <styled.div>
-                          <div
-                            className="sc-dnqmqq hJxOZJ"
-                          >
-                            For security reasons you have been automatically logged out. Please log in again to access Store Design.
-                          </div>
-                        </styled.div>
-                        <styled.div>
-                          <div
-                            className="sc-VigVT NpmmH"
-                          >
-                            <ButtonInput
-                              classType="primary"
-                              onClick={[Function]}
-                              testId="ok"
-                              type="button"
-                            >
-                              <styled.div>
-                                <div
-                                  className="sc-bdVaJa cubKnN"
-                                >
-                                  <styled.button
-                                    border={true}
-                                    classType="primary"
-                                    data-test-id="ok"
-                                    onClick={[Function]}
-                                    theme={
-                                      Object {
-                                        "colors": Object {
-                                          "background": "#F5F7FA",
-                                          "brandPrimary": "#273A8A",
-                                          "primary": "#3F69FE",
-                                        },
-                                        "typography": Object {
-                                          "fontFamily": Object {
-                                            "sans": "\\"Source Sans Pro\\", \\"Helvetica Neue\\", Arial, sans-serif",
-                                          },
-                                        },
-                                      }
-                                    }
-                                    type="button"
-                                  >
-                                    <button
-                                      className="sc-bwzfXH kBSfBk"
-                                      data-test-id="ok"
-                                      onClick={[Function]}
-                                      type="button"
-                                    >
-                                      Ok
-                                    </button>
-                                  </styled.button>
-                                </div>
-                              </styled.div>
-                            </ButtonInput>
-                          </div>
-                        </styled.div>
-                      </div>
-                    </styled.div>
-                  </div>
-                </styled.div>
-              </div>
-            </styled.div>
-          </div>
-        </styled.div>
-      </Modal>
-    </AlertModal>
+  <div
+    onClick={[Function]}
+  >
     <p>
       meow meow
     </p>
   </div>
-</Component>
+</PageVisibility>
+`;
+
+exports[`UserSessionActivity renders consistently 1`] = `
+<PageVisibility
+  onChange={[Function]}
+>
+  <div
+    onClick={[Function]}
+  >
+    <p>
+      Ok!
+    </p>
+  </div>
+</PageVisibility>
+`;
+
+exports[`UserSessionActivity when the user is logged out renders an AlertModal 1`] = `
+<UserSessionActivity
+  heartbeatResponse={[MockFunction]}
+  isLoggedIn={false}
+  oauthBaseUrl="https://login.service.bcdev"
+>
+  <PageVisibility
+    onChange={[Function]}
+  >
+    <div
+      onClick={[Function]}
+    >
+      <AlertModal
+        actionText="Ok"
+        body="For security reasons you have been automatically logged out.
+        Please log in again to access Store Design."
+        primaryAction={[Function]}
+        title="You have been logged out."
+      >
+        <Modal
+          isTransparent={false}
+          title="You have been logged out."
+        >
+          <styled.div
+            onClick={[Function]}
+            theme={
+              Object {
+                "layers": Object {
+                  "higher": 100,
+                },
+              }
+            }
+          >
+            <div
+              className="sc-bxivhb boVVrw"
+              onClick={[Function]}
+            >
+              <styled.div
+                isTransparent={false}
+                theme={
+                  Object {
+                    "layers": Object {
+                      "higher": 100,
+                    },
+                  }
+                }
+              >
+                <div
+                  className="sc-ifAKCX glQnqD"
+                />
+              </styled.div>
+              <styled.div
+                onClick={[Function]}
+                theme={
+                  Object {
+                    "colors": Object {
+                      "empty": "#FFFFFF",
+                      "guideText": "#ABB1BE",
+                    },
+                    "elevation": Object {
+                      "floating": "0 2px 12px rgba(48, 53, 64, 0.2)",
+                    },
+                    "layers": Object {
+                      "highest": 500,
+                    },
+                  }
+                }
+              >
+                <div
+                  className="sc-htoDjs dirVeL"
+                  onClick={[Function]}
+                >
+                  <styled.div>
+                    <div
+                      className="sc-bZQynM ceVmct"
+                    >
+                      <styled.h3
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "primaryText": "#303540",
+                            },
+                            "typography": Object {
+                              "fontSize": Object {
+                                "larger": "24px",
+                              },
+                              "fontWeight": Object {
+                                "normal": 600,
+                              },
+                            },
+                          }
+                        }
+                      >
+                        <h3
+                          className="sc-gzVnrw idAWTr"
+                        >
+                          You have been logged out.
+                        </h3>
+                      </styled.h3>
+                    </div>
+                  </styled.div>
+                  <styled.div
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "primaryText": "#AAAAAA",
+                        },
+                        "typography": Object {
+                          "fontSize": Object {
+                            "small": "16px",
+                          },
+                          "fontWeight": Object {
+                            "normal": 400,
+                          },
+                        },
+                      }
+                    }
+                  >
+                    <div
+                      className="sc-EHOje hspKix"
+                    >
+                      <styled.div>
+                        <div
+                          className="sc-gqjmRU kBtJdw"
+                        >
+                          <styled.div>
+                            <div
+                              className="sc-dnqmqq hJxOZJ"
+                            >
+                              For security reasons you have been automatically logged out.
+        Please log in again to access Store Design.
+                            </div>
+                          </styled.div>
+                          <styled.div>
+                            <div
+                              className="sc-VigVT NpmmH"
+                            >
+                              <ButtonInput
+                                classType="primary"
+                                onClick={[Function]}
+                                testId="ok"
+                                type="button"
+                              >
+                                <styled.div>
+                                  <div
+                                    className="sc-bdVaJa cubKnN"
+                                  >
+                                    <styled.button
+                                      border={true}
+                                      classType="primary"
+                                      data-test-id="ok"
+                                      onClick={[Function]}
+                                      theme={
+                                        Object {
+                                          "colors": Object {
+                                            "background": "#F5F7FA",
+                                            "brandPrimary": "#273A8A",
+                                            "primary": "#3F69FE",
+                                          },
+                                          "typography": Object {
+                                            "fontFamily": Object {
+                                              "sans": "\\"Source Sans Pro\\", \\"Helvetica Neue\\", Arial, sans-serif",
+                                            },
+                                          },
+                                        }
+                                      }
+                                      type="button"
+                                    >
+                                      <button
+                                        className="sc-bwzfXH kBSfBk"
+                                        data-test-id="ok"
+                                        onClick={[Function]}
+                                        type="button"
+                                      >
+                                        Ok
+                                      </button>
+                                    </styled.button>
+                                  </div>
+                                </styled.div>
+                              </ButtonInput>
+                            </div>
+                          </styled.div>
+                        </div>
+                      </styled.div>
+                    </div>
+                  </styled.div>
+                </div>
+              </styled.div>
+            </div>
+          </styled.div>
+        </Modal>
+      </AlertModal>
+      <p>
+        meow meow
+      </p>
+    </div>
+  </PageVisibility>
+</UserSessionActivity>
 `;

@@ -2,6 +2,8 @@ import Axios, { AxiosResponse } from 'axios';
 import jsonp from 'jsonp';
 import throttle from 'lodash/throttle';
 
+import { HeartbeatInterval, Links, Messages } from './constants';
+
 /*
  * Raw response format from login service heartbeat endpoint. This interface is also re-used for the cp session
  * heartbeat call so we can have a consistent action.
@@ -15,7 +17,7 @@ export interface SessionHeartbeatResponse {
  * we will need to explicitly keep the users cp session active by polling the heartbeat endpoint.
  */
 const heartbeatRoute = (oauthBaseUrl: string, lastActive: number) =>
-    `${oauthBaseUrl}/session/heartbeat?last_active=${lastActive}`;
+    `${oauthBaseUrl}${Links.Route}${lastActive}`;
 
 // https://github.com/bigcommerce/A-A/blob/master/app/controllers/sessions_controller.rb#L21
 export function loginHeartbeat(
@@ -33,14 +35,14 @@ export function loginHeartbeat(
         if (loginError) {
             callback(
                 { ok: false },
-                new Error('LoginSvc - Logged Out')
+                new Error(Messages.LogoutSvc)
             );
 
             return;
         }
 
         // Make sure the response from A&A says the user is still logged in
-        const err = data.ok ? null : new Error('LoginSvc - Logged Out');
+        const err = data.ok ? null : new Error(Messages.LogoutSvc);
 
         callback(
             { ok: data.ok },
@@ -60,18 +62,16 @@ interface CPSessionHeartbeatResponse {
  * Call the heartbeat endpoint in the login service. Since store design is not run inside the control panel,
  * we will need to explicitly keep the users login session active by polling the heartbeat endpoint.
  */
-const cpHeartbeatRoute = '/admin/remote.php?w=heartbeat';
-
 export function cpHeartbeat(callback: (data: SessionHeartbeatResponse, err: Error | null) => void) {
-    Axios.get(cpHeartbeatRoute)
+    Axios.get(Links.CPRoute)
         .then(({ data: { status } }: AxiosResponse<CPSessionHeartbeatResponse>) => {
             callback(
-                { ok: status === 'ALIVE' },
+                { ok: status === Messages.AliveStatus },
                 null
             );
         })
         .catch(() => {
-            const err = new Error('CP - Logged Out');
+            const err = new Error(Messages.LogoutCP);
 
             callback(
                 { ok: false },
@@ -83,20 +83,17 @@ export function cpHeartbeat(callback: (data: SessionHeartbeatResponse, err: Erro
 /*
  * Throttle the requests to the login service heartbeat and the cp session heartbeat based on a configured interval.
  */
-export const HEARTBEAT_INTERVAL = 10000; // milliseconds
-
-export const throttledHeartbeat = (
+export const throttledHeartbeat = throttle((
     oauthBaseUrl: string,
     callback: (data: SessionHeartbeatResponse, err: Error | null) => void
-) =>
-    throttle(() => {
-        loginHeartbeat(oauthBaseUrl, (loginResponse: SessionHeartbeatResponse, loginErr: Error) => {
-            if (loginErr || !loginResponse.ok) {
-                return callback(loginResponse, loginErr);
-            } else {
-                cpHeartbeat((cpResponse, cpErr) => {
-                    return callback(cpResponse, cpErr);
-                });
-            }
-        });
-    }, HEARTBEAT_INTERVAL, { leading: true });
+) => {
+    loginHeartbeat(oauthBaseUrl, (loginResponse: SessionHeartbeatResponse, loginErr: Error) => {
+        if (loginErr || !loginResponse.ok) {
+            return callback(loginResponse, loginErr);
+        } else {
+            cpHeartbeat((cpResponse, cpErr) => {
+                return callback(cpResponse, cpErr);
+            });
+        }
+    });
+}, HeartbeatInterval, { leading: true });
