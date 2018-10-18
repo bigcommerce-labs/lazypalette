@@ -78,6 +78,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
   staticContext={[MockFunction]}
   storeHash="abc"
   themeId="8900"
+  updateExpandableMenuPosition={[MockFunction]}
   variationId="234"
   versionId="456"
 >
@@ -123,6 +124,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
           startMove={[Function]}
           startResize={[Function]}
           title="More Options"
+          updatePosition={[MockFunction]}
           windowRef={
             Object {
               "current": <div
@@ -705,6 +707,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
   staticContext={[MockFunction]}
   storeHash="abc"
   themeId="8900"
+  updateExpandableMenuPosition={[MockFunction]}
   variationId="234"
   versionId="456"
 >
@@ -750,6 +753,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
           startMove={[Function]}
           startResize={[Function]}
           title="More Options"
+          updatePosition={[MockFunction]}
           windowRef={
             Object {
               "current": <div

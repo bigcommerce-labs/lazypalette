@@ -65,19 +65,18 @@ interface SideMenuState {
 
 const ExpandMenuRoutes = ({ route }: { route: string }) => {
     const { history, options, section, styles } = appRoutes;
-    const position = { x: 248, y: 104 };
 
     switch (route) {
         case styles.route:
-            return <ThemeVariations position={position} />;
+            return <ThemeVariations />;
         case history.route:
-            return <ThemeHistory position={position} />;
+            return <ThemeHistory />;
         case options.route:
-            return <MoreOptions position={position} />;
+            return <MoreOptions />;
     }
 
     if (route.indexOf(section.route) === 0) {
-        return <ThemeSettings position={position} settingsIndex={parseInt(route.split('/')[1], 10)}/>;
+        return <ThemeSettings settingsIndex={parseInt(route.split('/')[1], 10)}/>;
     }
 
     return null;

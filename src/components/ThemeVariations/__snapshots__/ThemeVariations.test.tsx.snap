@@ -53,6 +53,7 @@ exports[`ThemeVariations renders 1`] = `
         },
       ]
     }
+    updateExpandableMenuPosition={[MockFunction]}
   />
 </Router>
 `;

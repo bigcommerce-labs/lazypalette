@@ -47,6 +47,7 @@ describe('ThemeVariations', () => {
                     createNotification={mockHandler}
                     loadTheme={mockHandler}
                     setQueryParams={mockHandler}
+                    updateExpandableMenuPosition={mockHandler}
                     {...routeProps}
                 />
             </StaticRouter>
@@ -59,6 +60,7 @@ describe('ThemeVariations', () => {
         const mockLoadTheme = jest.fn();
         const mockCreateNotification = jest.fn();
         const mockSetQueryParams = jest.fn();
+        const mockUpdateMenuPosition = jest.fn();
 
         beforeEach(() => {
             mockLoadTheme.mockReset();
@@ -79,6 +81,7 @@ describe('ThemeVariations', () => {
                             createNotification={mockCreateNotification}
                             loadTheme={mockLoadTheme}
                             setQueryParams={mockSetQueryParams}
+                            updateExpandableMenuPosition={mockUpdateMenuPosition}
                             {...routeProps}
                         />
                     </StaticRouter>
@@ -110,6 +113,7 @@ describe('ThemeVariations', () => {
                                 createNotification={mockCreateNotification}
                                 loadTheme={mockLoadTheme}
                                 setQueryParams={mockSetQueryParams}
+                                updateExpandableMenuPosition={mockUpdateMenuPosition}
                                 {...routeProps}
                             />
                         </StaticRouter>
@@ -144,6 +148,7 @@ describe('ThemeVariations', () => {
                                 createNotification={mockCreateNotification}
                                 loadTheme={mockLoadTheme}
                                 setQueryParams={mockSetQueryParams}
+                                updateExpandableMenuPosition={mockUpdateMenuPosition}
                                 {...routeProps}
                             />
                         </StaticRouter>
@@ -179,6 +184,7 @@ describe('ThemeVariations', () => {
                             createNotification={mockCreateNotification}
                             loadTheme={mockLoadTheme}
                             setQueryParams={mockSetQueryParams}
+                            updateExpandableMenuPosition={mockUpdateMenuPosition}
                             {...routeProps}
                         />
                     </StaticRouter>

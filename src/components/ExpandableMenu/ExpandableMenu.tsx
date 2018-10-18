@@ -2,6 +2,7 @@ import { LocationDescriptor } from 'history';
 import { theme, Icon } from 'pattern-lab';
 import React, { PureComponent } from 'react';
 
+import { Position } from '../../actions/sideMenu';
 import { trackSectionClose } from '../../services/analytics';
 
 import { Content, ContentsWrapper, ExpandModal, Header, NavItem, ResizeHandle, ResizeIcon, Title } from './styles';
@@ -10,15 +11,34 @@ interface ExpandableMenuProps extends Partial<{
     back: LocationDescriptor;
     children: JSX.Element;
     minHeight: string;
-    position: { x: number, y: number };
+    position: Position;
     size: { width: number, height: number };
     title: string;
     windowRef: any;
     startMove(): void;
     startResize(): void;
+    updatePosition(expandableMenuPosition: Position): void;
 }> {}
 
 class ExpandableMenu extends PureComponent<ExpandableMenuProps> {
+    componentDidUpdate(prevProps: ExpandableMenuProps) {
+        const { position: currPosition } = this.props;
+        const { position: prevPosition } = prevProps;
+        if (prevPosition && currPosition) {
+            if (currPosition.x !== prevPosition.x || currPosition.y !== prevPosition.y) {
+                if (this.props.updatePosition) {
+                    this.props.updatePosition(currPosition);
+                }
+            }
+        }
+    }
+
+    handleClick = () => {
+        if (this.props.title) {
+            trackSectionClose(this.props.title);
+        }
+    };
+
     render() {
         const {
             back = {pathname: '/'},
@@ -45,7 +65,7 @@ class ExpandableMenu extends PureComponent<ExpandableMenuProps> {
                         {title &&
                             <Title onMouseDown={startMove}>{title}</Title>}
                         <NavItem
-                            onClick={() => title ? trackSectionClose(title) : ''}
+                            onClick={this.handleClick}
                             replace
                             to={back}
                         >

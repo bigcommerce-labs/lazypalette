@@ -1,5 +1,5 @@
 import { LocationDescriptor } from 'history';
-import React, { PureComponent } from 'react';
+import React, {PureComponent, SFC} from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
 import { Dispatch } from 'redux';
@@ -7,6 +7,7 @@ import { Dispatch } from 'redux';
 import { ToastMessages, ToastType } from '../../actions/constants';
 import { setQueryParams, QueryParamsData, UpdateQueryParamsAction } from '../../actions/merchant';
 import { createNotification } from '../../actions/notifications';
+import { updateExpandableMenuPosition, Position, UpdateExpandableMenuPositionAction } from '../../actions/sideMenu';
 import { loadTheme, LoadThemeResponseAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { trackVariationChange } from '../../services/analytics';
@@ -21,12 +22,13 @@ import ThemeModule from './ThemeModule';
 
 interface ThemeVariationsProps extends RouteComponentProps<{}> {
     isChanged: boolean;
-    position: { x: number, y: number };
+    position: Position;
     queryParams: string;
     themeVariants: ThemePropsList;
     createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
     loadTheme(variationID: string): any;
     setQueryParams(queryData: QueryParamsData): UpdateQueryParamsAction;
+    updateExpandableMenuPosition(expandableMenuPosition: Position): UpdateExpandableMenuPositionAction;
 }
 
 export interface ThemePropsList extends Array<StateProps> {}
@@ -43,7 +45,7 @@ interface ThemeVariationsState {
     variationId: string;
 }
 
-export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeVariationsState> {
+export class ThemeVariations extends PureComponent<ThemeVariationsProps, ThemeVariationsState> {
     readonly state: ThemeVariationsState = {
         isConfirmOpen: false,
         variationId: '',
@@ -98,8 +100,7 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
     };
 
     render() {
-        const { styles } = appRoutes;
-        const { position, match, themeVariants} = this.props;
+        const {  match, position, themeVariants } = this.props;
         const { isConfirmOpen } = this.state;
         const locationDescriptor: LocationDescriptor = {
             pathname: match.url,
@@ -107,41 +108,46 @@ export class ThemeVariations extends PureComponent <ThemeVariationsProps, ThemeV
         };
 
         return (
-            <Route
-                path={styles.path}
-                exact
-                render={() => (
-                    <>
-                        <Draggable position={position}>
-                            <ExpandableMenu
-                                back={locationDescriptor}
-                                minHeight="20rem"
-                                title="Styles"
-                            >
-                                <ThemeModule
-                                    variants={themeVariants}
-                                    handleVariationChange={this.handleVariationChange}
-                                />
-                            </ExpandableMenu>
-                        </Draggable>
-                        {isConfirmOpen &&
-                            <ConfirmModal
-                                primaryAction={this.handleChange}
-                                secondaryAction={this.close}
-                                title="Theme Change Warning"
-                            >
-                                {Messages.Variation}
-                            </ConfirmModal>
-                        }
-                    </>
-                )}
-            />
+                <>
+                    <Draggable position={position}>
+                        <ExpandableMenu
+                            back={locationDescriptor}
+                            minHeight="20rem"
+                            title="Styles"
+                            updatePosition={this.props.updateExpandableMenuPosition}
+                        >
+                            <ThemeModule
+                                variants={themeVariants}
+                                handleVariationChange={this.handleVariationChange}
+                            />
+
+                        </ExpandableMenu>
+                    </Draggable>
+                    {isConfirmOpen &&
+                        <ConfirmModal
+                            primaryAction={this.handleChange}
+                            secondaryAction={this.close}
+                            title="Theme Change Warning"
+                        >
+                            {Messages.Variation}
+                        </ConfirmModal>
+                    }
+                </>
         );
     }
 }
 
+const RoutedThemeVariations: SFC<ThemeVariationsProps> = props => (
+    <Route
+        path={appRoutes.styles.path}
+        exact
+        render={() => <ThemeVariations {...props}/>}
+    />
+);
+
 const mapStateToProps = (state: State) => ({
     isChanged: state.theme.isChanged,
+    position: state.sideMenu.expandableMenuPosition,
     queryParams: state.merchant.queryParams,
     themeVariants: state.theme.variations.map(({ screenshot, variationName, id }): StateProps => ({
         image: screenshot.largeThumb,
@@ -155,6 +161,7 @@ const mapDispatchToProps = {
     createNotification,
     loadTheme,
     setQueryParams,
+    updateExpandableMenuPosition,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ThemeVariations));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RoutedThemeVariations));
