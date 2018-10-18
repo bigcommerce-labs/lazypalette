@@ -1,5 +1,5 @@
 import { SessionHeartbeatActionTypes, SessionHeartbeatResponseAction } from '../actions/sessionHeartbeat';
-import { SessionHeartbeatResponse } from '../services/sessionHeartbeat';
+import { SessionHeartbeatResponse } from '../services/sessionHeartbeat/sessionHeartbeat';
 
 export interface SessionState {
     isLoggedIn: boolean;

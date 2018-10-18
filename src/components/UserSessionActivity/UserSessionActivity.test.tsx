@@ -1,5 +1,6 @@
 import { mount, shallow } from 'enzyme';
 import React from 'react';
+import PageVisibility from 'react-page-visibility';
 
 import ButtonInput from '../ButtonInput/ButtonInput';
 
@@ -8,7 +9,7 @@ import BrowserContext from '../../context/BrowserContext';
 import { Messages } from './constants';
 import { UserSessionActivity } from './UserSessionActivity';
 
-jest.mock('../../services/sessionHeartbeat');
+jest.mock('../../services/sessionHeartbeat/sessionHeartbeat');
 
 describe('UserSessionActivity', () => {
     const oauthBaseUrl = 'https://login.service.bcdev';
@@ -30,6 +31,72 @@ describe('UserSessionActivity', () => {
     });
 
     describe('pageActivityHandler', () => {
+        describe('componentDidMount', () => {
+            it('should trigger sessionHeartbeat', () => {
+                const mockHandler = jest.fn();
+                const component = shallow(
+                    <UserSessionActivity
+                        oauthBaseUrl={oauthBaseUrl}
+                        heartbeatResponse={mockHandler}
+                        isLoggedIn={true}
+                    >
+                        <p>meow meow</p>
+                    </UserSessionActivity>
+                );
+
+                expect(mockHandler).toHaveBeenCalledTimes(1);
+                expect(component).toMatchSnapshot();
+            });
+        });
+
+        describe('onChange', () => {
+            beforeEach(() => {
+                UserSessionActivity.prototype.componentDidMount = () => null;
+            });
+
+            describe('when the user switches tab, away from Store Design', () => {
+                it('does not trigger sessionHeartbeat', () => {
+                    const mockHandler = jest.fn();
+                    const component = shallow(
+                        <UserSessionActivity
+                            oauthBaseUrl={oauthBaseUrl}
+                            heartbeatResponse={mockHandler}
+                            isLoggedIn={true}
+                        >
+                            <p>meow meow</p>
+                        </UserSessionActivity>
+                    );
+
+                    const mockIsVisible = false; // another tab active
+
+                    const pageVis = component.find(PageVisibility);
+                    pageVis.simulate('change', mockIsVisible);
+                    expect(mockHandler).not.toBeCalled();
+                });
+            });
+
+            describe('when the user changes tab back to Store Design', () => {
+                it('triggers the sessionHeartbeat', () => {
+                    const mockHandler = jest.fn();
+                    const component = shallow(
+                        <UserSessionActivity
+                            oauthBaseUrl={oauthBaseUrl}
+                            heartbeatResponse={mockHandler}
+                            isLoggedIn={true}
+                        >
+                            <p>meow meow</p>
+                        </UserSessionActivity>
+                    );
+
+                    const mockIsVisible = true; // store design active
+
+                    const pageVis = component.find(PageVisibility);
+                    pageVis.simulate('change', mockIsVisible);
+                    expect(mockHandler).toHaveBeenCalledTimes(1);
+                });
+            });
+        });
+
         describe('onClick', () => {
             it('triggers the sessionHeartbeat', () => {
                 const mockHandler = jest.fn();

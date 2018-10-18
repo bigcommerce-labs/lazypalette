@@ -1,4 +1,4 @@
-import { SessionHeartbeatResponse } from '../services/sessionHeartbeat';
+import { SessionHeartbeatResponse } from '../services/sessionHeartbeat/sessionHeartbeat';
 
 export enum SessionHeartbeatActionTypes {
     SESSION_HEARTBEAT_RESPONSE = 'SESSION_HEARTBEAT_RESPONSE',

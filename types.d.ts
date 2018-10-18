@@ -4,3 +4,4 @@ declare module '*.jpg';
 declare module 'unescape';
 declare module 'window';
 declare module 'react-dotdotdot';
+declare module 'react-page-visibility';
