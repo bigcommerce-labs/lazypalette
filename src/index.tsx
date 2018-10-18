@@ -27,21 +27,25 @@ const baseHref: string = document.getElementsByTagName('base')[0].getAttribute('
 
 analytics.init(store);
 
-// Show an error to users running a non-supported browser.
-const unsupportedBrowsers = [BrowserVersion.InternetExplorer10];
-browserDetection({ unsupportedBrowsers })
-    .then((results: BrowserCheckResult[]) => {
-        // Render store design react application
-        render(
-            <Provider store={store}>
-                <BrowserRouter basename={baseHref}>
-                    <App config={seededConfig}/>
-                </BrowserRouter>
-            </Provider>,
-            root
-        );
-    })
-    .catch((error: UnsupportedBrowser) => {
-        // Render a page to inform user we do not support their browser
-        renderUnsupportedBrowserPage(seededConfig);
-    });
+// Stencil detection
+if (seededConfig.seedActiveTheme && seededConfig.seedActiveTheme.themeId) {
+    const unsupportedBrowsers = [BrowserVersion.InternetExplorer10];
+    browserDetection({ unsupportedBrowsers })
+        .then((results: BrowserCheckResult[]) => {
+            // Render store design react application
+            render(
+                <Provider store={store}>
+                    <BrowserRouter basename={baseHref}>
+                        <App config={seededConfig}/>
+                    </BrowserRouter>
+                </Provider>,
+                root
+            );
+        })
+        .catch((error: UnsupportedBrowser) => {
+            // Render a page to inform user we do not support their browser
+            renderUnsupportedBrowserPage(seededConfig);
+        });
+} else {
+    throw new Error('Blueprint is not supported.');
+}

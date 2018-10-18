@@ -4,6 +4,7 @@ import { AppConfig } from '../../components/App/App';
 import { disableStoreDesign } from '../themeApi';
 
 import { UnsupportedBrowserEndpoint, UnsupportedBrowserText } from './constants';
+import { trackUnsupportedBrowser } from './segment';
 
 const handleOptOut = (storeHash: string) => {
     return (event: Event) => {
@@ -88,12 +89,15 @@ export const renderUnsupportedBrowserPage = (config: AppConfig) => {
             <p><a href="${UnsupportedBrowserEndpoint.cpDashboard}">${UnsupportedBrowserText.back}</a></p>
         </div>
     `;
-
     // Attach the unsupportedBrowser view into the dom
     const root = document.getElementById('root');
     root!.appendChild(unsupportedBrowserView);
 
     // Set up the button click handler for the optOut
     const optOut = document.getElementById('unsupportedBrowser-optOut');
-    optOut!.onclick = handleOptOut(config.storeHash);
+    if (optOut && config.canOptOut) {
+        optOut.onclick = handleOptOut(config.storeHash);
+    }
+
+    (window as any).onload = trackUnsupportedBrowser;
 };
