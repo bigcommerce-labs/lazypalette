@@ -19,8 +19,8 @@ export interface StoreFeatures {
 }
 
 export interface StoreDefaultData {
-    activeThemeId: string;
-    activeVariationId: string;
+    activeThemeId: string | null;
+    activeVariationId: string | null;
     canOptOut: boolean;
     features: StoreFeatures;
     isDownForMaintenance: boolean;

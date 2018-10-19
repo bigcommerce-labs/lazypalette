@@ -27,8 +27,10 @@ const baseHref: string = document.getElementsByTagName('base')[0].getAttribute('
 
 analytics.init(store);
 
+const variationQueryParamPresent: boolean = window.location.search.indexOf('variationId') !== -1;
+
 // Stencil detection
-if (seededConfig.seedActiveTheme && seededConfig.seedActiveTheme.themeId) {
+if (variationQueryParamPresent || (seededConfig.seedActiveTheme && seededConfig.seedActiveTheme.themeId)) {
     const unsupportedBrowsers = [BrowserVersion.InternetExplorer10];
     browserDetection({ unsupportedBrowsers })
         .then((results: BrowserCheckResult[]) => {
