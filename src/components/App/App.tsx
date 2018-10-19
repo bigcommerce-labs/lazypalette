@@ -70,8 +70,8 @@ export class App extends Component<AppProps, {}> {
         } = this.props.config;
 
         this.props.setStoreData({
-            activeThemeId: seedActiveTheme.themeId,
-            activeVariationId: seedActiveTheme.id,
+            activeThemeId: seedActiveTheme ? seedActiveTheme.themeId : null,
+            activeVariationId: seedActiveTheme ? seedActiveTheme.id : null,
             canOptOut,
             features,
             isDownForMaintenance,
