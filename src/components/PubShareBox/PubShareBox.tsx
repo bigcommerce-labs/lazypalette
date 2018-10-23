@@ -26,6 +26,7 @@ import UpdateAction from './UpdateAction/UpdateAction';
 
 interface PubShareBoxProps {
     activeThemeId: string;
+    appMode: string;
     initialConfigurationId: string;
     isChanged: boolean;
     initialSettings: SettingsType;
@@ -191,16 +192,25 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
         }
     }
 
-    componentDidUpdate() {
+    checkUpdateMode(isUpdate: boolean) {
         const { initialConfigurationId, variationHistory } = this.props;
-        let isUpdate = false;
-
         if (variationHistory) {
             variationHistory.forEach(variation => {
-                if (variation.configurationId === initialConfigurationId && variation.type === 'upgrade') {
-                    isUpdate = true;
+                if (variation.type === 'upgrade' || variation.type === 'default') {
+                    if (variation.configurationId === initialConfigurationId) {
+                        isUpdate = true;
+                    }
                 }
             });
+        }
+
+        return isUpdate;
+    }
+
+    componentDidUpdate() {
+        let isUpdate = false;
+        if (this.props.appMode === 'preview') {
+            isUpdate = this.checkUpdateMode(isUpdate);
         }
 
         if (isUpdate !== this.state.isUpdate) {
@@ -269,6 +279,7 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
 
 const mapStateToProps = ({ theme, merchant }: State) => ({
     activeThemeId: merchant.activeThemeId,
+    appMode: merchant.appMode,
     configurationId: theme.configurationId,
     initialConfigurationId: theme.initialConfigurationId,
     initialSettings: theme.initialSettings,
