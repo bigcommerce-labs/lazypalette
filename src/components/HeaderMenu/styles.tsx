@@ -34,12 +34,7 @@ export const BCLogo = (props: BCLogoProps) => (
     </Tooltip>
 );
 
-interface StyledHeaderSpanProps {
-    isSelected: boolean;
-}
-
-export const StyledHeaderSpan = styled.span.attrs<StyledHeaderSpanProps>({})`
-    background-color: ${({ isSelected, theme: { colors } }) => isSelected && colors.selectedBackground};
+export const StyledHeaderSpan = styled.span`
     cursor: pointer;
     display: inline-block;
     height: 2rem;
@@ -62,6 +57,7 @@ interface StyledPreviewItemProps {
 
 interface StyledIconProps {
     isRotated?: boolean;
+    isSelected: boolean;
 }
 
 const StyledIcon = styled.div.attrs<StyledIconProps>({
@@ -69,6 +65,7 @@ const StyledIcon = styled.div.attrs<StyledIconProps>({
         transform: isRotated ? 'rotate(-90deg) translate(2px,1px)' : 'none',
     }),
 })`
+    background-color: ${({ isSelected, theme: { colors } }) => isSelected && colors.selectedBackground};
     transform: ${(props: StyledIconProps) => props.isRotated ? 'rotate(-90deg) translate(2px,1px)' : 'none'};
     transition-duration: 0.5s;
 
@@ -83,8 +80,8 @@ export const StyledPreviewItem = (props: StyledPreviewItemProps) => {
         <Tooltip
             message={props.tooltip}
         >
-            <StyledHeaderSpan isSelected={props.isSelected} onClick={props.onClick}>
-                <StyledIcon isRotated={props.isRotated || false} >
+            <StyledHeaderSpan onClick={props.onClick}>
+                <StyledIcon isSelected={props.isSelected} isRotated={props.isRotated || false} >
                     <Icon
                         glyph={props.viewportType.glyphName}
                         primaryColor={props.isSelected ? theme.colors.primaryText : theme.colors.primary}
