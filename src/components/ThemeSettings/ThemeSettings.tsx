@@ -50,7 +50,7 @@ function formatOptionValue(value: string | number | boolean) {
 }
 
 function parseOptionValue(optionValue: string) {
-    return optionValue.startsWith('integer:')
+    return optionValue.indexOf('integer:') === 0
         ? parseInt(optionValue.split(':')[1], 10)
         : optionValue;
 }
