@@ -74,6 +74,7 @@ describe('ThemeHistory', () => {
                             loadTheme={mockLoadTheme}
                             timeZone="UTC"
                             variationHistory={history}
+                            updateExpandableMenuPosition={mockProp}
                             {...routeProps}/>);
 
                     expect(themeHistory).toMatchSnapshot();
@@ -92,6 +93,7 @@ describe('ThemeHistory', () => {
                             loadTheme={mockLoadTheme}
                             timeZone="UTC"
                             variationHistory={history}
+                            updateExpandableMenuPosition={mockProp}
                             {...routeProps}/>);
 
                     expect(themeHistory).toMatchSnapshot();
@@ -110,6 +112,7 @@ describe('ThemeHistory', () => {
                             loadTheme={mockLoadTheme}
                             timeZone="UTC"
                             variationHistory={history}
+                            updateExpandableMenuPosition={mockProp}
                             {...routeProps}/>);
 
                     expect(themeHistory).toMatchSnapshot();
@@ -129,6 +132,7 @@ describe('ThemeHistory', () => {
                         loadTheme={mockLoadTheme}
                         timeZone="UTC"
                         variationHistory={[]}
+                        updateExpandableMenuPosition={mockProp}
                         {...routeProps}/>);
 
                 expect(themeHistory).toMatchSnapshot();
@@ -147,6 +151,7 @@ describe('ThemeHistory', () => {
                         loadTheme={mockLoadTheme}
                         timeZone="UTC"
                         variationHistory={history}
+                        updateExpandableMenuPosition={mockProp}
                         {...routeProps}/>);
 
                 themeHistory.setState({
@@ -173,6 +178,7 @@ describe('ThemeHistory', () => {
                             createNotification={mockCreateNotification}
                             loadTheme={mockLoadTheme}
                             variationHistory={history}
+                            updateExpandableMenuPosition={mockProp}
                             {...routeProps}/>);
 
                     themeHistory.find(HistoryEntry).first().simulate('click');
@@ -195,6 +201,7 @@ describe('ThemeHistory', () => {
                             createNotification={mockCreateNotification}
                             loadTheme={mockLoadTheme}
                             variationHistory={history}
+                            updateExpandableMenuPosition={mockProp}
                             {...routeProps}/>);
 
                     themeHistory.find(HistoryEntry).first().simulate('click');
@@ -219,6 +226,7 @@ describe('ThemeHistory', () => {
                         createNotification={mockCreateNotification}
                         loadTheme={mockLoadTheme}
                         variationHistory={history}
+                        updateExpandableMenuPosition={mockProp}
                         {...routeProps}/>);
 
                 themeHistory.find(HistoryEntry).first().simulate('click');
@@ -247,6 +255,7 @@ describe('ThemeHistory', () => {
                     createNotification={mockCreateNotification}
                     loadTheme={mockLoadTheme}
                     variationHistory={history}
+                    updateExpandableMenuPosition={mockProp}
                     {...routeProps}/>);
 
             themeHistory.setState({

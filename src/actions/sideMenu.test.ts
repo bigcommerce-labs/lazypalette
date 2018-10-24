@@ -14,4 +14,17 @@ describe('sideMenu actions', () => {
             });
         });
     });
+
+    describe('when we create a updateExpandableMenuPosition action', () => {
+        it('creates the correct action', () => {
+            const action = sideMenuActions.updateExpandableMenuPosition({x: 300, y: 300});
+
+            expect(action).toEqual({
+                payload: {
+                    expandableMenuPosition: {x: 300, y: 300},
+                },
+                type: SideMenuActionTypes.UPDATE_EXPANDABLE_MENU_POSITION,
+            });
+        });
+    });
 });

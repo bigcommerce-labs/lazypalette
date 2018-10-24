@@ -18,6 +18,7 @@ exports[`ThemeHistory when rendering when it has history items when an item is c
         }
       }
       title="History"
+      updatePosition={[MockFunction]}
     >
       <styled.ul>
         <styled.li
@@ -153,6 +154,7 @@ exports[`ThemeHistory when rendering when it has history items when in prelaunch
         }
       }
       title="History"
+      updatePosition={[MockFunction]}
     >
       <styled.ul>
         <styled.li
@@ -288,6 +290,7 @@ exports[`ThemeHistory when rendering when it has history items when no items are
         }
       }
       title="History"
+      updatePosition={[MockFunction]}
     >
       <styled.ul>
         <styled.li
@@ -413,6 +416,7 @@ exports[`ThemeHistory when rendering when it has no history items renders correc
         }
       }
       title="History"
+      updatePosition={[MockFunction]}
     >
       <styled.ul />
     </ExpandableMenu>
@@ -438,6 +442,7 @@ exports[`ThemeHistory when rendering when the modal is open renders correctly 1`
         }
       }
       title="History"
+      updatePosition={[MockFunction]}
     >
       <styled.ul>
         <styled.li

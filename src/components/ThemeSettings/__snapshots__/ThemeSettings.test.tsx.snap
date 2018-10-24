@@ -101,6 +101,7 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
       }
     }
     title="Typography & Icons"
+    updatePosition={[MockFunction]}
   >
     <styled.ul>
       <styled.li

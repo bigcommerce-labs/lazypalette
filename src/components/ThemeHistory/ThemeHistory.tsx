@@ -6,6 +6,7 @@ import { Dispatch } from 'redux';
 
 import { ToastMessages, ToastType } from '../../actions/constants';
 import { createNotification } from '../../actions/notifications';
+import { updateExpandableMenuPosition, Position, UpdateExpandableMenuPositionAction } from '../../actions/sideMenu';
 import { loadTheme, LoadThemeResponseAction } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeVariationHistory, ThemeVariationHistoryEntry } from '../../reducers/theme';
@@ -28,11 +29,12 @@ interface ThemeHistoryProps extends RouteComponentProps<{}> {
     configurationId: string;
     isChanged: boolean;
     isPrelaunchStore: boolean;
-    position: { x: number, y: number };
+    position: Position;
     timeZone?: string; // for testing to ensure consistent snapshots
     variationHistory: ThemeVariationHistory;
     createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
     loadTheme(configurationId: string, variationId: string): any;
+    updateExpandableMenuPosition(expandableMenuPosition: Position): UpdateExpandableMenuPositionAction;
 }
 
 interface ThemeHistoryState {
@@ -114,7 +116,12 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
     };
 
     render() {
-        const { match, position, variationHistory, location} = this.props;
+        const {
+            location,
+            match,
+            position,
+            variationHistory,
+        } = this.props;
         const { isConfirmOpen } = this.state;
 
         const locationDescriptor: LocationDescriptor = {
@@ -125,7 +132,11 @@ export class ThemeHistory extends PureComponent<ThemeHistoryProps, ThemeHistoryS
         return (
             <>
                 <Draggable position={position}>
-                    <ExpandableMenu title="History" back={locationDescriptor}>
+                    <ExpandableMenu
+                        title="History"
+                        back={locationDescriptor}
+                        updatePosition={this.props.updateExpandableMenuPosition}
+                    >
                         <List>
                             {variationHistory.map(entry => (
                                 <HistoryEntry
@@ -172,12 +183,14 @@ const mapStateToProps = (state: State) => ({
     configurationId: state.theme.initialConfigurationId,
     isChanged: state.theme.isChanged,
     isPrelaunchStore: state.merchant.isPrelaunchStore,
+    position: state.sideMenu.expandableMenuPosition,
     variationHistory: state.theme.variationHistory,
 });
 
 const mapDispatchToProps = {
     createNotification,
     loadTheme,
+    updateExpandableMenuPosition,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RoutedThemeHistory));

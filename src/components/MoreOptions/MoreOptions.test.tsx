@@ -27,6 +27,7 @@ const routeProps = {
 
 const mockLoadTheme: any = jest.fn(() => Promise.resolve({}));
 const mockCreateNotification: any = jest.fn();
+const mockUpdateMenuPosition: any = jest.fn();
 const mockNotification = {
     autoDismiss: true,
     message: 'hello',
@@ -80,6 +81,7 @@ describe('<MoreOptions />', () => {
                         createNotification={mockCreateNotification}
                         loadTheme={mockLoadTheme}
                         themeId="8900"
+                        updateExpandableMenuPosition={mockUpdateMenuPosition}
                         {...routeProps}
                     />
                 </BrowserContext.Provider>
@@ -118,6 +120,7 @@ describe('<MoreOptions />', () => {
                                 createNotification={mockCreateNotification}
                                 loadTheme={mockLoadTheme}
                                 themeId="8900"
+                                updateExpandableMenuPosition={mockUpdateMenuPosition}
                                 {...routeProps}
                             />
                         </BrowserContext.Provider>

@@ -10,6 +10,7 @@ import {
     createNotification,
     NotificationsProps
 } from '../../actions/notifications';
+import {updateExpandableMenuPosition, Position, UpdateExpandableMenuPositionAction} from '../../actions/sideMenu';
 import { loadTheme, LoadThemeResponseAction } from '../../actions/theme';
 import BrowserContext, {Browser} from '../../context/BrowserContext';
 import { State } from '../../reducers/reducers';
@@ -51,13 +52,14 @@ interface MoreOptionsProps extends RouteComponentProps<{}> {
     isChanged: boolean;
     isPrivate: boolean;
     notifications: NotificationsProps;
-    position: { x: number, y: number };
+    position: Position;
     storeHash: string;
     variationId: string;
     versionId: string;
     themeId: string;
     createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
     loadTheme(configurationId: string, variationId: string): any;
+    updateExpandableMenuPosition(expandableMenuPosition: Position): UpdateExpandableMenuPositionAction;
 }
 
 interface MoreOptionsState {
@@ -206,7 +208,11 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
                 {({ _window }: Browser) =>
                     <>
                         <Draggable position={position}>
-                            <ExpandableMenu title="More Options" back={locationDesciptor}>
+                            <ExpandableMenu
+                                title="More Options"
+                                back={locationDesciptor}
+                                updatePosition={this.props.updateExpandableMenuPosition}
+                            >
                                 <List>
                                     {canOptOut &&
                                         <Item
@@ -299,6 +305,7 @@ const mapStateToProps = (state: State) => ({
     isChanged: state.theme.isChanged,
     isPrivate: state.theme.isPrivate,
     notifications: state.notifications,
+    position: state.sideMenu.expandableMenuPosition,
     storeHash: state.merchant.storeHash,
     themeId: state.theme.themeId,
     variationId: state.theme.variationId,
@@ -308,6 +315,7 @@ const mapStateToProps = (state: State) => ({
 const mapDispatchToProps = {
     createNotification,
     loadTheme,
+    updateExpandableMenuPosition,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RoutedMoreOptions));

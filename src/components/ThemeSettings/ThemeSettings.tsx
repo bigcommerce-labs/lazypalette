@@ -8,6 +8,7 @@ import { Dispatch } from 'redux';
 import unescape from 'unescape';
 
 import { StoreFeatures } from '../../actions/merchant';
+import {updateExpandableMenuPosition, Position, UpdateExpandableMenuPositionAction} from '../../actions/sideMenu';
 import { updateThemeConfigChange, SettingsType, ThemeConfigChange } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
@@ -32,10 +33,11 @@ import { Heading, Item, List, Paragraph } from './styles';
 export interface ThemeSettingsProps extends RouteComponentProps<{}> {
     debounceTime?: number;
     features: StoreFeatures;
-    position: { x: number, y: number };
+    position: Position;
     settings: SettingsType;
     settingsIndex: number;
     themeSettings: ThemeSchemaEntry;
+    updateExpandableMenuPosition(expandableMenuPosition: Position): UpdateExpandableMenuPositionAction;
     updateThemeConfigChange(
         configChange: ThemeConfigChange
     ): (dispatch: Dispatch<State>, getState: () => State) => void;
@@ -158,7 +160,12 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
     private static debouncedFunctions: { [id: string]: (config: ThemeConfigChange) => void } = {};
 
     render() {
-        const { match, position, settings, themeSettings } = this.props;
+        const {
+            match,
+            position,
+            settings,
+            themeSettings,
+        } = this.props;
         const locationDescriptor: LocationDescriptor = {
             pathname: match.url,
             search: this.props.location.search,
@@ -169,6 +176,7 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
                 <ExpandableMenu
                     back={locationDescriptor}
                     title={themeSettings ? themeSettings.name : ''}
+                    updatePosition={this.props.updateExpandableMenuPosition}
                 >
                     <List>
                         {themeSettings.settings.map((setting, index) => {
@@ -223,6 +231,7 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
 
 const mapStateToProps = (state: State, ownProps: ThemeSettingsProps) => ({
     features: state.merchant.features,
+    position: state.sideMenu.expandableMenuPosition,
     settings: state.theme.settings,
     themeSettings: state.theme.schema[ownProps.settingsIndex],
 });
@@ -240,6 +249,7 @@ interface ActionFromProps {
 }
 
 const mapDispatchToProps = {
+    updateExpandableMenuPosition,
     updateThemeConfigChange,
 };
 

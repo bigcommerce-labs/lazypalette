@@ -54,6 +54,7 @@ describe('<ThemeSettings />', () => {
     describe('render()', () => {
         it('renders the component', () => {
             const mockFetch = jest.fn();
+            const mockUpdatePosition = jest.fn();
             const testItems = {
                 name: 'Typography & Icons',
                 settings: [
@@ -173,6 +174,7 @@ describe('<ThemeSettings />', () => {
                     themeSettings={testItems}
                     settings={settings}
                     updateThemeConfigChange={mockFetch}
+                    updateExpandableMenuPosition={mockUpdatePosition}
                     {...routeProps}
                 />
             );
@@ -293,6 +295,7 @@ describe('<ThemeSettings />', () => {
                     themeSettings={testItems}
                     settings={settings}
                     updateThemeConfigChange={mockProp}
+                    updateExpandableMenuPosition={mockProp}
                     {...routeProps}
                 />
             );
