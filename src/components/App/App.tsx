@@ -103,7 +103,10 @@ export class App extends Component<AppProps, {}> {
         return (
             <PatternLabThemeProvider>
                 <BrowserContext.Provider value={{ _window: window }}>
-                    <UserSessionActivity oauthBaseUrl={this.props.config.oauthBaseUrl}>
+                    <UserSessionActivity
+                        queryParams={this.props.location.search}
+                        oauthBaseUrl={this.props.config.oauthBaseUrl}
+                    >
                         <UIWindowProvider>
                             <StyledApp>
                                 <Onboarding/>
