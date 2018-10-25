@@ -2,7 +2,11 @@
 
 exports[`ColorSetting should render 1`] = `
 <styled.div>
-  <styled.label />
+  <styled.label
+    onBlur={[Function]}
+    onFocus={[Function]}
+    tabIndex={0}
+  />
   <styled.div>
     #000000
   </styled.div>
@@ -16,7 +20,11 @@ exports[`ColorSetting should render 1`] = `
 
 exports[`ColorSetting when an initial color does not start with a # should add a hash (#) before the hex code 1`] = `
 <styled.div>
-  <styled.label />
+  <styled.label
+    onBlur={[Function]}
+    onFocus={[Function]}
+    tabIndex={0}
+  />
   <styled.div>
     #FFFFFF
   </styled.div>
@@ -30,7 +38,11 @@ exports[`ColorSetting when an initial color does not start with a # should add a
 
 exports[`ColorSetting when an initial color is a hex color but is not capitalized should capitalize the hex color 1`] = `
 <styled.div>
-  <styled.label />
+  <styled.label
+    onBlur={[Function]}
+    onFocus={[Function]}
+    tabIndex={0}
+  />
   <styled.div>
     #FFFFFF
   </styled.div>
@@ -44,7 +56,11 @@ exports[`ColorSetting when an initial color is a hex color but is not capitalize
 
 exports[`ColorSetting when an initial color is not a hex color should not capitalize the color 1`] = `
 <styled.div>
-  <styled.label />
+  <styled.label
+    onBlur={[Function]}
+    onFocus={[Function]}
+    tabIndex={0}
+  />
   <styled.div>
     Transparent
   </styled.div>
@@ -58,7 +74,11 @@ exports[`ColorSetting when an initial color is not a hex color should not capita
 
 exports[`ColorSetting when an initial color is provided should render and match ColorText box 1`] = `
 <styled.div>
-  <styled.label />
+  <styled.label
+    onBlur={[Function]}
+    onFocus={[Function]}
+    tabIndex={0}
+  />
   <styled.div>
     #FFFFFF
   </styled.div>

@@ -66,6 +66,10 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
         });
     };
 
+    handleFocus = () => this.setState({ focus: true });
+
+    handleBlur = () => this.setState({ focus: false });
+
     componentDidMount() {
         const { color } = this.props;
 
@@ -101,7 +105,12 @@ export class ColorSetting extends PureComponent<ColorSettingProps, ColorSettingS
     render() {
         return (
             <Container>
-                <Label>{this.props.label}
+                <Label
+                    onBlur={this.handleBlur}
+                    onFocus={this.handleFocus}
+                    tabIndex={0}
+                >
+                    {this.props.label}
                 </Label>
                 <ColorText>{this.state.color}</ColorText>
                 <SelectedColor
