@@ -36,7 +36,7 @@ exports[`Banner when rendering renders correctly in prelaunch mode 1`] = `
     <styled.span>
       <Icon
         glyph="help"
-        primaryColor="#303540"
+        primaryColor="#313440"
         size="large"
       />
     </styled.span>

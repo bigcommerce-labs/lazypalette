@@ -2,12 +2,14 @@
 
 exports[`UpdateAction renders 1`] = `
 <styled.div>
-  <ButtonInput
-    classType="primary"
+  <Button
+    actionType="primary"
+    buttonStyle="contained"
     onClick={[MockFunction]}
     testId="apply-update"
+    type="button"
   >
     Apply Update
-  </ButtonInput>
+  </Button>
 </styled.div>
 `;

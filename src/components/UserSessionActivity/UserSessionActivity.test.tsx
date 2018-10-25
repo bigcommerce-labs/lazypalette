@@ -1,8 +1,7 @@
 import { mount, shallow } from 'enzyme';
+import { Button } from 'pattern-lab';
 import React from 'react';
 import PageVisibility from 'react-page-visibility';
-
-import ButtonInput from '../ButtonInput/ButtonInput';
 
 import BrowserContext from '../../context/BrowserContext';
 
@@ -147,7 +146,7 @@ describe('UserSessionActivity', () => {
                             </UserSessionActivity>
                         </BrowserContext.Provider>
                     );
-                    const okButton = component.find(ButtonInput).find({ children: Messages.Ok }).last();
+                    const okButton = component.find(Button).find({ children: Messages.Ok }).last();
                     okButton.simulate('click');
                     expect(mockWindow.location.assign).toBeCalledWith(`${oauthBaseUrl}${SessionLinks.StoreDesign}`);
                 });
@@ -172,7 +171,7 @@ describe('UserSessionActivity', () => {
                         </BrowserContext.Provider>
                     );
 
-                    const okButton = component.find(ButtonInput).find({ children: Messages.Ok }).last();
+                    const okButton = component.find(Button).find({ children: Messages.Ok }).last();
                     okButton.simulate('click');
                     expect(mockWindow.location.assign).toBeCalledWith(
                         `${oauthBaseUrl}${SessionLinks.StoreDesign}${queryParams}`

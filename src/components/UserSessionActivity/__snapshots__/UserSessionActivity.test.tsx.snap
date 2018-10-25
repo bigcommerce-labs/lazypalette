@@ -62,7 +62,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
             }
           >
             <div
-              className="sc-bxivhb boVVrw"
+              className="sc-dxgOiQ cbzzfy"
               onClick={[Function]}
             >
               <styled.div
@@ -76,7 +76,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                 }
               >
                 <div
-                  className="sc-ifAKCX glQnqD"
+                  className="sc-ckVGcZ dUzOGO"
                 />
               </styled.div>
               <styled.div
@@ -97,12 +97,12 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                 }
               >
                 <div
-                  className="sc-htoDjs dirVeL"
+                  className="sc-kEYyzF eBiHem"
                   onClick={[Function]}
                 >
                   <styled.div>
                     <div
-                      className="sc-bZQynM ceVmct"
+                      className="sc-eNQAEJ hHINNG"
                     >
                       <styled.h3
                         theme={
@@ -122,7 +122,7 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                         }
                       >
                         <h3
-                          className="sc-gzVnrw idAWTr"
+                          className="sc-hMqMXs hVSXrW"
                         >
                           You have been logged out.
                         </h3>
@@ -147,15 +147,15 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                     }
                   >
                     <div
-                      className="sc-EHOje hspKix"
+                      className="sc-jKJlTe fGpUUw"
                     >
                       <styled.div>
                         <div
-                          className="sc-gqjmRU kBtJdw"
+                          className="sc-eHgmQL cbtlgd"
                         >
                           <styled.div>
                             <div
-                              className="sc-dnqmqq hJxOZJ"
+                              className="sc-kkGfuU kUNnRZ"
                             >
                               For security reasons you have been automatically logged out.
         Please log in again to access Store Design.
@@ -163,51 +163,66 @@ exports[`UserSessionActivity when the user is logged out renders an AlertModal 1
                           </styled.div>
                           <styled.div>
                             <div
-                              className="sc-VigVT NpmmH"
+                              className="sc-cvbbAY dhCsth"
                             >
-                              <ButtonInput
-                                classType="primary"
+                              <Button
+                                actionType="primary"
+                                buttonStyle="contained"
                                 onClick={[Function]}
                                 testId="ok"
                                 type="button"
                               >
-                                <styled.div>
-                                  <div
-                                    className="sc-bdVaJa cubKnN"
+                                <styled.button
+                                  actionType="primary"
+                                  buttonStyle="contained"
+                                  buttonVariation="textOnly"
+                                  data-test-id="ok"
+                                  onClick={[Function]}
+                                  theme={
+                                    Object {
+                                      "colors": Object {
+                                        "destructiveEnabled": "#DB3643",
+                                        "destructiveFocused": "#FEDBDE",
+                                        "destructiveHover": "#CC1F1F",
+                                        "disabled": "#D9DCE9",
+                                        "empty": "#FFFFFF",
+                                        "primaryEnabled": "#3C64F4",
+                                        "primaryFocused": "#DBE3FE",
+                                        "primaryHover": "#2852EB",
+                                        "transparentDestructiveHover": "#FFF0F1",
+                                        "transparentDestructivePressed": "#FEDBDE",
+                                        "transparentPrimaryHover": "#F0F3FF",
+                                        "transparentPrimaryPressed": "#DBE3FE",
+                                      },
+                                      "typography": Object {
+                                        "fontFamily": Object {
+                                          "sans": "\\"Source Sans Pro\\", \\"Helvetica Neue\\", Arial, sans-serif",
+                                        },
+                                        "fontWeight": Object {
+                                          "bold": 600,
+                                          "normal": 400,
+                                        },
+                                      },
+                                    }
+                                  }
+                                  type="button"
+                                >
+                                  <button
+                                    className="sc-ifAKCX MTzPR"
+                                    data-test-id="ok"
+                                    onClick={[Function]}
+                                    type="button"
                                   >
-                                    <styled.button
-                                      border={true}
-                                      classType="primary"
-                                      data-test-id="ok"
-                                      onClick={[Function]}
-                                      theme={
-                                        Object {
-                                          "colors": Object {
-                                            "background": "#F5F7FA",
-                                            "brandPrimary": "#273A8A",
-                                            "primary": "#3F69FE",
-                                          },
-                                          "typography": Object {
-                                            "fontFamily": Object {
-                                              "sans": "\\"Source Sans Pro\\", \\"Helvetica Neue\\", Arial, sans-serif",
-                                            },
-                                          },
-                                        }
-                                      }
-                                      type="button"
-                                    >
-                                      <button
-                                        className="sc-bwzfXH kBSfBk"
-                                        data-test-id="ok"
-                                        onClick={[Function]}
-                                        type="button"
+                                    <styled.div>
+                                      <div
+                                        className="sc-bZQynM efjXoN"
                                       >
                                         Ok
-                                      </button>
-                                    </styled.button>
-                                  </div>
-                                </styled.div>
-                              </ButtonInput>
+                                      </div>
+                                    </styled.div>
+                                  </button>
+                                </styled.button>
+                              </Button>
                             </div>
                           </styled.div>
                         </div>

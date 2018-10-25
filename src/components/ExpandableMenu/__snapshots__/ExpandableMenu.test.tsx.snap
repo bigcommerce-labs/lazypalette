@@ -65,7 +65,7 @@ exports[`renders 1`] = `
       >
         <Icon
           glyph="closeX"
-          primaryColor="#303540"
+          primaryColor="#313440"
           size="small"
         />
       </Styled(Link)>
@@ -85,7 +85,7 @@ exports[`renders 1`] = `
       <styled.div>
         <Icon
           glyph="resizeable"
-          primaryColor="#CFD6E5"
+          primaryColor="#D9DCE9"
           size="large"
         />
       </styled.div>

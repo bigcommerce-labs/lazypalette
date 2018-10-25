@@ -68,10 +68,10 @@ exports[`ColorPicker when a change occurs calls its onChangeComplete prop with t
 
 exports[`ColorPicker when rendered matches the snapshot 1`] = `
 <div
-  class="sc-chPdSV fvhEJf"
+  class="sc-kpOJdX jVCtKh"
 >
   <div
-    class="sc-kGXeez gLjJVQ"
+    class="sc-ckVGcZ jzkKkH"
   >
     <div
       style="position:absolute;top:0px;right:0px;bottom:0px;left:0px;background:hsl(0,100%, 50%)"
@@ -88,7 +88,7 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
           style="position:absolute;top:0%;left:0%;cursor:default"
         >
           <div
-            class="sc-eNQAEJ jOXBGI"
+            class="sc-kkGfuU gzsKSx"
             color="#FFFFFF"
           />
         </div>
@@ -96,7 +96,7 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
     </div>
   </div>
   <div
-    class="sc-kgoBCf fSEsnl"
+    class="sc-dxgOiQ iIYiqF"
   >
     <div
       style="position:absolute;top:0px;right:0px;bottom:0px;left:0px"
@@ -109,7 +109,7 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
           style="position:absolute;left:0%"
         >
           <div
-            class="sc-jKJlTe glzyxF"
+            class="sc-kEYyzF eoyfTv"
             color="#FFFFFF"
           />
         </div>
@@ -117,75 +117,75 @@ exports[`ColorPicker when rendered matches the snapshot 1`] = `
     </div>
   </div>
   <div
-    class="sc-kpOJdX jjywBY"
+    class="sc-jKJlTe dorhJi"
   >
     <div
-      class="sc-dxgOiQ bzFfGn"
+      class="sc-eNQAEJ gwpRzg"
     >
       <div
         style="position:relative"
       >
         <input
           spellcheck="false"
-          style="border:1px solid #CFD6E5;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
+          style="border:1px solid #D9DCE9;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
           value="FFFFFF"
         />
         <span
-          style="color:#303540;display:block;font-size:12px;text-align:center;text-transform:capitalize"
+          style="color:#313440;display:block;font-size:12px;text-align:center;text-transform:capitalize"
         >
           hex
         </span>
       </div>
     </div>
     <div
-      class="sc-ckVGcZ kGLuoX"
+      class="sc-hMqMXs iXryxe"
     >
       <div
         style="position:relative"
       >
         <input
           spellcheck="false"
-          style="border:1px solid #CFD6E5;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
+          style="border:1px solid #D9DCE9;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
           value="255"
         />
         <span
-          style="color:#303540;display:block;font-size:12px;text-align:center;text-transform:capitalize"
+          style="color:#313440;display:block;font-size:12px;text-align:center;text-transform:capitalize"
         >
           r
         </span>
       </div>
     </div>
     <div
-      class="sc-ckVGcZ kGLuoX"
+      class="sc-hMqMXs iXryxe"
     >
       <div
         style="position:relative"
       >
         <input
           spellcheck="false"
-          style="border:1px solid #CFD6E5;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
+          style="border:1px solid #D9DCE9;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
           value="255"
         />
         <span
-          style="color:#303540;display:block;font-size:12px;text-align:center;text-transform:capitalize"
+          style="color:#313440;display:block;font-size:12px;text-align:center;text-transform:capitalize"
         >
           g
         </span>
       </div>
     </div>
     <div
-      class="sc-ckVGcZ kGLuoX"
+      class="sc-hMqMXs iXryxe"
     >
       <div
         style="position:relative"
       >
         <input
           spellcheck="false"
-          style="border:1px solid #CFD6E5;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
+          style="border:1px solid #D9DCE9;-ms-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;font-size:12px;padding:0.25rem;width:80%"
           value="255"
         />
         <span
-          style="color:#303540;display:block;font-size:12px;text-align:center;text-transform:capitalize"
+          style="color:#313440;display:block;font-size:12px;text-align:center;text-transform:capitalize"
         >
           b
         </span>

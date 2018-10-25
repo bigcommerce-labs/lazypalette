@@ -139,8 +139,8 @@ exports[`SideMenu Theme status label when active theme is not the current theme 
           theme={
             Object {
               "colors": Object {
-                "brandPrimary": "#FFFFFF",
                 "empty": "#FFFFFF",
+                "primaryHover": "#FFFFFF",
                 "primaryText": "#FFFFFF",
                 "secondaryText": "#FFFFFF",
                 "selectedBackground": "#FFFFFF",
@@ -302,8 +302,8 @@ exports[`SideMenu Theme status label when activeTheme is the current theme and i
           theme={
             Object {
               "colors": Object {
-                "brandPrimary": "#FFFFFF",
                 "empty": "#FFFFFF",
+                "primaryHover": "#FFFFFF",
                 "primaryText": "#FFFFFF",
                 "secondaryText": "#FFFFFF",
                 "selectedBackground": "#FFFFFF",
@@ -465,8 +465,8 @@ exports[`SideMenu Theme status label when isPurchased is false renders correctly
           theme={
             Object {
               "colors": Object {
-                "brandPrimary": "#FFFFFF",
                 "empty": "#FFFFFF",
+                "primaryHover": "#FFFFFF",
                 "primaryText": "#FFFFFF",
                 "secondaryText": "#FFFFFF",
                 "selectedBackground": "#FFFFFF",
@@ -628,8 +628,8 @@ exports[`SideMenu renders 1`] = `
           theme={
             Object {
               "colors": Object {
-                "brandPrimary": "#FFFFFF",
                 "empty": "#FFFFFF",
+                "primaryHover": "#FFFFFF",
                 "primaryText": "#FFFFFF",
                 "secondaryText": "#FFFFFF",
                 "selectedBackground": "#FFFFFF",
@@ -667,8 +667,8 @@ exports[`SideMenu when the sidebar data is not ready shows loading indicators 1`
     <styled.div>
       <BulletListStyle
         height={60}
-        primaryColor="#ECEFF4"
-        secondaryColor="#CFD6E5"
+        primaryColor="#ECEEF5"
+        secondaryColor="#D9DCE9"
         width={200}
       />
       <styled.div
@@ -702,8 +702,8 @@ exports[`SideMenu when the sidebar data is not ready shows loading indicators 1`
       <styled.div>
         <BulletListStyle
           height={200}
-          primaryColor="#ECEFF4"
-          secondaryColor="#CFD6E5"
+          primaryColor="#ECEEF5"
+          secondaryColor="#D9DCE9"
           width={200}
         />
       </styled.div>
@@ -761,8 +761,8 @@ exports[`SideMenu when the sidebar data is not ready shows loading indicators 1`
           theme={
             Object {
               "colors": Object {
-                "brandPrimary": "#FFFFFF",
                 "empty": "#FFFFFF",
+                "primaryHover": "#FFFFFF",
                 "primaryText": "#FFFFFF",
                 "secondaryText": "#FFFFFF",
                 "selectedBackground": "#FFFFFF",

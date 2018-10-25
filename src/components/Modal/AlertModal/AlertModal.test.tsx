@@ -1,7 +1,6 @@
 import { mount, shallow } from 'enzyme';
+import { Button } from 'pattern-lab';
 import React from 'react';
-
-import ButtonInput from '../../ButtonInput/ButtonInput';
 
 import { Messages } from '../constants';
 import { ModalBody } from '../styles';
@@ -62,7 +61,7 @@ describe('AlertModal', () => {
                     />
                 );
 
-                const okButton = modal.find(ButtonInput).find({ children: Messages.Ok }).last();
+                const okButton = modal.find(Button).find({ children: Messages.Ok }).last();
                 okButton.simulate('click');
                 expect(mockHandler).toHaveBeenCalledTimes(1);
             });
