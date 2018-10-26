@@ -58,7 +58,9 @@ export class App extends Component<AppProps, {}> {
     componentDidMount() {
         const queryParams = queryString.parse(this.props.location.search);
         const page = queryParams.redirectIframeUrl ? `/${queryParams.redirectIframeUrl}` : '/';
-        const isUpdate = queryParams.appMode === 'preview';
+        const appMode = queryParams.appMode;
+        const isUpdate = appMode === 'preview';
+
         const {
             features = {},
             canOptOut,
@@ -72,6 +74,7 @@ export class App extends Component<AppProps, {}> {
         this.props.setStoreData({
             activeThemeId: seedActiveTheme ? seedActiveTheme.themeId : null,
             activeVariationId: seedActiveTheme ? seedActiveTheme.id : null,
+            appMode,
             canOptOut,
             features,
             isDownForMaintenance,

@@ -88,6 +88,7 @@ describe('PubShareBox', () => {
 
     const pubShareBoxElement = <PubShareBox
         activeThemeId="activeTheme"
+        appMode="preview"
         initialConfigurationId="111"
         initialSettings={initialSettings}
         isChanged={false}
