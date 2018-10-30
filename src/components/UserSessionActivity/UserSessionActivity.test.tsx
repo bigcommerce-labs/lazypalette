@@ -6,7 +6,7 @@ import ButtonInput from '../ButtonInput/ButtonInput';
 
 import BrowserContext from '../../context/BrowserContext';
 
-import { Messages } from './constants';
+import { Messages, SessionLinks } from './constants';
 import { UserSessionActivity } from './UserSessionActivity';
 
 jest.mock('../../services/sessionHeartbeat/sessionHeartbeat');
@@ -133,22 +133,51 @@ describe('UserSessionActivity', () => {
         });
 
         describe('when the user clicks the Ok button', () => {
-            it('redirects the user to the login page using the deep-link url', () => {
-                const mockWindow = { location: { assign: jest.fn() } };
-                const component = mount(
-                    <BrowserContext.Provider value={{ _window: mockWindow }}>
-                        <UserSessionActivity
-                            oauthBaseUrl={oauthBaseUrl}
-                            heartbeatResponse={jest.fn()}
-                            isLoggedIn={false}
-                        >
-                            <p>meow meow</p>
-                        </UserSessionActivity>
-                    </BrowserContext.Provider>
-                );
-                const okButton = component.find(ButtonInput).find({ children: Messages.Ok }).last();
-                okButton.simulate('click');
-                expect(mockWindow.location.assign).toBeCalledWith(`${oauthBaseUrl}/deep-links/store-design`);
+            describe('when the theme variation matches the active theme', () => {
+                it('redirects the user to the login page using the basic deep-link url', () => {
+                    const mockWindow = { location: { assign: jest.fn() } };
+                    const component = mount(
+                        <BrowserContext.Provider value={{ _window: mockWindow }}>
+                            <UserSessionActivity
+                                oauthBaseUrl={oauthBaseUrl}
+                                heartbeatResponse={jest.fn()}
+                                isLoggedIn={false}
+                            >
+                                <p>meow meow</p>
+                            </UserSessionActivity>
+                        </BrowserContext.Provider>
+                    );
+                    const okButton = component.find(ButtonInput).find({ children: Messages.Ok }).last();
+                    okButton.simulate('click');
+                    expect(mockWindow.location.assign).toBeCalledWith(`${oauthBaseUrl}${SessionLinks.StoreDesign}`);
+                });
+            });
+
+            describe('when the theme variation has changed', () => {
+                it('redirects the user to the login page using deep-link with query params', () => {
+                    const mockWindow = { location: { assign: jest.fn() } };
+                    const variationId = '1234-5678-0000-abcd';
+                    const queryParams = `?variationId=${variationId}`;
+
+                    const component = mount(
+                        <BrowserContext.Provider value={{ _window: mockWindow }}>
+                            <UserSessionActivity
+                                oauthBaseUrl={oauthBaseUrl}
+                                heartbeatResponse={jest.fn()}
+                                isLoggedIn={false}
+                                queryParams={queryParams}
+                            >
+                                <p>meow meows</p>
+                            </UserSessionActivity>
+                        </BrowserContext.Provider>
+                    );
+
+                    const okButton = component.find(ButtonInput).find({ children: Messages.Ok }).last();
+                    okButton.simulate('click');
+                    expect(mockWindow.location.assign).toBeCalledWith(
+                        `${oauthBaseUrl}${SessionLinks.StoreDesign}${queryParams}`
+                    );
+                });
             });
         });
     });

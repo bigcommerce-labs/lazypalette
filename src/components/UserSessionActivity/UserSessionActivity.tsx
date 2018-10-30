@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PageVisibility from 'react-page-visibility';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -17,13 +17,14 @@ interface UserSessionActivityProps {
     oauthBaseUrl: string;
     children: JSX.Element;
     isLoggedIn: boolean;
+    queryParams?: string;
 }
 
 /*
  * HoC which handles keeping the users session active. When used, any events which this component listens for will
  * be sent to a throttled heartbeat which will keep the users session active in the control panel.
  */
-export class UserSessionActivity extends PureComponent<UserSessionActivityProps> {
+export class UserSessionActivity extends Component<UserSessionActivityProps> {
     componentDidMount() {
         this.handleHeartbeat();
     }
@@ -41,9 +42,9 @@ export class UserSessionActivity extends PureComponent<UserSessionActivityProps>
     };
 
     handleClose = (_window: Window) => {
-        const { oauthBaseUrl } = this.props;
+        const { oauthBaseUrl, queryParams = '' } = this.props;
 
-        _window.location.assign(`${oauthBaseUrl}${SessionLinks.StoreDesign}`);
+        _window.location.assign(`${oauthBaseUrl}${SessionLinks.StoreDesign}${queryParams}`);
     };
 
     render() {
