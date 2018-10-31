@@ -139,6 +139,7 @@ export function getEditor(
         case SettingType.TEXT:
             return <InputField
                 value={value as string}
+                maxLength={64}
                 label={prettyLabel}
                 onChange={({ target }) => handleChange({setting, value: target.value})}
                 testId={testId}

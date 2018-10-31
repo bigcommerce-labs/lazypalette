@@ -78,6 +78,7 @@ exports[`<ThemeSettings /> getEditor when type equals select should return corre
 exports[`<ThemeSettings /> getEditor when type equals text should return correct type 1`] = `
 <InputField
   label=""
+  maxLength={64}
   onChange={[Function]}
   testId="text.test-text"
   value="kermit_the_frog"
@@ -223,6 +224,7 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
       >
         <InputField
           label="Product sale price label"
+          maxLength={64}
           onChange={[Function]}
           testId="text.pdp-sale-price-label"
         />
@@ -232,6 +234,7 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
       >
         <InputField
           label="This should render"
+          maxLength={64}
           onChange={[Function]}
           testId="text.enabled-Feature"
         />
@@ -241,6 +244,7 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
       >
         <InputField
           label="This should render"
+          maxLength={64}
           onChange={[Function]}
           testId="text.unknown-Feature"
         />
