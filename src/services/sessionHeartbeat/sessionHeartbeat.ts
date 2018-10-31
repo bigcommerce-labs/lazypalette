@@ -41,12 +41,9 @@ export function loginHeartbeat(
             return;
         }
 
-        // Make sure the response from A&A says the user is still logged in
-        const err = data.ok ? null : new Error(Messages.LogoutSvc);
-
         callback(
             { ok: data.ok },
-            err
+            null
         );
     });
 }
@@ -88,7 +85,7 @@ export const throttledHeartbeat = throttle((
     callback: (data: SessionHeartbeatResponse, err: Error | null) => void
 ) => {
     loginHeartbeat(oauthBaseUrl, (loginResponse: SessionHeartbeatResponse, loginErr: Error) => {
-        if (loginErr || !loginResponse.ok) {
+        if (loginErr) {
             return callback(loginResponse, loginErr);
         } else {
             cpHeartbeat((cpResponse, cpErr) => {
