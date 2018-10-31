@@ -67,6 +67,12 @@ class ColorPicker extends Component<ColorPickerProps> {
         }
     };
 
+    handleClick = () => {
+        if (this.hexInputRef.current && this.hexInputRef.current.input) {
+            this.hexInputRef.current.input.blur();
+        }
+    };
+
     componentDidMount() {
         if (this.hexInputRef.current && this.hexInputRef.current.input) {
             this.hexInputRef.current.input.select();
@@ -76,13 +82,13 @@ class ColorPicker extends Component<ColorPickerProps> {
     render() {
         return (
             <Container>
-                <SaturationContainer>
+                <SaturationContainer onClick={this.handleClick}>
                     <Saturation
                         {...this.props}
                         pointer={SaturationPointer}
                     />
                 </SaturationContainer>
-                <HueContainer>
+                <HueContainer onClick={this.handleClick}>
                     <Hue
                         {...this.props}
                         pointer={HuePointer}
