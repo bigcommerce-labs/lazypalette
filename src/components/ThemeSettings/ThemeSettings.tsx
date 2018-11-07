@@ -75,6 +75,7 @@ function trackChange(configChange: ThemeConfigChange) {
         case SettingType.SELECT:
             return trackSelectChange(configChange.setting.id, configChange.value as string);
         case SettingType.TEXT:
+        case SettingType.INPUT:
             return trackTextChange(configChange.setting.id, configChange.value as string);
         case SettingType.COLOR:
             return trackColorChange(configChange.setting.id, configChange.value as string);
@@ -137,6 +138,7 @@ export function getEditor(
                 testId={testId}
             />;
         case SettingType.TEXT:
+        case SettingType.INPUT:
             return <InputField
                 value={value as string}
                 maxLength={64}
