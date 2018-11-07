@@ -233,6 +233,16 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
         key="9"
       >
         <InputField
+          label="Product sale price label, but input"
+          maxLength={64}
+          onChange={[Function]}
+          testId="input.pdp-sale-price-label-input"
+        />
+      </styled.li>
+      <styled.li
+        key="10"
+      >
+        <InputField
           label="This should render"
           maxLength={64}
           onChange={[Function]}
@@ -240,7 +250,7 @@ exports[`<ThemeSettings /> render() renders the component 1`] = `
         />
       </styled.li>
       <styled.li
-        key="11"
+        key="12"
       >
         <InputField
           label="This should render"

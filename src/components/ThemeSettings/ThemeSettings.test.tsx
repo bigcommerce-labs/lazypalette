@@ -147,6 +147,11 @@ describe('<ThemeSettings />', () => {
                         type: 'text',
                     },
                     {
+                        id: 'pdp-sale-price-label-input',
+                        label: 'Product sale price label, but input',
+                        type: 'input',
+                    },
+                    {
                         enable: 'enabledFeature',
                         id: 'enabled-Feature',
                         label: 'This should render',
