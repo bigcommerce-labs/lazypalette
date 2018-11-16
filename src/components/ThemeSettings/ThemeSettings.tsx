@@ -11,7 +11,7 @@ import { StoreFeatures } from '../../actions/merchant';
 import {updateExpandableMenuPosition, Position, UpdateExpandableMenuPositionAction} from '../../actions/sideMenu';
 import { updateThemeConfigChange, SettingsType, ThemeConfigChange } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
-import { ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
+import { ThemeSchema, ThemeSchemaEntry, ThemeSchemaEntrySetting } from '../../reducers/theme';
 import {
     trackCheckboxChange,
     trackColorChange,
@@ -34,6 +34,7 @@ export interface ThemeSettingsProps extends RouteComponentProps<{}> {
     debounceTime?: number;
     features: StoreFeatures;
     position: Position;
+    schema: ThemeSchema;
     settings: SettingsType;
     settingsIndex: number;
     themeSettings: ThemeSchemaEntry;
@@ -41,6 +42,11 @@ export interface ThemeSettingsProps extends RouteComponentProps<{}> {
     updateThemeConfigChange(
         configChange: ThemeConfigChange
     ): (dispatch: Dispatch<State>, getState: () => State) => void;
+}
+
+interface ColorUsed {
+    colorCount: number;
+    colorReuse: boolean;
 }
 
 function formatOptionValue(value: string | number | boolean) {
@@ -64,7 +70,34 @@ function transformOptions(setting: ThemeSchemaEntrySetting) {
     }) : [];
 }
 
-function trackChange(configChange: ThemeConfigChange) {
+function checkColorUsed(settings: SettingsType, schema: ThemeSchema, color: string): ColorUsed {
+    const colorResult: ColorUsed = {colorCount: 0, colorReuse: false};
+    const colorsUsed: string[] = [];
+    const colorSettingIds = schema.map(section => {
+        const colorSettings = section.settings.filter(setting => setting.type === 'color');
+
+        return colorSettings.map(setting => setting.id);
+    });
+    let flattenedColorSettings: any[] = [];
+
+    colorSettingIds.forEach(item => {
+        flattenedColorSettings = [...flattenedColorSettings, ...item];
+    });
+
+    const allColors: string[] = flattenedColorSettings.map(item => settings[item].toString());
+
+    allColors.forEach(item => {
+        if (colorsUsed.indexOf(item) === -1) {
+            colorsUsed.push(item);
+        }
+    });
+    colorResult.colorCount = colorsUsed.length;
+    colorResult.colorReuse = colorsUsed.indexOf(color) >= 0;
+
+    return colorResult;
+}
+
+function trackChange(configChange: ThemeConfigChange, settings: SettingsType, schema: ThemeSchema) {
     switch (configChange.setting.type) {
         case SettingType.CHECKBOX:
             return trackCheckboxChange(configChange.setting.id, configChange.value as boolean);
@@ -78,7 +111,9 @@ function trackChange(configChange: ThemeConfigChange) {
         case SettingType.INPUT:
             return trackTextChange(configChange.setting.id, configChange.value as string);
         case SettingType.COLOR:
-            return trackColorChange(configChange.setting.id, configChange.value as string);
+            const {colorCount, colorReuse} = checkColorUsed(settings, schema, configChange.value as string);
+
+            return trackColorChange(configChange.setting.id, configChange.value as string, colorCount, colorReuse);
     }
 }
 
@@ -227,7 +262,8 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
     };
 
     private updateThemeConfig = (configChange: ThemeConfigChange) => {
-        trackChange(configChange);
+        const {settings, schema} = this.props;
+        trackChange(configChange, settings, schema);
         this.props.updateThemeConfigChange(configChange);
     };
 }
@@ -235,6 +271,7 @@ export class ThemeSettings extends Component<ThemeSettingsProps, {}> {
 const mapStateToProps = (state: State, ownProps: ThemeSettingsProps) => ({
     features: state.merchant.features,
     position: state.sideMenu.expandableMenuPosition,
+    schema: state.theme.schema,
     settings: state.theme.settings,
     themeSettings: state.theme.schema[ownProps.settingsIndex],
 });
