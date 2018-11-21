@@ -13,7 +13,7 @@ interface EventData {
     element: string;
     label: string;
     text: string;
-    [key: string]: string | number;
+    [key: string]: string | number | boolean;
 }
 
 const config: AnalyticsConfig = {
@@ -45,7 +45,6 @@ function track(eventName: string, data: EventData) {
             viewport: state.previewPane.viewportType.glyphName,
         },
         };
-
         window.analytics.track(eventName, data);
     }
 }
@@ -195,10 +194,12 @@ export function trackTextChange(id: any, text: string) {
     });
 }
 
-export function trackColorChange(id: any, color: string) {
+export function trackColorChange(id: any, color: string, colorCount: number, colorReuse: boolean) {
     track('store-design_change', {
         category: 'store-design_change',
         color,
+        color_count: colorCount,
+        color_reuse: colorReuse,
         element: 'div',
         id,
         label: 'store-design_color_change',

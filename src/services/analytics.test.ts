@@ -253,11 +253,15 @@ describe('analytics service', () => {
             it('calls analytics.track with proper arguments', () => {
                 const color = '#FFFFFF';
                 const id = 'pretty-color';
-                analytics.trackColorChange(id, color);
+                const colorCount = 25;
+                const colorReuse = true;
+                analytics.trackColorChange(id, color, colorCount, colorReuse);
                 expect(global.analytics.track).toHaveBeenCalledWith('store-design_change', {
                     ...universalData,
                     category: 'store-design_change',
                     color,
+                    color_count: colorCount,
+                    color_reuse: colorReuse,
                     element: 'div',
                     id,
                     label: 'store-design_color_change',
