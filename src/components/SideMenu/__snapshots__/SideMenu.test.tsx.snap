@@ -16,12 +16,12 @@ exports[`SideMenu Theme status label when active theme is not the current theme 
     route="section/0"
   />
   <ExpandMenuRoutes
-    key="1"
-    route="section/1"
-  />
-  <ExpandMenuRoutes
     key="2"
     route="section/2"
+  />
+  <ExpandMenuRoutes
+    key="3"
+    route="section/3"
   />
   <styled.nav>
     <styled.div>
@@ -179,12 +179,12 @@ exports[`SideMenu Theme status label when activeTheme is the current theme and i
     route="section/0"
   />
   <ExpandMenuRoutes
-    key="1"
-    route="section/1"
-  />
-  <ExpandMenuRoutes
     key="2"
     route="section/2"
+  />
+  <ExpandMenuRoutes
+    key="3"
+    route="section/3"
   />
   <styled.nav>
     <styled.div>
@@ -342,12 +342,12 @@ exports[`SideMenu Theme status label when isPurchased is false renders correctly
     route="section/0"
   />
   <ExpandMenuRoutes
-    key="1"
-    route="section/1"
-  />
-  <ExpandMenuRoutes
     key="2"
     route="section/2"
+  />
+  <ExpandMenuRoutes
+    key="3"
+    route="section/3"
   />
   <styled.nav>
     <styled.div>
@@ -505,12 +505,12 @@ exports[`SideMenu renders 1`] = `
     route="section/0"
   />
   <ExpandMenuRoutes
-    key="1"
-    route="section/1"
-  />
-  <ExpandMenuRoutes
     key="2"
     route="section/2"
+  />
+  <ExpandMenuRoutes
+    key="3"
+    route="section/3"
   />
   <styled.nav>
     <styled.div>

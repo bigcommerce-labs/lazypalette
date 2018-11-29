@@ -14,7 +14,7 @@ describe('DesignSubMenu', () => {
                 const menu = shallow(
                     <DesignSubMenu
                         isPreview={false}
-                        sections={['fred', 'joe']}
+                        sections={[{ name: 'fred', index: 0 }, { name: 'joe', index: 1 }]}
                         currentPath={styles.path}
                     />
                 );
@@ -28,7 +28,7 @@ describe('DesignSubMenu', () => {
                 const menu = shallow(
                     <DesignSubMenu
                         isPreview={true}
-                        sections={['fred', 'joe']}
+                        sections={[{ name: 'fred', index: 0 }, { name: 'joe', index: 1 }]}
                         currentPath={styles.path}
                     />
                 );

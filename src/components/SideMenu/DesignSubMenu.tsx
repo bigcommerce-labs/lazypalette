@@ -12,10 +12,15 @@ interface MenuItem {
     externalLink?: boolean;
 }
 
+interface Section {
+    name: string;
+    index: number;
+}
+
 interface DesignSubMenuProps {
     currentPath: string;
     isPreview: boolean;
-    sections: string[];
+    sections: Section[];
 }
 
 const staticTopItems: MenuItem[] = [
@@ -51,11 +56,11 @@ const staticBottomItems: MenuItem[] = [
     },
 ];
 
-const getItems = (sections: string[]) => {
-    return sections.map((section: string, index: number) => (
+const getItems = (sections: Section[]) => {
+    return sections.map((section: Section) => (
         {
-            label: section,
-            path: `${appRoutes.section.route}${index}`,
+            label: section.name,
+            path: `${appRoutes.section.route}${section.index}`,
         }
     ));
 };
