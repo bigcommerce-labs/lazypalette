@@ -1,7 +1,6 @@
 import { mount, shallow } from 'enzyme';
+import { Button } from 'pattern-lab';
 import React from 'react';
-
-import ButtonInput from '../../ButtonInput/ButtonInput';
 
 import { Messages } from '../constants';
 import { ModalBody } from '../styles';
@@ -54,7 +53,7 @@ describe('ConfirmModal', () => {
                     />
                 );
 
-                const cancelButton = modal.find(ButtonInput).find({ children: Messages.Cancel }).last();
+                const cancelButton = modal.find(Button).find({ children: Messages.Cancel }).last();
                 cancelButton.simulate('click');
                 expect(mockSecondaryAction).toHaveBeenCalledTimes(1);
             });
@@ -74,7 +73,7 @@ describe('ConfirmModal', () => {
                     />
                 );
 
-                const okButton = modal.find(ButtonInput).find({ children: Messages.Ok }).last();
+                const okButton = modal.find(Button).find({ children: Messages.Ok }).last();
                 okButton.simulate('click');
                 expect(mockPrimaryAction).toHaveBeenCalledTimes(1);
             });

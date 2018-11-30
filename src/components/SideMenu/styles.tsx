@@ -445,7 +445,7 @@ const getCollapseStyles = ({collapsed, theme}: CollapsedStyles) => {
             }
 
             :hover {
-                background: ${theme.colors.brandPrimary};
+                background: ${theme.colors.primaryHover};
             }
 
             :hover:after {
@@ -508,8 +508,8 @@ export const CollapseButton = styled.button.attrs<CollapsedProps>({})`
 CollapseButton.defaultProps = {
     theme: {
         colors: {
-            brandPrimary: '#FFFFFF',
             empty: '#FFFFFF',
+            primaryHover: '#FFFFFF',
             primaryText: '#FFFFFF',
             secondaryText: '#FFFFFF',
             selectedBackground: '#FFFFFF',

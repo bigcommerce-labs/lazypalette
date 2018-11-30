@@ -1,3 +1,4 @@
+import { Button, ButtonStyles } from 'pattern-lab';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
@@ -14,7 +15,6 @@ import {
     trackUpdate,
 } from '../../services/analytics';
 
-import ButtonInput from '../ButtonInput/ButtonInput';
 import ConfirmModal from '../Modal/ConfirmModal/ConfirmModal';
 
 import { Modes, PublishModalText, ResetModalText } from './constants';
@@ -237,14 +237,13 @@ export class PubShareBox extends PureComponent<PubShareBoxProps, PubShareBoxStat
             <Container isChanged={isChanged}>
                 {isChanged &&
                     <ButtonWrapper>
-                        <ButtonInput
-                            border={false}
+                        <Button
+                            buttonStyle={ButtonStyles.Text}
                             onClick={() => this.handleModalOpen('reset')}
-                            type="button"
                             testId="undo-changes"
                         >
                             Undo Changes
-                        </ButtonInput>
+                        </Button>
                     </ButtonWrapper>
                 }
                 {this.getActions(mode)}

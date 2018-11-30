@@ -1,6 +1,6 @@
+import { Button } from 'pattern-lab';
 import React, {SFC} from 'react';
 
-import ButtonInput from '../../ButtonInput/ButtonInput';
 import { ButtonWrapper } from '../styles';
 
 interface PreviewActionProps {
@@ -10,13 +10,12 @@ interface PreviewActionProps {
 const UpdateAction: SFC<PreviewActionProps> = props => {
     return (
         <ButtonWrapper>
-            <ButtonInput
+            <Button
                 onClick={props.handlePublish}
-                classType="primary"
                 testId="apply-update"
             >
                 Apply Update
-            </ButtonInput>
+            </Button>
         </ButtonWrapper>
     );
 };

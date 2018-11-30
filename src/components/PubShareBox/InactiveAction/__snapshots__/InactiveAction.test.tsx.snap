@@ -3,24 +3,28 @@
 exports[`InactiveAction renders 1`] = `
 <Fragment>
   <styled.div>
-    <ButtonInput
+    <Button
+      actionType="primary"
+      buttonStyle="outlined"
       disabled={false}
       onClick={[MockFunction]}
       testId="save"
       type="button"
     >
       Save
-    </ButtonInput>
+    </Button>
   </styled.div>
   <styled.div>
-    <ButtonInput
-      classType="primary"
+    <Button
+      actionType="primary"
+      buttonStyle="contained"
       disabled={false}
       onClick={[MockFunction]}
       testId="publish"
+      type="button"
     >
       Publish
-    </ButtonInput>
+    </Button>
   </styled.div>
 </Fragment>
 `;

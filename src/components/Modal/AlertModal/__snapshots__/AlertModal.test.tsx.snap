@@ -10,14 +10,15 @@ exports[`AlertModal renders 1`] = `
       You have been automatically logged out due to $REASONS
     </styled.div>
     <styled.div>
-      <ButtonInput
-        classType="primary"
+      <Button
+        actionType="primary"
+        buttonStyle="contained"
         onClick={[MockFunction]}
         testId="ok"
         type="button"
       >
         Ok
-      </ButtonInput>
+      </Button>
     </styled.div>
   </styled.div>
 </Modal>

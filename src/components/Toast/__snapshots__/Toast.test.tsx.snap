@@ -15,7 +15,7 @@ exports[`Toast renders 1`] = `
     >
       <Icon
         glyph="closeX"
-        primaryColor="#F5F7FA"
+        primaryColor="#F6F7FC"
         size="small"
       />
     </styled.div>

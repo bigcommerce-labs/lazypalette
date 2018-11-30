@@ -1,6 +1,5 @@
+import { Button, ButtonStyles } from 'pattern-lab';
 import React, { PureComponent } from 'react';
-
-import ButtonInput from '../../ButtonInput/ButtonInput';
 
 import { ConfirmButton, ConfirmButtons, ModalBody, ModalFooter, ModalView } from '../styles';
 import Modal from '../Modal';
@@ -24,25 +23,23 @@ const CTAButtons = ({
 }: ConfirmModalProps) => (
     <ConfirmButtons>
         <ConfirmButton>
-            <ButtonInput
+            <Button
+                buttonStyle={ButtonStyles.Outlined}
                 onClick={secondaryAction}
-                type="button"
                 testId="cancel"
             >
                 {Messages.Cancel}
-            </ButtonInput>
+            </Button>
         </ConfirmButton>
         <ConfirmButton>
-            <ButtonInput
-                classType="primary"
+            <Button
                 onClick={primaryAction}
-                type="button"
                 testId={ primaryActionTestId
                     ? primaryActionTestId
                     : primaryActionText.replace(/\s+/g, '-').toLowerCase()}
             >
                 {primaryActionText}
-            </ButtonInput>
+            </Button>
         </ConfirmButton>
     </ConfirmButtons>
 );

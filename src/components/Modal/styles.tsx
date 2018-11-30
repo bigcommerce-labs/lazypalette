@@ -78,7 +78,6 @@ export const Content = styled.div`
     font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
     margin: 0;
     padding: 0;
-    overflow: auto;
 `;
 
 Content.defaultProps = {

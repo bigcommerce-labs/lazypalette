@@ -1,6 +1,5 @@
+import { Button } from 'pattern-lab';
 import React, { PureComponent } from 'react';
-
-import ButtonInput from '../../ButtonInput/ButtonInput';
 
 import { ModalBody, ModalFooter, ModalView } from '../styles';
 import Modal from '../Modal';
@@ -37,14 +36,12 @@ class AlertModal extends PureComponent<AlertModalProps> {
                     {body &&
                         <ModalBody>{body}</ModalBody>}
                     <ModalFooter>
-                        <ButtonInput
+                        <Button
                             onClick={primaryAction}
-                            classType="primary"
-                            type="button"
                             testId={(actionText || Messages.Ok).replace(/\s+/g, '-').toLowerCase()}
                         >
                             {actionText}
-                        </ButtonInput>
+                        </Button>
                     </ModalFooter>
                 </ModalView>
             </Modal>

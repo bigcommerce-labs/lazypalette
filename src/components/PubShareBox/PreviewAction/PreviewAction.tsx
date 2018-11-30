@@ -1,10 +1,10 @@
+import { Button } from 'pattern-lab';
 import React, {SFC} from 'react';
 
 import BrowserContext, { Browser } from '../../../context/BrowserContext';
 import { purchaseEndPoint } from '../constants';
 
 import { trackAddTheme } from '../../..//services/analytics';
-import ButtonInput from '../../ButtonInput/ButtonInput';
 import { ButtonWrapper } from '../styles';
 
 interface PreviewActionProps {
@@ -28,15 +28,12 @@ const PreviewAction: SFC<PreviewActionProps> = props => {
             <BrowserContext.Consumer>
                 {(browser: Browser) =>
                     <ButtonWrapper>
-                        <ButtonInput
-                            classType="primary"
+                        <Button
                             onClick={() => handlePurchase(browser)}
-                            type="button"
                             testId={actionTestId}
-                            disabled={false}
                         >
                             {actionText}
-                        </ButtonInput>
+                        </Button>
                     </ButtonWrapper>
                 }
             </BrowserContext.Consumer>

@@ -71,7 +71,7 @@ exports[`Modal renders 1`] = `
       >
         <Icon
           glyph="closeX"
-          primaryColor="#303540"
+          primaryColor="#313440"
           size="small"
         />
       </styled.div>
@@ -250,7 +250,7 @@ exports[`Modal title prop should render Header with close button when onClose is
       >
         <Icon
           glyph="closeX"
-          primaryColor="#303540"
+          primaryColor="#313440"
           size="small"
         />
       </styled.div>
