@@ -163,6 +163,16 @@ export class PreviewPane extends Component<PreviewPaneProps> {
         }
     };
 
+    private broadcastUpdateUrls = () => {
+        // TODO: this call can technically fail, look into graceful error handling
+        this.channelService.safeBroadcast({
+            error: (error: any) => '',
+            method: 'update-external-urls',
+            params: { targetValue: '_blank' },
+            success: (data: any) => '',
+        }, this.raceConditionHandler);
+    };
+
     private raceConditionHandler = () => {
         this.props.buildIframeUrl(this.props.page);
         this.props.previewPanePageReloaded();
@@ -195,7 +205,7 @@ export class PreviewPane extends Component<PreviewPaneProps> {
         // TODO: Handle SdkReady / SdkNotReady signals
         this.channelService = new ChannelService({
             sdkNotReady: () => { return; },
-            sdkReady: () => { return; },
+            sdkReady: () => { this.broadcastUpdateUrls(); },
             window: iframeWindow,
         });
     };
