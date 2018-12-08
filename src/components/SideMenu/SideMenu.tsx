@@ -137,14 +137,15 @@ export class SideMenu extends PureComponent<SideMenuProps, SideMenuState> {
         const isLoaded = themeDesignSections.length > 0;
         const status = this.editorThemeStatus();
 
-        const visibleThemeDesignSections = themeDesignSections.filter(this.isSectionVisible).map(({ name }) => name);
+        const visibleThemeDesignSections = themeDesignSections.map((section, index) => ({...section, index}))
+            .filter(this.isSectionVisible);
 
         return (
             <>
                 <ExpandMenuRoutes route={`${appRoutes.styles.route}`}/>
                 <ExpandMenuRoutes route={`${appRoutes.history.route}`}/>
                 <ExpandMenuRoutes route={`${appRoutes.options.route}`}/>
-                {visibleThemeDesignSections.map((name, index) => (
+                {visibleThemeDesignSections.map(({name, index}) => (
                     <ExpandMenuRoutes key={index} route={`${appRoutes.section.route}${index}`}/>
                 ))}
 
