@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { sessionHeartbeatResponse } from '../../actions/sessionHeartbeat';
-import BrowserContext, { Browser } from '../../context/BrowserContext';
 import { State } from '../../reducers/reducers';
 import { throttledHeartbeat } from '../../services/sessionHeartbeat/sessionHeartbeat';
 
@@ -41,10 +40,10 @@ export class UserSessionActivity extends Component<UserSessionActivityProps> {
         throttledHeartbeat(oauthBaseUrl, heartbeatResponse);
     };
 
-    handleClose = (_window: Window) => {
+    handleClose = () => {
         const { oauthBaseUrl, queryParams = '' } = this.props;
 
-        _window.location.assign(`${oauthBaseUrl}${SessionLinks.StoreDesign}${queryParams}`);
+        window.location.assign(`${oauthBaseUrl}${SessionLinks.StoreDesign}${queryParams}`);
     };
 
     render() {
@@ -54,15 +53,11 @@ export class UserSessionActivity extends Component<UserSessionActivityProps> {
             <PageVisibility onChange={this.handleChange}>
                 <div onClick={this.handleHeartbeat}>
                     {!isLoggedIn &&
-                        <BrowserContext.Consumer>
-                            {({ _window }: Browser) =>
-                                <AlertModal
-                                    title={Messages.LogoutAlertHeading}
-                                    body={Messages.LogoutAlertBody}
-                                    primaryAction={() => this.handleClose(_window)}
-                                />
-                            }
-                        </BrowserContext.Consumer>
+                        <AlertModal
+                            title={Messages.LogoutAlertHeading}
+                            body={Messages.LogoutAlertBody}
+                            primaryAction={this.handleClose}
+                        />
                     }
                     {children}
                 </div>

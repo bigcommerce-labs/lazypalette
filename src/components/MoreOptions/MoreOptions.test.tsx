@@ -1,10 +1,9 @@
 import Axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { mount, ReactWrapper } from 'enzyme';
-import React, { cloneElement } from 'react';
+import React, {cloneElement} from 'react';
 import {BrowserRouter} from 'react-router-dom';
 
-import BrowserContext from '../../context/BrowserContext';
 import { ThemeVariationsEntry } from '../../reducers/theme';
 import { themeAPI } from '../../services/themeApi';
 import { sel } from '../../utils/testUtil';
@@ -54,7 +53,9 @@ const gotoThemeEditorLink = sel('switch-to-theme-editor');
 
 describe('<MoreOptions />', () => {
     const axiosMock = new MockAdapter(Axios);
-    const mockWindow = { location: { assign: jest.fn() } };
+
+    const mockWindow: any = window;
+    mockWindow.location.assign = jest.fn();
 
     let wrapper: ReactWrapper<any>;
     let moreOptions: any;
@@ -65,31 +66,29 @@ describe('<MoreOptions />', () => {
 
         wrapper = mount(
             <BrowserRouter>
-                <BrowserContext.Provider value={{ _window: mockWindow }}>
-                    <MoreOptions
-                        activeThemeId="8900"
-                        canOptOut={true}
-                        configurationId="123"
-                        position={{ x: 10, y: 10 }}
-                        storeHash="abc"
-                        variationId="234"
-                        versionId="456"
-                        currentVariationEntry={variationEntry}
-                        isChanged={false}
-                        isPrivate={true}
-                        notifications={mockNotification}
-                        createNotification={mockCreateNotification}
-                        loadTheme={mockLoadTheme}
-                        themeId="8900"
-                        updateExpandableMenuPosition={mockUpdateMenuPosition}
-                        {...routeProps}
-                    />
-                </BrowserContext.Provider>
+                <MoreOptions
+                    activeThemeId="8900"
+                    canOptOut={true}
+                    configurationId="123"
+                    position={{ x: 10, y: 10 }}
+                    storeHash="abc"
+                    variationId="234"
+                    versionId="456"
+                    currentVariationEntry={variationEntry}
+                    isChanged={false}
+                    isPrivate={true}
+                    notifications={mockNotification}
+                    createNotification={mockCreateNotification}
+                    loadTheme={mockLoadTheme}
+                    themeId="8900"
+                    updateExpandableMenuPosition={mockUpdateMenuPosition}
+                    {...routeProps}
+                />
             </BrowserRouter>
         );
 
         moreOptions = wrapper.find(MoreOptions);
-        originalMoreOptions = wrapper.props().children.props.children;
+        originalMoreOptions = wrapper.props().children;
     });
 
     describe('opt out link', () => {
@@ -104,26 +103,24 @@ describe('<MoreOptions />', () => {
             it('does not display the opt out link', () => {
                 wrapper = mount(
                     <BrowserRouter>
-                        <BrowserContext.Provider value={{ _window: mockWindow }}>
-                            <MoreOptions
-                                activeThemeId="8900"
-                                canOptOut={false}
-                                configurationId="123"
-                                position={{ x: 10, y: 10 }}
-                                storeHash="abc"
-                                variationId="234"
-                                versionId="456"
-                                currentVariationEntry={variationEntry}
-                                isChanged={false}
-                                isPrivate={true}
-                                notifications={mockNotification}
-                                createNotification={mockCreateNotification}
-                                loadTheme={mockLoadTheme}
-                                themeId="8900"
-                                updateExpandableMenuPosition={mockUpdateMenuPosition}
-                                {...routeProps}
-                            />
-                        </BrowserContext.Provider>
+                        <MoreOptions
+                            activeThemeId="8900"
+                            canOptOut={false}
+                            configurationId="123"
+                            position={{ x: 10, y: 10 }}
+                            storeHash="abc"
+                            variationId="234"
+                            versionId="456"
+                            currentVariationEntry={variationEntry}
+                            isChanged={false}
+                            isPrivate={true}
+                            notifications={mockNotification}
+                            createNotification={mockCreateNotification}
+                            loadTheme={mockLoadTheme}
+                            themeId="8900"
+                            updateExpandableMenuPosition={mockUpdateMenuPosition}
+                            {...routeProps}
+                        />
                     </BrowserRouter>
                 );
 
@@ -137,157 +134,139 @@ describe('<MoreOptions />', () => {
 
     describe('when you click "Restore original theme styles"', () => {
         describe('when isChanged is true', () => {
-            it('state currentModal === CurrentModal.RESET', () => {
+            beforeEach(() => {
                 const moreOptionsClone = cloneElement(originalMoreOptions,
                     {...originalMoreOptions.props, isChanged: true});
-                const originalBrowserContext = wrapper.props().children;
-                const browserContextClone = cloneElement(originalBrowserContext,
-                    {...originalBrowserContext.props}, moreOptionsClone);
+                wrapper.setProps({ children: moreOptionsClone });
+            });
 
-                wrapper.setProps({ children: browserContextClone });
+            it('state currentModal === CurrentModal.RESET', () => {
                 moreOptions.find(restoreOriginalLink).hostNodes().simulate('click');
                 expect(moreOptions.instance().state.currentModal).toBe(CurrentModal.RESET);
             });
         });
 
         describe('when isChanged is false', () => {
-            it('should call loadTheme', () => {
+            beforeEach(() => {
                 const moreOptionsClone = cloneElement(originalMoreOptions,
                     {...originalMoreOptions.props, isChanged: false});
-                const originalBrowserContext = wrapper.props().children;
-                const browserContextClone = cloneElement(originalBrowserContext,
-                    {...originalBrowserContext.props}, moreOptionsClone);
+                wrapper.setProps({ children: moreOptionsClone });
+            });
 
-                wrapper.setProps({ children: browserContextClone });
+            it('should call loadTheme', () => {
                 moreOptions.find(restoreOriginalLink).hostNodes().simulate('click');
-
                 expect(mockLoadTheme).toHaveBeenCalled();
             });
-        });
 
-        describe('when isChanged is false', () => {
             it('should call createNotification', () => {
-                const moreOptionsClone = cloneElement(originalMoreOptions,
-                    {...originalMoreOptions.props, isChanged: false});
-                const originalBrowserContext = wrapper.props().children;
-                const browserContextClone = cloneElement(originalBrowserContext,
-                    {...originalBrowserContext.props}, moreOptionsClone);
-
-                wrapper.setProps({ children: browserContextClone });
                 moreOptions.find(restoreOriginalLink).hostNodes().simulate('click');
-
                 expect(mockCreateNotification).toHaveBeenCalled();
             });
         });
     });
 
     describe('when you click "Edit Theme Files"', () => {
-        describe('when viewing a non-private theme', () => {
-            it('renders correctly', () => {
+        describe('when viewing a marketplace (non-private) theme', () => {
+            beforeEach(() => {
                 const moreOptionsClone = cloneElement(originalMoreOptions,
                     {...originalMoreOptions.props, isPrivate: false});
-                const originalBrowserContext = wrapper.props().children;
-                const browserContextClone = cloneElement(originalBrowserContext,
-                    {...originalBrowserContext.props}, moreOptionsClone);
+                wrapper.setProps({ children: moreOptionsClone });
+            });
 
-                wrapper.setProps({ children: browserContextClone });
+            it('renders correctly', () => {
                 moreOptions.find(editThemeFilesLink).hostNodes().simulate('click');
-
                 expect(moreOptions.instance().state.currentModal).toBe(CurrentModal.COPY_THEME);
             });
         });
 
-        describe('when the design policy has not been acknowledged', () => {
+        describe('when viewing a private theme', () => {
             beforeEach(() => {
-                axiosMock.onGet(themeAPI.designPolicyAckAPI)
-                    .reply(200, {
-                        data: {
-                            designPolicyAck: false,
-                        }});
-
-                axiosMock.onPost(themeAPI.designPolicyAckAPI).reply(204);
+                const moreOptionsClone = cloneElement(originalMoreOptions,
+                    {...originalMoreOptions.props, isPrivate: true});
+                wrapper.setProps({ children: moreOptionsClone });
             });
 
-            describe('when viewing the active theme', () => {
-                it('renders correctly', done => {
-                    const moreOptionsClone = cloneElement(originalMoreOptions,
-                        {...originalMoreOptions.props, isPrivate: true});
-                    const originalBrowserContext = wrapper.props().children;
-                    const browserContextClone = cloneElement(originalBrowserContext,
-                        {...originalBrowserContext.props}, moreOptionsClone);
+            describe('when the design policy has not been acknowledged', () => {
+                beforeEach(() => {
+                    axiosMock.onGet(themeAPI.designPolicyAckAPI)
+                        .reply(200, {
+                            data: {
+                                designPolicyAck: false,
+                            }});
 
-                    wrapper.setProps({ children: browserContextClone });
-                    moreOptions.find(editThemeFilesLink).hostNodes().simulate('click');
+                    axiosMock.onPost(themeAPI.designPolicyAckAPI).reply(204);
+                });
 
-                    setTimeout(() => {
-                        expect(moreOptions).toMatchSnapshot();
-                        expect(moreOptions.instance().state.currentModal).toBe(CurrentModal.EDIT_THEME_FILES);
-                        done();
+                describe('when viewing the active theme', () => {
+                    it('renders correctly', done => {
+                        moreOptions.find(editThemeFilesLink).hostNodes().simulate('click');
+
+                        setTimeout(() => {
+                            expect(moreOptions).toMatchSnapshot();
+                            expect(moreOptions.instance().state.currentModal).toBe(CurrentModal.EDIT_THEME_FILES);
+                            done();
+                        });
+                    });
+                });
+
+                describe('when viewing an inactive theme', () => {
+                    beforeEach(() => {
+                        const moreOptionsClone = cloneElement(originalMoreOptions,
+                            {...originalMoreOptions.props, activeThemeId: 'blah'});
+                        wrapper.setProps({ children: moreOptionsClone });
+                    });
+
+                    it('renders correctly', done => {
+                        moreOptions.find(editThemeFilesLink).hostNodes().simulate('click');
+
+                        setTimeout(() => {
+                            expect(moreOptions).toMatchSnapshot();
+                            expect(moreOptions.instance().state.currentModal).toBe(CurrentModal.EDIT_THEME_FILES);
+                            done();
+                        });
                     });
                 });
             });
 
-            describe('when viewing an inactive theme', () => {
-                it('renders correctly', done => {
-                    const moreOptionsClone = cloneElement(originalMoreOptions,
-                        {...originalMoreOptions.props, activeThemeId: 'blah' });
-                    const originalBrowserContext = wrapper.props().children;
-                    const browserContextClone = cloneElement(originalBrowserContext,
-                        {...originalBrowserContext.props}, moreOptionsClone);
+            describe('when the design policy has been acknowledged', () => {
+                beforeEach(() => {
+                    axiosMock.onGet(themeAPI.designPolicyAckAPI)
+                        .reply(200, {
+                            data: {
+                                designPolicyAck: true,
+                            }});
 
-                    wrapper.setProps({ children: browserContextClone });
-                    moreOptions.find(editThemeFilesLink).hostNodes().simulate('click');
+                    axiosMock.onPost(themeAPI.designPolicyAckAPI).reply(204, { data: undefined });
+                });
 
-                    setTimeout(() => {
-                        expect(moreOptions).toMatchSnapshot();
-                        expect(moreOptions.instance().state.currentModal).toBe(CurrentModal.EDIT_THEME_FILES);
-                        done();
+                describe('when viewing the active theme', () => {
+                    it('navigates to /manage/file-editor/456/234/123', done => {
+                        moreOptions.find(editThemeFilesLink).hostNodes().simulate('click');
+
+                        setTimeout(() => {
+                            expect(moreOptions.instance().state.currentModal).toBe(CurrentModal.NONE);
+                            expect(mockWindow.location.assign).toHaveBeenCalledWith('/manage/file-editor/456/234/123');
+                            done();
+                        });
                     });
                 });
-            });
-        });
 
-        describe('when the design policy has been acknowledged', () => {
-            // let mockLocation: any;
-
-            beforeEach(() => {
-                axiosMock.onGet(themeAPI.designPolicyAckAPI)
-                    .reply(200, {
-                        data: {
-                            designPolicyAck: true,
-                        }});
-
-                axiosMock.onPost(themeAPI.designPolicyAckAPI).reply(204, { data: undefined });
-            });
-
-            describe('when viewing the active theme', () => {
-                it('navigates to /manage/file-editor/456/234/123', done => {
-                    moreOptions.find(editThemeFilesLink).hostNodes().simulate('click');
-                    setTimeout(() => {
-                        expect(moreOptions.instance().state.currentModal).toBe(CurrentModal.NONE);
-                        expect(mockWindow.location.assign).toHaveBeenCalledWith('/manage/file-editor/456/234/123');
-                        done();
+                describe('when viewing an inactive theme', () => {
+                    beforeEach(() => {
+                        const moreOptionsClone = cloneElement(originalMoreOptions,
+                            {...originalMoreOptions.props, activeThemeId: 'blah'});
+                        wrapper.setProps({ children: moreOptionsClone });
                     });
-                });
-            });
 
-            describe('when viewing an inactive theme', () => {
-                it('navigates to /manage/file-editor/456/234/123', done => {
-                    const moreOptionsClone = cloneElement(originalMoreOptions,
-                        {...originalMoreOptions.props, activeThemeId: 'blah' });
-                    const originalBrowserContext = wrapper.props().children;
-                    const browserContextClone = cloneElement(originalBrowserContext,
-                        {...originalBrowserContext.props}, moreOptionsClone);
+                    it('navigates to /manage/file-editor/456/234/123', done => {
+                        moreOptions.find(editThemeFilesLink).hostNodes().simulate('click');
 
-                    wrapper.setProps({ children: browserContextClone });
-
-                    moreOptions.find(editThemeFilesLink).hostNodes().simulate('click');
-
-                    setTimeout(() => {
-                        expect(moreOptions.instance().state.currentModal).toBe(CurrentModal.NONE);
-                        expect(mockWindow.location.assign)
-                            .toHaveBeenCalledWith('/manage/file-editor/456/234/123');
-                        done();
+                        setTimeout(() => {
+                            expect(moreOptions.instance().state.currentModal).toBe(CurrentModal.NONE);
+                            expect(mockWindow.location.assign)
+                                .toHaveBeenCalledWith('/manage/file-editor/456/234/123');
+                            done();
+                        });
                     });
                 });
             });
@@ -329,13 +308,6 @@ describe('<MoreOptions />', () => {
             describe('when isChanged is false', () => {
                 describe('when you click on Go to Old Theme Editor link', () => {
                     it('should call createNotification', done => {
-                        const moreOptionsClone = cloneElement(originalMoreOptions,
-                            {...originalMoreOptions.props, isChanged: false});
-                        const originalBrowserContext = wrapper.props().children;
-                        const browserContextClone = cloneElement(originalBrowserContext,
-                            {...originalBrowserContext.props, value: { _window: mockWindow }}, moreOptionsClone);
-
-                        wrapper.setProps({ children: browserContextClone });
                         moreOptions.find(gotoThemeEditorLink).hostNodes().simulate('click');
 
                         setTimeout(() => {

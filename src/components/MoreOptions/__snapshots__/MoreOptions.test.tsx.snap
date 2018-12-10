@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has not been acknowledged when viewing an inactive theme renders correctly 1`] = `
+exports[`<MoreOptions /> when you click "Edit Theme Files" when viewing a private theme when the design policy has not been acknowledged when viewing an inactive theme renders correctly 1`] = `
 <MoreOptions
   activeThemeId="8900"
   canOptOut={true}
@@ -629,7 +629,7 @@ exports[`<MoreOptions /> when you click "Edit Theme Files" when the design polic
 </MoreOptions>
 `;
 
-exports[`<MoreOptions /> when you click "Edit Theme Files" when the design policy has not been acknowledged when viewing the active theme renders correctly 1`] = `
+exports[`<MoreOptions /> when you click "Edit Theme Files" when viewing a private theme when the design policy has not been acknowledged when viewing the active theme renders correctly 1`] = `
 <MoreOptions
   activeThemeId="8900"
   canOptOut={true}

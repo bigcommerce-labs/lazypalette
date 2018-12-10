@@ -1,9 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InactiveAction renders 1`] = `
-<Fragment>
-  <ContextConsumer>
-    <Component />
-  </ContextConsumer>
-</Fragment>
+<styled.div>
+  <Button
+    actionType="primary"
+    buttonStyle="contained"
+    onClick={[Function]}
+    testId="buy"
+    type="button"
+  >
+    Buy $10.00
+  </Button>
+</styled.div>
 `;

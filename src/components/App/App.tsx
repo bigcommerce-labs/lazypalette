@@ -19,7 +19,6 @@ import {
     PreviewPaneDefaultData
 } from '../../actions/previewPane';
 import { loadTheme } from '../../actions/theme';
-import BrowserContext from '../../context/BrowserContext';
 import { State } from '../../reducers/reducers';
 
 import Banner from '../Banner/Banner';
@@ -102,30 +101,28 @@ export class App extends Component<AppProps, {}> {
 
         return (
             <PatternLabThemeProvider>
-                <BrowserContext.Provider value={{ _window: window }}>
-                    <UserSessionActivity
-                        queryParams={this.props.location.search}
-                        oauthBaseUrl={this.props.config.oauthBaseUrl}
-                    >
-                        <UIWindowProvider>
-                            <StyledApp>
-                                <Onboarding/>
-                                <Banner
-                                    createNotification={this.props.createNotification}
-                                    previewCode={guestPassword}
-                                    isPrelaunchStore={isPrelaunchStore}
-                                    isDownForMaintenance={isDownForMaintenance}
-                                    shopPath={shopPath}
-                                />
-                                <HeaderMenu />
-                                <Viewport>
-                                    <SideMenu />
-                                    <Routes />
-                                </Viewport>
-                            </StyledApp>
-                        </UIWindowProvider>
-                    </UserSessionActivity>
-                </BrowserContext.Provider>
+                <UserSessionActivity
+                    queryParams={this.props.location.search}
+                    oauthBaseUrl={this.props.config.oauthBaseUrl}
+                >
+                    <UIWindowProvider>
+                        <StyledApp>
+                            <Onboarding/>
+                            <Banner
+                                createNotification={this.props.createNotification}
+                                previewCode={guestPassword}
+                                isPrelaunchStore={isPrelaunchStore}
+                                isDownForMaintenance={isDownForMaintenance}
+                                shopPath={shopPath}
+                            />
+                            <HeaderMenu />
+                            <Viewport>
+                                <SideMenu />
+                                <Routes />
+                            </Viewport>
+                        </StyledApp>
+                    </UIWindowProvider>
+                </UserSessionActivity>
             </PatternLabThemeProvider>
         );
     }

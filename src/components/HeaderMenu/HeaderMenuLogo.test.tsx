@@ -24,12 +24,12 @@ describe('HeaderMenuLogo', () => {
                     <HeaderMenuLogo isChanged={false} />
                 );
 
-                const _window: any = window;
-                _window.location.assign = jest.fn();
+                const mockWindow: any = window;
+                mockWindow.location.assign = jest.fn();
 
-                expect(_window.location.assign).not.toBeCalled();
+                expect(mockWindow.location.assign).not.toBeCalled();
                 component.find(BCLogoInline).simulate('click');
-                expect(_window.location.assign).toBeCalledWith(
+                expect(mockWindow.location.assign).toBeCalledWith(
                     `/${HeaderMenuLinks.ControlPanel}`
                 );
             });
