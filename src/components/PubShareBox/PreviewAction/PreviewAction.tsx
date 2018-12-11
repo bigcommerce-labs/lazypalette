@@ -1,10 +1,9 @@
 import { Button } from 'pattern-lab';
-import React, {SFC} from 'react';
+import React, { SFC } from 'react';
 
-import BrowserContext, { Browser } from '../../../context/BrowserContext';
 import { purchaseEndPoint } from '../constants';
 
-import { trackAddTheme } from '../../..//services/analytics';
+import { trackAddTheme } from '../../../services/analytics';
 import { ButtonWrapper } from '../styles';
 
 interface PreviewActionProps {
@@ -18,26 +17,20 @@ const PreviewAction: SFC<PreviewActionProps> = props => {
     const actionText = price > 0 ? `Buy $${themePrice}` : 'Add Theme';
     const actionTestId = price > 0 ? 'buy' : 'add-theme';
 
-    const handlePurchase = ({ _window }: Browser) => {
+    const handlePurchase = () => {
         trackAddTheme(variationId, actionText);
-        _window.location.assign(purchaseEndPoint(variationId));
+        window.location.assign(purchaseEndPoint(variationId));
     };
 
     return (
-        <>
-            <BrowserContext.Consumer>
-                {(browser: Browser) =>
-                    <ButtonWrapper>
-                        <Button
-                            onClick={() => handlePurchase(browser)}
-                            testId={actionTestId}
-                        >
-                            {actionText}
-                        </Button>
-                    </ButtonWrapper>
-                }
-            </BrowserContext.Consumer>
-        </>
+        <ButtonWrapper>
+            <Button
+                onClick={handlePurchase}
+                testId={actionTestId}
+            >
+                {actionText}
+            </Button>
+        </ButtonWrapper>
     );
 };
 

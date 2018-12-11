@@ -116,15 +116,15 @@ describe('Banner', () => {
                     </ThemeProvider>
                 );
 
-                const _window: any = window;
-                _window.location.assign = jest.fn();
+                const mockWindow: any = window;
+                mockWindow.location.assign = jest.fn();
 
-                expect(_window.location.assign).not.toBeCalled();
+                expect(mockWindow.location.assign).not.toBeCalled();
                 buttonInput.find(Tooltip).simulate('click'); // open tooltip
                 buttonInput.find(StyledLink).simulate('click'); // click message link
 
                 expect(buttonInput.find(ConfirmModal).exists()).toEqual(false);
-                expect(_window.location.assign).toBeCalledWith(
+                expect(mockWindow.location.assign).toBeCalledWith(
                     BannerLinks.GettingStarted
                 );
             });

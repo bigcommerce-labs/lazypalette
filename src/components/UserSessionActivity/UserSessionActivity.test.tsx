@@ -3,8 +3,6 @@ import { Button } from 'pattern-lab';
 import React from 'react';
 import PageVisibility from 'react-page-visibility';
 
-import BrowserContext from '../../context/BrowserContext';
-
 import { Messages, SessionLinks } from './constants';
 import { UserSessionActivity } from './UserSessionActivity';
 
@@ -134,17 +132,17 @@ describe('UserSessionActivity', () => {
         describe('when the user clicks the Ok button', () => {
             describe('when the theme variation matches the active theme', () => {
                 it('redirects the user to the login page using the basic deep-link url', () => {
-                    const mockWindow = { location: { assign: jest.fn() } };
+                    const mockWindow: any = window;
+                    mockWindow.location.assign = jest.fn();
+
                     const component = mount(
-                        <BrowserContext.Provider value={{ _window: mockWindow }}>
-                            <UserSessionActivity
-                                oauthBaseUrl={oauthBaseUrl}
-                                heartbeatResponse={jest.fn()}
-                                isLoggedIn={false}
-                            >
-                                <p>meow meow</p>
-                            </UserSessionActivity>
-                        </BrowserContext.Provider>
+                        <UserSessionActivity
+                            oauthBaseUrl={oauthBaseUrl}
+                            heartbeatResponse={jest.fn()}
+                            isLoggedIn={false}
+                        >
+                            <p>meow meow</p>
+                        </UserSessionActivity>
                     );
                     const okButton = component.find(Button).find({ children: Messages.Ok }).last();
                     okButton.simulate('click');
@@ -154,21 +152,21 @@ describe('UserSessionActivity', () => {
 
             describe('when the theme variation has changed', () => {
                 it('redirects the user to the login page using deep-link with query params', () => {
-                    const mockWindow = { location: { assign: jest.fn() } };
+                    const mockWindow: any = window;
+                    mockWindow.location.assign = jest.fn();
+
                     const variationId = '1234-5678-0000-abcd';
                     const queryParams = `?variationId=${variationId}`;
 
                     const component = mount(
-                        <BrowserContext.Provider value={{ _window: mockWindow }}>
-                            <UserSessionActivity
-                                oauthBaseUrl={oauthBaseUrl}
-                                heartbeatResponse={jest.fn()}
-                                isLoggedIn={false}
-                                queryParams={queryParams}
-                            >
-                                <p>meow meows</p>
-                            </UserSessionActivity>
-                        </BrowserContext.Provider>
+                        <UserSessionActivity
+                            oauthBaseUrl={oauthBaseUrl}
+                            heartbeatResponse={jest.fn()}
+                            isLoggedIn={false}
+                            queryParams={queryParams}
+                        >
+                            <p>meow meows</p>
+                        </UserSessionActivity>
                     );
 
                     const okButton = component.find(Button).find({ children: Messages.Ok }).last();
