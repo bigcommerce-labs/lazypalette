@@ -9,7 +9,6 @@ export const fadeIn = keyframes`
         width: 13.5rem;
         opacity: 1;
         visibility: visible;
-        padding-left: 1.5rem;
     }
     25% {
         width: 10rem;
@@ -92,6 +91,7 @@ export const Container = styled.nav.attrs<CollapsedProps>({})`
 export const Header = styled.div`
     flex-grow: 0;
     padding: 1.5rem 1.25rem;
+    overflow: hidden;
 `;
 
 export const MenuContents = styled.div`
@@ -134,6 +134,7 @@ export const Footer = styled.div`
     flex-grow: 0;
     flex-shrink: 1;
     margin: 1rem 1.25rem 1.5rem 1.5rem;
+    overflow: hidden;
 `;
 
 Footer.defaultProps = {
@@ -174,6 +175,7 @@ export const Title = styled.div.attrs<TitleProps>({
     color: ${({ theme }) => theme.colors.primaryText};
     margin: 0 0 0.5rem 0;
     min-height: 2rem;
+    width: 14rem;
 `;
 export const TitleTooltip = styled.div`
     max-width: 15rem;
@@ -339,6 +341,7 @@ export const ItemLabel = styled.span`
     flex-basis: 90%;
     flex-grow: 0;
     margin-left: .75rem;
+    overflow: hidden;
 `;
 
 export const FooterLabel = styled.span`
@@ -348,6 +351,7 @@ export const FooterLabel = styled.span`
 export const HelpLabel = styled.span`
     flex-grow: 0;
     margin-left: .75rem;
+    overflow: hidden;
 `;
 
 export const StyledMenuItems = styled.ul`
@@ -357,6 +361,7 @@ export const StyledMenuItems = styled.ul`
     overflow-y: auto;
     padding: 0;
     vertical-align: top;
+    width: 16.5rem;
 `;
 
 StyledMenuItems.defaultProps = {
@@ -541,6 +546,7 @@ export const StyledStatus = styled.div.attrs<StyledStatusProps>({})`
   padding: 0 .5rem;
   height: 1.25rem;
   line-height: calc(1.25rem - 2px);
+  overflow: hidden;
 
   ${({ status, theme }) => {
         if (status === 'ACTIVE THEME') {
