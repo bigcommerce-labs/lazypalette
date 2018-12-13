@@ -84,7 +84,8 @@ function checkColorUsed(settings: SettingsType, schema: ThemeSchema, color: stri
         flattenedColorSettings = [...flattenedColorSettings, ...item];
     });
 
-    const allColors: string[] = flattenedColorSettings.map(item => settings[item].toString());
+    const allColors: string[] = flattenedColorSettings.filter(item => settings[item])
+        .map(item => settings[item].toString());
 
     allColors.forEach(item => {
         if (colorsUsed.indexOf(item) === -1) {
