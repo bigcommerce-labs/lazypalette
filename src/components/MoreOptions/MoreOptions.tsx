@@ -1,4 +1,5 @@
 import { LocationDescriptor } from 'history';
+import * as Vibrant from 'node-vibrant';
 import CheckboxInput from 'pattern-lab/build/dist/components/CheckboxInput/CheckboxInput';
 import React, { ChangeEvent, PureComponent, SFC } from 'react';
 import { connect } from 'react-redux';
@@ -179,7 +180,20 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
                     this.props.createNotification(true, ToastMessages.ErrorSwitchToThemeEditor, ToastType.Error);
                 });
         });
+    };
 
+    getColorsFromImage = () => {
+        window.console.log('get the colors');
+        // const image = new Image();
+        // image.src = 'data:image/gif;base64,R0lGODlhEAAQAOZZAABdAJlmAP//////AAAzmciTANGeAP/2AABgyP/lAABJAABIAABiyf';
+        const image = 'https://i.imgur.com/2S7dWHD.jpg';
+        Vibrant.from(image).getSwatches().then((swatches: any) => {
+            for (const swatch in swatches) {
+                if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
+                    window.console.log(swatch, swatches[swatch].getHex());
+                }
+            }
+        });
     };
 
     render() {
@@ -231,6 +245,12 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
                                 onClick={this.handleResetModalOpen}
                             >
                                 Restore original theme styles
+                            </Item>
+                            <Item
+                                data-test-id="get-colors-from-image"
+                                onClick={this.getColorsFromImage}
+                            >
+                                Get colors from image
                             </Item>
                         </List>
                     </ExpandableMenu>
