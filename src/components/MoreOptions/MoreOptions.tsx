@@ -1,6 +1,6 @@
 import { LocationDescriptor } from 'history';
 import * as Vibrant from 'node-vibrant';
-import CheckboxInput from 'pattern-lab/build/dist/components/CheckboxInput/CheckboxInput';
+import { CheckboxInput, InputField } from 'pattern-lab';
 import React, { ChangeEvent, PureComponent, SFC } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, RouteComponentProps } from 'react-router-dom';
@@ -12,7 +12,7 @@ import {
     NotificationsProps
 } from '../../actions/notifications';
 import {updateExpandableMenuPosition, Position, UpdateExpandableMenuPositionAction} from '../../actions/sideMenu';
-import { loadTheme, LoadThemeResponseAction } from '../../actions/theme';
+import { loadTheme, updateThemeConfigChange, LoadThemeResponseAction, ThemeConfigChange } from '../../actions/theme';
 import { State } from '../../reducers/reducers';
 import { ThemeVariationsEntry } from '../../reducers/theme';
 import {
@@ -60,15 +60,20 @@ interface MoreOptionsProps extends RouteComponentProps<{}> {
     createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
     loadTheme(configurationId: string, variationId: string): any;
     updateExpandableMenuPosition(expandableMenuPosition: Position): UpdateExpandableMenuPositionAction;
+    updateThemeConfigChange(
+        configChange: ThemeConfigChange
+    ): (dispatch: Dispatch<State>, getState: () => State) => void;
 }
 
 interface MoreOptionsState {
     currentModal: CurrentModal;
+    versionId: string;
 }
 
 export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsState> {
     readonly state: MoreOptionsState = {
         currentModal: CurrentModal.NONE,
+        versionId: '',
     };
 
     designPolicyAcknowledged: boolean = false;
@@ -182,17 +187,42 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
         });
     };
 
-    getColorsFromImage = () => {
-        window.console.log('get the colors');
-        // const image = new Image();
-        // image.src = 'data:image/gif;base64,R0lGODlhEAAQAOZZAABdAJlmAP//////AAAzmciTANGeAP/2AABgyP/lAABJAABIAABiyf';
-        const image = 'https://i.imgur.com/2S7dWHD.jpg';
-        Vibrant.from(image).getSwatches().then((swatches: any) => {
-            for (const swatch in swatches) {
-                if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
-                    window.console.log(swatch, swatches[swatch].getHex());
-                }
-            }
+    sleep = (ms: number) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    };
+
+    getColorsFromImage = (imageUrl: string) => {
+        // const image = 'https://i.imgur.com/2S7dWHD.jpg';
+        if (!imageUrl.length) { return; }
+        window.console.log('get the colors from ', imageUrl);
+        Vibrant.from(imageUrl).getSwatches().then((swatches: any) => {
+            window.console.log(swatches);
+            window.console.log('1');
+            this.props.updateThemeConfigChange({
+                setting: {
+                    id: 'header-backgroundColor',
+                    type: 'color',
+                },
+                value: swatches.DarkVibrant.getHex(),
+            });
+            this.sleep(200);
+            window.console.log('2');
+            this.props.updateThemeConfigChange({
+                setting: {
+                    id: 'storeName-color',
+                    type: 'color',
+                },
+                value: swatches.Vibrant.getHex(),
+            });
+            this.sleep(200);
+            window.console.log('3');
+            this.props.updateThemeConfigChange({
+                setting: {
+                    id: 'body-bg',
+                    type: 'color',
+                },
+                value: swatches.Muted.getHex(),
+            });
         });
     };
 
@@ -248,9 +278,12 @@ export class MoreOptions extends PureComponent<MoreOptionsProps, MoreOptionsStat
                             </Item>
                             <Item
                                 data-test-id="get-colors-from-image"
-                                onClick={this.getColorsFromImage}
                             >
-                                Get colors from image
+                                <div>
+                                    Image Url <InputField
+                                        onChange={({ target }) => this.getColorsFromImage(target.value)}
+                                    />
+                                </div>
                             </Item>
                         </List>
                     </ExpandableMenu>
@@ -330,6 +363,33 @@ const mapDispatchToProps = {
     createNotification,
     loadTheme,
     updateExpandableMenuPosition,
+    updateThemeConfigChange,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RoutedMoreOptions));
+interface StateFromProps {
+    activeThemeId: string;
+    canOptOut: boolean;
+    configurationId: string;
+    currentVariationEntry: ThemeVariationsEntry;
+    isChanged: boolean;
+    isPrivate: boolean;
+    notifications: NotificationsProps;
+    position: Position;
+    storeHash: string;
+    themeId: string;
+    variationId: string;
+    versionId: string;
+}
+
+interface ActionFromProps {
+    createNotification(autoDismiss: boolean, message: string, type: string): Dispatch<State>;
+    loadTheme(configurationId: string, variationId: string): any;
+    updateExpandableMenuPosition(expandableMenuPosition: Position): UpdateExpandableMenuPositionAction;
+    updateThemeConfigChange(
+        configChange: ThemeConfigChange
+    ): (dispatch: Dispatch<State>, getState: () => State) => void;
+}
+
+export default withRouter(connect<
+    StateFromProps, ActionFromProps
+>(mapStateToProps, mapDispatchToProps)(RoutedMoreOptions));
